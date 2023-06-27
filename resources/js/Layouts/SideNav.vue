@@ -25,7 +25,6 @@
                                     class="text-lg"
                                     :key="key"
                                     :index="key.toString()"
-                                    v-if="hasMenuAccess(menu)"
                                 >
                                     <el-icon><fa :icon="menu.icon" /></el-icon>
                                     <template #title>
@@ -78,7 +77,6 @@
                                     >
                                         <el-menu-item
                                             :index="key + '-' + subKey"
-                                            v-if="hasMenuAccess(sub_menu)"
                                         >
                                             <template #title
                                             ><el-icon v-show="!isCollapse">
@@ -178,7 +176,6 @@
                             class="text-lg"
                             :key="key"
                             :index="key.toString()"
-                            v-if="hasMenuAccess(menu)"
                         >
                             <nav-link
                                 class="link-icon"
@@ -240,7 +237,6 @@
                             >
                                 <el-menu-item
                                     :index="key + '-' + subKey"
-                                    v-if="hasMenuAccess(sub_menu)"
                                 >
                                     <template #title
                                     ><el-icon v-show="!isCollapse">
@@ -309,7 +305,7 @@ import {useAppUtility} from "@/Composables/appUtiility";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 const { iPropsValue } = useInertiaPropsUtility();
-const { isScreenLg, hasMenuAccess } = useAppUtility();
+const { isScreenLg } = useAppUtility();
 
 const menuDrawer = ref();
 const currentActive = ref("");
@@ -320,8 +316,8 @@ const isCollapse = ref(
         ? true
         : !!isScreenLg.value
 );
-const showMenuDrawer = function () {
-    menuDrawer.value = true;
+const toggleMobileMenu = function () {
+    menuDrawer.value = !menuDrawer.value;
 };
 const toggleDesktopMenu = function () {
     isCollapse.value = !isCollapse.value;
@@ -334,7 +330,7 @@ window.addEventListener("resize", () => {
             : !!isScreenLg.value;
 });
 defineExpose({
-    showMenuDrawer,
+    toggleMobileMenu,
     toggleDesktopMenu,
 });
 </script>
@@ -377,7 +373,7 @@ defineExpose({
 }
 
 .el-sub-menu.is-active {
-    background: var(--menu-active-color);
+    //background: var(--menu-active-color);
 }
 .el-sub-menu__title span,
 .el-menu-item span:not(.bullet-dot),

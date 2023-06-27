@@ -1,4 +1,3 @@
-import {usePage} from "@inertiajs/vue3";
 import {ref} from "@vue/runtime-core";
 
 export function useAppUtility() {
@@ -89,18 +88,7 @@ export function useAppUtility() {
 	const getMenuKey = function (object, key) {
 
 	}
-	const hasMenuAccess = function (menu) {
-		const role = usePage().props.value.auth.user.account.role
-		const app_disabled_module = usePage().props.value.app_disabled_module
 
-		if (menu.hasOwnProperty('module') && app_disabled_module.includes(menu.module))
-			return false;
-		const accessList = menu.access?.split(",");
-		if (accessList.indexOf(role) != -1) {
-			return true;
-		}
-		return false;
-	}
 	//dynamically load java script library source
 	const loadScript = function (url, callback) {
 		const scripts = document.querySelectorAll("script[type='text/javascript']");
@@ -174,7 +162,6 @@ export function useAppUtility() {
 		mediaCheck,
 		isScreenMd,
 		isScreenLg,
-		hasMenuAccess,
 		loadScript,
 		isDarkScheme,
 		isDarkMode,

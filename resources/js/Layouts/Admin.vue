@@ -54,7 +54,7 @@ const { iPropsValue } = useInertiaPropsUtility();
 const refSideNav = ref(null);
 const navComponentKey = ref(0);
 
-const showDrawer = () => refSideNav.value.showMenuDrawer();
+const showDrawer = () => refSideNav.value.toggleMobileMenu();
 const toggleDesktopMenu = () => refSideNav.value.toggleDesktopMenu();
 watch(
     () => iPropsValue("app_menu"),
