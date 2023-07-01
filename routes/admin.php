@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthenticateAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -10,12 +11,14 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    if (Auth::check()) {
+    if (Auth::check() && in_array(Auth::user()->role, ['admin', 'developer'])) {
         return Redirect::to('/dashboard');
     }
 
-    return view('login');
-})->name('login');
+    return Inertia::render('Admin/Login');
+})->name('admin.login');
+
+Route::post('/login', [AuthenticateAdminController::class, 'store'])->name('admin.login');
 
 Route::get('/layout', function () {
     return Inertia::render('Admin/Layout');

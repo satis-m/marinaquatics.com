@@ -31,8 +31,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $menuObject = getAdminMenu();
+
         return array_merge(parent::share($request), [
             'app_info' => ApplicationInfo::first(),
+            'app_menu' => fn () => ! $request->user()
+                ? json_decode($menuObject)
+                : null,
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -45,6 +44,39 @@ if (! \function_exists('getAppInfo')) {
         return $appInfo;
     }
 }
+
+if (! \function_exists('getAdminMenu')) {
+    function getAdminMenu()
+    {
+        $menuList = File::get(storage_path('app/menu.json'));
+        $role = 'admin';
+        $menus = json_decode($menuList);
+        if (property_exists($menus, $role)) {
+            $menu = $menus->$role->menu;
+        } else {
+            throw new Exception('Role Menu not Assigned');
+        }
+
+        return json_encode($menu);
+
+        if (Auth::check()) {
+            $menuList = File::get(storage_path('app/menu.json'));
+            $roles = json_decode(Auth::user()->roles()->pluck('name'));
+            $role = reset($roles);
+            $menus = json_decode($menuList);
+            if (property_exists($menus, $role)) {
+                $menu = $menus->$role->menu;
+            } else {
+                throw new Exception('Role Menu not Assigned');
+            }
+
+            return json_encode($menu);
+        }
+
+        return abort(403, 'User is not logged');
+    }
+}
+
 if (! \function_exists('file_name_info')) {
     function file_name_info($value = '')
     {

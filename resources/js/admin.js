@@ -42,7 +42,7 @@ createInertiaApp({
             page.layout = Auth
         }
         else {
-            page.layout = Admin
+
         }
         return page
     },
