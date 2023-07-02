@@ -2,37 +2,46 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Permission\Traits\HasRoles;
 
-class Staff extends Model implements HasMedia
+class Admin extends Authenticatable implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasApiTokens, Notifiable, HasRoles, InteractsWithMedia;
 
-    protected $table = 'staffs';
+    protected $table = 'admins';
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'profile_pic',
+        'profile_id',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     protected $appends = ['avatar', 'fullName'];
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
-        'dob',
-        'contact_number',
-        'gender',
-    ];
-
-    public function account()
+    public function setPasswordAttribute($value)
     {
-        return $this->morphOne(User::class, 'profileable');
+        $this->attributes['password'] = bcrypt($value);
     }
 
     public function getFullNameAttribute(): string
@@ -40,9 +49,6 @@ class Staff extends Model implements HasMedia
         return $this->first_name.' '.($this->middle_name ? $this->middle_name.' ' : '').$this->last_name;
     }
 
-    /**
-     * Single File uploading
-     */
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
@@ -50,9 +56,6 @@ class Staff extends Model implements HasMedia
             ->singleFile();
     }
 
-    /**
-     * @return mixed
-     */
     public function getAvatarAttribute()
     {
         if ($this->getFirstMedia('avatar') != null) {

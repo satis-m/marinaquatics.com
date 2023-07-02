@@ -16,7 +16,7 @@ class RedirectIfNotAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('staff') || Auth::user()->hasRole('developer'))) {
+        if (Auth::guard('admin')->check()) {
 
             return $next($request);
         }

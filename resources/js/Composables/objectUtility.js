@@ -10,6 +10,10 @@ export function useObjectUtility() {
 	const getObjectRow = function (jsObj, searchKey, searchValue) {
 		let multipleKey;
 		let multipleValue;
+        if(jsObj === undefined)
+        {
+            return null;
+        }
 		let objRow = jsObj.filter(obj => {
 			multipleKey = Array.isArray(searchKey);
 			multipleValue = Array.isArray(searchValue);

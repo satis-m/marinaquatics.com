@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\ApplicationInfo;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -45,23 +45,12 @@ if (! \function_exists('getAppInfo')) {
     }
 }
 
-if (! \function_exists('getAdminMenu')) {
-    function getAdminMenu()
+if (! \function_exists('getPortalMenu')) {
+    function getPortalMenu($guard = 'admin')
     {
-        $menuList = File::get(storage_path('app/menu.json'));
-        $role = 'admin';
-        $menus = json_decode($menuList);
-        if (property_exists($menus, $role)) {
-            $menu = $menus->$role->menu;
-        } else {
-            throw new Exception('Role Menu not Assigned');
-        }
-
-        return json_encode($menu);
-
-        if (Auth::check()) {
+        if (Auth::guard($guard)->check()) {
             $menuList = File::get(storage_path('app/menu.json'));
-            $roles = json_decode(Auth::user()->roles()->pluck('name'));
+            $roles = json_decode(Auth::guard($guard)->user()->roles()->pluck('name'));
             $role = reset($roles);
             $menus = json_decode($menuList);
             if (property_exists($menus, $role)) {
@@ -275,7 +264,7 @@ if (! \function_exists('generateUsername')) {
     {
         $username = $userName;
         $i = 0;
-        while (User::whereUsername($username)->exists()) {
+        while (Admin::whereUsername($username)->exists()) {
             $i++;
             $username = $userName.$i;
         }
@@ -334,5 +323,16 @@ if (! \function_exists('isAuthorized')) {
         }
 
         return strtolower($userRole) == strtolower($role);
+    }
+}
+
+if (! \function_exists('get_guard')) {
+    function get_guard()
+    {
+        if (Auth::guard('admin')->check()) {
+            return 'admin';
+        } elseif (Auth::guard('client')->check()) {
+            return 'client';
+        }
     }
 }

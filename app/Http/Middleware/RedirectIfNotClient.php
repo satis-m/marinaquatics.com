@@ -16,7 +16,7 @@ class RedirectIfNotClient
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->hasRole('client')) {
+        if (Auth::guard('client')->check()) {
             return $next($request);
         }
 

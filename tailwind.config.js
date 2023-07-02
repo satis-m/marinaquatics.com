@@ -1,5 +1,4 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
 
 const plugin = require("tailwindcss/plugin");
 const colors = require("tailwindcss/colors");
@@ -100,9 +99,9 @@ export default {
         },
     },
 
-    plugins: [forms,
+    plugins: [
         require('@tailwindcss/line-clamp'),
-        plugin(function ({ addComponents, theme }) {
+        plugin(function ({ addComponents, theme,addBase  }) {
             const screens = theme("screens", {});
             addComponents([
                 {
@@ -144,6 +143,11 @@ export default {
                     },
                 },
             ]);
+            addBase({
+                ".el-button": {
+                    "background-color": "var(--el-button-bg-color,var(--el-color-white))"
+                }
+            });
         }),
     ],
 };

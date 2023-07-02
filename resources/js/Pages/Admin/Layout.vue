@@ -1,3 +1,11 @@
+<script>
+export default {
+    layout: "admin",
+    data() {
+        return {};
+    },
+};
+</script>
 <template>
-    layout
+    admin layout
 </template>

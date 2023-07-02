@@ -57,7 +57,7 @@ const navComponentKey = ref(0);
 const showDrawer = () => refSideNav.value.toggleMobileMenu();
 const toggleDesktopMenu = () => refSideNav.value.toggleDesktopMenu();
 watch(
-    () => iPropsValue("app_menu"),
+    () => iPropsValue("portal_menu"),
     () => {
         navComponentKey.value += 1;
     }

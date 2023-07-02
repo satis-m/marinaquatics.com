@@ -309,8 +309,7 @@ const { isScreenLg } = useAppUtility();
 
 const menuDrawer = ref();
 const currentActive = ref("");
-const menuList = iPropsValue("app_menu");
-
+const menuList = iPropsValue("portal_menu");
 const isCollapse = ref(
     localStorage.collapseMenu && localStorage.collapseMenu === "true"
         ? true

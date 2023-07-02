@@ -31,7 +31,11 @@
                             />
                         </svg>
                     </div>
-
+                    <div
+                        class="flex h-full pl-3 hidden-sm-and-down breadcrumb items-center sm:text-lg text-sm text-lightBlue-500"
+                    >
+                        {{ breadcrumb }}
+                    </div>
                 </el-col>
                 <el-col :xs="16" :sm="16" :md="12" class="h-full">
                     <el-row
@@ -77,7 +81,7 @@
                                         <nav-link
                                             @click="headDropdown.handleClose()"
                                             :href="
-                                                route('login')
+                                                route('admin.login')
                                             "
                                         >
                                             <fa icon="user" class="pr-1" />
@@ -94,10 +98,10 @@
 
                                     <el-dropdown-item divided>
                                         <nav-link
-                                            class="is-link text-left"
+                                            class="is-link text-left hover:text-blue-300"
                                             method="post"
                                             as="button"
-                                            :href="route('logout')"
+                                            :href="route('admin.logout')"
                                         ><fa
                                             icon="right-from-bracket"
                                             class="pr-1"
@@ -123,7 +127,7 @@ import {ArrowDown,} from "@element-plus/icons-vue";
 import DarkToggler from "@/Components/DarkModeSwitch.vue";
 // import NotificationBell from "@/Layouts/NotificationBell.vue";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
-import {ref} from "@vue/runtime-core";
+import {ref, watch} from "@vue/runtime-core";
 import ChangeUserPassword from "@/Layouts/ChangeUserPassword.vue";
 import {useAppUtility} from "@/Composables/appUtiility";
 // import { set } from "@vueuse/shared";
@@ -132,9 +136,16 @@ const { iPropsValue } = useInertiaPropsUtility();
 const formVisible = ref(false);
 const notifications = ref(false);
 const headDropdown = ref();
+const breadcrumb = ref(iPropsValue("breadcrumb"));
 const closeForm = function () {
     formVisible.value = false;
 };
+watch(
+    () => iPropsValue("breadcrumb"),
+    () => {
+        breadcrumb.value = iPropsValue("breadcrumb");
+    }
+);
 const emit = defineEmits(["showMobileMenu", "toggleDesktopMenu"]);
 </script>
 <style scoped>

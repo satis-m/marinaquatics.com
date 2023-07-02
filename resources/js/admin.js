@@ -16,6 +16,7 @@ import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 //layout
 import Admin from '@/Layouts/Admin.vue'
 import Auth from '@/Layouts/Auth.vue'
+import Client from '@/Layouts/Client.vue'
 import NavLink from '@/Components/NavLink.vue'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
 // import { far } from '@fortawesome/free-regular-svg-icons'
@@ -40,6 +41,9 @@ createInertiaApp({
         }
         else if (page.layout === 'auth') {
             page.layout = Auth
+        }
+        else if (page.layout === 'client') {
+            page.layout = Client
         }
         else {
 

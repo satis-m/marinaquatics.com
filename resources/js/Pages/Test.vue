@@ -1,6 +1,6 @@
 <script>
 export default {
-    layout: "admin",
+    layout: "client",
     data() {
         return {};
     },

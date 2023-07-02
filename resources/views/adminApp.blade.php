@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ getAppInfo('title') }}</title>
     <!-- Fonts -->
     <link href="{{ getAppInfo('favIconLight') }}" rel="icon" media="(prefers-color-scheme: light)" />
     <link href="{{ getAppInfo('favIconDark') }}" rel="icon" media="(prefers-color-scheme: dark)" />

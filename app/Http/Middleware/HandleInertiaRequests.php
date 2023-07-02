@@ -31,21 +31,42 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $menuObject = getAdminMenu();
+        $guard = get_guard();
+        if ($guard == 'admin') {
+            $this->rootView = 'adminApp';
 
-        return array_merge(parent::share($request), [
-            'app_info' => ApplicationInfo::first(),
-            'app_menu' => fn () => ! $request->user()
-                ? json_decode($menuObject)
-                : null,
-            'ziggy' => function () use ($request) {
-                return array_merge((new Ziggy)->toArray(), [
-                    'location' => $request->url(),
-                ]);
-            },
-            'auth' => [
-                'user' => $request->user(),
-            ],
-        ]);
+            return array_merge(parent::share($request), [
+                'app_info' => ApplicationInfo::first(),
+                'portal_menu' => fn () => $request->user('admin')
+                    ? json_decode(getPortalMenu('admin'))
+                    : null,
+                'ziggy' => function () use ($request) {
+                    return array_merge((new Ziggy)->toArray(), [
+                        'location' => $request->url(),
+                    ]);
+                },
+                'auth' => [
+                    'user' => $request->user('admin') ?? null,
+                ],
+            ]);
+        } else {
+            $this->rootView = 'app';
+
+            return array_merge(parent::share($request), [
+                'app_info' => ApplicationInfo::first(),
+                'portal_menu' => fn () => $request->user('client')
+                    ? json_decode(getPortalMenu('client'))
+                    : null,
+                'ziggy' => function () use ($request) {
+                    return array_merge((new Ziggy)->toArray(), [
+                        'location' => $request->url(),
+                    ]);
+                },
+                'auth' => [
+                    'user' => $request->user('client') ?? null,
+                ],
+            ]);
+        }
+
     }
 }
