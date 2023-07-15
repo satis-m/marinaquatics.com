@@ -15,10 +15,6 @@ class AppSettingService
             $appsetting->email = request('email');
             $appsetting->contact = request('contact');
             $appsetting->address = request('address');
-            $appsetting->primary_color = request('primaryColor');
-            $appsetting->primary_light_color = request('primaryLightColor');
-            $appsetting->primary_dark_color = request('primaryDarkColor');
-            $appsetting->complementary_color = request('complementaryColor');
 
             if (request()->has('logo') && request('logo') != '') {
                 $appsetting->addMediaFromRequest('logo')->toMediaCollection('logo');

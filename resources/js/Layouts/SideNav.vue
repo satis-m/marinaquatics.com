@@ -33,11 +33,11 @@
                                             :href="
                                                 menu.link === '#'
                                                     ? menu.link
-                                                    : route(menu.link)
+                                                    : appRoute(menu.link)
                                             "
                                             :set="
                                                 (currentActive =
-                                                    route().current(
+                                                    appRoute().current(
                                                         menu.link
                                                     )
                                                         ? key.toString()
@@ -88,11 +88,11 @@
                                                     v-if="sub_menu.link !== '#'"
                                                     :title="sub_menu.name"
                                                     :href="
-                                                        route(sub_menu.link)
+                                                        appRoute(sub_menu.link)
                                                     "
                                                     :set="
                                                         (currentActive =
-                                                            route().current(
+                                                            appRoute().current(
                                                                 sub_menu.link
                                                             )
                                                                 ? key +
@@ -127,11 +127,11 @@
                                             :href="
                                                 menu.link === '#'
                                                     ? menu.link
-                                                    : route(menu.link)
+                                                    : appRoute(menu.link)
                                             "
                                             :set="
                                                 (currentActive =
-                                                    route().current(
+                                                    appRoute().current(
                                                         menu.link
                                                     )
                                                         ? key.toString()
@@ -183,10 +183,10 @@
                                 :href="
                                     menu.link === '#'
                                         ? menu.link
-                                        : route(menu.link)
+                                        : appRoute(menu.link)
                                 "
                                 :set="
-                                    (currentActive = route().current(
+                                    (currentActive = appRoute().current(
                                         menu.link
                                     )
                                         ? key.toString()
@@ -200,10 +200,10 @@
                                     :href="
                                         menu.link === '#'
                                             ? menu.link
-                                            : route(menu.link)
+                                            : appRoute(menu.link)
                                     "
                                     :set="
-                                        (currentActive = route().current(
+                                        (currentActive = appRoute().current(
                                             menu.link
                                         )
                                             ? key.toString()
@@ -245,10 +245,10 @@
                                         <nav-link
                                             v-if="sub_menu.link !== '#'"
                                             :title="sub_menu.name"
-                                            :href="route(sub_menu.link)"
+                                            :href="appRoute(sub_menu.link)"
                                             :set="
                                                 (currentActive =
-                                                    route().current(
+                                                    appRoute().current(
                                                         sub_menu.link
                                                     )
                                                         ? key + '-' + subKey
@@ -278,10 +278,10 @@
                                     :href="
                                         menu.link === '#'
                                             ? menu.link
-                                            : route(menu.link)
+                                            : appRoute(menu.link)
                                     "
                                     :set="
-                                        (currentActive = route().current(
+                                        (currentActive = appRoute().current(
                                             menu.link
                                         )
                                             ? key.toString()

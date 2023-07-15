@@ -100,7 +100,6 @@ export default {
     },
 
     plugins: [
-        require('@tailwindcss/line-clamp'),
         plugin(function ({ addComponents, theme,addBase  }) {
             const screens = theme("screens", {});
             addComponents([

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\ApplicationInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -35,6 +36,57 @@ class HandleInertiaRequests extends Middleware
         if ($guard == 'admin') {
             $this->rootView = 'adminApp';
 
+            $flashMessage = $pageException = [];
+
+            if (Session::get('pageException')) {
+                $pageException = [
+                    'token' => md5(date('Y-m-d H:i:s')),
+                    'statusCode' => Session::get('pageException'),
+                ];
+            }
+
+            if ($message = Session::get('success')) {
+                $flashMessage = ['message' => '', 'type' => 'success', 'title' => 'Success', 'hasHtML' => false];
+                if (\is_array($message)) {
+                    $flashMessage = [...$flashMessage, ...$message];
+                } else {
+                    $flashMessage['message'] = $message;
+                    $flashMessage['type'] = 'success';
+                    $flashMessage['title'] = 'Success';
+                    $flashMessage['hasHTML'] = false;
+                }
+            } elseif ($message = Session::get('info')) {
+                $flashMessage = ['token' => md5(date('Y-m-d H:i:s')), 'message' => '', 'type' => 'info', 'title' => 'Info', 'hasHTML' => false];
+                if (\is_array($message)) {
+                    $flashMessage = [...$flashMessage, ...$message];
+                } else {
+                    $flashMessage['message'] = $message;
+                    $flashMessage['type'] = 'info';
+                    $flashMessage['title'] = 'Info';
+                    $flashMessage['hasHTML'] = false;
+                }
+            } elseif ($message = Session::get('warning')) {
+                $flashMessage = ['message' => '', 'type' => 'warning', 'title' => 'Warning', 'hasHtML' => false];
+                if (\is_array($message)) {
+                    $flashMessage = [...$flashMessage, ...$message];
+                } else {
+                    $flashMessage['message'] = $message;
+                    $flashMessage['type'] = 'warning';
+                    $flashMessage['title'] = 'Warning';
+                    $flashMessage['hasHTML'] = false;
+                }
+            } elseif ($message = Session::get('error')) {
+                $flashMessage = ['message' => '', 'type' => 'error', 'title' => 'Error', 'hasHtML' => false];
+                if (\is_array($message)) {
+                    $flashMessage = [...$flashMessage, ...$message];
+                } else {
+                    $flashMessage['message'] = $message;
+                    $flashMessage['type'] = 'error';
+                    $flashMessage['title'] = 'Error';
+                    $flashMessage['hasHTML'] = false;
+                }
+            }
+
             return array_merge(parent::share($request), [
                 'app_info' => ApplicationInfo::first(),
                 'portal_menu' => fn () => $request->user('admin')
@@ -45,9 +97,14 @@ class HandleInertiaRequests extends Middleware
                         'location' => $request->url(),
                     ]);
                 },
-                'auth' => [
-                    'user' => $request->user('admin') ?? null,
-                ],
+                'auth' => fn () => $request->user('admin')
+                    ?
+                    [
+                        'user' => $request->user('admin') ?? null,
+                        'user_role' => $request->user('admin')->getRoleNames()->first(),
+                    ] : null,
+                'flash' => $flashMessage,
+                'page_exception' => $pageException,
             ]);
         } else {
             $this->rootView = 'app';
@@ -62,9 +119,13 @@ class HandleInertiaRequests extends Middleware
                         'location' => $request->url(),
                     ]);
                 },
-                'auth' => [
-                    'user' => $request->user('client') ?? null,
-                ],
+                'auth' => fn () => $request->user('client')
+                    ?
+                    [
+                        'user' => $request->user('client') ?? null,
+                        'user_role' => $request->user('admin')->getRoleNames()->first(),
+                    ] : null,
+
             ]);
         }
 

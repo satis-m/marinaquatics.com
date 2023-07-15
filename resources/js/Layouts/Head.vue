@@ -73,7 +73,7 @@
                                         <fa icon="shield" class="pr-1" />{{
                                             iPropsValue(
                                                 "auth",
-                                                "user.account.role"
+                                                "user_role"
                                             ) ?? 'User Role'
                                         }}
                                     </el-dropdown-item>
@@ -81,7 +81,7 @@
                                         <nav-link
                                             @click="headDropdown.handleClose()"
                                             :href="
-                                                route('admin.login')
+                                                appRoute('admin.login')
                                             "
                                         >
                                             <fa icon="user" class="pr-1" />
@@ -101,7 +101,7 @@
                                             class="is-link text-left hover:text-blue-300"
                                             method="post"
                                             as="button"
-                                            :href="route('admin.logout')"
+                                            :href="appRoute('admin.logout')"
                                         ><fa
                                             icon="right-from-bracket"
                                             class="pr-1"

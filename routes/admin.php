@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
+use App\Http\Controllers\Admin\ManageProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -36,5 +37,8 @@ Route::middleware('auth.admin')->group(function () {
         Route::get('/', [AppSettingController::class, 'index'])->name('appSetting.index');
         Route::patch('update', [AppSettingController::class, 'update'])->name('appSetting.update');
     });
+
+    Route::resource('manage/product', ManageProductController::class);
+    Route::delete('manage/product/picture/{id}', [ManageProductController::class, 'deletePicture'])->name('manage.product.picture');
 
 });

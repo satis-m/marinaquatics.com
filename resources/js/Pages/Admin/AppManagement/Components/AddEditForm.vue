@@ -84,16 +84,19 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <span class="card-footer">
-                        <el-button
-                            type="primary"
-                            
-                            :loading="formData.processing"
-                            @click="submitForm(formRef)"
-                        >Update</el-button
-                        >
-                        <el-button @click="closeForm()">Cancel</el-button>
-                    </span>
+                    <el-row >
+                        <span class="">
+                            <el-button
+                                type="primary"
+
+                                :loading="formData.processing"
+                                @click="submitForm(formRef)"
+                            >Update</el-button
+                            >
+                            <el-button @click="closeForm()">Cancel</el-button>
+                        </span>
+                    </el-row>
+
                 </el-card>
             </el-col>
         </el-row>
@@ -118,7 +121,7 @@
 import {markRaw, onMounted, reactive, ref, watch} from "@vue/runtime-core";
 import {Edit} from "@element-plus/icons-vue";
 import {useForm} from "@inertiajs/vue3";
-import SingleFileUploader from "@/Components/SingleFileUploder.vue";
+import SingleFileUploader from "@/Components/SingleFileUploader.vue";
 //composable import
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 import {useObjectUtility} from "@/Composables/objectUtility";
@@ -196,7 +199,7 @@ const resetForm = (formEl) => {
     }, 300);
 };
 const closeForm = () => {
-    resetForm(formRef);
+    resetForm(formRef.value);
 };
 
 const update = function () {
@@ -245,6 +248,7 @@ let populateFormData = function (data) {
         "fav-icon-dark"
     );
     if (logo !=null && logo.length > 0) {
+        console.log(refLogoUpload.value.fileList);
         refLogoUpload.value.fileList = [
             {
                 name: logo[0].file_name,

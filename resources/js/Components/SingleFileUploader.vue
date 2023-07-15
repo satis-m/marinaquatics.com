@@ -14,6 +14,7 @@
         :on-remove="clearUploadFile"
         :on-preview="handlePictureCardPreview"
         :show-file-list="props.listType != 'none'"
+        :before-remove="handleRemove"
     >
         <template #trigger>
             <el-icon v-if="props.listType == 'picture-card'"><Plus /></el-icon>
@@ -35,10 +36,11 @@
 
 <script setup>
 import {genFileId} from "element-plus";
-import {Plus} from "@element-plus/icons-vue";
+import {Delete, Plus} from "@element-plus/icons-vue";
 
 import {useAppUtility} from "@/Composables/appUtiility";
-import {ref} from "@vue/runtime-core";
+import {markRaw, ref} from "@vue/runtime-core";
+import {useForm} from "@inertiajs/vue3";
 
 const { isDarkMode } = useAppUtility();
 const props = defineProps({
@@ -48,15 +50,31 @@ const props = defineProps({
     fileList: { type: Object, required: false },
 });
 
-const emit = defineEmits(["uplodable", "clearUplodable"]);
+const emit = defineEmits(["uplodable", "clearUplodable",'deleteFile']);
 const fileList = ref([]);
 const refLogoUpload = ref();
 const handleLogoExceed = (files) => {
-    clearUploadFile();
     const file = files[0];
-    file.uid = genFileId();
-    refLogoUpload.value.handleStart(file);
+    if (beforeLogoUpload(file)) {
+        clearUploadFile();
+        file.uid = genFileId();
+        refLogoUpload.value.handleStart(file);
+    }
 };
+const handleRemove = async (files) => {
+    await ElMessageBox.confirm("It will permanently delete. Continue?", "Warning", {
+        type: "error",
+        icon: markRaw(Delete),
+        callback: (action) => {
+            if (action == "confirm") {
+                fileList.value = '';
+                emit("deleteFile",files);
+                return true;
+            }
+        },
+    });
+
+}
 const clearUploadFile = () => {
     refLogoUpload.value.clearFiles();
     emit("clearUplodable", null);
@@ -64,9 +82,11 @@ const clearUploadFile = () => {
 const logoUpload = function (file, response) {
     if (beforeLogoUpload(file.raw)) {
         emit("uplodable", file.raw);
-        return;
+        return false;
     }
-    clearUploadFile();
+    setTimeout(()=>{
+        clearUploadFile();
+    },200);
 };
 const beforeLogoUpload = function (uploadFile) {
     const file = uploadFile;

@@ -56,7 +56,8 @@ createInertiaApp({
             .component("Link", Link)
             .component("NavLink", NavLink)
             .component('fa', FontAwesomeIcon)
-            .use(ZiggyVue, Ziggy)
+            .mixin({ methods: { appRoute: window.route } })
+            // .use(ZiggyVue)
             .mount(el);
     },
     progress: {

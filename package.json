@@ -27,6 +27,7 @@
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/vue-fontawesome": "^3.0.3",
+        "@vueup/vue-quill": "^1.2.0",
         "element-plus": "^2.3.7",
         "file-saver": "^2.0.5",
         "moment": "^2.29.4",
