@@ -22,11 +22,26 @@ class SubCategory extends Model
 
     protected static function booted(): void
     {
-        static::created(function ($model) {
-            if (static::whereSlug($slug = Str::slug($model->name))->exists()) {
-                $slug = "{$slug}-{$model->id}";
-            }
-            $model->update(['slug' => $slug]);
+        static::creating(function ($subCategory) {
+            $subCategory->slug = static::generateUniqueSlug($subCategory->name);
         });
+    }
+
+    public static function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+
+        // Check if the slug already exists in the database
+        $slugExists = static::withTrashed()->where('slug', $slug)->exists();
+
+        // If the slug exists, append a unique identifier until we find a unique slug
+        $uniqueIdentifier = 1;
+        while ($slugExists) {
+            $newSlug = $slug.'-'.$uniqueIdentifier;
+            $slugExists = static::withTrashed()->where('slug', $newSlug)->exists();
+            $uniqueIdentifier++;
+        }
+
+        return $newSlug ?? $slug;
     }
 }

@@ -105,7 +105,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :lg="12">
+                    <el-col :lg="6">
                         <el-form-item label="Brand" prop="brand">
                             <el-select
                                 v-model="formData.brand"
@@ -121,6 +121,22 @@
                                     :label="item"
                                     :value="item"
                                 />
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :lg="6">
+                        <el-form-item label="Unit" prop="unit">
+                            <el-select
+                                v-model="formData.unit"
+                                filterable
+                                clearable
+                                allow-create
+                                default-first-option
+                                placeholder="Choose your product Unit"
+                            >
+                                <el-option label="pcs" value="pcs"/>
+                                <el-option label="pkt" value="pkt"/>
+                                <el-option label="kg" value="kg"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
@@ -163,6 +179,8 @@
                             size="large"
                         >
                             <el-switch
+                                :active-value="1"
+                                :inactive-value="0"
                                 v-model="formData.publish"
                             />
                         </el-form-item>
@@ -296,7 +314,14 @@ const rules = reactive({
             message: "Please input product price",
             trigger: "blur",
         }
-    ]
+    ],
+    unit: [
+        {
+            required: true,
+            message: "Please select unit",
+            trigger: "change",
+        },
+    ],
 
 });
 const formErrors = reactive({
@@ -305,7 +330,10 @@ const formErrors = reactive({
     email: null,
     gender: null,
 });
-
+const loadServerValidationError = () => {
+    Object.assign(formErrors, formData.errors);
+    if (formData.errors.email) existEmail.add(formData.email);
+};
 const clearServerValidationError = () => {
     for (const key in formErrors) {
         formErrors[key] = null;

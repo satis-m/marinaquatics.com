@@ -50,7 +50,7 @@
                                     :src="iPropsValue('auth', 'user.avatar')"
                                 >
                                     <img
-                                        src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+                                        src="/admin/blank_image_2.svg"
                                     />
                                 </el-avatar>
                                 <div class="flex items-center">

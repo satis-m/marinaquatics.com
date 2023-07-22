@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\Brand;
+use App\Models\Importer;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Tag;
@@ -29,9 +30,10 @@ class ManageProductController extends Controller
         $categories = File::get(base_path('/storage/app/Category.json'));
         $categories = json_decode($categories);
         $subCategories = SubCategory::all()->groupBy(['category'])->toArray();
-        $products = Product::with('subCategory')->latest()->get();
+        $products = Product::with(['subCategory'])->latest()->get();
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();
+        $importers = Importer::get()->pluck('name')->toArray();
 
         return Inertia::render(
             'Admin/ProductManagement/Index',
@@ -40,6 +42,7 @@ class ManageProductController extends Controller
                 'productList' => $products,
                 'tags' => $tags,
                 'brands' => $brands,
+                'importers' => $importers,
                 'categories' => $categories,
                 'subCategories' => $subCategories,
                 'userCan' => [
@@ -97,5 +100,49 @@ class ManageProductController extends Controller
         }
 
         return Redirect::route('product.index')->with('success', 'Deleted Successfully');
+    }
+
+    public function addImport($productId)
+    {
+        try {
+            (new ProductService())->addImport($productId);
+        } catch (\Exception $e) {
+            return Redirect::route('product.index')->with('error', $e->getMessage());
+        }
+
+        return Redirect::route('product.index')->with('success', 'Added Successfully');
+    }
+
+    public function updateImport($productId, $id)
+    {
+        try {
+            (new ProductService())->updateImport($productId, $id);
+        } catch (\Exception $e) {
+            return Redirect::route('product.index')->with('error', $e->getMessage());
+        }
+
+        return Redirect::route('product.index')->with('success', 'Added Successfully');
+    }
+
+    public function addDamage($productId)
+    {
+        try {
+            (new ProductService())->addDamage($productId);
+        } catch (\Exception $e) {
+            return Redirect::route('product.index')->with('error', $e->getMessage());
+        }
+
+        return Redirect::route('product.index')->with('success', 'Added Successfully');
+    }
+
+    public function updateDamage($productId, $id)
+    {
+        try {
+            (new ProductService())->updateDamage($productId, $id);
+        } catch (\Exception $e) {
+            return Redirect::route('product.index')->with('error', $e->getMessage());
+        }
+
+        return Redirect::route('product.index')->with('success', 'Added Successfully');
     }
 }

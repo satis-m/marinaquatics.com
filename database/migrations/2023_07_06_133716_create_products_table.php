@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('tag')->nullable();
             $table->string('sub_category');
+            $table->string('unit');
             $table->string('video_link')->nullable();
             $table->string('brand')->nullable();
             $table->float('price');
+            $table->integer('available_quantity')->default('0');
             $table->boolean('publish')->default('0');
             $table->softDeletes();
             $table->timestamps();

@@ -29,7 +29,7 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     // resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     resolve: async name => {
-        const comps = import.meta.glob('./Pages/**/*.vue', { eager: true });
+        const comps = import.meta.glob('./Pages/**/*.vue', {eager: true});
         let match = comps[`./Pages/${name}.vue`];
         if (match === undefined) {
             return import('./Errors/404page.vue');
@@ -38,27 +38,28 @@ createInertiaApp({
 
         if (page.layout === 'admin') {
             page.layout = Admin
-        }
-        else if (page.layout === 'auth') {
+        } else if (page.layout === 'auth') {
             page.layout = Auth
-        }
-        else if (page.layout === 'client') {
+        } else if (page.layout === 'client') {
             page.layout = Client
-        }
-        else {
+        } else {
 
         }
         return page
     },
-    setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .component("Link", Link)
-            .component("NavLink", NavLink)
-            .component('fa', FontAwesomeIcon)
-            .mixin({ methods: { appRoute: window.route } })
-            // .use(ZiggyVue)
-            .mount(el);
+    setup({el, App, props, plugin}) {
+        // return createApp({render: () => h(App, props)})
+        const VueApp = createApp({render: () => h(App, props)});
+
+        VueApp.use(plugin)
+        VueApp.component("Link", Link)
+        VueApp.component("NavLink", NavLink)
+        VueApp.component('fa', FontAwesomeIcon)
+        // VueApp.mixin({methods: {appRoute: window.route}})
+        // .use(ZiggyVue)
+        VueApp.config.globalProperties.appRoute = route
+        VueApp.mount(el);
+
     },
     progress: {
         color: '#4B5563',

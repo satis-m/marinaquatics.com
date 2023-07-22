@@ -104,6 +104,9 @@
                                         Price: Rs. {{ props.row.price }}
                                     </p>
                                     <p class="mb-2">
+                                        In Stock: Rs. {{ props.row.available_quantity }}
+                                    </p>
+                                    <p class="mb-2">
                                         Brand: {{ props.row.brand }}
                                     </p>
                                     <p class="mb-2">
@@ -137,6 +140,8 @@
                             label="Picture"
                             prop="main_picture"
                             v-if="isViewableColumn('main_picture')"
+                            width="150px"
+                            align="center"
                         >
                             <template #default="props">
                                 <div class="">
@@ -151,7 +156,15 @@
                                         :lazy="true"
                                         :hide-on-click-modal="true"
                                         alt="product images"
-                                    />
+                                    >
+                                        <template #error>
+                                            <div class="image-slot">
+                                                <img
+                                                    src="/admin/blank_image_2.svg"
+                                                />
+                                            </div>
+                                        </template>
+                                    </el-image>
                                 </div>
                             </template>
                         </el-table-column>
@@ -210,6 +223,15 @@
                             </template>
                         </el-table-column>
                         <el-table-column
+                            :label="tableColumnNames.available_quantity"
+                            v-if="isViewableColumn('available_quantity')"
+                            prop="available_quantity"
+                        >
+                            <template #default="props">
+                               {{ props.row.available_quantity }} ({{ props.row.unit }})
+                            </template>
+                        </el-table-column>
+                        <el-table-column
                             :label="tableColumnNames.publish"
                             v-if="isViewableColumn('publish')"
                             :filters="[
@@ -244,27 +266,12 @@
                                     <template #dropdown>
                                         <el-dropdown-menu>
                                             <el-dropdown-item
-                                                :disabled="
-                                                    scope.row.account != null
-                                                        ? true
-                                                        : false
-                                                "
-                                                @click="
-                                                    scope.row.account != null
-                                                        ? false
-                                                        : createAccount(
-                                                              scope.row
-                                                          )
-                                                "
+                                                @click="updateStockForm(scope.row)"
                                             >
-                                                Create Account
+                                                Update Stock
                                             </el-dropdown-item>
                                             <el-dropdown-item
-                                                :disabled="
-                                                    scope.row.account != null
-                                                        ? false
-                                                        : true
-                                                "
+
                                                 @click="
                                                     scope.row.account != null
                                                         ? resetPassword(
@@ -273,7 +280,19 @@
                                                         : false
                                                 "
                                             >
-                                                Reset Password
+                                                Combo Offer
+                                            </el-dropdown-item>
+                                            <el-dropdown-item
+
+                                                @click="
+                                                    scope.row.account != null
+                                                        ? resetPassword(
+                                                              scope.row
+                                                          )
+                                                        : false
+                                                "
+                                            >
+                                                Discount Offer
                                             </el-dropdown-item>
                                             <el-dropdown-item
                                                 divided
@@ -297,7 +316,6 @@
                             </template>
                         </el-table-column>
                     </el-table>
-
                     <el-pagination
                         class="mt-5 !p-0"
                         v-model:currentPage="currentPage"
@@ -313,6 +331,7 @@
             </el-col>
         </el-row>
         <ViewForm ref="refViewForm"/>
+        <UpdateStockForm ref="refUpdateStockForm"/>
     </div>
 </template>
 <script setup>
@@ -345,6 +364,7 @@ import {
     DocumentAdd,
     MoreFilled,
 } from "@element-plus/icons-vue";
+import UpdateStockForm from "@/Pages/Admin/ProductManagement/Components/UpdateStockForm.vue";
 //composable function import
 const {iPropsValue} = useInertiaPropsUtility();
 const {filterObjectWithGroupedValue} = useObjectUtility();
@@ -352,13 +372,22 @@ const {isScreenMd, isDarkMode} = useAppUtility();
 //variable declare
 const isMobile = ref(isScreenMd);
 const refAddEditForm = ref(null);
+const refUpdateStockForm = ref(null);
 const refAddByExcelForm = ref(null);
 const refViewForm = ref(null);
 const exportLoading = ref(false);
 const viewableColumn = ref(
     !isMobile.value
-        ? ["name", "brand", "description", "tag", 'sub_category', 'main_picture', 'price', 'publish']
+        ? ["name", "brand", "tag", 'sub_category', 'main_picture', 'price','available_quantity', 'publish']
         : ["name", 'main_picture']
+);
+watch(
+    () => isMobile.value,
+    () => {
+        viewableColumn.value = !isMobile.value
+            ? ["name", "brand", "tag", 'sub_category', 'main_picture', 'price','available_quantity', 'publish']
+            : ["name", 'main_picture']
+    }
 );
 const tableColumnNames = {
     name: "Name",
@@ -368,6 +397,7 @@ const tableColumnNames = {
     sub_category: "Sub Category",
     brand: "Brand",
     price: "Price",
+    available_quantity: "In Stock",
     publish: "Status",
 };
 const exportTableOption = reactive({
@@ -378,6 +408,7 @@ const exportTableOption = reactive({
         "Tag",
         "Brand",
         "Price",
+        "In Stock",
         "Status"
     ],
     headerValue: [
@@ -387,6 +418,7 @@ const exportTableOption = reactive({
         "tag",
         "brand",
         "price",
+        "available_quantity",
         'publish'
     ],
     fileName: "productList",
@@ -400,13 +432,15 @@ const formInputNames = {
     video_link: "",
     category: "",
     sub_category: "",
-    publish: 0,
+    publish: 1,
     price: '',
+    unit: '',
 };
 const addForm = () => refAddEditForm.value.showForm("Add");
 const addExcelForm = () => refAddByExcelForm.value.showForm();
 const editForm = (data) => refAddEditForm.value.showForm("Edit", data);
 const viewForm = (data) => refViewForm.value.showForm(data);
+const updateStockForm = (data) => refUpdateStockForm.value.showForm(data);
 const filterStatus = (value, row) => {
     if (value == "published") {
         return row.publish;
@@ -451,7 +485,6 @@ const filterDataList = ref();
 const indexMethod = (index) => (currentPage.value - 1) * pageSize.value + index + 1;
 const isViewableColumn = (columnName) => viewableColumn.value.includes(columnName);
 const dataList = ref(iPropsValue("productList"));
-// const roleList = ref(iPropsValue("roleList"));
 watch(
     () => iPropsValue("productList"),
     () => {
@@ -460,14 +493,7 @@ watch(
     }
 );
 
-watch(
-    () => isMobile.value,
-    () => {
-        viewableColumn.value = !isMobile.value
-            ? ["name", "brand", "tag", 'sub_category', 'main_picture', 'price', 'publish']
-            : ["name", 'main_picture']
-    }
-);
+
 const changePageSize = (val) => {
     pageSize.val = val;
     changePage();

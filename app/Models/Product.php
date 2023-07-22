@@ -26,17 +26,24 @@ class Product extends Model implements HasMedia
 
     protected static function booted(): void
     {
-        static::created(function ($model) {
-            if (static::whereSlug($slug = Str::slug($model->sub_categoty))->exists()) {
-                $slug = "{$slug}-{$model->id}";
-            }
-            $model->update(['slug' => $slug]);
+        static::creating(function ($product) {
+            $product->slug = static::generateUniqueSlug($product->name);
         });
     }
 
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class, 'sub_category', 'slug');
+    }
+
+    public function productImports()
+    {
+        return $this->hasMany(ProductImport::class, 'product', 'slug');
+    }
+
+    public function productDamages()
+    {
+        return $this->hasMany(ProductDamage::class, 'product', 'slug');
     }
 
     protected $casts = [
@@ -134,5 +141,23 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('medium')
             ->width(600)
             ->height(600);
+    }
+
+    public static function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+
+        // Check if the slug already exists in the database
+        $slugExists = static::withTrashed()->where('slug', $slug)->exists();
+
+        // If the slug exists, append a unique identifier until we find a unique slug
+        $uniqueIdentifier = 1;
+        while ($slugExists) {
+            $newSlug = $slug.'-'.$uniqueIdentifier;
+            $slugExists = static::withTrashed()->where('slug', $newSlug)->exists();
+            $uniqueIdentifier++;
+        }
+
+        return $newSlug ?? $slug;
     }
 }

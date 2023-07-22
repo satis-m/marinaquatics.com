@@ -41,4 +41,19 @@ Route::middleware('auth.admin')->group(function () {
     Route::resource('manage/product', ManageProductController::class);
     Route::delete('manage/product/picture/{id}', [ManageProductController::class, 'deletePicture'])->name('manage.product.picture');
 
+    Route::prefix('manage/product-import')->group(function () {
+        Route::post('{productId}', [ManageProductController::class, 'addImport'])->name('manage.product-import.store');
+        Route::patch('{productId}/{id}', [ManageProductController::class, 'updateImport'])->name('manage.product-import.update');
+    });
+
+    Route::prefix('manage/product-damage')->group(function () {
+        Route::post('{productId}', [ManageProductController::class, 'addDamage'])->name('manage.product-damage.store');
+        Route::patch('{productId}/{id}', [ManageProductController::class, 'updateDamage'])->name('manage.product-damage.update');
+    });
+
+    Route::delete('importer/{name}', function ($name) {
+        return \App\Models\Importer::where('name', $name)->delete();
+    })->name('importer');
 });
+
+require __DIR__.'/axios.php';

@@ -336,3 +336,15 @@ if (! \function_exists('get_guard')) {
         }
     }
 }
+
+if (! \function_exists('sanitizer')) {
+    function sanitizer($inputString)
+    {
+        // Remove '.' and ',' characters
+        $cleanedString = str_replace(['.', ','], '', $inputString);
+        // Replace multiple spaces with a single space
+        $cleanedString = preg_replace('/\s+/', ' ', $cleanedString);
+
+        return $cleanedString;
+    }
+}
