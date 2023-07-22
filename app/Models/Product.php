@@ -29,6 +29,9 @@ class Product extends Model implements HasMedia
         static::creating(function ($product) {
             $product->slug = static::generateUniqueSlug($product->name);
         });
+        static::created(function ($product) {
+            ComboOffer::create(['product' => $product->slug]);
+        });
     }
 
     public function subCategory()
@@ -44,6 +47,16 @@ class Product extends Model implements HasMedia
     public function productDamages()
     {
         return $this->hasMany(ProductDamage::class, 'product', 'slug');
+    }
+
+    public function comboOffer()
+    {
+        return $this->hasOne(ComboOffer::class, 'product', 'slug');
+    }
+
+    public function discounts()
+    {
+        return $this->hasMany(Discount::class, 'product', 'slug');
     }
 
     protected $casts = [

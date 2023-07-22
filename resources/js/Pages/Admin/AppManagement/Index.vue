@@ -9,14 +9,7 @@
     </div>
 </template>
 <script setup>
+defineOptions({layout: "admin"});
 import AddEditForm from "./Components/AddEditForm.vue";
 import {Head} from "@inertiajs/vue3";
-</script>
-<script>
-export default {
-    layout: "admin",
-    data() {
-        return {};
-    },
-};
 </script>

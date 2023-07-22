@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ManageProductController extends Controller
+class ProductController extends Controller
 {
     protected $permissionName = 'product';
 
@@ -30,7 +30,7 @@ class ManageProductController extends Controller
         $categories = File::get(base_path('/storage/app/Category.json'));
         $categories = json_decode($categories);
         $subCategories = SubCategory::all()->groupBy(['category'])->toArray();
-        $products = Product::with(['subCategory'])->latest()->get();
+        $products = Product::with(['subCategory', 'comboOffer'])->latest()->get();
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();
         $importers = Importer::get()->pluck('name')->toArray();
@@ -100,49 +100,5 @@ class ManageProductController extends Controller
         }
 
         return Redirect::route('product.index')->with('success', 'Deleted Successfully');
-    }
-
-    public function addImport($productId)
-    {
-        try {
-            (new ProductService())->addImport($productId);
-        } catch (\Exception $e) {
-            return Redirect::route('product.index')->with('error', $e->getMessage());
-        }
-
-        return Redirect::route('product.index')->with('success', 'Added Successfully');
-    }
-
-    public function updateImport($productId, $id)
-    {
-        try {
-            (new ProductService())->updateImport($productId, $id);
-        } catch (\Exception $e) {
-            return Redirect::route('product.index')->with('error', $e->getMessage());
-        }
-
-        return Redirect::route('product.index')->with('success', 'Added Successfully');
-    }
-
-    public function addDamage($productId)
-    {
-        try {
-            (new ProductService())->addDamage($productId);
-        } catch (\Exception $e) {
-            return Redirect::route('product.index')->with('error', $e->getMessage());
-        }
-
-        return Redirect::route('product.index')->with('success', 'Added Successfully');
-    }
-
-    public function updateDamage($productId, $id)
-    {
-        try {
-            (new ProductService())->updateDamage($productId, $id);
-        } catch (\Exception $e) {
-            return Redirect::route('product.index')->with('error', $e->getMessage());
-        }
-
-        return Redirect::route('product.index')->with('success', 'Added Successfully');
     }
 }

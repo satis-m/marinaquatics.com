@@ -266,31 +266,19 @@
                                     <template #dropdown>
                                         <el-dropdown-menu>
                                             <el-dropdown-item
-                                                @click="updateStockForm(scope.row)"
+                                                @click="showUpdateStockForm(scope.row)"
                                             >
                                                 Update Stock
                                             </el-dropdown-item>
                                             <el-dropdown-item
 
-                                                @click="
-                                                    scope.row.account != null
-                                                        ? resetPassword(
-                                                              scope.row
-                                                          )
-                                                        : false
-                                                "
+                                                @click="showComboOfferForm(scope.row)"
                                             >
                                                 Combo Offer
                                             </el-dropdown-item>
                                             <el-dropdown-item
 
-                                                @click="
-                                                    scope.row.account != null
-                                                        ? resetPassword(
-                                                              scope.row
-                                                          )
-                                                        : false
-                                                "
+                                                @click="showDiscountForm(scope.row)"
                                             >
                                                 Discount Offer
                                             </el-dropdown-item>
@@ -332,9 +320,12 @@
         </el-row>
         <ViewForm ref="refViewForm"/>
         <UpdateStockForm ref="refUpdateStockForm"/>
+        <ComboOfferForm ref="refComboOfferForm"/>
+        <DiscountForm ref="refDiscountForm"/>
     </div>
 </template>
 <script setup>
+defineOptions({layout: "admin"});
 import {Head, useForm} from "@inertiajs/vue3";
 //composable imports
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
@@ -354,6 +345,9 @@ import AddEditForm from "./Components/AddEditForm.vue";
 import AddByExcelForm from "./Components/AddByExcelForm.vue";
 import ViewForm from "./Components/ViewForm.vue";
 import StatusBadge from "@/Components/StatusBadge.vue";
+import UpdateStockForm from "./Components/UpdateStockForm.vue";
+import ComboOfferForm from "./Components/ComboOfferForm.vue";
+import DiscountForm from "./Components/DiscountForm.vue";
 import moment from "moment";
 import {
     Plus,
@@ -364,7 +358,7 @@ import {
     DocumentAdd,
     MoreFilled,
 } from "@element-plus/icons-vue";
-import UpdateStockForm from "@/Pages/Admin/ProductManagement/Components/UpdateStockForm.vue";
+
 //composable function import
 const {iPropsValue} = useInertiaPropsUtility();
 const {filterObjectWithGroupedValue} = useObjectUtility();
@@ -373,6 +367,8 @@ const {isScreenMd, isDarkMode} = useAppUtility();
 const isMobile = ref(isScreenMd);
 const refAddEditForm = ref(null);
 const refUpdateStockForm = ref(null);
+const refComboOfferForm = ref(null);
+const refDiscountForm = ref(null);
 const refAddByExcelForm = ref(null);
 const refViewForm = ref(null);
 const exportLoading = ref(false);
@@ -440,7 +436,9 @@ const addForm = () => refAddEditForm.value.showForm("Add");
 const addExcelForm = () => refAddByExcelForm.value.showForm();
 const editForm = (data) => refAddEditForm.value.showForm("Edit", data);
 const viewForm = (data) => refViewForm.value.showForm(data);
-const updateStockForm = (data) => refUpdateStockForm.value.showForm(data);
+const showUpdateStockForm = (data) => refUpdateStockForm.value.showForm(data);
+const showComboOfferForm = (data) => refComboOfferForm.value.showForm(data);
+const showDiscountForm = (data) => refDiscountForm.value.showForm(data);
 const filterStatus = (value, row) => {
     if (value == "published") {
         return row.publish;
@@ -640,11 +638,4 @@ onMounted(() => {
     changePage();
 });
 </script>
-<script>
-export default {
-    layout: "admin",
-    data() {
-        return {};
-    },
-};
-</script>
+

@@ -185,8 +185,8 @@ class ProductService
                 ]);
             if ($updated) {
                 $info = [
-                    'action' => 'add',
-                    'previous_quantity' => 0,
+                    'action' => 'update',
+                    'previous_quantity' => request('prev_quantity'),
                     'quantity' => request('quantity'),
                 ];
                 self::updateProductQuantity($productId, $info);
@@ -280,6 +280,8 @@ class ProductService
         $product = Product::where('slug', $product_id)->first();
         if ($info['action'] == 'add') {
             $product->available_quantity = (int) $product->available_quantity + (int) $info['quantity'];
+        } elseif ($info['action'] == 'update') {
+            $product->available_quantity = (int) $product->available_quantity - (int) $info['previous_quantity'] + (int) $info['quantity'];
         } else {
             $product->available_quantity = (int) $product->available_quantity + (int) $info['previous_quantity'] - (int) $info['quantity'];
         }

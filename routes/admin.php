@@ -2,11 +2,16 @@
 
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
-use App\Http\Controllers\Admin\ManageProductController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductDamageController;
+use App\Http\Controllers\Admin\ProductImportController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return Redirect::to('/admin/login');
@@ -38,22 +43,64 @@ Route::middleware('auth.admin')->group(function () {
         Route::patch('update', [AppSettingController::class, 'update'])->name('appSetting.update');
     });
 
-    Route::resource('manage/product', ManageProductController::class);
-    Route::delete('manage/product/picture/{id}', [ManageProductController::class, 'deletePicture'])->name('manage.product.picture');
+    Route::resource('manage/product', ProductController::class);
+    Route::delete('manage/product/picture/{id}', [ProductController::class, 'deletePicture'])->name('manage.product.picture');
 
-    Route::prefix('manage/product-import')->group(function () {
-        Route::post('{productId}', [ManageProductController::class, 'addImport'])->name('manage.product-import.store');
-        Route::patch('{productId}/{id}', [ManageProductController::class, 'updateImport'])->name('manage.product-import.update');
+    Route::prefix('product-import')->group(function () {
+        Route::post('{productId}', [ProductImportController::class, 'store'])->name('product-import.store');
+        Route::patch('{productId}/{id}', [ProductImportController::class, 'update'])->name('product-import.update');
     });
 
-    Route::prefix('manage/product-damage')->group(function () {
-        Route::post('{productId}', [ManageProductController::class, 'addDamage'])->name('manage.product-damage.store');
-        Route::patch('{productId}/{id}', [ManageProductController::class, 'updateDamage'])->name('manage.product-damage.update');
+    Route::prefix('product-damage')->group(function () {
+        Route::post('{productId}', [ProductDamageController::class, 'store'])->name('product-damage.store');
+        Route::patch('{productId}/{id}', [ProductDamageController::class, 'update'])->name('product-damage.update');
     });
 
     Route::delete('importer/{name}', function ($name) {
         return \App\Models\Importer::where('name', $name)->delete();
     })->name('importer');
+
+    Route::get('reset-permission', function () {
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        // create permissions
+        DB::table('role_has_permissions')->truncate();
+        DB::table('permissions')->delete();
+        $permissionList = File::get(base_path('/storage/app/PermissionList.json'));
+        $defaultPermissions = json_decode($permissionList);
+        $permissions = [
+            'Impersonate-create',
+            'Impersonate-delete',
+            ...$defaultPermissions,
+        ];
+        foreach ($permissions as $permission) {
+            Permission::create([
+                'name' => $permission,
+                'guard_name' => 'admin',
+            ]);
+        }
+        // gets all permissions via Gate::before rule; see AuthServiceProvider
+        //Role::create(['name' => 'Super-Admin']);
+        $role = Role::where('name', 'admin')->first();
+        $adminPermissions = [
+            'Impersonate-create',
+            'Impersonate-delete',
+            ...$defaultPermissions,
+        ];
+        foreach ($adminPermissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
+
+        $developerPermissions = [
+            'Impersonate-create',
+            'Impersonate-delete',
+            ...$defaultPermissions,
+        ];
+        $developerRole = Role::where('name', 'developer')->first();
+        foreach ($developerPermissions as $permission) {
+            $developerRole->givePermissionTo($permission);
+        }
+
+    });
 });
 
 require __DIR__.'/axios.php';

@@ -310,7 +310,7 @@ const createImport = async function () {
         callback: (action) => {
             if (action == "confirm") {
 
-                formDataImport.post(route("manage.product-import.store", [activeProduct.value]), {
+                formDataImport.post(route("product-import.store", [activeProduct.value]), {
                     preserveScroll: true,
                     onSuccess: () => {
                         closeForm('import');
@@ -331,7 +331,7 @@ const updateImport = function () {
             if (action == "confirm") {
                 try {
 
-                    formDataImport.post(route("manage.product-import.update", [activeProduct.value, formDataImport.id]), {
+                    formDataImport.post(route("product-import.update", [activeProduct.value, formDataImport.id]), {
                         preserveScroll: true,
                         onSuccess: () => {
                             closeForm('import');
@@ -360,7 +360,7 @@ const createDamage = async function () {
         callback: (action) => {
             if (action == "confirm") {
 
-                formDataDamage.post(route("manage.product-damage.store", [activeProduct.value]), {
+                formDataDamage.post(route("product-damage.store", [activeProduct.value]), {
                     preserveScroll: true,
                     onSuccess: () => {
                         closeForm('damage');
@@ -381,7 +381,7 @@ const updateDamage = function () {
             if (action == "confirm") {
                 try {
 
-                    formDataDamage.post(route("manage.product-damage.update", [activeProduct.value, formDataDamage.id]), {
+                    formDataDamage.post(route("product-damage.update", [activeProduct.value, formDataDamage.id]), {
                         preserveScroll: true,
                         onSuccess: () => {
                             closeForm('damage');

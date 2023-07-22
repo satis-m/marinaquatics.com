@@ -8,19 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_damages', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('importer');
-            $table->bigInteger('quantity');
-            $table->float('cost_price');
             $table->string('product')->index();
-            $table->tinyText('remark');
-            $table->timestamps();
+            $table->string('discount');
+            $table->string('start_date');
+            $table->string('end_date');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('product_damages');
+        Schema::dropIfExists('discounts');
     }
 };
