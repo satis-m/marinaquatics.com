@@ -182,7 +182,6 @@ import {
 
 const {iPropsValue} = useInertiaPropsUtility();
 
-const activeProduct = ref('')
 const productUnit = ref('')
 const activeForm = ref('import')
 const FormVisible = ref(false);
@@ -193,6 +192,11 @@ const refFormDataDamage = ref(null);
 const latestProductImport = ref([]);
 const latestProductDamage = ref([]);
 const importers = ref(iPropsValue("importers"));
+watch(() => iPropsValue("importers"),
+    () => {
+        importers.value = iPropsValue("importers")
+    }
+)
 const formDataImport = useForm({
     _method: "POST",
     product: "",
@@ -261,7 +265,6 @@ const showForm = function (data) {
     productName.value = data.name
     formDataImport.product = data.slug
     formDataDamage.product = data.slug
-    activeProduct.value = data.slug
     productUnit.value=data.unit
     getLatestImport(data.slug)
     getLatestDamage(data.slug)
@@ -310,7 +313,7 @@ const createImport = async function () {
         callback: (action) => {
             if (action == "confirm") {
 
-                formDataImport.post(route("product-import.store", [activeProduct.value]), {
+                formDataImport.post(route("product-import.store", [formDataImport.product]), {
                     preserveScroll: true,
                     onSuccess: () => {
                         closeForm('import');
@@ -331,7 +334,7 @@ const updateImport = function () {
             if (action == "confirm") {
                 try {
 
-                    formDataImport.post(route("product-import.update", [activeProduct.value, formDataImport.id]), {
+                    formDataImport.post(route("product-import.update", [formDataImport.product, formDataImport.id]), {
                         preserveScroll: true,
                         onSuccess: () => {
                             closeForm('import');
@@ -360,7 +363,7 @@ const createDamage = async function () {
         callback: (action) => {
             if (action == "confirm") {
 
-                formDataDamage.post(route("product-damage.store", [activeProduct.value]), {
+                formDataDamage.post(route("product-damage.store", [formDataDamage.product]), {
                     preserveScroll: true,
                     onSuccess: () => {
                         closeForm('damage');
@@ -381,7 +384,7 @@ const updateDamage = function () {
             if (action == "confirm") {
                 try {
 
-                    formDataDamage.post(route("product-damage.update", [activeProduct.value, formDataDamage.id]), {
+                    formDataDamage.post(route("product-damage.update", [formDataDamage.product, formDataDamage.id]), {
                         preserveScroll: true,
                         onSuccess: () => {
                             closeForm('damage');
@@ -402,9 +405,6 @@ const updateDamage = function () {
         },
     });
 };
-const handleTabChange = (TabPaneName) => {
-    console.log(TabPaneName)
-}
 
 const getLatestImport = (productSlug) => {
     axios.get(route('product.import-list.latest', productSlug))
@@ -448,6 +448,7 @@ const deleteImporter = (item) => {
             // Handle any errors
         });
 }
+
 const populateImportFormData = function (data) {
     FormAction.value='Update';
     Object.assign(formDataImport, data);
@@ -458,11 +459,8 @@ const populateDamageFormData = function (data) {
     Object.assign(formDataDamage, data);
     formDataDamage.prev_quantity = data.quantity
 };
-watch(() => iPropsValue("importers"),
-    () => {
-        importers.value = iPropsValue("importers")
-    }
-)
+
+
 defineExpose({
     showForm,
 });

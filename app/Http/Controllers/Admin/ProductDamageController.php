@@ -26,10 +26,10 @@ class ProductDamageController extends Controller
         return Redirect::route('product.index')->with('success', 'Added Successfully');
     }
 
-    public function update($productId, $id)
+    public function update($productId, $damageId)
     {
         try {
-            (new ProductService())->updateDamage($productId, $id);
+            (new ProductService())->updateDamage($productId, $damageId);
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }

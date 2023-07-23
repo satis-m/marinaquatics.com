@@ -23,7 +23,7 @@ class SubCategory extends Model
     protected static function booted(): void
     {
         static::creating(function ($subCategory) {
-            $subCategory->slug = static::generateUniqueSlug($subCategory->name);
+            $subCategory->slug = $subCategory->slug ?? static::generateUniqueSlug($subCategory->sub_category);
         });
     }
 

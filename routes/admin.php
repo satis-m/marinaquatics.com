@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDamageController;
+use App\Http\Controllers\Admin\ProductDiscountController;
 use App\Http\Controllers\Admin\ProductImportController;
+use App\Http\Controllers\Admin\ProductOfferController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
@@ -44,17 +46,22 @@ Route::middleware('auth.admin')->group(function () {
     });
 
     Route::resource('manage/product', ProductController::class);
-    Route::delete('manage/product/picture/{id}', [ProductController::class, 'deletePicture'])->name('manage.product.picture');
+    Route::delete('manage/product/picture/{mediaId}', [ProductController::class, 'deletePicture'])->name('manage.product.picture');
 
     Route::prefix('product-import')->group(function () {
         Route::post('{productId}', [ProductImportController::class, 'store'])->name('product-import.store');
-        Route::patch('{productId}/{id}', [ProductImportController::class, 'update'])->name('product-import.update');
+        Route::patch('{productId}/{importId}', [ProductImportController::class, 'update'])->name('product-import.update');
     });
 
     Route::prefix('product-damage')->group(function () {
         Route::post('{productId}', [ProductDamageController::class, 'store'])->name('product-damage.store');
-        Route::patch('{productId}/{id}', [ProductDamageController::class, 'update'])->name('product-damage.update');
+        Route::patch('{productId}/{damageId}', [ProductDamageController::class, 'update'])->name('product-damage.update');
     });
+
+    Route::patch('product-offer/{productId}', [ProductOfferController::class, 'update'])->name('product-offer.update');
+
+    Route::post('product-offer/{productId}', [ProductDiscountController::class, 'store'])->name('product-discount.store');
+    Route::patch('product-offer/{productId}/{discountId}', [ProductDiscountController::class, 'update'])->name('product-discount.update');
 
     Route::delete('importer/{name}', function ($name) {
         return \App\Models\Importer::where('name', $name)->delete();

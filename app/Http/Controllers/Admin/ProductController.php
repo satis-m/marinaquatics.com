@@ -67,11 +67,11 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Added Successfully');
     }
 
-    public function update(UpdateProductRequest $request, int $id)
+    public function update(UpdateProductRequest $request, int $productId)
     {
         $request->validated();
         try {
-            (new ProductService())->update($id);
+            (new ProductService())->update($productId);
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }
@@ -79,11 +79,11 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Updated Successfully');
     }
 
-    public function destroy(int $id)
+    public function destroy(int $productId)
     {
 
         try {
-            (new ProductService())->remove($id);
+            (new ProductService())->remove($productId);
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }
@@ -91,10 +91,10 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Deleted Successfully');
     }
 
-    public function deletePicture(int $id)
+    public function deletePicture(int $mediaId)
     {
         try {
-            Media::where('id', $id)->delete();
+            Media::where('id', $mediaId)->delete();
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }

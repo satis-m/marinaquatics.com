@@ -23,4 +23,10 @@ Route::prefix('axios')->middleware('auth.admin')->group(function () {
 
         return Response::json(['results' => $importList]);
     })->name('product.damage-list.latest');
+
+    Route::get('product/{slug}/discount/latest', function ($slug) {
+        $importList = \App\Models\Discount::where('product', $slug)->latest('id')->take(5)->get()->toArray();
+
+        return Response::json(['results' => $importList]);
+    })->name('product.discount.latest');
 });

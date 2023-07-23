@@ -437,7 +437,7 @@ const addExcelForm = () => refAddByExcelForm.value.showForm();
 const editForm = (data) => refAddEditForm.value.showForm("Edit", data);
 const viewForm = (data) => refViewForm.value.showForm(data);
 const showUpdateStockForm = (data) => refUpdateStockForm.value.showForm(data);
-const showComboOfferForm = (data) => refComboOfferForm.value.showForm(data);
+const showComboOfferForm = (data) => refComboOfferForm.value.showForm(data.combo_offer);
 const showDiscountForm = (data) => refDiscountForm.value.showForm(data);
 const filterStatus = (value, row) => {
     if (value == "published") {

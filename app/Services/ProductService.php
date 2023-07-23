@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Brand;
+use App\Models\ComboOffer;
+use App\Models\Discount;
 use App\Models\Importer;
 use App\Models\Product;
 use App\Models\ProductDamage;
@@ -56,12 +58,12 @@ class ProductService
         }
     }
 
-    public function update($id)
+    public function update($productId)
     {
         DB::beginTransaction();
         self::updateTagsAndBrands();
         try {
-            $product = Product::find($id);
+            $product = Product::find($productId);
             $product->name = request('name');
             $product->sub_category = request('sub_category');
             $product->product_info = request('product_info');
@@ -115,10 +117,10 @@ class ProductService
         }
     }
 
-    public function remove($id)
+    public function remove($productId)
     {
         try {
-            return Product::find($id)->delete();
+            return Product::find($productId)->delete();
         } catch (QueryException $e) {
             return throw new \Exception($e->errorInfo[2]);
         } catch (\Exception $e) {
@@ -135,7 +137,7 @@ class ProductService
         }
     }
 
-    public function addImport($productId)
+    public function addImport($productSlug)
     {
         DB::beginTransaction();
         self::updateImporters();
@@ -145,7 +147,7 @@ class ProductService
                 'importer' => sanitizer(request('importer')),
                 'quantity' => request('quantity'),
                 'cost_price' => request('cost_price'),
-                'product' => $productId,
+                'product' => $productSlug,
             ]);
             if ($created) {
                 $info = [
@@ -153,7 +155,7 @@ class ProductService
                     'previous_quantity' => 0,
                     'quantity' => request('quantity'),
                 ];
-                self::updateProductQuantity($productId, $info);
+                self::updateProductQuantity($productSlug, $info);
             }
             DB::commit();
 
@@ -171,17 +173,17 @@ class ProductService
         }
     }
 
-    public function updateImport($productId, $id)
+    public function updateImport($productSlug, $importId)
     {
         DB::beginTransaction();
         self::updateImporters();
         try {
-            $updated = ProductImport::where('id', $id)
+            $updated = ProductImport::where('id', $importId)
                 ->update([
                     'importer' => sanitizer(request('importer')),
                     'quantity' => request('quantity'),
                     'cost_price' => request('cost_price'),
-                    'product' => $productId,
+                    'product' => $productSlug,
                 ]);
             if ($updated) {
                 $info = [
@@ -189,7 +191,7 @@ class ProductService
                     'previous_quantity' => request('prev_quantity'),
                     'quantity' => request('quantity'),
                 ];
-                self::updateProductQuantity($productId, $info);
+                self::updateProductQuantity($productSlug, $info);
             }
             DB::commit();
 
@@ -205,7 +207,7 @@ class ProductService
         }
     }
 
-    public function addDamage($productId)
+    public function addDamage($productSlug)
     {
         DB::beginTransaction();
         try {
@@ -214,7 +216,7 @@ class ProductService
                 'quantity' => request('quantity'),
                 'cost_price' => request('cost_price'),
                 'remark' => request('remark'),
-                'product' => $productId,
+                'product' => $productSlug,
             ]);
             if ($created) {
                 $info = [
@@ -222,7 +224,7 @@ class ProductService
                     'previous_quantity' => 0,
                     'quantity' => request('quantity'),
                 ];
-                self::updateProductQuantity($productId, $info);
+                self::updateProductQuantity($productSlug, $info);
             }
             DB::commit();
 
@@ -240,17 +242,17 @@ class ProductService
         }
     }
 
-    public function updateDamage($productId, $id)
+    public function updateDamage($productSlug, $damageId)
     {
         DB::beginTransaction();
         try {
-            $updated = ProductDamage::where('id', $id)
+            $updated = ProductDamage::where('id', $damageId)
                 ->update([
                     'importer' => sanitizer(request('importer')),
                     'quantity' => request('quantity'),
                     'cost_price' => request('cost_price'),
                     'remark' => request('remark'),
-                    'product' => $productId,
+                    'product' => $productSlug,
                 ]);
 
             if ($updated) {
@@ -259,7 +261,7 @@ class ProductService
                     'previous_quantity' => request('prev_quantity'),
                     'quantity' => request('quantity'),
                 ];
-                self::updateProductQuantity($productId, $info);
+                self::updateProductQuantity($productSlug, $info);
             }
             DB::commit();
 
@@ -275,9 +277,9 @@ class ProductService
         }
     }
 
-    public function updateProductQuantity($product_id, $info)
+    public function updateProductQuantity($productSlug, $info)
     {
-        $product = Product::where('slug', $product_id)->first();
+        $product = Product::where('slug', $productSlug)->first();
         if ($info['action'] == 'add') {
             $product->available_quantity = (int) $product->available_quantity + (int) $info['quantity'];
         } elseif ($info['action'] == 'update') {
@@ -287,5 +289,91 @@ class ProductService
         }
 
         return $product->save();
+    }
+
+    public function updateOffer($productSlug)
+    {
+        DB::beginTransaction();
+        self::updateImporters();
+        try {
+            ComboOffer::where('product', $productSlug)
+                ->update([
+                    'name_1' => sanitizer(request('name_1')),
+                    'quantity_1' => request('quantity_1'),
+                    'price_1' => request('price_1'),
+                    'name_2' => sanitizer(request('name_2')),
+                    'quantity_2' => request('quantity_2'),
+                    'price_2' => request('price_2'),
+                    'name_3' => sanitizer(request('name_3')),
+                    'quantity_3' => request('quantity_3'),
+                    'price_3' => request('price_3'),
+
+                ]);
+            DB::commit();
+
+            return true;
+        } catch (QueryException $e) {
+            DB::rollBack();
+
+            return throw new \Exception($e->errorInfo[2]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function addDiscount($productSlug)
+    {
+        DB::beginTransaction();
+        try {
+            Discount::create([
+                'discount' => request('discount'),
+                'start_date' => request('date')[0],
+                'end_date' => request('date')[1],
+                'remark' => sanitizer(request('remark')),
+                'product' => $productSlug,
+            ]);
+            DB::commit();
+
+            return true;
+        } catch (QueryException $e) {
+            //database related exception
+            DB::rollBack();
+
+            return throw new \Exception($e->errorInfo[2]);
+        } catch (\Exception $e) {
+            //general exception
+            DB::rollBack();
+
+            return throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function updateDiscount($productSlug, $discountId)
+    {
+        DB::beginTransaction();
+        try {
+            Discount::find($discountId)->update([
+                'discount' => request('discount'),
+                'start_date' => request('date')[0],
+                'end_date' => request('date')[1],
+                'remark' => sanitizer(request('remark')),
+            ]);
+            DB::commit();
+
+            return true;
+        } catch (QueryException $e) {
+            //database related exception
+            DB::rollBack();
+
+            return throw new \Exception($e->errorInfo[2]);
+        } catch (\Exception $e) {
+            //general exception
+            DB::rollBack();
+
+            return throw new \Exception($e->getMessage());
+        }
+
     }
 }
