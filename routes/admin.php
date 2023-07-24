@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDamageController;
 use App\Http\Controllers\Admin\ProductDiscountController;
@@ -34,9 +35,7 @@ Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('a
 
 Route::middleware('auth.admin')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
 
     Route::prefix('app-setting')->group(function () {
         Route::get('/', [AppSettingController::class, 'index'])->name('appSetting.index');
