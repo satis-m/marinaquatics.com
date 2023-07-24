@@ -190,12 +190,7 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    components: {},
-};
-</script>
-<style>
+<style scoped>
 .cls-1 {
     fill: #d6b49a;
 }

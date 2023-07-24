@@ -386,6 +386,7 @@ defineExpose({
 .el-menu-item {
     height: 44px;
     line-height: 1.5;
+    font-size: var(--el-menu-item-font-size);
     a {
         height: 100%;
         vertical-align: middle;
@@ -425,7 +426,7 @@ defineExpose({
     align-items: center;
 }
 </style>
-<style lang="scss">
+<style>
 .el-sub-menu .el-sub-menu__icon-arrow {
     /* font-size: 16px; */
 }

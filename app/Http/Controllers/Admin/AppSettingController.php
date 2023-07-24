@@ -22,7 +22,7 @@ class AppSettingController extends Controller
         $appInfo = ApplicationInfo::query()->first();
 
         return Inertia::render(
-            'Admin/AppManagement/Index',
+            'AppManagement/Index',
             [
                 'breadcrumb' => readable('application-setting'),
                 'appInfo' => $appInfo,

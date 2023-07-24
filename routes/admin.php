@@ -20,24 +20,22 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-
     if (Auth::guard('admin')->check()) {
+
         return Redirect::to(route('admin.dashboard'));
     }
     Inertia::setRootView('adminApp');
 
-    return Inertia::render('Admin/Login');
+    return Inertia::render('Login');
 })->name('admin.login');
 
 Route::post('/login', [AuthenticateAdminController::class, 'store'])->name('admin.login');
 Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('admin.logout');
 
 Route::middleware('auth.admin')->group(function () {
-    Route::get('/layout', function () {
-        return Inertia::render('Admin/Layout');
-    })->name('layout');
+
     Route::get('/dashboard', function () {
-        return Inertia::render('Admin/Layout');
+        return Inertia::render('Dashboard');
     })->name('admin.dashboard');
 
     Route::prefix('app-setting')->group(function () {

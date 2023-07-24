@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
     @routes
-    @vite('resources/js/admin.js')
+    @vite('resources/js/admin.js','admin/build')
     @inertiaHead
 </head>
 

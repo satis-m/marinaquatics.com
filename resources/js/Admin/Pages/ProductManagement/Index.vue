@@ -588,7 +588,7 @@ const exportTable = () => {
             resolve("resolved");
         });
     };
-    import("@/Export2Excel")
+    import("~/js/Export2Excel")
         .then(async (excel) => {
             await exportNow(excel);
         })
@@ -613,7 +613,7 @@ const exportTemplate = () => {
             resolve("resolved");
         });
     };
-    import("@/Export2Excel")
+    import("~/js/Export2Excel")
         .then(async (excel) => {
             await exportNow(excel);
         })

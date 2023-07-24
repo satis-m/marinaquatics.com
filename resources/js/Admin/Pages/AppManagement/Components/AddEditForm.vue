@@ -101,20 +101,7 @@
         </el-row>
     </el-form>
 </template>
-<style scoped>
-.el-button--text {
-    margin-right: 15px;
-}
-.el-select {
-    width: 300px;
-}
-.el-input {
-    width: 300px;
-}
-.dialog-footer button:first-child {
-    margin-right: 10px;
-}
-</style>
+
 <script setup>
 //library import
 import {markRaw, onMounted, reactive, ref, watch} from "@vue/runtime-core";
@@ -294,13 +281,25 @@ ul.icon-picker {
     border-top: 1px solid var(--el-border-color);
     border-left: 1px solid var(--el-border-color);
 }
-</style>
-<style scoped>
+
 .card-footer {
     position: absolute;
     bottom: 20px;
 }
 .demo-color-block {
+    margin-right: 10px;
+}
+
+.el-button--text {
+    margin-right: 15px;
+}
+.el-select {
+    width: 300px;
+}
+.el-input {
+    width: 300px;
+}
+.dialog-footer button:first-child {
     margin-right: 10px;
 }
 </style>

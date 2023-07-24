@@ -173,4 +173,13 @@ class Product extends Model implements HasMedia
 
         return $newSlug ?? $slug;
     }
+
+    public function currentDiscount()
+    {
+        return $this->hasOne(Discount::class, 'product', 'slug')
+            ->whereDate('start_date', '<=', now()) // Discount start date should be less than or equal to the current date.
+            ->whereDate('end_date', '>=', now()) // Discount end date should be greater than or equal to the current date.
+            ->orderBy('id', 'desc')
+            ->limit(1);
+    }
 }

@@ -1,7 +1,7 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
+// import defaultTheme from 'tailwindcss/defaultTheme';
 
 const plugin = require("tailwindcss/plugin");
-const colors = require("tailwindcss/colors");
+// const colors = require("tailwindcss/colors");
 
 export default {
     darkMode: 'class',
@@ -20,19 +20,19 @@ export default {
             'xl': '1200px',
             '2xl': '1400px',
         },
-        colors: {
-            'blue': '#1fb6ff',
-            'purple': '#7e5bef',
-            'pink': '#ff49db',
-            'orange': '#ff7849',
-            'green': '#13ce66',
-            'yellow': '#ffc82c',
-            ...colors,
-        },
+        // colors: {
+        //     'blue': '#1fb6ff',
+        //     'purple': '#7e5bef',
+        //     'pink': '#ff49db',
+        //     'orange': '#ff7849',
+        //     'green': '#13ce66',
+        //     'yellow': '#ffc82c',
+        //     ...colors,
+        // },
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+            // fontFamily: {
+            //     sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            // },
             spacing: {
                 '128': '32rem',
                 '144': '36rem',
@@ -142,9 +142,9 @@ export default {
                 },
             ]);
             addBase({
-                ".el-button": {
-                    "background-color": "var(--el-button-bg-color,var(--el-color-white))"
-                }
+                // ".el-button": {
+                //     "background-color": "var(--el-button-bg-color,var(--el-color-white))"
+                // }
             });
         }),
     ],

@@ -36,7 +36,7 @@ class ProductController extends Controller
         $importers = Importer::get()->pluck('name')->toArray();
 
         return Inertia::render(
-            'Admin/ProductManagement/Index',
+            'ProductManagement/Index',
             [
                 'breadcrumb' => readable('application-setting'),
                 'productList' => $products,
