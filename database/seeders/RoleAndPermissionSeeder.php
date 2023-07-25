@@ -19,7 +19,7 @@ class RoleAndPermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
         // create permissions
-        $permissionList = File::get(base_path('/storage/app/PermissionList.json'));
+        $permissionList = File::get(base_path('/storage/required/PermissionList.json'));
         $defaultPermissions = json_decode($permissionList);
         $permissions = [
             'Impersonate-create',

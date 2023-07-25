@@ -447,8 +447,8 @@ const filterStatus = (value, row) => {
     }
 };
 const deleteForm = (data) => {
-    ElMessageBox.confirm("It will permanently delete. Continue?", "Warning", {
-        type: "error",
+    ElMessageBox.confirm("Move to trash, You can restore from trash. Continue?", "Warning", {
+        type: "warning",
         icon: markRaw(Delete),
         callback: (action) => {
             if (action == "confirm") {

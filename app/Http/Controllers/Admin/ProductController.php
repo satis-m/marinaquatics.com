@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $categories = File::get(base_path('/storage/app/Category.json'));
+        $categories = File::get(base_path('/storage/required/Category.json'));
         $categories = json_decode($categories);
         $subCategories = SubCategory::all()->groupBy(['category'])->toArray();
         $products = Product::with(['subCategory', 'comboOffer'])->latest()->get();
@@ -94,7 +94,13 @@ class ProductController extends Controller
     public function deletePicture(int $mediaId)
     {
         try {
-            Media::where('id', $mediaId)->delete();
+            $media = Media::where('id', $mediaId)->first();
+            $product = Product::find($media->model_id);
+            $mediaItem = $product->getMedia($media->collection_name)->where('id', $media->id)->first();
+            if ($mediaItem) {
+                $mediaItem->delete();
+            }
+
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }

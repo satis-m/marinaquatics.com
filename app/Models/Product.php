@@ -65,6 +65,7 @@ class Product extends Model implements HasMedia
 
     public function getMainPictureAttribute()
     {
+
         if ($this->getFirstMedia('main_picture') != null) {
             $thumb = $main = $preview = '';
             $media = $this->getFirstMedia('main_picture');

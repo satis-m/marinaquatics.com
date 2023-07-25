@@ -106,7 +106,7 @@ import {Edit} from "@element-plus/icons-vue";
 const FormVisible = ref(false);
 const FormType = ref('Add');
 const productName = ref('');
-const latestProductDiscount = ref('');
+const latestProductDiscount = ref([]);
 const refForm = ref(null);
 
 const formData = useForm({
@@ -159,7 +159,6 @@ const populateFormData = (data) => {
 }
 
 const showForm = function (data) {
-    console.log(data)
     FormVisible.value = true;
     productName.value = data.name;
     formData.product = data.slug;

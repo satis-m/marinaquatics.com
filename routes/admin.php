@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductDamageController;
 use App\Http\Controllers\Admin\ProductDiscountController;
 use App\Http\Controllers\Admin\ProductImportController;
 use App\Http\Controllers\Admin\ProductOfferController;
+use App\Http\Controllers\Admin\TrashController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
@@ -60,6 +61,10 @@ Route::middleware('auth.admin')->group(function () {
     Route::post('product-offer/{productId}', [ProductDiscountController::class, 'store'])->name('product-discount.store');
     Route::patch('product-offer/{productId}/{discountId}', [ProductDiscountController::class, 'update'])->name('product-discount.update');
 
+    Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
+    Route::patch('trash/product/{productId}', [TrashController::class, 'productRestore'])->name('trash.product.restore');
+    Route::delete('trash/product/{productId}', [TrashController::class, 'productDestroy'])->name('trash.product.destroy');
+
     Route::delete('importer/{name}', function ($name) {
         return \App\Models\Importer::where('name', $name)->delete();
     })->name('importer');
@@ -69,7 +74,7 @@ Route::middleware('auth.admin')->group(function () {
         // create permissions
         DB::table('role_has_permissions')->truncate();
         DB::table('permissions')->delete();
-        $permissionList = File::get(base_path('/storage/app/PermissionList.json'));
+        $permissionList = File::get(base_path('/storage/required/PermissionList.json'));
         $defaultPermissions = json_decode($permissionList);
         $permissions = [
             'Impersonate-create',

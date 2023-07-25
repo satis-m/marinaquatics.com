@@ -9,9 +9,9 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 /* import all icons */
 
 import {
-    faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear,
+    faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash,
 } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear);
+library.add(faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash);
 
 import {createApp, h} from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';

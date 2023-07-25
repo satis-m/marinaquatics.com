@@ -128,6 +128,28 @@ class ProductService
         }
     }
 
+    public function destroy($productId)
+    {
+        try {
+            return Product::withTrashed()->find($productId)->forceDelete();
+        } catch (QueryException $e) {
+            return throw new \Exception($e->errorInfo[2]);
+        } catch (\Exception $e) {
+            return throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function restore($productId)
+    {
+        try {
+            return Product::withTrashed()->find($productId)->restore();
+        } catch (QueryException $e) {
+            return throw new \Exception($e->errorInfo[2]);
+        } catch (\Exception $e) {
+            return throw new \Exception($e->getMessage());
+        }
+    }
+
     private function updateImporters()
     {
         $importers = Importer::get()->pluck('name')->toArray();

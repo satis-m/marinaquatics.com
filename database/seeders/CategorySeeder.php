@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $subCategories = File::get(base_path('/storage/app/SubCategory.json'));
+        $subCategories = File::get(base_path('/storage/required/SubCategory.json'));
         $subCategories = json_decode($subCategories);
         foreach ($subCategories as $category => $subCategory) {
             foreach ($subCategory as $value) {

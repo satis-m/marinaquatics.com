@@ -49,7 +49,7 @@ if (! \function_exists('getPortalMenu')) {
     function getPortalMenu($guard = 'admin')
     {
         if (Auth::guard($guard)->check()) {
-            $menuList = File::get(storage_path('app/menu.json'));
+            $menuList = File::get(storage_path('required/menu.json'));
             $roles = json_decode(Auth::guard($guard)->user()->roles()->pluck('name'));
             $role = reset($roles);
             $menus = json_decode($menuList);
@@ -245,7 +245,7 @@ if (! \function_exists('update_env')) {
 if (! \function_exists('getDistrict')) {
     function getDistrict()
     {
-        $districtList = File::get(storage_path('app/districts.json'));
+        $districtList = File::get(storage_path('required/districts.json'));
 
         return json_encode(json_decode($districtList));
     }
@@ -253,7 +253,7 @@ if (! \function_exists('getDistrict')) {
 if (! \function_exists('getCountry')) {
     function getCountry()
     {
-        $countryList = File::get(storage_path('app/countries.json'));
+        $countryList = File::get(storage_path('required/countries.json'));
 
         return json_encode(json_decode($countryList));
     }

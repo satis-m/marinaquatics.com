@@ -1,0 +1,145 @@
+{
+    "admin": {
+        "menu": [
+            {
+                "link": "admin.dashboard",
+                "name": "dashboard",
+                "icon": "fa-home"
+            },
+            {
+                "link": "appSetting.index",
+                "name": "Application Setting",
+                "icon": "fa-gear"
+            },
+            {
+                "link": "product.index",
+                "name": "Manage Product",
+                "icon": "fa-gear"
+            },
+            {
+                "link": "trash.index",
+                "name": "Trash",
+                "icon": "fa-trash"
+            },
+            {
+                "link": "#",
+                "name": "School Management",
+                "icon": "fa-home",
+                "children": [
+                    {
+                        "link": "#",
+                        "name": "manage school",
+                        "icon": "icon ni ni-user-c"
+                    },
+                    {
+                        "link": "#",
+                        "name": "manage year",
+                        "icon": "icon ni ni-calendar-booking"
+                    },
+                    {
+                        "link": "#",
+                        "name": "manage teacher",
+                        "icon": "icon ni ni-user-list"
+                    }
+                ]
+            }
+        ]
+    },
+    "developer": {
+        "menu": [
+            {
+                "link": "heading",
+                "name": "dashboard"
+            },
+            {
+                "link": "user.dashboard",
+                "name": "home",
+                "icon": "icon ni ni-menu-circled"
+            }
+        ]
+    },
+    "client": {
+        "menu": [
+            {
+                "link": "heading",
+                "name": "dashboard"
+            },
+            {
+                "link": "user.dashboard",
+                "name": "home",
+                "icon": "icon ni ni-menu-circled"
+            },
+            {
+                "link": "#",
+                "name": "School Management",
+                "icon": "icon ni ni-gift",
+                "children": [
+                    {
+                        "link": "school.index",
+                        "name": "manage school",
+                        "icon": "icon ni ni-user-c"
+                    },
+                    {
+                        "link": "year.index",
+                        "name": "manage year",
+                        "icon": "icon ni ni-calendar-booking"
+                    },
+                    {
+                        "link": "teacher.index",
+                        "name": "manage teacher",
+                        "icon": "icon ni ni-user-list"
+                    },
+                    {
+                        "link": "student.index",
+                        "name": "manage student",
+                        "icon": "icon ni ni-users"
+                    },
+                    {
+                        "link": "student-school-session.index",
+                        "name": "manage School Session",
+                        "icon": "icon ni ni-award"
+                    },
+                    {
+                        "link": "annualSchoolDocument.index",
+                        "name": "annual school documents",
+                        "icon": "icon ni ni-files"
+                    }
+                ]
+            },
+            {
+                "link": "#",
+                "name": "manage Organization",
+                "icon": "icon ni ni-building",
+                "children": [
+                    {
+                        "link": "organization-group.index",
+                        "name": "Organization Group"
+                    },
+                    {
+                        "link": "organization-member.index",
+                        "name": "Organization Member"
+                    }
+                ]
+            },
+            {
+                "link": "#",
+                "name": "Reports",
+                "icon": "icon ni ni-gift",
+                "children": [
+                    {
+                        "link": "sponsor-report.index",
+                        "name": "Sponsored Students"
+                    },
+                    {
+                        "link": "student-report",
+                        "name": "Students List"
+                    },
+                    {
+                        "link": "student-status-report.index",
+                        "name": "Student Status Report"
+                    }
+                ]
+            }
+        ]
+    }
+}

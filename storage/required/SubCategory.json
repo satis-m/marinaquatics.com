@@ -1,0 +1,78 @@
+{
+    "Japanese Koi":[
+        {
+            "name":"Premium Koi",
+            "slug":"premium-kois"
+        },
+        {
+            "name":"Assorted Koi",
+            "slug":"assorted-koi"
+        },
+        {
+            "name":"Butterfly Koi",
+            "slug":"butterfly-koi"
+        }
+    ]
+    ,
+    "Exotic Livestock":[
+        {
+            "name":"Freshwater",
+            "slug":"freshwater"
+        },{
+            "name":"Saltwater",
+            "slug":"saltwater"
+        },{
+            "name":"Brakish",
+            "slug":"brakish"
+        }
+    ],
+    "Aquariums":
+        [
+            {
+                "name":"Standard Glass Tanks",
+                "slug":"standard-glass-tank"
+            },{
+                "name":"Rimless Aquariums",
+                "slug":"rimless-aquariums"
+            },{
+                "name":"Side Sump Aquarium",
+                "slug":"side-sump-aquarium"
+            },{
+                "name":"Refugiums, Sump Tank & Top Up",
+                "slug":"refugiums-sump-tank-top-up"
+            },{
+                "name":"Marine Aquarium",
+                "slug":"marine-aquarium"
+            },{
+                "name":"Custom Aquarium",
+                "slug":"custom-aquarium"
+            }
+        ],
+    "Aquarium Supplies":[
+        {
+            "name":"Aquascaping",
+            "slug":"aquascaping"
+        },{
+            "name":"Medications, Testing, Conditioners & Additives",
+            "slug":"medications-testing-conditioners-additives"
+        },{
+            "name":"Filters & Filter Media",
+            "slug":"filtes-and-filter-media"
+        },{
+            "name":"Foods",
+            "slug":"foods"
+        },{
+            "name":"Lighting",
+            "slug":"lighting"
+        },{
+            "name":"Pumps & Powerheads",
+            "slug":"pump-and-powerheads"
+        },{
+            "name":"Miscellaneous",
+            "slug":"miscellaneous"
+        },{
+            "name":"Decors",
+            "slug":"decors"
+        }
+    ]
+}

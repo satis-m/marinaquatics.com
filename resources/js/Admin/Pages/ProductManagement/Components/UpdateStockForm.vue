@@ -5,7 +5,7 @@
         :title="'Update Stock of '+productName"
     >
         <template #default>
-            <el-tabs v-model="activeForm" @tab-change="handleTabChange" class="demo-tabs">
+            <el-tabs v-model="activeForm" class="demo-tabs">
                 <el-tab-pane label="Import Product" name="import">
                     <el-form
                         @submit.prevent
