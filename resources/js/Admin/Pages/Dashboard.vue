@@ -7,7 +7,14 @@
                 </div>
                 <div class="card-detail flex flex-col " >
                     <div class="title">Products</div>
-                    <div class="body">110</div>
+                    <div class="body">
+                        <div class="flex">
+                            <div class="w-20">In-Stock</div>  <div class="inline-block" style="width:100px">{{ iPropsValue('productCount','inStockCount') }}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-20">Out-Stock</div> <div class="inline-block">{{ iPropsValue('productCount','outStockCount') }}</div>
+                        </div>
+                    </div>
                 </div>
             </el-card>
         </el-col><el-col :sm="8">
@@ -43,6 +50,8 @@
 <script setup>
 defineOptions({layout: "admin"});
 import {Goods,Avatar,Coin} from "@element-plus/icons-vue";
+import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
+let { iPropsValue } = useInertiaPropsUtility();
 </script>
 <style  lang="scss">
 .dashboard-card
