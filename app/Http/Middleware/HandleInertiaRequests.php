@@ -32,8 +32,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $guard = get_guard();
-        if ($guard == 'admin') {
+        if ($request->is('admin/*')) {
             $this->rootView = 'adminApp';
 
             $flashMessage = $pageException = [];
@@ -107,7 +106,7 @@ class HandleInertiaRequests extends Middleware
                 'page_exception' => $pageException,
             ]);
         } else {
-            $this->rootView = 'app';
+            $this->rootView = 'siteApp';
 
             return array_merge(parent::share($request), [
                 'app_info' => ApplicationInfo::first(),

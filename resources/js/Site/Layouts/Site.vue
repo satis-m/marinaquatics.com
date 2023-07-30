@@ -1,10 +1,12 @@
 <template>
-    <section>header</section>
+    <Header/>
     <div class="common-layout">
           <slot />
     </div>
-    <section>footer</section>
+    <Footer/>
 </template>
 <script setup>
-console.log('layout')
+import Header from './Header.vue'
+import Footer from './Footer.vue'
+
 </script>

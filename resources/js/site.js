@@ -4,7 +4,7 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';
 
-import Client from "@/Layouts/Client.vue";
+import Site from "@/Layouts/Site.vue";
 import NavLink from '@/Components/NavLink.vue'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -19,7 +19,7 @@ createInertiaApp({
             return import('./Errors/404page.vue');
         }
         let page = (await match).default;
-        page.layout = Client
+        page.layout = Site
         return page
     },
     setup({el, App, props, plugin}) {
