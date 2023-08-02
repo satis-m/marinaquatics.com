@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
     @routes
-    @vite('resources/css/app.css')
-
+    @vite('resources/js/site.js','web-site/build')
 </head>
 
 <body class="font-sans antialiased">
@@ -24,8 +23,8 @@
             <p class="mb-8">But dont worry, you can find plenty of other things on our homepage.</p>
 
             <button
-                class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700">back
-                to homepage</button>
+                onclick="window.history.back()"
+                class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700">Return back</button>
         </div>
         <div class="max-w-lg">
             <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2395 1800"

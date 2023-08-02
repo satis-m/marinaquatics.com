@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\SubCategory;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         $subCategories = json_decode($subCategories);
         foreach ($subCategories as $category => $subCategory) {
             foreach ($subCategory as $value) {
-                SubCategory::create([
+                Category::create([
                     'category' => $category,
                     'sub_category' => $value->name,
                     'slug' => $value->slug,

@@ -7,15 +7,41 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        <link rel="stylesheet" href="/web-site/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/web-site/assets/css/animate.css">
+        <link rel="stylesheet" href="/web-site/assets/css/swiper-bundle.css">
+        <link rel="stylesheet" href="/web-site/assets/css/slick.css">
+        <link rel="stylesheet" href="/web-site/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/web-site/assets/css/spacing.css">
+        <link rel="stylesheet" href="/web-site/assets/css/meanmenu.css">
+        <link rel="stylesheet" href="/web-site/assets/css/nice-select.css">
+        <link rel="stylesheet" href="/web-site/assets/css/fontawesome.min.css">
+        <link rel="stylesheet" href="/web-site/assets/css/icon-dukamarket.css">
+        <link rel="stylesheet" href="/web-site/assets/css/jquery-ui.css">
+        <link rel="stylesheet" href="/web-site/assets/css/main.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="/web-site/assets/js/waypoints.js"></script>
+        <script src="/web-site/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+        <script src="/web-site/assets/js/swiper-bundle.js"></script>
+        <script src="/web-site/assets/js/nice-select.js"></script>
+        <script src="/web-site/assets/js/slick.js"></script>
+        <script src="/web-site/assets/js/magnific-popup.js"></script>
+        <script src="/web-site/assets/js/counterup.js"></script>
+        <script src="/web-site/assets/js/wow.js"></script>
+        <script src="/web-site/assets/js/isotope-pkgd.js"></script>
+        <script src="/web-site/assets/js/imagesloaded-pkgd.js"></script>
+        <script src="/web-site/assets/js/countdown.js"></script>
+        <script src="/web-site/assets/js/ajax-form.js"></script>
+        <script src="/web-site/assets/js/meanmenu.js"></script>
+        <script src="{{ asset('/web-site/assets/js/main.js') }}"></script>
         <!-- Scripts -->
         @routes
-        @vite('resources/js/site.js','site/build')
+        @vite('resources/js/site.js','web-site/build')
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
         @inertia
     </body>
 </html>
+

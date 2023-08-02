@@ -3,10 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    public function view($slug)
+    {
+        try {
+            $productInfo = Product::query()
+                ->where('slug', $slug)
+                ->with('media', 'currentDiscount', 'category')
+                ->firstOrFail();
+
+            return Inertia::render('Product/SingleView/Index',
+                [
+                    'productInfo' => $productInfo,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            // Product not found, handle the exception or return an error response
+            // For example:
+            abort(404, 'Product not found');
+        }
+    }
+
     public function list($subCategory)
     {
         $products = Product::query()

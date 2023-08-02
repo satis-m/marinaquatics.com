@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class SubCategory extends Model
+class Category extends Model
 {
     use SoftDeletes;
 
@@ -22,8 +22,8 @@ class SubCategory extends Model
 
     protected static function booted(): void
     {
-        static::creating(function ($subCategory) {
-            $subCategory->slug = $subCategory->slug ?? static::generateUniqueSlug($subCategory->sub_category);
+        static::creating(function ($category) {
+            $category->slug = $category->slug ?? static::generateUniqueSlug($category->sub_category);
         });
     }
 

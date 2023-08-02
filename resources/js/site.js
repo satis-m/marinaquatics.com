@@ -3,6 +3,8 @@ import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';
+import { ZiggyVue } from 'ziggy-vue';
+import route from 'ziggy';
 
 import Site from "@/Layouts/Site.vue";
 import NavLink from '@/Components/NavLink.vue'
@@ -27,6 +29,7 @@ createInertiaApp({
         const VueApp = createApp({render: () => h(App, props)});
 
         VueApp.use(plugin)
+        VueApp.use(ZiggyVue)
         VueApp.component("Link", Link)
         VueApp.component("NavLink", NavLink)
         VueApp.config.globalProperties.appRoute = route

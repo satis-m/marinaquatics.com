@@ -38,7 +38,7 @@
 import {genFileId} from "element-plus";
 import {Delete, Plus} from "@element-plus/icons-vue";
 
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 import {markRaw, ref} from "@vue/runtime-core";
 import {useForm} from "@inertiajs/vue3";
 

@@ -15,7 +15,7 @@ library.add(faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole,
 
 import {createApp, h} from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';
-//layout
+//layout s
 import Admin from '@/Layouts/Admin.vue'
 import Auth from '@/Layouts/Auth.vue'
 import NavLink from '@/Components/NavLink.vue'

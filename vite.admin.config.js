@@ -14,7 +14,7 @@ export default defineConfig({
     plugins: [
         splitVendorChunkPlugin(),
         laravel({
-            buildDirectory: "admin/build",
+            buildDirectory: "admin-site/build",
             input: [
                 'resources/js/admin.js',
             ],

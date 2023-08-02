@@ -1,8 +1,9 @@
 <template>
     <Header/>
-    <div class="common-layout">
+   <main>
           <slot />
-    </div>
+   </main>
+
     <Footer/>
 </template>
 <script setup>

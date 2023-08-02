@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Importer;
 use App\Models\Product;
-use App\Models\SubCategory;
 use App\Models\Tag;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\File;
@@ -28,9 +28,9 @@ class ProductController extends Controller
     public function index()
     {
         $categories = File::get(base_path('/storage/required/Category.json'));
-        $categories = json_decode($categories);
-        $subCategories = SubCategory::all()->groupBy(['category'])->toArray();
-        $products = Product::with(['subCategory', 'comboOffer'])->latest()->get();
+        $categries = json_decode($categories);
+        $subCatoegories = Category::all()->groupBy(['name'])->toArray();
+        $products = Product::with(['category', 'comboOffer'])->latest()->get();
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();
         $importers = Importer::get()->pluck('name')->toArray();

@@ -149,8 +149,23 @@ export function useAppUtility() {
 		// Whenever the user explicitly chooses to respect the OS preference
 		localStorage.removeItem("theme");
 	};
+    const getImageLink = (object,propertyName) => {
+        // Whenever the user explicitly chooses to respect the OS preference
+        const blankImage = '/admin-site/blank_image_2.svg';
+        if( object !== null && typeof object === "object" && object.hasOwnProperty(propertyName))
+        {
+            if (object[propertyName] == null) return blankImage;
+            let http = new XMLHttpRequest();
+            http.open("HEAD", object[propertyName], false);
+            http.send();
+            if (http.status != 404) return object[propertyName];
+            return blankImage;
+        }
+        return blankImage;
+    };
 
 	return {
+        getImageLink,
 		ifUrlExist,
 		isAuthorize,
 		mobileAndTabletCheck,

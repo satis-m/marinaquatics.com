@@ -50,7 +50,7 @@
                                     :src="iPropsValue('auth', 'user.avatar')"
                                 >
                                     <img
-                                        src="/admin/blank_image_2.svg"
+                                        src="/admin-site/blank_image_2.svg"
                                     />
                                 </el-avatar>
                                 <div class="flex items-center">
@@ -129,7 +129,7 @@ import DarkToggler from "@/Components/DarkModeSwitch.vue";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 import {ref, watch} from "@vue/runtime-core";
 import ChangeUserPassword from "@/Layouts/ChangeUserPassword.vue";
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 // import { set } from "@vueuse/shared";
 const { isScreenMd } = useAppUtility();
 const { iPropsValue } = useInertiaPropsUtility();

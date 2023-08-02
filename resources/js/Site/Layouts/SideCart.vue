@@ -1,5 +1,86 @@
 <template>
-    side cart
+    <!-- header-cart-start -->
+    <div class="tpcartinfo tp-cart-info-area p-relative">
+        <button class="tpcart__close"><i class="icon-x"></i></button>
+        <div class="tpcart">
+            <h4 class="tpcart__title">Your Cart</h4>
+            <div class="tpcart__product">
+                <div class="tpcart__product-list">
+                    <ul>
+                        <li>
+                            <div class="tpcart__item">
+                                <div class="tpcart__img">
+                                    <img src="/web-site/assets/img/product/products1-min.jpg" alt="">
+                                    <div class="tpcart__del">
+                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="tpcart__content">
+                                 <span class="tpcart__content-title"><a href="shop-details.html">Stacy's Pita Chips Parmesan Garlic & Herb From Nature</a>
+                                 </span>
+                                    <div class="tpcart__cart-price">
+                                        <span class="quantity">1 x</span>
+                                        <span class="new-price">Rs 162.80</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tpcart__item">
+                                <div class="tpcart__img">
+                                    <img src="/web-site/assets/img/product/products12-min.jpg" alt="">
+                                    <div class="tpcart__del">
+                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="tpcart__content">
+                                 <span class="tpcart__content-title"><a href="shop-details.html">Banana, Beautiful Skin, Good For Health 1Kg</a>
+                                 </span>
+                                    <div class="tpcart__cart-price">
+                                        <span class="quantity">1 x</span>
+                                        <span class="new-price">Rs 138.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tpcart__item">
+                                <div class="tpcart__img">
+                                    <img src="/web-site/assets/img/product/products3-min.jpg" alt="">
+                                    <div class="tpcart__del">
+                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="tpcart__content">
+                                 <span class="tpcart__content-title"><a href="shop-details.html">Quaker Popped Rice Crisps Snacks Chocolate</a>
+                                 </span>
+                                    <div class="tpcart__cart-price">
+                                        <span class="quantity">1 x</span>
+                                        <span class="new-price">Rs 162.8</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tpcart__checkout">
+                    <div class="tpcart__total-price d-flex justify-content-between align-items-center">
+                        <span> Subtotal:</span>
+                        <span class="heilight-price"> Rs 300.00</span>
+                    </div>
+                    <div class="tpcart__checkout-btn">
+                        <a class="tpcart-btn mb-10" href="cart.html">View Cart</a>
+                        <a class="tpcheck-btn" href="checkout.html">Checkout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tpcart__free-shipping text-center">
+                <span>Free shipping for orders <b>under 10km</b></span>
+            </div>
+        </div>
+    </div>
+    <div class="cartbody-overlay"></div>
+    <!-- header-cart-end -->
 </template>
 <script setup>
 </script>

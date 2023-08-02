@@ -77,7 +77,7 @@
                                     <template #error>
                                         <div class="image-slot">
                                             <img
-                                                src="/admin/blank_image_2.svg"
+                                                src="/admin-site/blank_image_2.svg"
                                             />
                                         </div>
                                     </template>
@@ -103,12 +103,12 @@
                         prop="brand"
                     />
                     <el-table-column
-                        :label="tableColumnNames.sub_category"
-                        v-if="isViewableColumn('sub_category')"
-                        prop="sub_category"
+                        :label="tableColumnNames.category"
+                        v-if="isViewableColumn('category')"
+                        prop="category"
                     >
                         <template #default="props">
-                            {{ props.row.sub_category.category }} => {{ props.row.sub_category.sub_category }}
+                            {{ props.row.category.name }} => {{ props.row.category.sub_category }}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -202,7 +202,7 @@
 import {Delete, MoreFilled,RefreshLeft} from "@element-plus/icons-vue";
 import {markRaw, ref, watch} from "@vue/runtime-core";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 import StatusBadge from "@/Components/StatusBadge.vue";
 import {useForm} from "@inertiajs/vue3";
 const {isScreenMd, isDarkMode} = useAppUtility();
@@ -215,14 +215,14 @@ const indexMethod = (index) => (1 - 1) * 1000 + index + 1;
 const isViewableColumn = (columnName) => viewableColumn.value.includes(columnName);
 const viewableColumn = ref(
     !isMobile.value
-        ? ["name", "brand", "tag", 'sub_category', 'main_picture', 'price','available_quantity', 'publish']
+        ? ["name", "brand", "tag", 'category', 'main_picture', 'price','available_quantity', 'publish']
         : ["name", 'main_picture']
 );
 watch(
     () => isMobile.value,
     () => {
         viewableColumn.value = !isMobile.value
-            ? ["name", "brand", "tag", 'sub_category', 'main_picture', 'price','available_quantity', 'publish']
+            ? ["name", "brand", "tag", 'category', 'main_picture', 'price','available_quantity', 'publish']
             : ["name", 'main_picture']
     }
 );
@@ -231,7 +231,7 @@ const tableColumnNames = {
     product_info: "Product Information",
     description: "Description",
     tag: "Tag",
-    sub_category: "Sub Category",
+    category: "Category",
     brand: "Brand",
     price: "Price",
     available_quantity: "In Stock",

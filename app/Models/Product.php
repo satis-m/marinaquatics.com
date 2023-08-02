@@ -34,9 +34,9 @@ class Product extends Model implements HasMedia
         });
     }
 
-    public function subCategory()
+    public function category()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category', 'slug');
+        return $this->belongsTo(Category::class, 'sub_category', 'slug');
     }
 
     public function productImports()

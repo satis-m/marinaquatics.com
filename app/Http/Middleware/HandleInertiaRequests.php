@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\ApplicationInfo;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
@@ -109,6 +110,7 @@ class HandleInertiaRequests extends Middleware
             $this->rootView = 'siteApp';
 
             return array_merge(parent::share($request), [
+                'categories' => Category::all()->groupBy(['name'])->toArray(),
                 'app_info' => ApplicationInfo::first(),
                 'portal_menu' => fn () => $request->user('client')
                     ? json_decode(getPortalMenu('client'))
@@ -127,6 +129,5 @@ class HandleInertiaRequests extends Middleware
 
             ]);
         }
-
     }
 }

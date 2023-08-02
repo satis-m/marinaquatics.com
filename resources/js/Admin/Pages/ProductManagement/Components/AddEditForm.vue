@@ -242,7 +242,7 @@ import MultipleFileUploader from "@/Components/MultipleFileUploader.vue";
 import ContentEditor from "@/Components/ContentEditor.vue";
 //composable import
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 import {useObjectUtility} from "@/Composables/objectUtility.js";
 //variable declaration
 const {iPropsValue} = useInertiaPropsUtility();
@@ -401,7 +401,7 @@ const showForm = function (formType, data = "") {
 };
 const populateFormData = function (data) {
     Object.assign(formData, data);
-    sub_category.value = all_sub_category[data.sub_category.category];
+    sub_category.value = all_sub_category[data.category.name];
     const main_picture = getObjectRow(data.media, "collection_name", "main_picture");
     const alternative_picture = getObjectRow(
         data.media,
@@ -430,8 +430,8 @@ const populateFormData = function (data) {
     formData.main_picture = '';
     formData.alternative_picture = [];
 
-    formData.category = data.sub_category.category;
-    formData.sub_category = data.sub_category.slug;
+    formData.category = data.category.name;
+    formData.sub_category = data.category.slug;
 };
 const submitForm = async (formEl) => {
     if (!formEl) return;

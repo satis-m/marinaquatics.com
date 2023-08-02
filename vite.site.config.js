@@ -10,7 +10,7 @@ export default defineConfig({
     plugins: [
         splitVendorChunkPlugin(),
         laravel({
-            buildDirectory: "site/build",
+            buildDirectory: "web-site/build",
             input: [
                 'resources/js/site.js',
                 ],
@@ -30,6 +30,8 @@ export default defineConfig({
             '@': resolve(projectRootDir, 'resources/js/Site'),
             '@admin': resolve(projectRootDir, 'resources/js/Admin'),
             '~': resolve(projectRootDir, 'resources'),
+            'ziggy': resolve(projectRootDir,'vendor/tightenco/ziggy/src/js'),
+            'ziggy-vue': resolve(projectRootDir,'vendor/tightenco/ziggy/src/js/vue'),
         },
         extensions: ['.js', '.vue', '.json'],
     },

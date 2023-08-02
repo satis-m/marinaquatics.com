@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,24 +19,25 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Landing', [
+    $products = Product::query()
+//        ->where('sub_category', $subCategory)
+        ->orderBy('slug')
+        ->with('media', 'currentDiscount', 'category')
+        ->get();
+    //    dd($products);
+
+    return Inertia::render('Home/Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'products' => $products,
     ]);
 });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth.client', 'verified'])->name('dashboard');
-
-Route::get('/test', function () {
-
-    //    Inertia::setRootView('adminApp');
-
-    return Inertia::render('Test');
-});
 
 Route::middleware('auth.client')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,5 +46,8 @@ Route::middleware('auth.client')->group(function () {
 });
 
 Route::get('/product/list/{subCategory}', [ProductController::class, 'list'])->name('product');
+Route::get('/product/{slug}', [ProductController::class, 'view'])->name('product.view');
+Route::get('/product/category/{slug}', [ProductController::class, 'view'])->name('product.category.view');
 
 require __DIR__.'/auth.php';
+Route::fallback(fn () => abort('404'));

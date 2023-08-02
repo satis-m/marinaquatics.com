@@ -301,7 +301,7 @@
 <script setup>
 import {ref} from "@vue/runtime-core";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 const { iPropsValue } = useInertiaPropsUtility();

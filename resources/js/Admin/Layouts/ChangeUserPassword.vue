@@ -66,7 +66,7 @@ import {reactive, watch} from "@vue/runtime-core";
 import {useForm} from "@inertiajs/vue3";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 import {useStringUtility} from "@/Composables/stringUtility";
-import {useAppUtility} from "@/Composables/appUtiility";
+import {useAppUtility} from "@/Composables/appUtility";
 import {ref} from "vue";
 
 let { iPropsValue } = useInertiaPropsUtility();

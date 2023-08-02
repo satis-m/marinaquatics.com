@@ -1,7 +1,7 @@
 <script setup>
 import { Moon, Sunny } from "@element-plus/icons-vue";
 import { onMounted, ref } from "@vue/runtime-core";
-import { useAppUtility } from "@/Composables/appUtiility";
+import { useAppUtility } from "@/Composables/appUtility";
 const { isDarkScheme, setDarkScheme, setLightScheme, setDefaultScheme } =
     useAppUtility();
 const event = new Event("change-color-scheme");
