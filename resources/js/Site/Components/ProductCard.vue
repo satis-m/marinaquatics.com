@@ -4,13 +4,10 @@
                 <NavLink :href="appRoute('product.view',productInfo.slug)">
                     <img :src="getImageLink(productInfo.main_picture , 'thumbnail')"  alt="">
                 </NavLink>
-                <NavLink class="tpproduct__thumb-img" :href="appRoute('product.view',productInfo.slug)">
-                    <img :src="getImageLink(productInfo.main_picture , 'thumbnail')" alt="">
-                </NavLink>
 
             <div class="tpproduct__info bage">
                 <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">{{ productInfo.current_discount.discount }}%</span>
-<!--                <span class="tpproduct__info-hot bage__hot">HOT</span>-->
+                <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
             </div>
             <div class="tpproduct__shopping">
                 <button type="button" class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></button>
@@ -19,7 +16,7 @@
             </div>
         </div>
         <div class="tpproduct__content">
-             <span class="tpproduct__content-weight capitalize">
+             <span class="tpproduct__content_category capitalize">
              <a href="shop-details-4.html">{{ productInfo.category.name }}</a>,
              <a href="shop-details-4.html">{{ productInfo.category.sub_category }}</a>
              </span>
@@ -39,11 +36,11 @@
                 </div>
                     <div class="tpproduct__price" v-else >
                     <span>Rs {{ discountedPrice }}</span>
-                    <del>Rs {{ productInfo.price }}</del>
+                    <del>Rs {{ formattedPrice }}</del>
                 </div>
 
                 <div class="tpproduct__hover-btn d-flex justify-content-center" >
-                    <button type="button" :disabled="productInfo.available_quantity < 1" class="cart_button rounded-pill" :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'"><i class="fa fa-cart-plus"></i></button>
+                    <button type="button" :disabled="outOfStock" class="cart_button rounded-pill" data-bs-toggle="tooltip" data-bs-title="Default tooltip" :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'"><i class="icon-add_shopping_cart"></i></button>
                 </div>
             </div>
 
@@ -65,6 +62,15 @@ const props = defineProps({
 const discountedPrice = computed(() => {
     const { price, current_discount: { discount } } = props.productInfo;
     return +price - (+discount / 100) * +price;
+})
+const outOfStock = computed(() => {
+    return props.productInfo.available_quantity < 1
+});
+const formattedPrice = computed(() => {
+    if (typeof props.productInfo.price !== 'number') {
+        return props.productInfo.price;
+    }
+    return props.productInfo.price.toLocaleString();
 })
 
 </script>
@@ -97,10 +103,6 @@ const discountedPrice = computed(() => {
     -ms-transition: all 0.2s ease-out 0s;
     -o-transition: all 0.2s ease-out 0s;
     transition: all 0.2s ease-out 0s;
-    .fa-cart-plus
-    {
-        font-weight: 100;
-    }
     width: 60px;
     padding: 2px ;
     font-size: 22px;
@@ -114,6 +116,34 @@ const discountedPrice = computed(() => {
         color: var(--tp-common-white);
         background-color: #dc7984;
         cursor: not-allowed;
+    }
+}
+.tpproduct
+{
+    height: 470px;
+    .tpproduct__thumb
+    {
+        height: 335px;
+    }
+    .tpproduct__content{
+        height: calc( 470px - 335px );
+        display: flex;
+        flex-flow: column;
+        .tpproduct__content_category
+        {
+            font-size: 13px;
+            color: var(--tp-text-3);
+            display: block;
+            width: 100%;
+            height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tpproduct__title
+        {
+            height: 42px;
+        }
     }
 }
 </style>

@@ -6,57 +6,80 @@
     <!-- Scroll-top-end-->
     <!-- header-area-start -->
     <header>
-        <div id="header-sticky" class="header__main-area d-none d-lg-block">
+        <div id="header-sticky" class="header__main-area d-none d-xl-block">
             <div class="container-fluid">
                 <div class="p-relative">
                     <div class="row align-items-center">
                         <div class="col-xl-12">
                             <div class="header__menu main-menu text-center">
-                                <nav id="mobile-menu">
+                                <nav id="desktop-menu">
                                     <ul style="height: 50px; display: inline-flex;">
                                         <li>
                                             <div class="header__top-left social d-flex header__info">
-                                                <a href="#" class="mr-2"><i class="fab fa-facebook"></i></a>
-                                                <a href="#" class="mr-2"><i class="fab fa-youtube"></i></a>
-                                                <a href="#" class="mr-2"><i class="fab fa-instagram"></i></a>
-                                                <a href="#" class=""><i class="fab fa-whatsapp"></i></a>
+                                                <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
+                                                <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
+                                                <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
+                                                <a href="#" class="cstm-icon"><i
+                                                    class="icon-whatsapp d-flex justify-center"> <img class="icon"
+                                                                                                      src="/web-site/assets/img/icon/whatsapp.svg"
+                                                                                                      width="20px"
+                                                                                                      height="20px"/></i></a>
                                             </div>
                                         </li>
-                                        <li class="has-dropdown" >
+                                        <li class="has-dropdown">
                                             <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
                                             <ul class="sub-menu">
                                                 <li :key="key" v-for="(category ,key) in categories['Japanese Koi']">
-                                                    <NavLink :class="isActiveLink(category.slug) ? 'active' : '' " :href="appRoute('product.category.view',category.slug)">{{ category.sub_category}}</NavLink>
+                                                    <NavLink @click="handleMenuClick"
+                                                             :active="isActiveLink(category.slug)"
+                                                             :href="appRoute('product.category.view',category.slug)">
+                                                        {{ category.sub_category }}
+                                                    </NavLink>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="has-dropdown">
                                             <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
                                             <ul class="sub-menu">
-                                                <li :key="key" v-for="(category ,key) in categories['Exotic Livestock']">
-                                                    <NavLink :class="isActiveLink(category.slug) ? 'active' : '' " :href="appRoute('product.category.view',category.slug)">{{ category.sub_category}}</NavLink>
+                                                <li :key="key"
+                                                    v-for="(category ,key) in categories['Exotic Livestock']">
+                                                    <NavLink @click="handleMenuClick"
+                                                             :active="isActiveLink(category.slug)"
+                                                             :href="appRoute('product.category.view',category.slug)">
+                                                        {{ category.sub_category }}
+                                                    </NavLink>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="has-logo hidden xl:block">
                                             <div class="logo">
-                                                <a href="index.html"><img src="/web-site/assets/img/logo/logo.svg" alt="logo" >
-                                                </a>
+                                                <NavLink :href="appRoute('homepage')"><img
+                                                    src="/web-site/assets/img/logo/logo.svg" alt="logo">
+                                                </NavLink>
                                             </div>
                                         </li>
                                         <li class="has-dropdown">
                                             <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
                                             <ul class="sub-menu">
                                                 <li :key="key" v-for="(category ,key) in categories['Aquariums']">
-                                                    <NavLink :class="isActiveLink(category.slug) ? 'active' : '' " :href="appRoute('product.category.view',category.slug)">{{ category.sub_category}}</NavLink>
+                                                    <NavLink @click="handleMenuClick"
+                                                             :active="isActiveLink(category.slug)"
+                                                             :href="appRoute('product.category.view',category.slug)">
+                                                        {{ category.sub_category }}
+                                                    </NavLink>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="has-dropdown">
                                             <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
                                             <ul class="sub-menu">
-                                                <li :key="key" v-for="(category ,key) in categories['Aquarium Supplies']">
-                                                    <NavLink :class="isActiveLink(category.slug) ? 'active' : '' " :href="appRoute('product.category.view',category.slug)">{{ category.sub_category}}</NavLink>
+                                                <li :key="key"
+                                                    v-for="(category ,key) in categories['Aquarium Supplies']">
+                                                    <NavLink @click="handleMenuClick"
+                                                             :active="isActiveLink(category.slug)"
+                                                             :href="appRoute('product.category.view',category.slug)">
+                                                        {{ category.sub_category }}
+                                                    </NavLink>
                                                 </li>
                                             </ul>
                                         </li>
@@ -65,23 +88,26 @@
                                                 <div class="container">
                                                     <div class="row align-items-center">
                                                         <div class="col-lg-6 col-md-12">
-                                                            <div class="header__top-right d-flex align-items-center">
-                                                                <div class="header__info d-flex align-items-center">
-                                                                    <div class="header__info-search ml-5">
-                                                                        <button class="tp-search-toggle"><i class="icon-search"></i></button>
-                                                                    </div>
-                                                                    <div class="header__info-user ml-5">
-                                                                        <a href="log-in.html"><i class="icon-user"></i></a>
-                                                                    </div>
-                                                                    <div class="header__info-wishlist ml-5">
-                                                                        <a href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                                                    </div>
-                                                                    <div class="header__info-cart ml-5 tp-cart-toggle">
-                                                                        <button><i class="icon-cart icons"></i>
-                                                                            <span>5</span>
-                                                                        </button>
-                                                                    </div>
+                                                            <div
+                                                                class="header__info header__top-right d-flex align-items-center">
+
+                                                                <div class="header__info-search ml-5">
+                                                                    <button class="tp-search-toggle"><i
+                                                                        class="icon-search"></i></button>
                                                                 </div>
+                                                                <div class="header__info-user ml-5">
+                                                                    <a href="log-in.html"><i class="icon-user"></i></a>
+                                                                </div>
+                                                                <div class="header__info-wishlist ml-5">
+                                                                    <a href="wishlist.html"><i
+                                                                        class="icon-heart icons"></i></a>
+                                                                </div>
+                                                                <div class="header__info-cart ml-5 tp-cart-toggle">
+                                                                    <button><i class="icon-cart icons"></i>
+                                                                        <span>5</span>
+                                                                    </button>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -199,7 +225,7 @@
         </div>
         <div class="cartbody-overlay"></div>
         <!-- header-cart-end -->
-        <!-- mobile-menu-area -->
+        <!-- mobile-header-menu-area -->
         <div id="header-sticky-2" class="tpmobile-menu d-xl-none p-0">
             <div class="container-fluid">
                 <div class="row p-relative d-flex justify-content-between" style="height: 50px;">
@@ -208,11 +234,11 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-6 col-sm-4">
                         <div class="logo p-relative" style="z-index: 2;">
-                            <a href="index.html"><img src="/web-site/assets/img/logo/logo.svg" alt="logo"></a>
+                            <NavLink :href="appRoute('homepage')"><img src="/web-site/assets/img/logo/logo.svg" alt="logo"></NavLink>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-3 col-sm-5 float-right">
-                        <div class="header__info d-flex align-items-center">
+                    <div class="col-lg-4 col-md-4 col-3 col-sm-5 h-full float-right">
+                        <div class="header__info d-flex h-full justify-content-center align-items-center">
                             <div class="header__info-search ml-5 d-none d-sm-block">
                                 <button class="tp-search-toggle"><i class="icon-search"></i></button>
                             </div>
@@ -233,8 +259,8 @@
             </div>
         </div>
         <div class="body-overlay"></div>
-        <!-- mobile-menu-area-end -->
-        <!-- sidebar-menu-area -->
+        <!-- mobile-header-menu-area-end -->
+        <!-- mobile-side-menu-area -->
         <div class="tpsideinfo">
             <button class="tpsideinfo__close">Close<i class="fal fa-times ml-10"></i></button>
             <div class="tpsideinfo__search text-center pt-2 px-3">
@@ -244,79 +270,215 @@
                     <button><i class="icon-search"></i></button>
                 </form>
             </div>
-            <div class="mobile-menu"></div>
+            <div class="mean-container">
+                <div class="mean-bar">
+                    <a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a>
+                    <nav id="mobile-menu" class="mean-nav">
+                        <ul style="height: 50px; display: none;">
+                            <li>
+                                <div class="header__top-left social d-flex header__info">
+                                    <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
+                                    <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
+                                    <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
+                                    <a href="#" class="cstm-icon"><i class="icon-whatsapp d-flex justify-center">
+                                        <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="has-dropdown">
+                                <a class="mean-expand" href="#" style="font-size: 18px">
+                                    <i class="icon-plus"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
+                                <ul class="sub-menu" style="display: none;">
+                                    <li :key="key" v-for="(category ,key) in categories['Japanese Koi']">
+                                        <NavLink @click="handleMobileMenuClick"
+                                                 :active="isActiveLink(category.slug)"
+                                                 :href="appRoute('product.category.view',category.slug)">
+                                            {{ category.sub_category }}
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
+                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
+                                <ul class="sub-menu" style="display: none;">
+                                    <li :key="key" v-for="(category ,key) in categories['Exotic Livestock']">
+                                        <NavLink @click="handleMobileMenuClick"
+                                                 :active="isActiveLink(category.slug)"
+                                                 :href="appRoute('product.category.view',category.slug)">
+                                            {{ category.sub_category }}
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
+                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
+                                <ul class="sub-menu" style="display: none;">
+                                    <li :key="key" v-for="(category ,key) in categories['Aquariums']">
+                                        <NavLink @click="handleMobileMenuClick"
+                                                 :active="isActiveLink(category.slug)"
+                                                 :href="appRoute('product.category.view',category.slug)">
+                                            {{ category.sub_category }}
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
+                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
+                                <ul class="sub-menu" style="display: none;">
+                                    <li :key="key" v-for="(category ,key) in categories['Aquarium Supplies']">
+                                        <NavLink @click="handleMobileMenuClick"
+                                                 :active="isActiveLink(category.slug)"
+                                                 :href="appRoute('product.category.view',category.slug)">
+                                            {{ category.sub_category }}
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mean-last">
+                                <div class="header__top d-none d-xl-block">
+                                    <div class="container">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="header__info header__top-right d-flex align-items-center">
+                                                    <div class="header__info-search ml-5">
+                                                        <button class="tp-search-toggle"><i class="icon-search"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="header__info-user ml-5"><a href="log-in.html"><i
+                                                        class="icon-user"></i></a></div>
+                                                    <div class="header__info-wishlist ml-5"><a href="wishlist.html"><i
+                                                        class="icon-heart icons"></i></a></div>
+                                                    <div class="header__info-cart ml-5 tp-cart-toggle">
+                                                        <button><i class="icon-cart icons"></i><span>5</span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
             <div class="tpsideinfo__wishlist-link">
                 <a href="wishlist.html" target="_parent"><i class="icon-heart"></i> Wishlist</a>
             </div>
             <div class="tpsideinfo__account-link">
-                <a href="log-in.html"><i class="icon-user icons"></i> Login / Register</a>
+                <a href="appRoute('client.login')"><i class="icon-user icons"></i> Login / Register</a>
             </div>
         </div>
-        <!-- sidebar-menu-area-end -->
+        <!-- mobile-side-menu-area-end -->
     </header>
 </template>
 <script setup>
-import {computed, ref} from "@vue/runtime-core";
+import {computed, onMounted, ref} from "@vue/runtime-core";
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
-const {getImageLink} = useAppUtility();
 
+const {getImageLink} = useAppUtility();
+const handleMenuClick = (event) => {
+    console.log(event.target);
+    const list = document.querySelectorAll('#desktop-menu ul li.has-dropdown .sub-menu li a');
+    list.forEach((element) => {
+        element.classList.remove("active");
+    })
+    event.target.classList.add('active');
+
+}
+const handleMobileMenuClick = (event) => {
+    console.log(event.target);
+    const list = document.querySelectorAll('#mobile-menu ul li.has-dropdown .sub-menu li a');
+    list.forEach((element) => {
+        console.log(element)
+        element.classList.remove("active");
+    })
+    event.target.classList.add('active');
+    $(".tpsideinfo").removeClass("tp-sidebar-opened");
+    $(".body-overlay").removeClass("opened");
+
+}
+
+const navKey = ref(1);
 const {iPropsValue} = useInertiaPropsUtility();
 const productInfo = iPropsValue("productInfo");
 const categories = iPropsValue("categories");
-
 const isActiveLink = (sub_category) => {
-    if(productInfo != undefined && productInfo.sub_category === sub_category )
-    {
+    if (route().current('product.category.view', {slug: sub_category}) || (productInfo != undefined && productInfo.sub_category === sub_category)) {
         return true;
     }
     return false;
 }
 </script>
 <style lang="scss">
-.has-logo
-{
-    .logo
-    {
+.has-logo {
+    .logo {
         margin-top: 20px;
         z-index: 2;
     }
 }
-.logo
-{
-    img
-    {
-        max-width:250px;
+
+.logo {
+    img {
+        max-width: 250px;
     }
 }
-#mobile-menu
-{
-    .social
-    {
-        padding: 0 12px ;
+
+#desktop-menu {
+    .social {
+        padding: 0 12px;
+        align-items: baseline;
     }
-    .has-dropdown{
-        padding: 0 15px;
-        &:has(a.active)
-        {
+
+    .has-dropdown {
+        padding: 0 10px;
+
+        &:has(a.active) {
             background: var(--tp-heading-primary);
         }
 
     }
 }
-.mean-nav
-{
-    .mobile-expand
-    {
-        padding-left:12px ;
+
+.mean-nav {
+    .mobile-expand {
+        padding-left: 12px;
     }
-    .has-dropdown{
-        &:has(a.active)
-        {
-            color: #fff;
-            background: var(--tp-heading-primary);
+
+    .has-dropdown {
+        &:has(a.active) {
+            a.mobile-expand {
+                color: #fff;
+                background: var(--tp-heading-primary);
+            }
         }
 
+        ul.sub-menu {
+            a.active {
+                color: #fff;
+                background: var(--tp-heading-primary);
+            }
+        }
     }
+}
+
+a.cstm-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.main-menu ul li a {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

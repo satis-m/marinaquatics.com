@@ -28,8 +28,8 @@ class ProductController extends Controller
     public function index()
     {
         $categories = File::get(base_path('/storage/required/Category.json'));
-        $categries = json_decode($categories);
-        $subCatoegories = Category::all()->groupBy(['name'])->toArray();
+        $categories = json_decode($categories);
+        $subCategories = Category::all()->groupBy(['name'])->toArray();
         $products = Product::with(['category', 'comboOffer'])->latest()->get();
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();

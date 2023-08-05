@@ -110,8 +110,8 @@ const isAcceptableFile = (fileType) => {
         .split(","); //[("jpg", "jpeg", "png")];
     let allowedType = [];
 
-    const imageExtensions = ["jpg", "jpeg", "png", "svg"];
-    const videoExtensions = ["mp4", "mpeg"];
+    const imageExtensions = ["jpg", "jpeg", "png", "svg",'webp'];
+    const videoExtensions = ["mp4", "mpeg","webm"];
     const audioExtensions = ["mp3", "m4a"];
     const fileExtensions = ["pdf", "doc", "xls"];
     const zipExtensions = ["zip", "7zip", "rar"];

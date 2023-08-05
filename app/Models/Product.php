@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,7 +31,18 @@ class Product extends Model implements HasMedia
             $product->slug = static::generateUniqueSlug($product->name);
         });
         static::created(function ($product) {
-            ComboOffer::create(['product' => $product->slug]);
+            ComboOffer::create([
+                'product' => $product->slug,
+                'name_1' => 'Standard',
+                'quantity_1' => 1,
+                'price_1' => $product->price,
+            ]);
+        });
+        static::updated(function ($product) {
+            ComboOffer::where('product', $product->slug)
+                ->update([
+                    'price_1' => $product->price,
+                ]);
         });
     }
 
@@ -67,9 +79,15 @@ class Product extends Model implements HasMedia
     {
 
         if ($this->getFirstMedia('main_picture') != null) {
-            $thumb = $main = $preview = '';
+            $thumb = $main = $blur = $preview = '';
             $media = $this->getFirstMedia('main_picture');
 
+            if ($media->hasGeneratedConversion('blur')) {
+                $fullPath = $media->getPath('blur');
+                if (file_exists($fullPath)) {
+                    $blur = $media->getUrl('blur');
+                }
+            }
             if ($media->hasGeneratedConversion('thumb')) {
                 $fullPath = $media->getPath('thumb');
                 if (file_exists($fullPath)) {
@@ -88,6 +106,7 @@ class Product extends Model implements HasMedia
             }
 
             return [
+                'blur' => $blur,
                 'thumbnail' => $thumb,
                 'preview' => $preview,
                 'original' => $main,
@@ -104,7 +123,13 @@ class Product extends Model implements HasMedia
         if ($this->getMedia('alternative_picture')->count()) {
             return $this->getMedia('alternative_picture')
                 ->map(function (Media $media) {
-                    $thumb = $pic = $preview = '';
+                    $thumb = $pic = $blur = $preview = '';
+                    if ($media->hasGeneratedConversion('blur')) {
+                        $fullPath = $media->getPath('blur');
+                        if (file_exists($fullPath)) {
+                            $blur = $media->getUrl('blur');
+                        }
+                    }
                     if ($media->hasGeneratedConversion('thumb')) {
                         $fullPath = $media->getPath('thumb');
                         if (file_exists($fullPath)) {
@@ -124,6 +149,7 @@ class Product extends Model implements HasMedia
                     }
 
                     return [
+                        'blur' => $blur,
                         'thumbnail' => $thumb,
                         'original' => $pic,
                         'preview' => $preview,
@@ -139,20 +165,27 @@ class Product extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('main_picture')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png', 'image/webp'])
             ->singleFile();
         $this->addMediaCollection('alternative_picture')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png', 'image/webp']);
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
+            ->format(Manipulations::FORMAT_WEBP)
             ->width(368)
             ->height(232)
             ->sharpen(10);
 
+        $this->addMediaConversion('blur')
+            ->format(Manipulations::FORMAT_WEBP)
+            ->width(30)
+            ->blur(2);
+
         $this->addMediaConversion('medium')
+            ->format(Manipulations::FORMAT_WEBP)
             ->width(600)
             ->height(600);
     }

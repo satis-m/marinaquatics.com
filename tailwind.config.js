@@ -30,9 +30,9 @@ export default {
             ...colors,
         },
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+            // fontFamily: {
+            //     sans: ['Roboto Condensed', ...defaultTheme.fontFamily.sans],
+            // },
             spacing: {
                 '128': '32rem',
                 '144': '36rem',

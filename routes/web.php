@@ -22,7 +22,7 @@ Route::get('/', function () {
     $products = Product::query()
 //        ->where('sub_category', $subCategory)
         ->orderBy('slug')
-        ->with('media', 'currentDiscount', 'category')
+        ->with('currentDiscount', 'category')
         ->get();
     //    dd($products);
 
@@ -33,7 +33,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'products' => $products,
     ]);
-});
+})->name('homepage');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -47,7 +47,7 @@ Route::middleware('auth.client')->group(function () {
 
 Route::get('/product/list/{subCategory}', [ProductController::class, 'list'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'view'])->name('product.view');
-Route::get('/product/category/{slug}', [ProductController::class, 'view'])->name('product.category.view');
+Route::get('/product/category/{slug}', [ProductController::class, 'categoryView'])->name('product.category.view');
 
 require __DIR__.'/auth.php';
 Route::fallback(fn () => abort('404'));

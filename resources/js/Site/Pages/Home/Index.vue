@@ -48,7 +48,7 @@ import Slider from "./Components/Slider.vue"
 import Banner from "./Components/Banner.vue"
 import ProductCard from "../../Components/ProductCard.vue"
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
-import {ref, watch} from "@vue/runtime-core";
+import {ref, watch,onMounted} from "@vue/runtime-core";
 const {iPropsValue} = useInertiaPropsUtility();
 const productList = ref(iPropsValue("products"));
 watch(
@@ -57,4 +57,40 @@ watch(
         productList.value = iPropsValue("products");
     }
 );
+onMounted(()=>{
+    const tpproductswiper = new Swiper('.tpproduct-active', {
+        // Optional parameters
+        loop: true,
+        slidesPerView: 4,
+        spaceBetween: 20,
+        observer: true,
+        observeParents: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: true,
+        },
+        breakpoints: {
+            '1200': {
+                slidesPerView: 4,
+            },
+            '992': {
+                slidesPerView: 4,
+            },
+            '768': {
+                slidesPerView: 3,
+            },
+            '576': {
+                slidesPerView: 2,
+            },
+            '0': {
+                slidesPerView: 1,
+            },
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.tpproduct-btn__nxt',
+            prevEl: '.tpproduct-btn__prv',
+        },
+    });
+})
 </script>

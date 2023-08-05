@@ -13,7 +13,7 @@ class ProductController extends Controller
         try {
             $productInfo = Product::query()
                 ->where('slug', $slug)
-                ->with('media', 'currentDiscount', 'category')
+                ->with('currentDiscount', 'category', 'comboOffer')
                 ->firstOrFail();
 
             return Inertia::render('Product/SingleView/Index',
@@ -43,5 +43,27 @@ class ProductController extends Controller
                 'isLoggedIn' => auth()->user(),
             ]);
         dd($products);
+    }
+
+    public function categoryView($slug)
+    {
+
+        try {
+            $query = Product::query();
+            //                ->where('sub_category', $slug)
+            $products = $query->with('currentDiscount', 'category')
+                ->paginate(2)
+                ->appends(request()->query());
+
+            return Inertia::render('Product/CategoryView/Index',
+                [
+                    'products' => $products,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            // Product not found, handle the exception or return an error response
+            // For example:
+            abort(404, 'Product not found');
+        }
     }
 }

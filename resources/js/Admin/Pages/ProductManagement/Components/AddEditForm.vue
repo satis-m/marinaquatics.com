@@ -192,7 +192,7 @@
                         <el-form-item label="Main Picture" prop="main_picture">
                             <SingleFileUploader
                                 ref="refSingleImageUpload"
-                                :acceptExtension="'.jpg, .jpeg'"
+                                :acceptExtension="'.jpg, .jpeg, .png, .webp'"
                                 :acceptSize="2048"
                                 :listType="'picture-card'"
                                 @uplodable="uplodableMainPicture"
@@ -206,7 +206,7 @@
                         <el-form-item label="Alternative Picture" prop="alternative_picture">
                             <MultipleFileUploader
                                 ref="refMultipleImageUpload"
-                                :acceptExtension="'.jpg, .jpeg'"
+                                :acceptExtension="'.jpg, .jpeg, .jpg, .jpeg, .png, .webp'"
                                 :acceptSize="2048"
                                 :listType="'picture-card'"
                                 @uplodable="uplodableAlternatePicture"

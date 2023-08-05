@@ -14,7 +14,7 @@ const props = defineProps({
 
 const classes = computed(() =>
     props.active
-        ? ""
+        ? "active"
         : "");
 </script>
 

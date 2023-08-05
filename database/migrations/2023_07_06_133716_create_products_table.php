@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('price');
             $table->integer('available_quantity')->default('0');
             $table->boolean('publish')->default('0');
+            $table->boolean('featured')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });

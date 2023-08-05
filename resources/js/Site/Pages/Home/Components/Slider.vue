@@ -102,6 +102,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tpslider__arrow d-none  d-xxl-block">
                     <button class="tpsliderarrow tpslider__arrow-prv tpslider__prv6">
                         <i class="icon-chevron-left"></i>
@@ -116,6 +117,31 @@
     </section>
 </template>
 <script setup>
+import {ref, watch,onMounted} from "@vue/runtime-core";
+onMounted(()=>{
+    const homeSlider = new Swiper('.tp-slider6', {
+        // Optional parameters
+        loop: true,
+        slidesPerView: 1,
+        observer: true,
+        observeParents: true,
+        fade: true,
+        effect: "fade",
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: true,
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.tpslider__nxt6',
+            prevEl: '.tpslider__prv6',
+        },
+        pagination: {
+            el: ".slider-pagination-6",
+            clickable: true,
+        },
+    });
+})
 </script>
 <style scoped>
 .swiper-container

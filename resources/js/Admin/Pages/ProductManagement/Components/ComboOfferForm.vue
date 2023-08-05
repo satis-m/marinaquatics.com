@@ -31,6 +31,7 @@
                                 v-model="formData.name_1"
                                 placeholder="Name"
                                 autocomplete="off"
+                                disabled
                             />
                         </el-form-item>
                     </el-col>
@@ -44,6 +45,7 @@
                                 v-model="formData.quantity_1"
                                 placeholder="Quantity"
                                 autocomplete="off"
+                                disabled
                             />
                         </el-form-item>
                     </el-col>
@@ -57,6 +59,7 @@
                                 v-model="formData.price_1"
                                 placeholder="Price"
                                 autocomplete="off"
+                                disabled
                             />
                         </el-form-item>
                     </el-col>
@@ -198,7 +201,7 @@ const showForm = function (data) {
     FormVisible.value = true;
     productName.value = data.name;
     Object.assign(formData, data);
-    formData.product = data.slug;
+    formData.product = data.product;
 };
 const closeForm = () => {
     FormVisible.value = false;
@@ -212,7 +215,6 @@ const submitForm = () => {
         icon: markRaw(Edit),
         callback: (action) => {
             if (action == "confirm") {
-                console.log(formData.product)
                 formData.patch(route("product-offer.update", [formData.product]), {
                     preserveScroll: true,
                     onSuccess: () => {
@@ -238,4 +240,5 @@ defineExpose({
         }
     }
 }
+
 </style>

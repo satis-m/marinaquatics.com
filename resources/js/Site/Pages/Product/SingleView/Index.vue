@@ -23,219 +23,101 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-xs-12">
-                    <div class="tpdetails__area mr-60 pb-30">
+                    <div class="tpdetails__area  pb-30">
                         <div class="tpdetails__product mb-30">
                             <div class="tpdetails__title-box">
                                 <h3 class="tpdetails__title">{{ productInfo.name }}</h3>
                                 <ul class="tpdetails__brand">
-                                    <li> Brands: <a href="#">Tetra</a> </li>
-                                    <li>
-                                        <i class="icon-star_outline1"></i>
-                                        <i class="icon-star_outline1"></i>
-                                        <i class="icon-star_outline1"></i>
-                                        <i class="icon-star_outline1"></i>
-                                        <i class="icon-star_outline1"></i>
-                                        <b>02 Reviews</b>
-                                    </li>
-                                    <li>
-                                        SKU: <span>ORFARMVE005</span>
-                                    </li>
+<!--                                    <li> Brands: {{ productInfo.brand }} </li>-->
+<!--                                    <li>-->
+<!--                                        <i class="icon-star_outline1"></i>-->
+<!--                                        <i class="icon-star_outline1"></i>-->
+<!--                                        <i class="icon-star_outline1"></i>-->
+<!--                                        <i class="icon-star_outline1"></i>-->
+<!--                                        <i class="icon-star_outline1"></i>-->
+<!--                                        <b>02 Reviews</b>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        SKU: <span>ORFARMVE005</span>-->
+<!--                                    </li>-->
                                 </ul>
                             </div>
                             <div class="tpdetails__box">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="tpproduct-details__nab">
-                                            <div class="tab-content" id="nav-tabContents">
-                                                <div class="tab-pane fade show active w-img" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                                                    <img src="/web-site/assets/img/product/snack.jpg" alt="">
+                                            <div class="tab-content product-image-preview" id="nav-tabContents">
+                                                <div class="tab-pane fade show active w-img" :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel" :aria-labelledby="'nav-image-'+productInfo.main_picture?.id" tabindex="0">
+                                                    <img v-if="mediaCheck('sm')"  :src="getImageLink(productInfo.main_picture , 'thumbnail')" :alt="productInfo.main_picture">
+                                                    <img v-else :src="getImageLink(productInfo.main_picture , 'preview')" :alt="productInfo.main_picture?.name">
                                                     <div class="tpproduct__info bage">
                                                         <span class="tpproduct__info-hot bage__hot">HOT</span>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade w-img" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                                                    <img src="/web-site/assets/img/product/snack1.jpg" alt="">
+                                                <div :key="key" v-for="(alternativePicture , key) in productInfo.alternative_picture" class="tab-pane fade w-img" :id="'preview-image-'+alternativePicture?.id" role="tabpanel" :aria-labelledby="'nav-image-'+alternativePicture?.id" tabindex="0">
+                                                    <img v-if="mediaCheck('sm')"  :src="alternativePicture.thumbnail" :alt="alternativePicture.name">
+                                                    <img v-else :src="alternativePicture.preview" :alt="alternativePicture.name">
                                                     <div class="tpproduct__info bage">
                                                         <span class="tpproduct__info-discount bage__discount">-90%</span>
                                                         <span class="tpproduct__info-hot bage__hot">HOT</span>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade w-img" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                                                    <img src="/web-site/assets/img/product/snack2.jpg" alt="">
-                                                    <div class="tpproduct__info bage">
-                                                        <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <nav>
                                                 <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
-                                                        <img src="/web-site/assets/img/product/snack.jpg" alt="">
+                                                    <button class="nav-link active" :id="'nav-image-'+productInfo.main_picture?.id" data-bs-toggle="tab" :data-bs-target="'#preview-image-'+productInfo.main_picture?.id" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                                                        <img :src="getImageLink(productInfo.main_picture , 'thumbnail')" :alt="productInfo.main_picture">
                                                     </button>
-                                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
-                                                        <img src="/web-site/assets/img/product/snack1.jpg" alt="">
-                                                    </button>
-                                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
-                                                        <img src="/web-site/assets/img/product/snack2.jpg" alt="">
+                                                    <button :key="key" v-for="(alternativePicture , key) in productInfo.alternative_picture" class="nav-link" :id="'nav-image-'+alternativePicture.id" data-bs-toggle="tab" :data-bs-target="'#preview-image-'+alternativePicture.id" type="button" role="tab" :aria-controls="'preview-image-'+alternativePicture.id" aria-selected="false">
+                                                        <img :src="alternativePicture.thumbnail" alt="">
                                                     </button>
                                                 </div>
                                             </nav>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="navigation-tab nav-link active" id="pills-one-tab" data-bs-toggle="pill" data-bs-target="#pills-one" type="button" role="tab" aria-controls="pills-one" aria-selected="true">One Piece</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="navigation-tab nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two" type="button" role="tab" aria-controls="pills-two" aria-selected="false">Pair of 2</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="navigation-tab nav-link" id="pills-three-tab" data-bs-toggle="pill" data-bs-target="#pills-three" type="button" role="tab" aria-controls="pills-three" aria-selected="false">Pack of 3</button>
-                                            </li>
+                                    <div class="col-lg-6 mt-10 lg:mt-0">
+                                        <ul class="combo-offer mb-3  md:justify-start justify-center" >
+                                            <button v-if="productInfo.combo_offer.name_1 !='' && productInfo.combo_offer.name_1 != null  " class="navigation-tab" :class="isOfferSelected(1)" :disabled="!checkStockByOffer(1)" @click="selectOffer(1)"  type="button" >{{ productInfo.combo_offer.name_1 }}</button>
+                                            <button v-if="productInfo.combo_offer.name_2 !='' && productInfo.combo_offer.name_2 != null  " class="navigation-tab" :class="isOfferSelected(2)" :disabled="!checkStockByOffer(2)" @click="selectOffer(2)" type="button" >{{ productInfo.combo_offer.name_2 }}</button>
+                                            <button v-if="productInfo.combo_offer.name_3 !='' && productInfo.combo_offer.name_3 != null  " class="navigation-tab" :class="isOfferSelected(3)" :disabled="!checkStockByOffer(3)" @click="selectOffer(3)" type="button" >{{ productInfo.combo_offer.name_3 }}</button>
                                         </ul>
                                         <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-one" role="tabpanel" aria-labelledby="pills-one-tab" tabindex="0"><div class="product__details">
+                                            <div class="tab-pane fade show active" >
+                                                <div class="product__details">
                                                 <div class="product__details-price-box">
-                                                    <h5 class="product__details-price">Rs 56.00</h5>
-                                                    <ul class="product__details-info-list">
-                                                        <li><b>Brand</b> : Tetra</li>
-                                                        <li><b>Flavor</b> : Seafood</li>
-                                                        <li><b>Age Range (Description)</b> :  All Life Stages</li>
-                                                        <li><b>Target Species</b> :  Fish</li>
-                                                        <li><b>Item Form</b> : Stick</li>
-                                                    </ul>
+                                                    <h5 class="product__details-price">Rs {{ formattedPrice(productPrice)}} </h5>
+                                                    <div v-html="productInfo.product_info" class="product-info"></div>
                                                 </div>
                                                 <div class="product__details-cart">
-                                                    <div class="product__details-quantity d-flex align-items-center mb-15">
+                                                <div class="product__details-quantity d-flex align-items-center mb-15">
                                                         <b>Qty:</b>
-                                                        <div class="product__details-count mr-10">
-                                                            <span class="cart-minus"><i class="far fa-minus"></i></span>
-                                                            <input class="tp-cart-input" type="text" value="1">
-                                                            <span class="cart-plus"><i class="far fa-plus"></i></span>
-                                                        </div>
-                                                        <div class="product__details-btn">
-                                                            <a href="cart.html">add to cart</a>
+                                                        <CartInput @limitReach="handleLimitReach" :max="maxCartInput" ref="refCartInput" @updateCount="updateCount" :disable="outOfStock"/>
+                                                        <div class="ml-6 add-to-cart-btn">
+                                                            <a href="cart.html"><i class="icon-add_shopping_cart"></i> add to cart</a>
                                                         </div>
                                                     </div>
                                                     <ul class="product__details-check">
                                                         <li>
                                                             <a href="#"><i class="icon-heart icons"></i> add to wishlist</a>
                                                         </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-layers"></i> Add to Compare</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-share-2"></i> Share</a>
-                                                        </li>
+<!--                                                        <li>-->
+<!--                                                            <a href="#"><i class="icon-layers"></i> Add to Compare</a>-->
+<!--                                                        </li>-->
+<!--                                                        <li>-->
+<!--                                                            <a href="#"><i class="icon-share-2"></i> Share</a>-->
+<!--                                                        </li>-->
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-stock mb-25">
                                                     <ul>
-                                                        <li>Availability: <i>54 Instock</i></li>
-                                                        <li>Categories: <span>Vegetables, Meat & Eggs, Fruit Drink </span></li>
-                                                        <li>Tags: <span>Chicken, Natural, Organic</span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-payment text-center">
-                                                    <img src="/web-site/assets/img/shape/payment-2.png" alt="">
-                                                    <span>Guarantee safe & Secure checkout</span>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab" tabindex="0"><div class="product__details">
-                                                <div class="product__details-price-box">
-                                                    <h5 class="product__details-price">Rs 100.00</h5>
-                                                    <ul class="product__details-info-list">
-                                                        <li><b>Brand</b> : Tetra</li>
-                                                        <li><b>Flavor</b> : Seafood</li>
-                                                        <li><b>Age Range (Description)</b> :  All Life Stages</li>
-                                                        <li><b>Target Species</b> :  Fish</li>
-                                                        <li><b>Item Form</b> : Stick</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-cart">
-                                                    <div class="product__details-quantity d-flex align-items-center mb-15">
-                                                        <b>Qty:</b>
-                                                        <div class="product__details-count mr-10">
-                                                            <span class="cart-minus"><i class="far fa-minus"></i></span>
-                                                            <input class="tp-cart-input" type="text" value="1">
-                                                            <span class="cart-plus"><i class="far fa-plus"></i></span>
-                                                        </div>
-                                                        <div class="product__details-btn">
-                                                            <a href="cart.html">add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="product__details-check">
-                                                        <li>
-                                                            <a href="#"><i class="icon-heart icons"></i> add to wishlist</a>
+                                                        <li>Availability:
+                                                            <i v-if="outOfStock" class="out-of-stock">Out of stock</i>
+                                                            <i v-else class="in-stock">{{productInfo.available_quantity}} Instock</i>
                                                         </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-layers"></i> Add to Compare</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-share-2"></i> Share</a>
-                                                        </li>
+                                                        <li>Categories: <span>{{ productInfo.category.name }}, {{ productInfo.category.sub_category }} </span></li>
+                                                        <li>Tags: <span class="badge bg-[#12b3ca] ml-2 capitalize" v-for="tag in productInfo.tag" v-text="tag"> </span></li>
                                                     </ul>
-                                                </div>
-                                                <div class="product__details-stock mb-25">
-                                                    <ul>
-                                                        <li>Availability: <i>54 Instock</i></li>
-                                                        <li>Categories: <span>Vegetables, Meat & Eggs, Fruit Drink </span></li>
-                                                        <li>Tags: <span>Chicken, Natural, Organic</span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-payment text-center">
-                                                    <img src="/web-site/assets/img/shape/payment-2.png" alt="">
-                                                    <span>Guarantee safe & Secure checkout</span>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab" tabindex="0"><div class="product__details">
-                                                <div class="product__details-price-box">
-                                                    <h5 class="product__details-price">Rs 150.00</h5>
-                                                    <ul class="product__details-info-list">
-                                                        <li><b>Brand</b> : Tetra</li>
-                                                        <li><b>Flavor</b> : Seafood</li>
-                                                        <li><b>Age Range (Description)</b> :  All Life Stages</li>
-                                                        <li><b>Target Species</b> :  Fish</li>
-                                                        <li><b>Item Form</b> : Stick</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-cart">
-                                                    <div class="product__details-quantity d-flex align-items-center mb-15">
-                                                        <b>Qty:</b>
-                                                        <div class="product__details-count mr-10">
-                                                            <span class="cart-minus"><i class="far fa-minus"></i></span>
-                                                            <input class="tp-cart-input" type="text" value="1">
-                                                            <span class="cart-plus"><i class="far fa-plus"></i></span>
-                                                        </div>
-                                                        <div class="product__details-btn">
-                                                            <a href="cart.html">add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="product__details-check">
-                                                        <li>
-                                                            <a href="#"><i class="icon-heart icons"></i> add to wishlist</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-layers"></i> Add to Compare</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="icon-share-2"></i> Share</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-stock mb-25">
-                                                    <ul>
-                                                        <li>Availability: <i>54 Instock</i></li>
-                                                        <li>Categories: <span>Vegetables, Meat & Eggs, Fruit Drink </span></li>
-                                                        <li>Tags: <span>Chicken, Natural, Organic</span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__details-payment text-center">
-                                                    <img src="/web-site/assets/img/shape/payment-2.png" alt="">
-                                                    <span>Guarantee safe & Secure checkout</span>
                                                 </div>
                                             </div>
                                             </div>
@@ -246,145 +128,16 @@
                             </div>
                         </div>
                         <div class="tpdescription__box">
-                            <div class="tpdescription__box-center d-flex align-items-center justify-content-center">
+                            <div class="tpdescription__box-center d-flex align-items-center justify-content-start">
                                 <nav>
                                     <div class="nav nav-tabs"  role="tablist">
-                                        <button class="nav-link active" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Product Description</button>
-                                        <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information" aria-selected="false">ADDITIONAL INFORMATION</button>
-                                        <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews (1)</button>
+                                        <button class="nav-link active m-0 py-2 px-0" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Product Description</button>
                                     </div>
                                 </nav>
                             </div>
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab" tabindex="0">
-                                    <div class="tpdescription__content">
-                                        <p>Designed by Puik in 1949 as one of the first models created especially for Carl Hansen & Son, and produced since 1950. The last of a series of chairs wegner designed based on inspiration from antique chinese armchairs. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia eserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, aque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                                    </div>
-                                    <div class="tpdescription__product-wrapper mt-30 mb-30 d-flex justify-content-between align-items-center">
-                                        <div class="tpdescription__product-info">
-                                            <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
-                                            <ul class="tpdescription__product-info">
-                                                <li>Material: Plastic, Wood</li>
-                                                <li>Legs: Lacquered oak and black painted oak</li>
-                                                <li>Dimensions and Weight: Height: 80 cm, Weight: 5.3 kg</li>
-                                                <li>Length: 48cm</li>
-                                                <li>Depth: 52 cm</li>
-                                            </ul>
-                                            <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut <br> fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem <br> sequi nesciunt.</p>
-                                        </div>
-                                        <div class="tpdescription__product-thumb">
-                                            <img src="/web-site/assets/img/product/product-single-1.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="tpdescription__video">
-                                        <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
-                                        <p>Form is an armless modern chair with a minimalistic expression. With a simple and contemporary design Form Chair has a soft and welcoming ilhouette and a distinctly residential look. The legs appear almost as if they are growing out of the shell. This gives the design flexibility and makes it possible to vary the frame. Unika is a mouth blown series of small, glass pendant lamps, originally designed for the Restaurant Gronbech. Est eum itaque maiores qui blanditiis architecto. Eligendi saepe rem ut. Cumque quia earum eligendi. </p>
-                                        <div class="tpdescription__video-wrapper p-relative mt-30 mb-35 w-img">
-                                            <img src="/web-site/assets/img/product/product-video1.jpg" alt="">
-                                            <div class="tpvideo__video-btn">
-                                                <a class="tpvideo__video-icon popup-video" href="https://www.youtube.com/watch?v=rLrV5Tel7zw">
-                                                    <i>
-                                                        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M15.6499 6.58886L15.651 6.58953C17.8499 7.85553 18.7829 9.42511 18.7829 10.8432C18.7829 12.2613 17.8499 13.8308 15.651 15.0968L15.6499 15.0975L12.0218 17.195L8.3948 19.2919C8.3946 19.292 8.3944 19.2921 8.3942 19.2922C6.19546 20.558 4.36817 20.5794 3.13833 19.8697C1.9087 19.1602 1.01562 17.5694 1.01562 15.0382V10.8432V6.64818C1.01562 4.10132 1.90954 2.51221 3.13721 1.80666C4.36609 1.1004 6.1936 1.12735 8.3942 2.39416C8.3944 2.39428 8.3946 2.3944 8.3948 2.39451L12.0218 4.49135L15.6499 6.58886Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <h5 class="tpdescription__product-title">Product supreme quality</h5>
-                                        <p>Form is an armless modern chair with a minimalistic expression. With a simple and contemporary design Form Chair has a soft and welcoming ilhouette and a distinctly residential look. The legs appear almost as if they are growing out of the shell. This gives the design flexibility and makes it possible to vary the frame. Unika is a mouth blown series of small, glass pendant lamps, originally designed for the Restaurant Gronbech. Est eum itaque maiores qui blanditiis architecto. Eligendi saepe rem ut. Cumque quia earum eligendi. </p>
-                                        <p>Duis semper erat mauris, sed egestas purus commodo. Cras imperdiet est in nunc tristique lacinia. Nullam aliquam mauris eu accumsan tincidunt. Suspendisse velit ex, aliquet vel ornare vel, dignissim a tortor. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
-                                    <div class="tpdescription__content">
-                                        <p>Designed by Puik in 1949 as one of the first models created especially for Carl Hansen & Son, and produced since 1950. The last of a series of chairs wegner designed based on inspiration from antique chinese armchairs. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia eserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, aque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                                    </div>
-                                    <div class="tpdescription__product-wrapper mt-30 mb-30 d-flex justify-content-between align-items-center">
-                                        <div class="tpdescription__product-info">
-                                            <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
-                                            <ul class="tpdescription__product-info">
-                                                <li>Material: Plastic, Wood</li>
-                                                <li>Legs: Lacquered oak and black painted oak</li>
-                                                <li>Dimensions and Weight: Height: 80 cm, Weight: 5.3 kg</li>
-                                                <li>Length: 48cm</li>
-                                                <li>Depth: 52 cm</li>
-                                            </ul>
-                                            <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut <br> fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem <br> sequi nesciunt.</p>
-                                        </div>
-                                        <div class="tpdescription__product-thumb">
-                                            <img src="/web-site/assets/img/product/product-single-1.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="tpdescription__video">
-                                        <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
-                                        <p>Form is an armless modern chair with a minimalistic expression. With a simple and contemporary design Form Chair has a soft and welcoming ilhouette and a distinctly residential look. The legs appear almost as if they are growing out of the shell. This gives the design flexibility and makes it possible to vary the frame. Unika is a mouth blown series of small, glass pendant lamps, originally designed for the Restaurant Gronbech. Est eum itaque maiores qui blanditiis architecto. Eligendi saepe rem ut. Cumque quia earum eligendi. </p>
-                                    </div>
-                                </div>
+                                <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab" tabindex="0" v-html="productInfo.description">
 
-
-
-
-                                <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
-                                    <div class="tpreview__wrapper">
-                                        <h4 class="tpreview__wrapper-title">1 review for Cheap and delicious fresh chicken</h4>
-                                        <div class="tpreview__comment">
-                                            <div class="tpreview__comment-img mr-20">
-                                                <img src="/web-site/assets/img/testimonial/test-avata-1.png" alt="">
-                                            </div>
-                                            <div class="tpreview__comment-text">
-                                                <div class="tpreview__comment-autor-info d-flex align-items-center justify-content-between">
-                                                    <div class="tpreview__comment-author">
-                                                        <span>admin</span>
-                                                    </div>
-                                                    <div class="tpreview__comment-star">
-                                                        <i class="icon-star_outline1"></i>
-                                                        <i class="icon-star_outline1"></i>
-                                                        <i class="icon-star_outline1"></i>
-                                                        <i class="icon-star_outline1"></i>
-                                                        <i class="icon-star_outline1"></i>
-                                                    </div>
-                                                </div>
-                                                <span class="date mb-20">--April 9, 2022: </span>
-                                                <p>very good</p>
-                                            </div>
-                                        </div>
-                                        <div class="tpreview__form">
-                                            <h4 class="tpreview__form-title mb-25">Add a review </h4>
-                                            <form action="#">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="tpreview__input mb-30">
-                                                            <input type="text" placeholder="Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="tpreview__input mb-30">
-                                                            <input type="email" placeholder="Email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="tpreview__star mb-20">
-                                                            <h4 class="title">Your Rating</h4>
-                                                            <div class="tpreview__star-icon">
-                                                                <a href="#"><i class="icon-star_outline1"></i></a>
-                                                                <a href="#"><i class="icon-star_outline1"></i></a>
-                                                                <a href="#"><i class="icon-star_outline1"></i></a>
-                                                                <a href="#"><i class="icon-star_outline1"></i></a>
-                                                                <a href="#"><i class="icon-star_outline1"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="tpreview__input mb-30">
-                                                            <textarea name="text" placeholder="Message"></textarea>
-                                                            <div class="tpreview__submit mt-30">
-                                                                <button class="tp-btn">Submit</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -395,327 +148,195 @@
     </section>
     <!-- shop-details-area-end -->
 
-    <!-- product-area-start -->
-    <section class="product-area whight-product pt-75 pb-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h5 class="tpdescription__product-title mb-20">Related Products</h5>
-                </div>
-            </div>
-            <div class="tpproduct__arrow double-product p-relative">
-                <div class="swiper-container tpproduct-active tpslider-bottom p-relative">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="shop-details-4.html"><img src="/web-site/assets/img/product/koi min.png" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details-4.html"><img src="/web-site/assets/img/product/koi.png" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-50%</span>
-                                        <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                    <a href="shop-details-4.html">Fish</a>,
-                                    <a href="shop-details-4.html">Japanese</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">Japanese Koi</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: Japanese</li>
-                                            <li>Care Level: Easy</li>
-                                            <li>LIFE: 600 days</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="shop-details-4.html"><img src="/web-site/assets/img/product/hi.png" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details-4.html"><img src="/web-site/assets/img/product/hi min.jpg" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-40%</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                    <a href="shop-details-4.html">Fish</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">Hi Utsuri Kai</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: Japanese</li>
-                                            <li>Care Level: Moderate</li>
-                                            <li>LIFE: 600 days</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="shop-details-4.html"><img src="/web-site/assets/img/product/decor.png" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details-4.html"><img src="/web-site/assets/img/product/decor min.png" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-10%</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                    <a href="shop-details-3.html">Decors</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">Decoration Item</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: Aquatic</li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="#"><img src="/web-site/assets/img/product/feed.png" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details.html"><img src="/web-site/assets/img/product/food min.jpg" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-90%</span>
-                                        <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                     <a href="shop-details-4.html">Fish Food</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">Kai Food</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: Organic</li>
-                                            <li>MFG: August 4.2021</li>
-                                            <li>LIFE: 60 days</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="#"><img src="/web-site/assets/img/product/light.webp" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details-grid.html"><img src="/web-site/assets/img/product/lighting.jpg" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-50%</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                    <a href="shop-details-4.html">Aquariums</a>,
-                                    <a href="shop-details-3.html">Lightings</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">AMZBD Led Aquarium Light,Full Spectrum</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: LED</li>
-                                            <li>MFG: August 4.2021</li>
-                                            <li>LIFE: 6000 Hours</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tpproduct p-relative">
-                                <div class="tpproduct__thumb p-relative text-center">
-                                    <a href="#"><img src="/web-site/assets/img/product/pumps.jpg" alt=""></a>
-                                    <a class="tpproduct__thumb-img" href="shop-details-grid.html"><img src="/web-site/assets/img/product/pump.jpg" alt=""></a>
-                                    <div class="tpproduct__info bage">
-                                        <span class="tpproduct__info-discount bage__discount">-40%</span>
-                                        <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                    </div>
-                                    <div class="tpproduct__shopping">
-                                        <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                        <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                        <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__content">
-                                 <span class="tpproduct__content-weight">
-                                    <a href="shop-details-4.html">Pumps</a>
-                                 </span>
-                                    <h4 class="tpproduct__title">
-                                        <a href="shop-details-4.html">hygger 1060GPH Quiet Submersible and External 24V Water Pump</a>
-                                    </h4>
-                                    <div class="tpproduct__rating mb-5">
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                        <a href="#"><i class="icon-star_outline1"></i></a>
-                                    </div>
-                                    <div class="tpproduct__price">
-                                        <span>Rs 56.00</span>
-                                        <del>Rs 19.00</del>
-                                    </div>
-                                </div>
-                                <div class="tpproduct__hover-text">
-                                    <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                        <a class="tp-btn-2" href="shop-details-4.html">Add to cart</a>
-                                    </div>
-                                    <div class="tpproduct__descrip">
-                                        <ul>
-                                            <li>Type: Water Pump</li>
-                                            <li>MFG: August 4.2022</li>
-                                            <li>LIFE: 60 days</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tpproduct-btn">
-                    <div class="tpprduct-arrow tpproduct-btn__prv"><a href="#"><i class="icon-chevron-left"></i></a></div>
-                    <div class="tpprduct-arrow tpproduct-btn__nxt"><a href="#"><i class="icon-chevron-right"></i></a></div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- product-area-end -->
 </template>
 
 <script setup>
-import {watch, ref} from "@vue/runtime-core";
+import {watch, ref,unref,reactive,onMounted, computed} from "@vue/runtime-core";
+import {useAppUtility} from "@admin/Composables/appUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+import CartInput from "@/Components/CartInput.vue";
+import {useForm} from "@inertiajs/vue3";
+
+const maxCartInput = ref(0);
+const {getImageLink, mediaCheck} = useAppUtility();
 const {iPropsValue} = useInertiaPropsUtility();
 const productInfo = ref(iPropsValue("productInfo"));
+const productPrice = ref(productInfo.value.price)
+const formData = useForm({
+    _method: "POST",
+    slug: productInfo.value.slug,
+    name: productInfo.value.name,
+    offer: {
+        key:'',
+        name:'',
+        quantity:'',
+        price:'',
+    },
+    cart_quantity:'',
+    total_quantity:''
+});
+
+const refCartInput = ref(null);
+
 watch( ()=> iPropsValue("productInfo") ,
     ()=>{
         productInfo.value = iPropsValue("productInfo")
     })
-console.log(productInfo.value);
+const outOfStock =computed(() => {
+    return productInfo.value.available_quantity < 1
+})
+const isOfferSelected = (option) => {
+    return formData.offer.key == option ? 'active' : '';
+}
+
+const updateCount = (value)=>{
+    console.log( value)
+}
+
+const selectOffer = (option)=>{
+    const available_product = productInfo.value.available_quantity;
+    formData.offer.key = option;
+    formData.offer.name = productInfo.value.combo_offer['name_'+option];
+    formData.offer.price = productInfo.value.combo_offer['price_'+option];
+    formData.offer.quantity = productInfo.value.combo_offer['quantity_'+option];
+    productPrice.value = formData.offer.price
+    refCartInput.value.resetCounter();
+    maxCartInput.value = Math.floor((available_product / productInfo.value.combo_offer['quantity_'+option]));
+}
+
+const formattedPrice = (price) => {
+    if (typeof price !== 'number') {
+        return price;
+    }
+    return price.toLocaleString();
+}
+
+
+const checkStockByOffer = (option)=>{
+    const available_product = productInfo.value.available_quantity;
+    if(available_product > productInfo.value.combo_offer['quantity_'+option])
+        return true
+    return false;
+}
+const handleLimitReach = ()=>{
+   vt.info("stock limit reached")
+}
+
+onMounted(()=>{
+    if(outOfStock.value === false)
+        selectOffer(1);
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@media (width >= 600px) {
+    .product-image-preview
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .w-img
+        {
+            height: 500px;
+            width: 500px;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+}
+#nav-description
+{
+    h2,h2{
+        color: var(--tp-heading-primary);
+        font-family: var(--tp-ff-jost);
+        font-weight: 600;
 
+    }
+}
+.w-img
+{
+    background: #efefef;
+    border-radius: 8px;
+}
+.add-to-cart-btn
+{
+    font-family: var(--tp-ff-jost);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--tp-common-white);
+    background-color: var(--tp-heading-secondary);
+    border-radius: 30px;
+    width: 120px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+        font-size: 16px;
+    }
+}
+
+.combo-offer
+{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 50px;
+    column-gap: 24px;
+    button{
+        height: 100%;
+        padding: 0 16px;
+        border-radius: 6px;
+    }
+}
+.product-info{
+    ul
+    {
+        li
+        {
+            font-family: var(--tp-ff-jost);
+            list-style: none;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--tp-text-body);
+            position: relative;
+            padding-left: 18px;
+        &::after
+        {
+            position: absolute;
+            content: "";
+            height: 5px;
+            width: 5px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--tp-text-body);
+            border-radius: 50%;
+        }
+        }
+    }
+
+}
+.combo-offer
+{
+    button.navigation-tab
+    {
+        text-transform: capitalize;
+        &.active{
+            background-color: #ffdcdc !important;
+            color:  var(--tp-heading-secondary) !important;
+            border-color:  var(--tp-heading-secondary) !important;
+        }
+        &[disabled]
+        {
+            cursor: not-allowed;
+            background-color: #f3f3f3 !important;
+        }
+    }
+}
 </style>

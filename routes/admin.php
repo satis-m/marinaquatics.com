@@ -42,7 +42,6 @@ Route::middleware('auth.admin')->group(function () {
         Route::get('/', [AppSettingController::class, 'index'])->name('appSetting.index');
         Route::patch('update', [AppSettingController::class, 'update'])->name('appSetting.update');
     });
-
     Route::resource('manage/product', ProductController::class);
     Route::delete('manage/product/picture/{mediaId}', [ProductController::class, 'deletePicture'])->name('manage.product.picture');
 
