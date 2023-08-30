@@ -96,16 +96,20 @@
                                                                         class="icon-search"></i></button>
                                                                 </div>
                                                                 <div class="header__info-user ml-5">
-                                                                    <a href="log-in.html"><i class="icon-user"></i></a>
+                                                                    <NavLink  :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')"><i class="icon-user"></i></NavLink>
                                                                 </div>
-                                                                <div class="header__info-wishlist ml-5">
-                                                                    <a href="wishlist.html"><i
-                                                                        class="icon-heart icons"></i></a>
+                                                                <div v-if="iPropsValue('auth')" class="header__info-wishlist ml-5">
+                                                                    <NavLink :href="appRoute('client.login')"><i
+                                                                        class="icon-heart icons"></i></NavLink>
                                                                 </div>
-                                                                <div class="header__info-cart ml-5 tp-cart-toggle">
-                                                                    <button><i class="icon-cart icons"></i>
+                                                                <div v-if="iPropsValue('auth')" class="header__info-cart ml-5 tp-cart-toggle">
+                                                                    <a href="javascript:void(0)"><i class="icon-cart icons"></i>
                                                                         <span>5</span>
-                                                                    </button>
+                                                                    </a>
+                                                                </div>
+                                                                <div v-if="iPropsValue('auth')" class="header__info-wishlist ml-5">
+                                                                    <NavLink title="logout" method="post" as="button" type="button" :href="appRoute('client.logout')"><i
+                                                                        class="icon-log-out icons"></i></NavLink>
                                                                 </div>
 
                                                             </div>
@@ -243,15 +247,15 @@
                                 <button class="tp-search-toggle"><i class="icon-search"></i></button>
                             </div>
                             <div class="header__info-user ml-5 d-none d-sm-block">
-                                <a href="log-in.html"><i class="icon-user"></i></a>
+                                <NavLink :href="appRoute('client.login')"><i class="icon-user"></i></NavLink>
                             </div>
                             <div class="header__info-wishlist ml-5 d-none d-sm-block">
-                                <a href="wishlist.html"><i class="icon-heart icons"></i></a>
+                                <NavLink :href="appRoute('homepage')"><i class="icon-heart icons"></i></NavLink>
                             </div>
                             <div class="header__info-cart ml-5 tp-cart-toggle">
-                                <button><i class="icon-cart icons"></i>
+                                <NavLink :href="appRoute('homepage')"><i class="icon-cart icons"></i>
                                     <span>5</span>
-                                </button>
+                                </NavLink>
                             </div>
                         </div>
                     </div>

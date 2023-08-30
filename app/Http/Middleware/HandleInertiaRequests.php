@@ -112,9 +112,9 @@ class HandleInertiaRequests extends Middleware
             return array_merge(parent::share($request), [
                 'categories' => Category::all()->groupBy(['name'])->toArray(),
                 'app_info' => ApplicationInfo::first(),
-                'portal_menu' => fn () => $request->user('client')
-                    ? json_decode(getPortalMenu('client'))
-                    : null,
+                //                'portal_menu' => fn () => $request->user('client')
+                //                    ? json_decode(getPortalMenu('client'))
+                //                    : null,
                 'ziggy' => function () use ($request) {
                     return array_merge((new Ziggy)->toArray(), [
                         'location' => $request->url(),
@@ -124,7 +124,6 @@ class HandleInertiaRequests extends Middleware
                     ?
                     [
                         'user' => $request->user('client') ?? null,
-                        'user_role' => $request->user('admin')->getRoleNames()->first(),
                     ] : null,
 
             ]);

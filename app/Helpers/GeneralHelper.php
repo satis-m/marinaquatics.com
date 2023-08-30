@@ -348,3 +348,16 @@ if (! \function_exists('sanitizer')) {
         return $cleanedString;
     }
 }
+if (! \function_exists('otpGenerate')) {
+    function otpGenerate()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz'; // You can include other characters if needed
+        $otp = '';
+
+        for ($i = 0; $i < 6; $i++) {
+            $otp .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+
+        return $otp;
+    }
+}

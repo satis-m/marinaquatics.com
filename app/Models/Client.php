@@ -8,11 +8,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Permission\Traits\HasRoles;
 
 class Client extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, Notifiable, HasRoles, InteractsWithMedia;
+    use HasApiTokens, Notifiable, InteractsWithMedia;
 
     protected $table = 'clients';
 
@@ -36,16 +35,11 @@ class Client extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
-    protected $appends = ['avatar', 'fullName'];
+    protected $appends = [];
 
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
-    }
-
-    public function getFullNameAttribute(): string
-    {
-        return $this->first_name.' '.($this->middle_name ? $this->middle_name.' ' : '').$this->last_name;
     }
 
     public function registerMediaCollections(): void

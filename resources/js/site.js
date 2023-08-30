@@ -14,6 +14,7 @@ import route from 'ziggy';
 import Site from "@/Layouts/Site.vue";
 import NavLink from '@/Components/NavLink.vue'
 
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -31,7 +32,6 @@ createInertiaApp({
     setup({el, App, props, plugin}) {
         // return createApp({render: () => h(App, props)})
         const VueApp = createApp({render: () => h(App, props)});
-
         // VueApp.use(bootstrap)
         VueApp.use(plugin)
         VueApp.use(ZiggyVue)

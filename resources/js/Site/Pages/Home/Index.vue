@@ -25,11 +25,11 @@
                 </div>
                 <div class="tpproduct__arrow p-relative">
                     <div class="swiper-container tpproduct-active tpslider-bottom p-relative">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" :key="key" v-for="(product, key) in productList ">
+                        <swiper-container id="product-swiper" init="false">
+                            <swiper-slide :key="key" v-for="(product, key) in productList ">
                                 <ProductCard :product-info="product"/>
-                            </div>
-                        </div>
+                            </swiper-slide>
+                        </swiper-container>>
                     </div>
                     <div class="tpproduct-btn">
                         <div class="tpprduct-arrow tpproduct-btn__prv"><a href="#"><i class="icon-chevron-left"></i></a></div>
@@ -45,6 +45,10 @@
 </template>
 <script setup>
 import Slider from "./Components/Slider.vue"
+import {register} from 'swiper/element/bundle';
+import { Navigation, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
 import Banner from "./Components/Banner.vue"
 import ProductCard from "../../Components/ProductCard.vue"
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
@@ -58,13 +62,17 @@ watch(
     }
 );
 onMounted(()=>{
-    const tpproductswiper = new Swiper('.tpproduct-active', {
+    register();
+    const swiperEl = document.querySelector('#product-swiper');
+    const swiperParams = {
         // Optional parameters
+        centerInsufficientSlides:true,
+        effect:'slide',
+        rewind:true,
         loop: true,
+        observer: true,
         slidesPerView: 4,
         spaceBetween: 20,
-        observer: true,
-        observeParents: true,
         autoplay: {
             delay: 5000,
             disableOnInteraction: true,
@@ -91,6 +99,11 @@ onMounted(()=>{
             nextEl: '.tpproduct-btn__nxt',
             prevEl: '.tpproduct-btn__prv',
         },
-    });
+    };
+
+    Object.assign(swiperEl, swiperParams);
+
+    // and now initialize it
+    swiperEl.initialize();
 })
 </script>

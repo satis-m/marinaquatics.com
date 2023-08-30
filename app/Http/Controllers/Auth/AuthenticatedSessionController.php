@@ -9,11 +9,22 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    public function index(): Response
+    {
+        Session::put('intended_url', url()->previous());
+
+        return Inertia::render('Auth/Login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+        ]);
+    }
+
     /**
      * Display the login view.
      */
@@ -35,6 +46,12 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('admin')->logout(); //invalidate admin session
 
         $request->session()->regenerate();
+        $intendedUrl = Session::get('intended_url');
+        if ($intendedUrl) {
+            Session::forget('intended_url');
+
+            return redirect($intendedUrl);
+        }
 
         return redirect()->intended(RouteServiceProvider::CLIENTHOME);
     }

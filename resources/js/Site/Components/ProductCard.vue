@@ -40,18 +40,38 @@
                 </div>
 
                 <div class="tpproduct__hover-btn d-flex justify-content-center" >
-                    <button type="button" :disabled="outOfStock" class="cart_button rounded-pill" data-bs-toggle="tooltip" data-bs-title="Default tooltip" :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'"><i class="icon-add_shopping_cart"></i></button>
+                    <button type="button" @click="addToCart" :disabled="outOfStock" class="cart_button rounded-pill" data-bs-toggle="tooltip" data-bs-title="Default tooltip" :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'"><i class="icon-add_shopping_cart"></i></button>
                 </div>
             </div>
 
         </div>
     </div>
+    <Teleport to="body">
+    <Modal @close-modal="showModal=false" v-show="showModal">
+        <template v-slot:header>
+            Login / sign-Up
+        </template>
+        <template v-slot:body>
+            <p class="mb-4 text-left">Please Login/Sign-Up before continue shopping.</p>
+        </template>
+        <template v-slot:footer>
+            <div class="flex gap-2">
+            <button class="action-btn btn-sm btn-grey" @click="showModal=false">Cancel</button>
+            <NavLink :href="appRoute('client.intended-login')" class="action-btn btn-sm btn-red" >login</NavLink>
+            </div>
+        </template>
+    </Modal>
+    </Teleport>
 </template>
 
 <script setup>
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {computed} from "@vue/runtime-core";
+import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
+import Modal from "@/Components/Modal.vue"
+import {ref} from "vue";
 
+const { iPropsValue } = useInertiaPropsUtility();
 const {getImageLink} = useAppUtility();
 const props = defineProps({
     productInfo: {
@@ -59,6 +79,7 @@ const props = defineProps({
         required: true
     }
 })
+const showModal = ref(false);
 const discountedPrice = computed(() => {
     const { price, current_discount: { discount } } = props.productInfo;
     return +price - (+discount / 100) * +price;
@@ -72,7 +93,18 @@ const formattedPrice = computed(() => {
     }
     return props.productInfo.price.toLocaleString();
 })
+const addToCart = ()=>{
+    const userLoggedIn = iPropsValue('auth')
+    if(userLoggedIn)
+    {
+        console.log('logged')
+    }
+    else
+    {
+        showModal.value = true;
+    }
 
+}
 </script>
 
 <style lang="scss" scoped>

@@ -26,7 +26,7 @@
         <script src="/web-site/assets/js/waypoints.js"></script>
 {{--        <script src="/web-site/assets/js/bootstrap.bundle.min.js"></script>--}}
 {{--        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>--}}
-        <script src="/web-site/assets/js/swiper-bundle.js"></script>
+{{--        <script src="/web-site/assets/js/swiper-bundle.js"></script>--}}
 {{--        <script src="/web-site/assets/js/nice-select.js"></script>--}}
 {{--        <script src="/web-site/assets/js/slick.js"></script>--}}
 {{--        <script src="/web-site/assets/js/magnific-popup.js"></script>--}}
