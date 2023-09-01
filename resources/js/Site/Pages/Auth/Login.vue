@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-sm-12">
-                    <div class="tptrack__product mb-40">
+                    <div class="tptrack__product  mb-10">
                         <div class="tptrack__content grey-bg">
                             <div class="tptrack__item d-flex mb-10">
                                 <div class="tptrack__item-icon">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
-                    <div class="tptrack__product mb-40">
+                    <div class="tptrack__product  mb-10">
                         <div class="tptrack__content grey-bg">
                             <div class="tptrack__item d-flex mb-10">
                                 <div class="tptrack__item-icon">

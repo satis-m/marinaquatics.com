@@ -246,16 +246,21 @@
                             <div class="header__info-search ml-5 d-none d-sm-block">
                                 <button class="tp-search-toggle"><i class="icon-search"></i></button>
                             </div>
-                            <div class="header__info-user ml-5 d-none d-sm-block">
-                                <NavLink :href="appRoute('client.login')"><i class="icon-user"></i></NavLink>
+                            <div class="header__info-user ml-5">
+                                <NavLink  :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')"><i class="icon-user"></i></NavLink>
                             </div>
-                            <div class="header__info-wishlist ml-5 d-none d-sm-block">
-                                <NavLink :href="appRoute('homepage')"><i class="icon-heart icons"></i></NavLink>
+                            <div v-if="iPropsValue('auth')"  class="header__info-wishlist ml-5 d-none d-sm-block">
+                                <NavLink :href="appRoute('client.login')"><i
+                                    class="icon-heart icons"></i></NavLink>
                             </div>
-                            <div class="header__info-cart ml-5 tp-cart-toggle">
-                                <NavLink :href="appRoute('homepage')"><i class="icon-cart icons"></i>
+                            <div v-if="iPropsValue('auth')" class="header__info-cart ml-5 tp-cart-toggle">
+                                <a href="javascript:void(0)"><i class="icon-cart icons"></i>
                                     <span>5</span>
-                                </NavLink>
+                                </a>
+                            </div>
+                            <div  v-if="iPropsValue('auth')"  class="header__info-user  ml-5">
+                                <NavLink title="logout" method="post" as="button" type="button" :href="appRoute('client.logout')"><i
+                                    class="icon-log-out icons"></i></NavLink>
                             </div>
                         </div>
                     </div>
@@ -274,21 +279,21 @@
                     <button><i class="icon-search"></i></button>
                 </form>
             </div>
-            <div class="mean-container">
+            <div class="mean-container flex">
                 <div class="mean-bar">
                     <a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a>
                     <nav id="mobile-menu" class="mean-nav">
-                        <ul style="height: 50px; display: none;">
-                            <li>
-                                <div class="header__top-left social d-flex header__info">
-                                    <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
-                                    <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
-                                    <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
-                                    <a href="#" class="cstm-icon"><i class="icon-whatsapp d-flex justify-center">
-                                        <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
-                                    </a>
-                                </div>
-                            </li>
+                        <div class="tpsideinfo__wishlist-link">
+                            <div class="header__top-left social d-flex header__info">
+                                <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
+                                <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
+                                <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
+                                <a href="#" class="cstm-icon"><i class="icon-whatsapp d-flex justify-center">
+                                    <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <ul>
                             <li class="has-dropdown">
                                 <a class="mean-expand" href="#" style="font-size: 18px">
                                     <i class="icon-plus"></i>
@@ -340,38 +345,18 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="mean-last">
-                                <div class="header__top d-none d-xl-block">
-                                    <div class="container">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-6 col-md-12">
-                                                <div class="header__info header__top-right d-flex align-items-center">
-                                                    <div class="header__info-search ml-5">
-                                                        <button class="tp-search-toggle"><i class="icon-search"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="header__info-user ml-5"><a href="log-in.html"><i
-                                                        class="icon-user"></i></a></div>
-                                                    <div class="header__info-wishlist ml-5"><a href="wishlist.html"><i
-                                                        class="icon-heart icons"></i></a></div>
-                                                    <div class="header__info-cart ml-5 tp-cart-toggle">
-                                                        <button><i class="icon-cart icons"></i><span>5</span></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <li v-if="iPropsValue('auth')">
+                                <a href="appRoute('client.dashboard')"><i class="icon-user icons"></i> My Profile</a>
+                            </li>
+                            <li v-else>
+                                <a href="appRoute('client.login')"><i class="icon-user icons"></i>  Login / Register</a>
+                            </li>
+                            <li>
+                                <a href="wishlist.html" target="_parent"><i class="icon-heart"></i> Wishlist</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-            </div>
-            <div class="tpsideinfo__wishlist-link">
-                <a href="wishlist.html" target="_parent"><i class="icon-heart"></i> Wishlist</a>
-            </div>
-            <div class="tpsideinfo__account-link">
-                <a href="appRoute('client.login')"><i class="icon-user icons"></i> Login / Register</a>
             </div>
         </div>
         <!-- mobile-side-menu-area-end -->

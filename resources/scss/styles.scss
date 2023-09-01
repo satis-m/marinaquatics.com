@@ -43,3 +43,78 @@
 
 // Utilities
 @import "../../node_modules/bootstrap/scss/utilities/api";
+
+
+.action-btn {
+    background: var(--tp-heading-primary);
+    border-radius: 6px;
+    color: var(--tp-common-white);
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 22px 50px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: all 0.3s ease 0s;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+
+    &.btn-sm {
+        padding: 12px 25px;
+    }
+
+    &.btn-grey {
+        background-color: #e5e4e4;
+        color: #0a0a0a;
+
+        &:hover {
+            background-color: #5a4f50;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-red {
+        background-color: var(--tp-heading-secondary);
+        color: var(--tp-common-white);
+
+        &:hover {
+            background-color: #859A00;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-blue {
+        background-color: var(--tp-theme-3);
+        color: var(--tp-common-white);
+
+        &:hover {
+            background-color: #EE4C06;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-white {
+        background-color: var(--tp-common-white);
+        color: var(--tp-text-2);
+
+        &:hover {
+            background-color: #5a4f50;
+            color: var(--tp-common-white);
+        }
+    }
+
+}
+
+.user-initials {
+    background-color: #3498db;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}

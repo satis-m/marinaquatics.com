@@ -23,57 +23,21 @@
                     <div class="col-xg-3 col-md-3 mb-4 mb-md-0">
                         <div class="profile-sidebar h-100">
                             <div class="tpshop__widget ">
-                                <p class="tpshop__widget-title mb-2">{{ iPropsValue('auth','user.name') }}</p>
+                                <p class="tpshop__widget-title px-3 ">{{ iPropsValue('auth','user.name') }}</p>
                                <ul class="user-menu">
-                                   <li>Personal Detail</li>
-                                   <li>Order History</li>
-                                   <li>Shipping Address</li>
-                                   <li>Change Password</li>
+                                   <li @click="viewContent = 'personal-detail'" :class="viewContent == 'personal-detail' ? 'active':''"> <i class="icon-user"></i> Personal Detail</li>
+                                   <li @click="viewContent = 'order-history'" :class="viewContent == 'order-history' ? 'active':''"> <i class="icon-list"></i> Order History</li>
+                                   <li @click="viewContent = 'shipping-address'" :class="viewContent == 'shipping-address' ? 'active':''"> <i class="icon-shipping"></i> Shipping Address</li>
+                                   <li @click="viewContent = 'change-password'" :class="viewContent == 'change-password' ? 'active':''"> <i class="icon-shield"></i> Change Password</li>
                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-xg-9 col-md-9 d-flex flex-row flex-wrap ">
-                        <div class="col-md-6 col-12 px-2">
-                            <div class="tptrack__email white-bg mb-10">
-                                <span><i class="icon-user"></i></span>
-                                <input type="text" placeholder="Full Name">
-                                <div class="error-msg"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12 px-2">
-                            <div class="tptrack__email white-bg mb-10">
-                                <span><i class="icon-user"></i></span>
-                                <input type="text" placeholder="Full Name">
-                                <div class="error-msg"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12 px-2">
-                            <div class="tptrack__email white-bg mb-10">
-                                <span><i class="icon-user"></i></span>
-                                <input type="text" placeholder="Full Name">
-                                <div class="error-msg"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12 px-2">
-                            <div class="tptrack__email white-bg mb-10">
-                                <span><i class="icon-user"></i></span>
-                                <input type="text" placeholder="Full Name">
-                                <div class="error-msg"></div>
-                            </div>
-                        </div>
-                        <div class="col-12 px-2">
-                            <div class="d-flex justify-content-end gap-3">
-                                <div class="tptrack__btn">
-                                    <button class="action-btn btn-white " type="button" @click="loginUser" >Reset
-                                    </button>
-                                </div>
-                                    <div class="tptrack__btn">
-                                        <button class="action-btn btn-red" type="button" @click="loginUser" >Update
-                                        </button>
-                                    </div>
-                            </div>
-                        </div>
+                        <PersonalDetail v-if="viewContent == 'personal-detail'"/>
+                        <OrderHistory v-if="viewContent == 'order-history'"/>
+                        <ShippingAddress v-if="viewContent == 'shipping-address'"/>
+                        <ChangePassword v-if="viewContent == 'change-password'"/>
                     </div>
                 </div>
             </div>
@@ -82,8 +46,18 @@
 </template>
 
 <script setup>
+import PersonalDetail from "./Components/PersonalDetail.vue";
+import OrderHistory from "./Components/OrderHistory.vue";
+import ShippingAddress from "./Components/ShippingAddress.vue";
+import ChangePassword from "./Components/ChangePassword.vue";
+import {ref} from "vue"
+
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 const { iPropsValue } = useInertiaPropsUtility();
+import { useStringUtility } from "@admin/Composables/StringUtility";
+const { wordInitials } = useStringUtility();
+
+const viewContent = ref("personal-detail");
 </script>
 
 <style lang="scss">
@@ -91,7 +65,7 @@ const { iPropsValue } = useInertiaPropsUtility();
 {
     border-radius: 10px;
     background-color: var(--tp-common-white);
-    padding: 20px;
+    padding: 20px 0;
     .tpshop__widget-title
     {
         font-size: 22px;
@@ -102,74 +76,19 @@ const { iPropsValue } = useInertiaPropsUtility();
     }
 
     .user-menu{
+        li
+        {
+            padding:10px 10px;
+
+            &:hover,&.active
+            {
+                background-color: var(--tp-theme-1);
+                cursor:pointer;
+                color: var(--tp-common-white);
+            }
+        }
 
     }
 }
-.action-btn
-{
-    background: var(--tp-heading-primary);
-    border-radius: 6px;
-    color: var(--tp-common-white);
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1;
-    margin-bottom: 0;
-    padding: 22px 50px;
-    text-align: center;
-    touch-action: manipulation;
-    transition: all 0.3s ease 0s;
-    vertical-align: middle;
-    white-space: nowrap;
-    width: 100%;
-    &.btn-sm
-    {
-        padding: 12px 25px;
-    }
-    &.btn-grey
-    {
-        background-color: #e5e4e4;
-        color: #0a0a0a;
-        &:hover
-        {
-            background-color: #5a4f50;
-            color: var(--tp-common-white);
-        }
-    }
-    &.btn-red
-    {
-        background-color: var(--tp-heading-secondary);
-        &:hover
-        {
-           background-color: #859A00;;
-        }
-    }
-    &.btn-blue
-    {
-        background-color: var(--tp-theme-3);
-        &:hover
-        {
-           background-color: #EE4C06;
-        }
-    }
-    &.btn-gray
-    {
-        background-color: var(--tp-theme-3);
-        &:hover
-        {
-            background-color: #EE4C06;
-        }
-    }
-    &.btn-white
-    {
-        background-color: var(--tp-common-white);
-        color: var(--tp-text-2);
-        &:hover
-        {
-            background-color: #5a4f50;
-            color: var(--tp-common-white);
-        }
-    }
 
-}
 </style>
