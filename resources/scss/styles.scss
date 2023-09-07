@@ -1,0 +1,120 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+// Layout & components
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+//@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+//@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+//@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+//@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/nav";
+//@import "../../node_modules/bootstrap/scss/navbar";
+//@import "../../node_modules/bootstrap/scss/card";
+//@import "../../node_modules/bootstrap/scss/accordion";
+//@import "../../node_modules/bootstrap/scss/breadcrumb";
+//@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+//@import "../../node_modules/bootstrap/scss/alert";
+//@import "../../node_modules/bootstrap/scss/progress";
+//@import "../../node_modules/bootstrap/scss/list-group";
+//@import "../../node_modules/bootstrap/scss/close";
+//@import "../../node_modules/bootstrap/scss/toasts";
+//@import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/tooltip";
+//@import "../../node_modules/bootstrap/scss/popover";
+//@import "../../node_modules/bootstrap/scss/carousel";
+//@import "../../node_modules/bootstrap/scss/spinners";
+//@import "../../node_modules/bootstrap/scss/offcanvas";
+//@import "../../node_modules/bootstrap/scss/placeholders";
+
+// Helpers
+//@import "../../node_modules/bootstrap/scss/helpers";
+
+// Utilities
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+
+.action-btn {
+    background: var(--tp-heading-primary);
+    border-radius: 6px;
+    color: var(--tp-common-white);
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 22px 50px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: all 0.3s ease 0s;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+
+    &.btn-sm {
+        padding: 12px 25px;
+    }
+
+    &.btn-grey {
+        background-color: #e5e4e4;
+        color: #0a0a0a;
+
+        &:hover {
+            background-color: #5a4f50;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-red {
+        background-color: var(--tp-heading-secondary);
+        color: var(--tp-common-white);
+
+        &:hover {
+            background-color: #859A00;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-blue {
+        background-color: var(--tp-theme-3);
+        color: var(--tp-common-white);
+
+        &:hover {
+            background-color: #EE4C06;
+            color: var(--tp-common-white);
+        }
+    }
+
+    &.btn-white {
+        background-color: var(--tp-common-white);
+        color: var(--tp-text-2);
+
+        &:hover {
+            background-color: #5a4f50;
+            color: var(--tp-common-white);
+        }
+    }
+
+}
+
+.user-initials {
+    background-color: #3498db;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
