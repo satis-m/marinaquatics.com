@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable()->index();
             $table->string('tag')->nullable()->index();
             $table->string('sub_category');
+            $table->string('type');
             $table->string('unit');
             $table->string('video_link')->nullable();
             $table->string('brand')->nullable()->index();

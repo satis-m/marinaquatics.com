@@ -51,6 +51,9 @@ Route::middleware('auth.client')->group(function () {
 Route::get('/product/list/{subCategory}', [ProductController::class, 'list'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'view'])->name('product.view');
 Route::get('/product/category/{slug}', [ProductController::class, 'categoryView'])->name('product.category.view');
+Route::get('/product/type/{slug}', [ProductController::class, 'typeView'])->name('product.type.view');
+Route::get('/product/brand/{slug}', [ProductController::class, 'brandView'])->name('product.brand.view');
+Route::get('/product/tag/{slug}', [ProductController::class, 'tagView'])->name('product.tag.view');
 
 Route::get('/user/wishlist', [WishlistController::class, 'index'])->name('user.wishlist.view');
 Route::get('/user/cart', [CartController::class, 'index'])->name('user.cart.view');

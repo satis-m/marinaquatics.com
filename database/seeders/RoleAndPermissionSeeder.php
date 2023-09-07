@@ -55,6 +55,19 @@ class RoleAndPermissionSeeder extends Seeder
         }
 
         Role::create(['name' => 'client', 'guard_name' => 'client']);
+
+        $staffPermissions = [
+            'store-sell-access',
+            'store-sell-create',
+            'store-sell-edit',
+            'store-sell-delete',
+            'home-access',
+        ];
+        $developerRole = Role::create(['name' => 'staff', 'guard_name' => 'admin']);
+        foreach ($staffPermissions as $permission) {
+            $developerRole->givePermissionTo($permission);
+        }
+
         //        foreach ($clientPermissions as $permission) {
         //            $clientRole->givePermissionTo($permission);
         //        }

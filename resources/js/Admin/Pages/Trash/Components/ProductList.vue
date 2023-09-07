@@ -108,7 +108,7 @@
                         prop="category"
                     >
                         <template #default="props">
-                            {{ props.row.category.name }} => {{ props.row.category.sub_category }}
+                            {{ props.row.category?.name }} => {{ props.row.category?.sub_category }}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -238,6 +238,7 @@ const tableColumnNames = {
     publish: "Status",
 };
 const dataList = ref(iPropsValue("trashProduct"));
+
 watch(
     () => iPropsValue("trashProduct"),
     () => {

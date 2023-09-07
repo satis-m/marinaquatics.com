@@ -191,7 +191,9 @@
                             prop="category"
                         >
                             <template #default="props">
-                                {{ props.row.category.name }} => {{ props.row.category.sub_category }}
+                                {{ props.row.category.name }}
+                                - {{ props.row.category.sub_category }}
+                                - {{ readableWord(props.row.type) }}
                             </template>
                         </el-table-column>
                         <el-table-column
@@ -284,8 +286,8 @@
                                             </el-dropdown-item>
                                             <el-dropdown-item
                                                 divided
-                                                @click="viewForm(scope.row)"
-                                            >View
+                                                @click="previewProduct(scope.row)"
+                                            >Preview
                                             </el-dropdown-item
                                             >
                                             <el-dropdown-item
@@ -318,7 +320,6 @@
                 </el-card>
             </el-col>
         </el-row>
-        <ViewForm ref="refViewForm"/>
         <UpdateStockForm ref="refUpdateStockForm"/>
         <ComboOfferForm ref="refComboOfferForm"/>
         <DiscountForm ref="refDiscountForm"/>
@@ -331,6 +332,7 @@ import {Head, useForm} from "@inertiajs/vue3";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 import {useObjectUtility} from "@/Composables/objectUtility";
 import {useAppUtility} from "@/Composables/appUtility";
+import {useStringUtility} from "@/Composables/stringUtility";
 //library imports
 import {
     markRaw,
@@ -343,7 +345,6 @@ import {
 //Component imports
 import AddEditForm from "./Components/AddEditForm.vue";
 import AddByExcelForm from "./Components/AddByExcelForm.vue";
-import ViewForm from "./Components/ViewForm.vue";
 import StatusBadge from "@/Components/StatusBadge.vue";
 import UpdateStockForm from "./Components/UpdateStockForm.vue";
 import ComboOfferForm from "./Components/ComboOfferForm.vue";
@@ -363,6 +364,7 @@ import {
 const {iPropsValue} = useInertiaPropsUtility();
 const {filterObjectWithGroupedValue} = useObjectUtility();
 const {isScreenMd, isDarkMode} = useAppUtility();
+const {readableWord} = useStringUtility();
 //variable declare
 const isMobile = ref(isScreenMd);
 const refAddEditForm = ref(null);
@@ -370,7 +372,6 @@ const refUpdateStockForm = ref(null);
 const refComboOfferForm = ref(null);
 const refDiscountForm = ref(null);
 const refAddByExcelForm = ref(null);
-const refViewForm = ref(null);
 const exportLoading = ref(false);
 const viewableColumn = ref(
     !isMobile.value
@@ -431,11 +432,11 @@ const formInputNames = {
     publish: 1,
     price: '',
     unit: '',
+    type:''
 };
 const addForm = () => refAddEditForm.value.showForm("Add");
 const addExcelForm = () => refAddByExcelForm.value.showForm();
 const editForm = (data) => refAddEditForm.value.showForm("Edit", data);
-const viewForm = (data) => refViewForm.value.showForm(data);
 const showUpdateStockForm = (data) => refUpdateStockForm.value.showForm(data);
 const showComboOfferForm = (data) => refComboOfferForm.value.showForm(data.combo_offer);
 const showDiscountForm = (data) => refDiscountForm.value.showForm(data);
@@ -632,7 +633,10 @@ const formatJson = (filterVal, jsonData) => {
         })
     );
 };
-
+const previewProduct = (productInfo) => {
+    window.open(
+        route('product.view',productInfo.slug), "_blank");
+}
 //page event cycle
 onMounted(() => {
     changePage();

@@ -1,78 +1,559 @@
 {
-    "Japanese Koi":[
+    "Japanese Koi": [
         {
-            "name":"Premium Koi",
-            "slug":"premium-kois"
+            "name": "Premium Koi",
+            "slug": "premium-koi",
+            "types": [
+                {
+                    "name": "Showa",
+                    "slug": "showa"
+                },
+                {
+                    "name": "Shisui",
+                    "slug": "shisui"
+                },
+                {
+                    "name": "Asagi",
+                    "slug": "asagi"
+                },
+                {
+                    "name": "Kujaku",
+                    "slug": "kujaku"
+                },
+                {
+                    "name": "Tancho",
+                    "slug": "tancho"
+                },
+                {
+                    "name": "Tancho Sanke",
+                    "slug": "tancho-sanke"
+                },
+                {
+                    "name": "Goshiki",
+                    "slug": "goshiki"
+                },
+                {
+                    "name": "Gin Rin",
+                    "slug": "showa"
+                },
+                {
+                    "name": "Kohaku",
+                    "slug": "kohaku"
+                },
+                {
+                    "name": "Shiro Utsuri",
+                    "slug": "shiro-utsuri"
+                },
+                {
+                    "name": "Hi Utsuri",
+                    "slug": "hi-utsuri"
+                },
+                {
+                    "name": "Hariwake",
+                    "slug": "hariwake"
+                },
+                {
+                    "name": "Bekko",
+                    "slug": "bekko"
+                },
+                {
+                    "name": "Chagoi",
+                    "slug": "chagoi"
+                }
+            ]
         },
         {
-            "name":"Assorted Koi",
-            "slug":"assorted-koi"
+            "name": "Butterfly Koi",
+            "slug": "butterfly-koi",
+            "types": [
+                {
+                    "name": "Platinum White",
+                    "slug": "platinum-white"
+                },
+                {
+                    "name": "Yamabuki Ogon",
+                    "slug": "yamabuki-ogon"
+                },
+                {
+                    "name": "Yamato Nishiki",
+                    "slug": "yamato-nishiki"
+                },
+                {
+                    "name": "Kujaku",
+                    "slug": "kujaku"
+                },
+                {
+                    "name": "Tancho Sanke",
+                    "slug": "tancho-sanke"
+                },
+                {
+                    "name": "Goshiki",
+                    "slug": "goshiki"
+                },
+                {
+                    "name": "Gin Rin",
+                    "slug": "gin-rin"
+                },
+                {
+                    "name": "Kohaku",
+                    "slug": "kohaku"
+                },
+                {
+                    "name": "Shiro Utsuri",
+                    "slug": "shiro-utsuri"
+                },
+                {
+                    "name": "Hariwake",
+                    "slug": "hariwake"
+                },
+                {
+                    "name": "Bekko",
+                    "slug": "bekko"
+                },
+                {
+                    "name": "Goromo",
+                    "slug": "goromo"
+                },
+                {
+                    "name": "Others",
+                    "slug": "others"
+                }
+            ]
         },
         {
-            "name":"Butterfly Koi",
-            "slug":"butterfly-koi"
-        }
-    ]
-    ,
-    "Exotic Livestock":[
-        {
-            "name":"Freshwater",
-            "slug":"freshwater"
-        },{
-            "name":"Saltwater",
-            "slug":"saltwater"
-        },{
-            "name":"Brakish",
-            "slug":"brakish"
+            "name": "Assorted Koi",
+            "slug": "assorted-koi",
+            "types": [
+                {
+                    "name": "Platinum White",
+                    "slug": "platinum-white"
+                },
+                {
+                    "name": "Yamabuki Ogon",
+                    "slug": "yamabuki-ogon"
+                },
+                {
+                    "name": "Kohaku",
+                    "slug": "kohaku"
+                },
+                {
+                    "name": "Matsuba",
+                    "slug": "matsuba"
+                },
+                {
+                    "name": "Bekko",
+                    "slug": "bekko"
+                },
+                {
+                    "name": "Sanke",
+                    "slug": "sanke"
+                },
+                {
+                    "name": "Others",
+                    "slug": "others"
+                }
+            ]
         }
     ],
-    "Aquariums":
-        [
-            {
-                "name":"Standard Glass Tanks",
-                "slug":"standard-glass-tank"
-            },{
-                "name":"Rimless Aquariums",
-                "slug":"rimless-aquariums"
-            },{
-                "name":"Side Sump Aquarium",
-                "slug":"side-sump-aquarium"
-            },{
-                "name":"Refugiums, Sump Tank & Top Up",
-                "slug":"refugiums-sump-tank-top-up"
-            },{
-                "name":"Marine Aquarium",
-                "slug":"marine-aquarium"
-            },{
-                "name":"Custom Aquarium",
-                "slug":"custom-aquarium"
-            }
-        ],
-    "Aquarium Supplies":[
+    "Exotic Livestock": [
         {
-            "name":"Aquascaping",
-            "slug":"aquascaping"
-        },{
-            "name":"Medications, Testing, Conditioners & Additives",
-            "slug":"medications-testing-conditioners-additives"
-        },{
-            "name":"Filters & Filter Media",
-            "slug":"filtes-and-filter-media"
-        },{
-            "name":"Foods",
-            "slug":"foods"
-        },{
-            "name":"Lighting",
-            "slug":"lighting"
-        },{
-            "name":"Pumps & Powerheads",
-            "slug":"pump-and-powerheads"
-        },{
-            "name":"Miscellaneous",
-            "slug":"miscellaneous"
-        },{
-            "name":"Decors",
-            "slug":"decors"
+            "name": "Freshwater",
+            "slug": "freshwater",
+            "types": [
+                {
+                    "name" : "African Cichlids",
+                    "slug" : "african-cichlids"
+                }, {
+                    "name" : "American Cichlids",
+                    "slug" : "american-cichlids"
+                }, {
+                    "name" : "Angelfish",
+                    "slug" : "angelfish"
+                }, {
+                    "name" : "Barbs",
+                    "slug" : "barbs"
+                }, {
+                    "name" : "Betta",
+                    "slug" : "betta"
+                }, {
+                    "name" : "Corydoras",
+                    "slug" : "corydoras"
+                }, {
+                    "name" : "Danio/Minnows",
+                    "slug" : "danio-minnows"
+                }, {
+                    "name" : "Goldfish",
+                    "slug" : "goldfish"
+                }, {
+                    "name" : "Gourami",
+                    "slug" : "gourami"
+                }, {
+                    "name" : "Guppy",
+                    "slug" : "guppy"
+                }, {
+                    "name" : "Killifish",
+                    "slug" : "killifish"
+                }, {
+                    "name" : "Catfish",
+                    "slug" : "catfish"
+                }, {
+                    "name" : "Loach",
+                    "slug" : "loach"
+                }, {
+                    "name" : "Molly",
+                    "slug" : "molly"
+                }, {
+                    "name" : "Platy",
+                    "slug" : "platy"
+                }, {
+                    "name" : "Pleco",
+                    "slug" : "pleco"
+                }, {
+                    "name" : "Rainbowfish",
+                    "slug" : "rainbowfish"
+                }, {
+                    "name" : "Rasbora",
+                    "slug" : "rasbora"
+                }, {
+                    "name" : "Shark",
+                    "slug" : "shark"
+                }, {
+                    "name" : "Swordtail",
+                    "slug" : "swordtail"
+                }, {
+                    "name" : "Tetra",
+                    "slug" : "tetra"
+                }, {
+                    "name" : "Brakish",
+                    "slug" : "brakish"
+                }, {
+                    "name" : "Shrimp",
+                    "slug" : "shrimp"
+                }, {
+                    "name" : "Amphibian",
+                    "slug" : "amphibian"
+                }, {
+                    "name" : "Others",
+                    "slug" : "others"
+                }
+            ]
+        },
+        {
+            "name": "Saltwater",
+            "slug": "saltwater",
+            "types": [
+                {
+                    "name" : "Angelfish",
+                    "slug" : "angelfish"
+                },{
+                    "name" : "Angler & Frogfish",
+                    "slug" : "angler-&-frogfish"
+                },{
+                    "name" : "Anthias",
+                    "slug" : "anthias"
+                },{
+                    "name" : "Basslets",
+                    "slug" : "basslets"
+                },{
+                    "name" : "Blennies",
+                    "slug" : "blennies"
+                },{
+                    "name" : "Boxfish",
+                    "slug" : "boxfish"
+                },{
+                    "name" : "Butterfly",
+                    "slug" : "butterfly"
+                },{
+                    "name" : "Cardinals",
+                    "slug" : "cardinals"
+                },{
+                    "name" : "Chromis",
+                    "slug" : "chromis"
+                },{
+                    "name" : "Clownfish",
+                    "slug" : "clownfish"
+                },{
+                    "name" : "Damsel",
+                    "slug" : "damsel"
+                },{
+                    "name" : "Dartfish",
+                    "slug" : "dartfish"
+                },{
+                    "name" : "Dottybacks",
+                    "slug" : "dottybacks"
+                },{
+                    "name" : "Dragonets",
+                    "slug" : "dragonets"
+                },{
+                    "name" : "Eel",
+                    "slug" : "eel"
+                },{
+                    "name" : "Filefish",
+                    "slug" : "filefish"
+                },{
+                    "name" : "Foxface & Rabbit",
+                    "slug" : "foxface-&-rabbit"
+                },{
+                    "name" : "Gobies",
+                    "slug" : "gobies"
+                },{
+                    "name" : "Groupers",
+                    "slug" : "groupers"
+                },{
+                    "name" : "Grunts & Sweetlips",
+                    "slug" : "grunts-&-sweetlips"
+                },{
+                    "name" : "Hawkfish",
+                    "slug" : "hawkfish"
+                },{
+                    "name" : "Hogfish",
+                    "slug" : "hogfish"
+                },{
+                    "name" : "Jawfish",
+                    "slug" : "jawfish"
+                },{
+                    "name" : "Lionfish",
+                    "slug" : "lionfish"
+                },{
+                    "name" : "Pipefish",
+                    "slug" : "pipefish"
+                },{
+                    "name" : "Puffers",
+                    "slug" : "puffers"
+                },{
+                    "name" : "Rays",
+                    "slug" : "rays"
+                },{
+                    "name" : "Scorpion",
+                    "slug" : "scorpion"
+                },{
+                    "name" : "Sharks",
+                    "slug" : "sharks"
+                },{
+                    "name" : "Squirrelfish",
+                    "slug" : "squirrelfish"
+                },{
+                    "name" : "Tangs & Sergeons",
+                    "slug" : "tangs-&-sergeons"
+                },{
+                    "name" : "Triggerfish",
+                    "slug" : "triggerfish"
+                },{
+                    "name" : "Wrasse",
+                    "slug" : "wrasse"
+                },{
+                    "name" : "Others",
+                    "slug" : "others"
+                }
+            ]
+        },
+        {
+            "name": "Aquatic Plants",
+            "slug": "aquatic-plants",
+            "types": [
+                {
+                    "name" : "Foreground Plants",
+                    "slug" : "foreground-plants"
+                },{
+                    "name" : "Mid-ground Plants",
+                    "slug" : "mid-ground-plants"
+                },{
+                    "name" : "Background Plants",
+                    "slug" : "background-plants"
+                },{
+                    "name" : "Plant Packs",
+                    "slug" : "plant-packs"
+                },{
+                    "name" : "Marine Macro Algae",
+                    "slug" : "marine-macro-algae"
+                },{
+                    "name" : "Saltwater LPS & SPS",
+                    "slug" : "saltwater-lps-&-sps"
+                }
+            ]
+        }
+    ],
+    "Aquariums": [
+        {
+            "name": "Glass Based",
+            "slug": "glass-based",
+            "types": [
+                {
+                    "name" : "Standard Braced Aquarium",
+                    "slug" : "standard-braced-aquarium"
+                },{
+                    "name" : "Rimless Aquarium",
+                    "slug" : "rimless-aquarium"
+                },{
+                    "name" : "Amphibious Aquarium",
+                    "slug" : "amphibious-aquarium"
+                },{
+                    "name" : "Side Sump Aquarium",
+                    "slug" : "side-sump-aquarium"
+                },{
+                    "name" : "Paludarium, Vivarium & Terrarium",
+                    "slug" : "paludarium-vivarium-&-terrarium"
+                },{
+                    "name" : "Sump Tank",
+                    "slug" : "sump-tank"
+                },{
+                    "name" : "Design Your Own",
+                    "slug" : "design-your-own"
+                }
+            ]
+        },
+        {
+            "name": "Acrylic Based",
+            "slug": "acrylic-based",
+            "types": [
+                {
+                    "name" : "Standard Braced Aquarium",
+                    "slug" : "standard-braced-aquarium"
+                },{
+                    "name" : "Side Sump Aquarium",
+                    "slug" : "side-sump-aquarium"
+                },{
+                    "name" : "Sump Tank & Refugium",
+                    "slug" : "sump-tank-&-refugium"
+                },{
+                    "name" : "Design Your Own",
+                    "slug" : "design-your-own"
+                }
+            ]
+        }
+    ],
+    "Aquarium Supplies": [
+        {
+            "name": "Filtration",
+            "slug": "filtration",
+            "types": [
+                {
+                    "name" : "External Filter",
+                    "slug" : "external-filter"
+                },{
+                    "name" : "Internal Filter",
+                    "slug" : "internal-filter"
+                },{
+                    "name" : "Hang On Back",
+                    "slug" : "hang-on-back"
+                },{
+                    "name" : "Filter Inlet Outlet",
+                    "slug" : "filter-inlet-outlet"
+                },{
+                    "name" : "Filter Media",
+                    "slug" : "filter-media"
+                },{
+                    "name" : "Filter Pads",
+                    "slug" : "filter-pads"
+                },{
+                    "name" : "Filter Accessories",
+                    "slug" : "filter-accessories"
+                },{
+                    "name" : "Surface Skimmer",
+                    "slug" : "surface-skimmer"
+                },{
+                    "name" : "Submersible Pumps",
+                    "slug" : "submersible-pumps"
+                },{
+                    "name" : "UV Filter",
+                    "slug" : "uv-filter"
+                }
+            ]
+        },
+        {
+            "name": "Lighting",
+            "slug": "lighting",
+            "types": [
+                {
+                    "name" : "Clip On Light",
+                    "slug" : "clip-on-light"
+                },{
+                    "name" : "LED Submersible Light",
+                    "slug" : "led_submersible_light"
+                },{
+                    "name" : "Panel Light",
+                    "slug" : "panel-light"
+                },{
+                    "name" : "UV Light",
+                    "slug" : "uv-light"
+                },{
+                    "name" : "Others",
+                    "slug" : "others"
+                }
+            ]
+        },
+        {
+            "name": "Substrate",
+            "slug": "substrate",
+            "types": [
+                {
+                    "name" : "Plant Soil",
+                    "slug" : "plant-soil"
+                },{
+                    "name" : "Sand & Gravel",
+                    "slug" : "sand-&-gravel"
+                },{
+                    "name" : "Pebbles",
+                    "slug" : "pebbles"
+                }
+            ]
+        },
+        {
+            "name": "Decor",
+            "slug": "decor",
+            "types": [
+                {
+                    "name" : "Driftwoods",
+                    "slug" : "driftwoods"
+                },{
+                    "name" : "Stone & Rocks",
+                    "slug" : "stone-&-rocks"
+                },{
+                    "name" : "Show Pieces",
+                    "slug" : "show-pieces"
+                },{
+                    "name" : "Others",
+                    "slug" : "others"
+                }
+            ]
+        },
+        {
+            "name": "Food",
+            "slug": "food",
+            "types": [
+                {
+                    "name" : "Floating & Sinking Pellet",
+                    "slug" : "floating-&-sinking-pellet"
+                },{
+                    "name" : "Flakes",
+                    "slug" : "flakes"
+                },{
+                    "name" : "Others",
+                    "slug" : "Others"
+                }
+            ]
+        },
+        {
+            "name": "Additives",
+            "slug": "additives",
+            "types": [
+                {
+                    "name" : "Fertilizers",
+                    "slug" : "fertilizers"
+                },{
+                    "name" : "Medications",
+                    "slug" : "medications"
+                },{
+                    "name" : "Test Kits",
+                    "slug" : "test-kits"
+                },{
+                    "name" : "Salt",
+                    "slug" : "salt"
+                },{
+                    "name" : "Water Care & Conditioning",
+                    "slug" : "water-care-&-conditioning"
+                }
+            ]
         }
     ]
 }

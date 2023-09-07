@@ -51,6 +51,11 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Category::class, 'sub_category', 'slug');
     }
 
+    public function type()
+    {
+        return $this->belongsTo(ProductType::class, 'type', 'slug');
+    }
+
     public function productImports()
     {
         return $this->hasMany(ProductImport::class, 'product', 'slug');
@@ -175,13 +180,12 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->format(Manipulations::FORMAT_WEBP)
-            ->width(368)
-            ->height(232)
+            ->crop(Manipulations::CROP_CENTER, 250, 250)
             ->sharpen(10);
 
         $this->addMediaConversion('blur')
             ->format(Manipulations::FORMAT_WEBP)
-            ->width(30)
+            ->crop(Manipulations::CROP_CENTER, 30, 30)
             ->blur(2);
 
         $this->addMediaConversion('medium')

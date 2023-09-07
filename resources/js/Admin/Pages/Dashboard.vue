@@ -2,10 +2,10 @@
     <el-row :gutter="12">
         <el-col :sm="8">
             <el-card shadow="always" class="product-card dashboard-card">
-                <div class="card-icon">
+                <div class="card-icon text-white">
                     <el-icon><Goods /></el-icon>
                 </div>
-                <div class="card-detail flex flex-col " >
+                <div class="card-detail flex flex-col text-white" >
                     <div class="title">Products</div>
                     <div class="body">
                         <div class="flex">
@@ -19,20 +19,20 @@
             </el-card>
         </el-col><el-col :sm="8">
             <el-card shadow="always"  class="user-card dashboard-card">
-                <div class="card-icon">
+                <div class="card-icon text-white">
                     <el-icon><Avatar /></el-icon>
                 </div>
-                <div class="card-detail flex flex-col " >
+                <div class="card-detail flex flex-col text-white " >
                     <div class="title">Users</div>
                     <div class="body">110</div>
                 </div>
             </el-card>
         </el-col><el-col :sm="8">
             <el-card shadow="always"  class="cash-card dashboard-card">
-                <div class="card-icon">
+                <div class="card-icon text-white">
                     <el-icon><Coin /></el-icon>
                 </div>
-                <div class="card-detail flex flex-col" >
+                <div class="card-detail flex flex-col text-white" >
                     <div class="title">Sells</div>
                     <div class="body">
                             <div class="flex">

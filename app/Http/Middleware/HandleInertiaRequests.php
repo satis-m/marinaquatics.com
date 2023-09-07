@@ -110,7 +110,7 @@ class HandleInertiaRequests extends Middleware
             $this->rootView = 'siteApp';
 
             return array_merge(parent::share($request), [
-                'categories' => Category::all()->groupBy(['name'])->toArray(),
+                'categories' => Category::with(['types'])->get()->groupBy(['name'])->toArray(),
                 'app_info' => ApplicationInfo::first(),
                 //                'portal_menu' => fn () => $request->user('client')
                 //                    ? json_decode(getPortalMenu('client'))

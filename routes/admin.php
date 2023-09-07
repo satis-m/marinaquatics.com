@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDamageController;
 use App\Http\Controllers\Admin\ProductDiscountController;
 use App\Http\Controllers\Admin\ProductImportController;
 use App\Http\Controllers\Admin\ProductOfferController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\StoreSellController;
 use App\Http\Controllers\Admin\TrashController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -37,6 +40,11 @@ Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('a
 Route::middleware('auth.admin')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+    Route::get('/store-sell', [StoreSellController::class, 'index'])->name('storeSell.index');
+
+    Route::resource('manage/slider', SliderController::class);
+
+    Route::resource('manage/banner', BannerController::class);
 
     Route::prefix('app-setting')->group(function () {
         Route::get('/', [AppSettingController::class, 'index'])->name('appSetting.index');

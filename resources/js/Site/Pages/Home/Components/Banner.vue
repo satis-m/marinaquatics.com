@@ -1,5 +1,5 @@
 <template>
-    <div v-if="type==='video'" class="banner-video">
+    <section v-if="type==='video'" class="banner-video">
         <div class="col-md-12 col-xs-12 col-lg-12 col-xl-12">
             <div class="relative">
                 <div class="video_overlays"></div>
@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div v-else-if="type==='gif'" class="banner-gif">
+    </section>
+    <section v-else-if="type==='gif'" class="banner-gif">
         <div class="col-md-12 col-xs-12 col-lg-12 col-xl-12">
             <img :src="image" alt="test" class="img-fluid" >
             <div class="heroContentRight">
@@ -29,8 +29,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div v-else-if="type==='image'" class="banner-image">
+    </section>
+    <section v-else-if="type==='image'" class="banner-image">
         <div class="col-md-12 col-xs-12 col-lg-12 col-xl-12">
             <img :src="image" alt="test" class="img-fluid" >
             <div class="heroContentRight">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>

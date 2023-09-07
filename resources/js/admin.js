@@ -9,9 +9,9 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 /* import all icons */
 
 import {
-    faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash,
+    faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash,faShop, faFish
 } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash);
+library.add(faCircleInfo, faRightFromBracket, faShield, faUser, faUnlockKeyhole, faBell, faFileExcel, faHome, faGear, faTrash,faFish,faShop);
 
 import {createApp, h} from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';
@@ -56,7 +56,9 @@ createInertiaApp({
         VueApp.config.globalProperties.appRoute = route
         VueApp.mount(el);
 
-    }, progress: {
-        color: '#4B5563',
+    },
+    progress: {
+        color: '#d0112b',
+        showSpinner: true
     },
 });

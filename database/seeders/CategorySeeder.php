@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\ProductType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
@@ -20,10 +21,17 @@ class CategorySeeder extends Seeder
         foreach ($subCategories as $category => $subCategory) {
             foreach ($subCategory as $value) {
                 Category::create([
-                    'category' => $category,
+                    'name' => $category,
                     'sub_category' => $value->name,
                     'slug' => $value->slug,
                 ]);
+                foreach ($value->types as $type) {
+                    ProductType::create([
+                        'sub_category' => $value->slug,
+                        'name' => $type->name,
+                        'slug' => $type->slug,
+                    ]);
+                }
             }
         }
     }

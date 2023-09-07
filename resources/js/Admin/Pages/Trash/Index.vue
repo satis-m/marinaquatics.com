@@ -7,8 +7,8 @@
 </template>
 <script setup>
 import ProductList from "./Components/ProductList.vue";
-
 defineOptions({layout: "admin"});
+
 import {ref} from "@vue/runtime-core";
 
 const activeName = ref('product')

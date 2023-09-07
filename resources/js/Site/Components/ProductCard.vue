@@ -1,5 +1,5 @@
 <template>
-    <div class="tpproduct p-relative">
+    <div class="tpproduct p-relative mb-6">
         <div class="tpproduct__thumb p-relative text-center">
                 <NavLink :href="appRoute('product.view',productInfo.slug)">
                     <img :src="getImageLink(productInfo.main_picture , 'thumbnail')"  alt="">
@@ -10,7 +10,7 @@
                 <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
             </div>
             <div class="tpproduct__shopping">
-                <button type="button" class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></button>
+                <button type="button" v-if="userLoggedIn" class="tpproduct__shopping-wishlist" title="Add to Wishlist" href="wishlist.html"><i class="icon-heart icons"></i></button>
 <!--                <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>-->
 <!--                <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>-->
             </div>
@@ -23,13 +23,6 @@
             <h4 class="tpproduct__title capitalize">
                 <NavLink :href="appRoute('product.view',productInfo.slug)">{{ productInfo.name }}</NavLink>
             </h4>
-<!--            <div class="tpproduct__rating mb-5">-->
-<!--                <a href="#"><i class="icon-star_outline1"></i></a>-->
-<!--                <a href="#"><i class="icon-star_outline1"></i></a>-->
-<!--                <a href="#"><i class="icon-star_outline1"></i></a>-->
-<!--                <a href="#"><i class="icon-star_outline1"></i></a>-->
-<!--                <a href="#"><i class="icon-star_outline1"></i></a>-->
-<!--            </div>-->
             <div class="d-flex justify-content-between align-items-center">
                 <div class="tpproduct__price" v-if="productInfo.current_discount === null" >
                     <span>Rs {{ productInfo.price }}</span>
@@ -65,14 +58,14 @@
 </template>
 
 <script setup>
-import {useAppUtility} from "@admin/Composables/appUtility";
-import {computed} from "@vue/runtime-core";
-import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 import Modal from "@/Components/Modal.vue"
-import {ref} from "vue";
+import {useAppUtility} from "@admin/Composables/appUtility";
+import {ref,computed} from "@vue/runtime-core";
+import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 
 const { iPropsValue } = useInertiaPropsUtility();
 const {getImageLink} = useAppUtility();
+const userLoggedIn = iPropsValue('auth')
 const props = defineProps({
     productInfo: {
         type: Object,
@@ -94,10 +87,10 @@ const formattedPrice = computed(() => {
     return props.productInfo.price.toLocaleString();
 })
 const addToCart = ()=>{
-    const userLoggedIn = iPropsValue('auth')
+
     if(userLoggedIn)
     {
-        console.log('logged')
+        vt.success("Product added to cart")
     }
     else
     {
@@ -112,18 +105,12 @@ const addToCart = ()=>{
 .tpproduct__thumb {
     a:not(.tpproduct__thumb-img){
         img{
-            height: 295px;
+            //height: 257px;
             object-fit: contain;
+            border-radius: 5px;
         }
     }
-    .tpproduct__thumb-img
-    {
-        img
-        {
-            height: 350px;
-            object-fit: contain;
-        }
-    }
+
 }
 .cart_button
 {
@@ -152,13 +139,13 @@ const addToCart = ()=>{
 }
 .tpproduct
 {
-    height: 470px;
+    //height: 437px;
     .tpproduct__thumb
     {
-        height: 335px;
+        //height: 300px;
     }
     .tpproduct__content{
-        height: calc( 470px - 335px );
+        height: 135px;
         display: flex;
         flex-flow: column;
         .tpproduct__content_category

@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <section class="feature-area mainfeature__bg grey-bg pt-50 pb-10 bg-transparent -mb-1 -mt-6" data-background="/web-site/assets/img/shape/footer.svg">
+        <section class="feature-area theme-bg-1 pt-50 pb-10 -mb-1 -mt-6" >
             <div class="container">
                 <div class="mainfeature__border pb-15">
                     <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2">
@@ -67,24 +67,27 @@
             <div class="tpfooter__top pb-15">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="tpfooter__widget mb-50">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="tpfooter__widget mb-50 text-center text-md-start">
                                 <h4 class="tpfooter__widget-title">Let Us Help You</h4>
-                                <p>If you have any question, please <br> contact us at:
-                                    <a href="mailto:support@example.com">support@example.com</a>
+                                <p >If you have any question, please <br> contact us at:
+                                    <a href="mailto:marineaquatics@gmail.com" class="text-white">marineaquatics@gmail.com</a>
                                 </p>
                                 <div class="tpfooter__widget-social mt-45">
-                                    <span class="tpfooter__widget-social-title mb-5">Social Media:</span>
-                                    <a href="#"><i class="fab fa-facebook"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-youtube"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                    <a href="#"><i class="fab fa-skype"></i></a>
+                                    <span class="tpfooter__widget-social-title mb-1">Social Media:</span>
+                                    <div class="d-flex social-icon justify-center justify-content-md-start">
+                                    <a href="#"><i class="icon-facebook"></i></a>
+                                    <a href="#"><i class="icon-youtube"></i></a>
+                                    <a href="#"><i class="icon-instagram"></i></a>
+                                    <a href="#"><i class="icon-whatsapp d-flex">
+                                        <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="tpfooter__widget mb-50">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="tpfooter__widget mb-50 text-center">
                                 <h4 class="tpfooter__widget-title">Looking for Marine Aquatics Nepal?</h4>
                                 <p>Sukedhara,<br> Kathmandu, Nepal.</p>
                                 <div class="tpfooter__widget-time-info mt-35">
@@ -94,8 +97,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-5">
-                            <div class="tpfooter__widget mb-50">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="tpfooter__widget mb-50 text-center text-md-end">
                                 <h4 class="tpfooter__widget-title">
                                     Our Site
                                 </h4>
@@ -133,5 +136,26 @@
 {
     display: flex;
     justify-content: center;
+}
+
+</style>
+<style lang="scss">
+.social-icon
+{
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+        &:hover{
+            background-color: #f0f0f0;
+            color: #0a0a0a;
+            border-radius: 50%;
+            img{
+                -webkit-filter: invert(1);filter: invert(1);
+            }
+        }
+    }
 }
 </style>

@@ -10,14 +10,14 @@
                 >
                     <swiper-slide>
                         <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner1.jpg">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-150 text-left">
+                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
-                                            <div class="tpslider__five__contact">
+                                            <div class="tpslider__five__contact text-center">
                                                 <h3 class="tpslider__five__title">Top Quality</h3>
                                                 <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
                                                 <div class="tpslider__five__btn">
@@ -32,14 +32,14 @@
                     </swiper-slide>
                     <swiper-slide>
                         <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner2.jpg">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-150 text-left">
+                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
-                                            <div class="tpslider__five__contact">
+                                            <div class="tpslider__five__contact text-center">
                                                 <h3 class="tpslider__five__title">High Quality</h3>
                                                 <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
                                                 <div class="tpslider__five__btn">
@@ -54,14 +54,14 @@
                     </swiper-slide>
                     <swiper-slide>
                         <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner3.jpg">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-150 text-left">
+                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
-                                            <div class="tpslider__five__contact">
+                                            <div class="tpslider__five__contact text-center">
                                                 <h3 class="tpslider__five__title">Fresh Fish</h3>
                                                 <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
                                                 <div class="tpslider__five__btn">
@@ -76,14 +76,14 @@
                     </swiper-slide>
                     <swiper-slide>
                         <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner4.jpg">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-150 text-left">
+                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
-                                            <div class="tpslider__five__contact">
+                                            <div class="tpslider__five__contact text-center">
                                                 <h3 class="tpslider__five__title">Top Quality</h3>
                                                 <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
                                                 <div class="tpslider__five__btn">
@@ -98,14 +98,14 @@
                     </swiper-slide>
                     <swiper-slide>
                         <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner5.jpg">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-150 text-left">
+                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
-                                            <div class="tpslider__five__contact">
+                                            <div class="tpslider__five__contact text-center">
                                                 <h3 class="tpslider__five__title">High Quality</h3>
                                                 <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
                                                 <div class="tpslider__five__btn">

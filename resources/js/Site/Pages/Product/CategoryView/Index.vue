@@ -51,12 +51,7 @@
                                 <div class="col-sm-4">
                                     <div class="product__navtabs d-flex justify-content-end align-items-center">
                                         <div class="tp-shop-selector">
-                                            <select >
-                                                <option>Default sorting</option>
-                                                <option>Show 14</option>
-                                                <option>Show 08</option>
-                                                <option>Show 20</option>
-                                            </select>
+
                                         </div>
                                     </div>
                                 </div>
@@ -99,9 +94,10 @@ import ProductCard from "@/Components/ProductCard.vue"
 import ProductCardList from "@/Components/ProductCardList.vue"
 const { iPropsValue } = useInertiaPropsUtility();
 const { setWithExpiry, getWithExpiry } = useLocalStorageUtility();
+
 // const testData = iPropsValue('app_info','title');
 const products = ref(iPropsValue('products'));
-const viewListType = ref('grid');
+const viewListType = ref('list');
 watch(
     ()=> iPropsValue('products'),
     ()=>{

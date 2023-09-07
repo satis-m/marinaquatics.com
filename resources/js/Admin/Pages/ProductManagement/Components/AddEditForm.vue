@@ -17,7 +17,7 @@
                 status-icon
             >
                 <el-row :gutter="10">
-                    <el-col :lg="8">
+                    <el-col :lg="6">
                         <el-form-item
                             label="Name"
                             prop="name"
@@ -30,7 +30,7 @@
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :lg="8">
+                    <el-col :lg="6">
                         <el-form-item label="Category" prop="category" :error="formErrors.category">
                             <el-select v-model="formData.category" @change="updateSubCategory" placeholder="Select">
                                 <el-option
@@ -42,17 +42,33 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :lg="8">
+                    <el-col :lg="6">
                         <el-form-item
                             label="Sub Category"
                             prop="sub_category"
                             :error="formErrors.sub_category"
                         >
-                            <el-select v-model="formData.sub_category" placeholder="Select">
+                            <el-select v-model="formData.sub_category" @change="updateProductType" placeholder="Select">
                                 <el-option
                                     v-for="(item , key ) in sub_category"
                                     :key="key"
                                     :label="item.sub_category"
+                                    :value="item.slug"
+                                />
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :lg="6">
+                        <el-form-item
+                            label="Type"
+                            prop="type"
+                            :error="formErrors.type"
+                        >
+                            <el-select v-model="formData.type" placeholder="Select">
+                                <el-option
+                                    v-for="(item , key ) in product_type"
+                                    :key="key"
+                                    :label="item.name"
                                     :value="item.slug"
                                 />
                             </el-select>
@@ -125,7 +141,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :lg="6">
-                        <el-form-item label="Unit" prop="unit">
+                        <el-form-item label="Unit" prop="unit" :error="formErrors.name">
                             <el-select
                                 v-model="formData.unit"
                                 filterable
@@ -159,6 +175,7 @@
                         <el-form-item
                             label="Price"
                             prop="price"
+                            :error="formErrors.price"
                         >
 
                             <el-input
@@ -260,7 +277,9 @@ const refSingleImageUpload = ref(null);
 const refMultipleImageUpload = ref(null);
 const refForm = ref();
 const sub_category = ref([]);
+const product_type = ref([]);
 const all_sub_category = iPropsValue('subCategories');
+const all_product_type = iPropsValue('productTypes');
 const FormType = ref("Add");
 const editFormData = ref(); //default edit form data
 const tags = ref(iPropsValue("tags"));
@@ -301,10 +320,23 @@ const rules = reactive({
             trigger: "blur",
         },
     ],
-    sub_category: [
+    category: [
         {
             required: true,
-            message: "Please select sub-categoty",
+            message: "Please select category",
+            trigger: "change",
+        },
+    ],sub_category: [
+        {
+            required: true,
+            message: "Please select sub-category",
+            trigger: "change",
+        },
+    ],
+    type: [
+        {
+            required: true,
+            message: "Please select product type",
             trigger: "change",
         },
     ],
@@ -325,10 +357,14 @@ const rules = reactive({
 
 });
 const formErrors = reactive({
-    first_name: null,
-    last_name: null,
-    email: null,
-    gender: null,
+    name: null,
+    type: null,
+    category: null,
+    sub_category: null,
+    product_info: null,
+    description: null,
+    price: null,
+    unit: null,
 });
 const loadServerValidationError = () => {
     Object.assign(formErrors, formData.errors);
@@ -391,6 +427,7 @@ const showForm = function (formType, data = "") {
     formData.description = '';
     formData.reset();
     if (formType === "Add") {
+        formData.product_info = '<p></p><ul><li>Brand : </li><li>Type : </li></ul>';
     }
     if (formType === "Edit") {
         editFormData.value = data;
@@ -507,6 +544,10 @@ const update = function () {
 const updateSubCategory = function (selectedVal) {
     sub_category.value = all_sub_category[selectedVal];
     formData.sub_category = '';
+}
+const updateProductType = function (selectedVal) {
+    product_type.value = all_product_type[selectedVal].sort((a, b) => a.name.localeCompare(b.name));
+    formData.type = '';
 }
 
 defineExpose({

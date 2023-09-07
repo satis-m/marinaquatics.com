@@ -49,10 +49,76 @@ class ProductController extends Controller
     {
 
         try {
-            $query = Product::query();
-            //                ->where('sub_category', $slug)
+            $query = Product::query()
+                ->where('sub_category', $slug);
             $products = $query->with('currentDiscount', 'category')
-                ->paginate(2)
+                ->paginate(10)
+                ->appends(request()->query());
+
+            return Inertia::render('Product/CategoryView/Index',
+                [
+                    'products' => $products,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            // Product not found, handle the exception or return an error response
+            // For example:
+            abort(404, 'Product not found');
+        }
+    }
+
+    public function typeView($slug)
+    {
+
+        try {
+            $query = Product::query()
+                ->where('type', $slug);
+            $products = $query->with('currentDiscount', 'category')
+                ->paginate(10)
+                ->appends(request()->query());
+
+            return Inertia::render('Product/CategoryView/Index',
+                [
+                    'products' => $products,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            // Product not found, handle the exception or return an error response
+            // For example:
+            abort(404, 'Product not found');
+        }
+    }
+
+    public function brandView($slug)
+    {
+
+        try {
+            $query = Product::query()
+                ->where('brand', $slug);
+            $products = $query->with('currentDiscount', 'category')
+                ->paginate(10)
+                ->appends(request()->query());
+
+            return Inertia::render('Product/CategoryView/Index',
+                [
+                    'products' => $products,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            // Product not found, handle the exception or return an error response
+            // For example:
+            abort(404, 'Product not found');
+        }
+    }
+
+    public function tagView($slug)
+    {
+
+        try {
+            $query = Product::query()
+                ->whereJsonContains('tag', $slug);
+            $products = $query->with('currentDiscount', 'category')
+                ->paginate(10)
                 ->appends(request()->query());
 
             return Inertia::render('Product/CategoryView/Index',

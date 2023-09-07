@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Importer;
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\Tag;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\File;
@@ -34,16 +35,18 @@ class ProductController extends Controller
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();
         $importers = Importer::get()->pluck('name')->toArray();
+        $productTypes = ProductType::all()->groupBy(['sub_category'])->toArray();
 
         return Inertia::render(
             'ProductManagement/Index',
             [
-                'breadcrumb' => readable('application-setting'),
+                'breadcrumb' => readable('manage-product'),
                 'productList' => $products,
                 'tags' => $tags,
                 'brands' => $brands,
                 'importers' => $importers,
                 'categories' => $categories,
+                'productTypes' => $productTypes,
                 'subCategories' => $subCategories,
                 'userCan' => [
                     'massAdd' => false,

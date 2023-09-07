@@ -4,16 +4,16 @@
         <Slider/>
         <!-- slider-area-end -->
         <!-- banner-area-start -->
-        <section class="banner-area">
-            <Banner type="video" title="banner 1" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/2banner.webm" image="/web-site/assets/img/banner/banner-2-poster.webp" link="#" />
-            <Banner type="video" title="banner 2" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/3banner.webm" image="/web-site/assets/img/banner/banner-3-poster.webp" link="#" />
-            <Banner type="gif" title="gif" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/4banner.gif" link="#" />
-            <Banner type="image" title="image" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/5banner.jpg" link="#" />
-        </section>
+
+        <Banner type="video" title="banner 1" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/2banner.webm" image="/web-site/assets/img/banner/banner-2-poster.webp" link="#" />
+        <Banner type="video" title="banner 2" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/3banner.webm" image="/web-site/assets/img/banner/banner-3-poster.webp" link="#" />
+        <Banner type="gif" title="gif" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/4banner.gif" link="#" />
+        <Banner type="image" title="image" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/5banner.jpg" link="#" />
+
         <!-- banner-area-end -->
         <!-- product-area-start -->
-        <section class="product-area bg-black lg:p-40 p-10 ">
-            <div class="container">
+        <section class="product-area bg-black p-10 ">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="tpsection mb-35">
@@ -71,7 +71,7 @@ onMounted(()=>{
         rewind:true,
         loop: true,
         observer: true,
-        slidesPerView: 4,
+        slidesPerView: 6,
         spaceBetween: 20,
         autoplay: {
             delay: 5000,
@@ -79,7 +79,7 @@ onMounted(()=>{
         },
         breakpoints: {
             '1200': {
-                slidesPerView: 4,
+                slidesPerView: 6,
             },
             '992': {
                 slidesPerView: 4,
@@ -107,3 +107,4 @@ onMounted(()=>{
     swiperEl.initialize();
 })
 </script>
+

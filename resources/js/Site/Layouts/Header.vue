@@ -9,116 +9,132 @@
         <div id="header-sticky" class="header__main-area d-none d-xl-block">
             <div class="container-fluid">
                 <div class="p-relative">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center  p-relative">
                         <div class="col-xl-12">
                             <div class="header__menu main-menu text-center">
                                 <nav id="desktop-menu">
-                                    <ul style="height: 50px; display: inline-flex;">
-                                        <li>
-                                            <div class="header__top-left social d-flex header__info">
-                                                <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
-                                                <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
-                                                <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
-                                                <a href="#" class="cstm-icon"><i
-                                                    class="icon-whatsapp d-flex justify-center"> <img class="icon"
-                                                                                                      src="/web-site/assets/img/icon/whatsapp.svg"
-                                                                                                      width="20px"
-                                                                                                      height="20px"/></i></a>
-                                            </div>
-                                        </li>
-                                        <li class="has-dropdown">
+                                    <div class="logo">
+                                        <NavLink :href="appRoute('homepage')">
+                                            <img :src="iPropsValue('app_info','brandLogo')"
+                                                 style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
+                                                 alt="logo"/>
+                                        </NavLink>
+                                    </div>
+                                    <ul style="height: 75px; display: inline-flex;">
+                                        <li class="menu-item">
                                             <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
-                                            <ul class="sub-menu">
-                                                <li :key="key" v-for="(category ,key) in categories['Japanese Koi']">
-                                                    <NavLink @click="handleMenuClick"
-                                                             :active="isActiveLink(category.slug)"
-                                                             :href="appRoute('product.category.view',category.slug)">
-                                                        {{ category.sub_category }}
-                                                    </NavLink>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-dropdown">
-                                            <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
-                                            <ul class="sub-menu">
-                                                <li :key="key"
-                                                    v-for="(category ,key) in categories['Exotic Livestock']">
-                                                    <NavLink @click="handleMenuClick"
-                                                             :active="isActiveLink(category.slug)"
-                                                             :href="appRoute('product.category.view',category.slug)">
-                                                        {{ category.sub_category }}
-                                                    </NavLink>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-logo hidden xl:block">
-                                            <div class="logo">
-                                                <NavLink :href="appRoute('homepage')"><img
-                                                    src="/web-site/assets/img/logo/logo.svg" alt="logo">
-                                                </NavLink>
+                                            <div class="sub-menu">
+                                                <div class="sub-menu-container">
+                                                    <div class="sub-category-container" :key="key"
+                                                         v-for="(category ,key) in categories['Japanese Koi']">
+                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                            {{ category.sub_category }}
+
+                                                        </NavLink>
+                                                        <ul class="sub-category">
+                                                            <li :key="key" v-for="(type ,key) in category.types">
+                                                                <NavLink :href="appRoute('product.category.view',type.slug)">
+                                                                    {{ type.name }}
+                                                                </NavLink>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-menu-image-container">
+                                                    <img
+                                                        src="https://marineaquatics.test/storage/38/conversions/banner-2-poster-medium.webp"
+                                                        alt="banner-2-poster.webp">
+                                                </div>
                                             </div>
                                         </li>
-                                        <li class="has-dropdown">
-                                            <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
-                                            <ul class="sub-menu">
-                                                <li :key="key" v-for="(category ,key) in categories['Aquariums']">
-                                                    <NavLink @click="handleMenuClick"
-                                                             :active="isActiveLink(category.slug)"
-                                                             :href="appRoute('product.category.view',category.slug)">
-                                                        {{ category.sub_category }}
-                                                    </NavLink>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-dropdown">
-                                            <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
-                                            <ul class="sub-menu">
-                                                <li :key="key"
-                                                    v-for="(category ,key) in categories['Aquarium Supplies']">
-                                                    <NavLink @click="handleMenuClick"
-                                                             :active="isActiveLink(category.slug)"
-                                                             :href="appRoute('product.category.view',category.slug)">
-                                                        {{ category.sub_category }}
-                                                    </NavLink>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <div class="header__top d-none d-xl-block">
-                                                <div class="container">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-lg-6 col-md-12">
-                                                            <div
-                                                                class="header__info header__top-right d-flex align-items-center">
+                                        <li class="menu-item">
+                                            <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
+                                            <div class="sub-menu">
+                                                <div class="sub-menu-container">
 
-                                                                <div class="header__info-search ml-5">
-                                                                    <button class="tp-search-toggle"><i
-                                                                        class="icon-search"></i></button>
-                                                                </div>
-                                                                <div class="header__info-user ml-5">
-                                                                    <NavLink  :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')"><i class="icon-user"></i></NavLink>
-                                                                </div>
-                                                                <div v-if="iPropsValue('auth')" class="header__info-wishlist ml-5">
-                                                                    <NavLink :href="appRoute('client.login')"><i
-                                                                        class="icon-heart icons"></i></NavLink>
-                                                                </div>
-                                                                <div v-if="iPropsValue('auth')" class="header__info-cart ml-5 tp-cart-toggle">
-                                                                    <a href="javascript:void(0)"><i class="icon-cart icons"></i>
-                                                                        <span>5</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div v-if="iPropsValue('auth')" class="header__info-wishlist ml-5">
-                                                                    <NavLink title="logout" method="post" as="button" type="button" :href="appRoute('client.logout')"><i
-                                                                        class="icon-log-out icons"></i></NavLink>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
+                                                    <div class="sub-category-container" :key="key"
+                                                         v-for="(category ,key) in categories['Exotic Livestock']">
+                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                            {{ category.sub_category }}
+                                                        </NavLink>
+                                                        <ul class="sub-category">
+                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+                                                        </ul>
                                                     </div>
+                                                </div>
+                                                <div class="sub-menu-image-container">
+                                                    te
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="menu-item">
+                                            <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
+                                            <div class="sub-menu">
+                                                <div class="sub-menu-container">
+
+                                                    <div class="sub-category-container" :key="key"
+                                                         v-for="(category ,key) in categories['Aquariums']">
+                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                            {{ category.sub_category }}
+                                                        </NavLink>
+                                                        <ul class="sub-category">
+                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-menu-image-container">
+                                                    te
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
+                                            <div class="sub-menu">
+                                                <div class="sub-menu-container">
+
+                                                    <div class="sub-category-container" :key="key"
+                                                         v-for="(category ,key) in categories['Aquarium Supplies']">
+                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                            {{ category.sub_category }}
+                                                        </NavLink>
+                                                        <ul class="sub-category">
+                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-menu-image-container" style="width: 400px">
+                                                    te
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
+                                    <div class="header__top d-none d-xl-block" style="width: 168px">
+                                        <div
+                                            class="header__info header__top-right justify-content-end d-flex align-items-center gap-3 me-2">
+
+                                            <button class="tp-search-toggle"><i
+                                                class="icon-search"></i></button>
+
+                                            <NavLink
+                                                :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
+                                                <i class="icon-user"></i></NavLink>
+
+                                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"><i
+                                                class="icon-heart icons"></i></NavLink>
+
+                                            <button type="button" v-if="!iPropsValue('auth')"
+                                                    class="header__info-cart tp-cart-toggle"><i
+                                                class="icon-cart icons"></i>
+                                                <span>5</span>
+                                            </button>
+                                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button"
+                                                     type="button"
+                                                     :href="appRoute('client.logout')"><i
+                                                class="icon-log-out icons"></i></NavLink>
+
+                                        </div>
+                                    </div>
                                 </nav>
                             </div>
                         </div>
@@ -148,247 +164,71 @@
         <div class="search-body-overlay"></div>
         <!-- header-search-end -->
         <!-- header-cart-start -->
-        <div class="tpcartinfo tp-cart-info-area p-relative">
-            <button class="tpcart__close"><i class="icon-x"></i></button>
-            <div class="tpcart">
-                <h4 class="tpcart__title">Your Cart</h4>
-                <div class="tpcart__product">
-                    <div class="tpcart__product-list">
-                        <ul>
-                            <li>
-                                <div class="tpcart__item">
-                                    <div class="tpcart__img">
-                                        <img src="/web-site/assets/img/product/products1-min.jpg" alt="">
-                                        <div class="tpcart__del">
-                                            <a href="#"><i class="icon-x-circle"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpcart__content">
-                                 <span class="tpcart__content-title"><a href="shop-details.html">Stacy's Pita Chips Parmesan Garlic & Herb From Nature</a>
-                                 </span>
-                                        <div class="tpcart__cart-price">
-                                            <span class="quantity">1 x</span>
-                                            <span class="new-price">Rs 162.80</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tpcart__item">
-                                    <div class="tpcart__img">
-                                        <img src="/web-site/assets/img/product/products12-min.jpg" alt="">
-                                        <div class="tpcart__del">
-                                            <a href="#"><i class="icon-x-circle"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpcart__content">
-                                 <span class="tpcart__content-title"><a href="shop-details.html">Banana, Beautiful Skin, Good For Health 1Kg</a>
-                                 </span>
-                                        <div class="tpcart__cart-price">
-                                            <span class="quantity">1 x</span>
-                                            <span class="new-price">Rs 138.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="tpcart__item">
-                                    <div class="tpcart__img">
-                                        <img src="/web-site/assets/img/product/products3-min.jpg" alt="">
-                                        <div class="tpcart__del">
-                                            <a href="#"><i class="icon-x-circle"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpcart__content">
-                                 <span class="tpcart__content-title"><a href="shop-details.html">Quaker Popped Rice Crisps Snacks Chocolate</a>
-                                 </span>
-                                        <div class="tpcart__cart-price">
-                                            <span class="quantity">1 x</span>
-                                            <span class="new-price">Rs 162.8</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tpcart__checkout">
-                        <div class="tpcart__total-price d-flex justify-content-between align-items-center">
-                            <span> Subtotal:</span>
-                            <span class="heilight-price"> Rs 300.00</span>
-                        </div>
-                        <div class="tpcart__checkout-btn">
-                            <a class="tpcart-btn mb-10" href="cart.html">View Cart</a>
-                            <a class="tpcheck-btn" href="checkout.html">Checkout</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="tpcart__free-shipping text-center">
-                    <span>Free shipping for orders <b>under 10km</b></span>
-                </div>
-            </div>
-        </div>
-        <div class="cartbody-overlay"></div>
+        <SideCart/>
         <!-- header-cart-end -->
         <!-- mobile-header-menu-area -->
         <div id="header-sticky-2" class="tpmobile-menu d-xl-none p-0">
             <div class="container-fluid">
-                <div class="row p-relative d-flex justify-content-between" style="height: 50px;">
+                <div class="row p-relative d-flex justify-content-between" style="height: 75px;">
                     <div class="col-lg-12 text-center">
                         <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>
                     </div>
                     <div class="col-lg-4 col-md-4 col-6 col-sm-4">
                         <div class="logo p-relative" style="z-index: 2;">
-                            <NavLink :href="appRoute('homepage')"><img src="/web-site/assets/img/logo/logo.svg" alt="logo"></NavLink>
+                            <NavLink :href="appRoute('homepage')">
+                                <img :src="iPropsValue('app_info','brandLogo')"
+                                     style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
+                                     alt="logo">
+                            </NavLink>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-3 col-sm-5 h-full float-right">
-                        <div class="header__info d-flex h-full justify-content-center align-items-center">
-                            <div class="header__info-search ml-5 d-none d-sm-block">
-                                <button class="tp-search-toggle"><i class="icon-search"></i></button>
-                            </div>
-                            <div class="header__info-user ml-5">
-                                <NavLink  :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')"><i class="icon-user"></i></NavLink>
-                            </div>
-                            <div v-if="iPropsValue('auth')"  class="header__info-wishlist ml-5 d-none d-sm-block">
-                                <NavLink :href="appRoute('client.login')"><i
-                                    class="icon-heart icons"></i></NavLink>
-                            </div>
-                            <div v-if="iPropsValue('auth')" class="header__info-cart ml-5 tp-cart-toggle">
-                                <a href="javascript:void(0)"><i class="icon-cart icons"></i>
-                                    <span>5</span>
-                                </a>
-                            </div>
-                            <div  v-if="iPropsValue('auth')"  class="header__info-user  ml-5">
-                                <NavLink title="logout" method="post" as="button" type="button" :href="appRoute('client.logout')"><i
-                                    class="icon-log-out icons"></i></NavLink>
-                            </div>
+                        <div class="header__info d-flex h-full justify-content-end align-items-center gap-3 me-3">
+                            <button class="tp-search-toggle d-none d-sm-block"><i class="icon-search"></i></button>
+                            <NavLink
+                                :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
+                                <i class="icon-user"></i></NavLink>
+
+                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"
+                                     class="d-none d-sm-block"><i class="icon-heart icons"></i></NavLink>
+
+                            <button type="button" class="header__info-cart tp-cart-toggle" v-if="iPropsValue('auth')"><i
+                                class="icon-cart icons"></i>
+                                <span>5</span>
+                            </button>
+
+                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button" type="button"
+                                     :href="appRoute('client.logout')"><i
+                                class="icon-log-out icons"></i></NavLink>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="body-overlay"></div>
+
         <!-- mobile-header-menu-area-end -->
-        <!-- mobile-side-menu-area -->
-        <div class="tpsideinfo">
-            <button class="tpsideinfo__close">Close<i class="fal fa-times ml-10"></i></button>
-            <div class="tpsideinfo__search text-center pt-2 px-3">
-                <span class="tpsideinfo__search-title mb-20">What Are You Looking For?</span>
-                <form action="#">
-                    <input type="text" placeholder="Search Products...">
-                    <button><i class="icon-search"></i></button>
-                </form>
-            </div>
-            <div class="mean-container flex">
-                <div class="mean-bar">
-                    <a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a>
-                    <nav id="mobile-menu" class="mean-nav">
-                        <div class="tpsideinfo__wishlist-link">
-                            <div class="header__top-left social d-flex header__info">
-                                <a href="#" class="mr-2"><i class="icon-facebook"></i></a>
-                                <a href="#" class="mr-2"><i class="icon-youtube"></i></a>
-                                <a href="#" class="mr-2"><i class="icon-instagram"></i></a>
-                                <a href="#" class="cstm-icon"><i class="icon-whatsapp d-flex justify-center">
-                                    <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <ul>
-                            <li class="has-dropdown">
-                                <a class="mean-expand" href="#" style="font-size: 18px">
-                                    <i class="icon-plus"></i>
-                                </a>
-                                <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
-                                <ul class="sub-menu" style="display: none;">
-                                    <li :key="key" v-for="(category ,key) in categories['Japanese Koi']">
-                                        <NavLink @click="handleMobileMenuClick"
-                                                 :active="isActiveLink(category.slug)"
-                                                 :href="appRoute('product.category.view',category.slug)">
-                                            {{ category.sub_category }}
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
-                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
-                                <ul class="sub-menu" style="display: none;">
-                                    <li :key="key" v-for="(category ,key) in categories['Exotic Livestock']">
-                                        <NavLink @click="handleMobileMenuClick"
-                                                 :active="isActiveLink(category.slug)"
-                                                 :href="appRoute('product.category.view',category.slug)">
-                                            {{ category.sub_category }}
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
-                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
-                                <ul class="sub-menu" style="display: none;">
-                                    <li :key="key" v-for="(category ,key) in categories['Aquariums']">
-                                        <NavLink @click="handleMobileMenuClick"
-                                                 :active="isActiveLink(category.slug)"
-                                                 :href="appRoute('product.category.view',category.slug)">
-                                            {{ category.sub_category }}
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-dropdown"><a class="mean-expand" href="#" style="font-size: 18px"><i
-                                class="icon-plus"></i></a><a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
-                                <ul class="sub-menu" style="display: none;">
-                                    <li :key="key" v-for="(category ,key) in categories['Aquarium Supplies']">
-                                        <NavLink @click="handleMobileMenuClick"
-                                                 :active="isActiveLink(category.slug)"
-                                                 :href="appRoute('product.category.view',category.slug)">
-                                            {{ category.sub_category }}
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li v-if="iPropsValue('auth')">
-                                <a href="appRoute('client.dashboard')"><i class="icon-user icons"></i> My Profile</a>
-                            </li>
-                            <li v-else>
-                                <a href="appRoute('client.login')"><i class="icon-user icons"></i>  Login / Register</a>
-                            </li>
-                            <li>
-                                <a href="wishlist.html" target="_parent"><i class="icon-heart"></i> Wishlist</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!-- mobile-side-menu-area-end -->
+        <MobileHeader/>
     </header>
 </template>
 <script setup>
 import {computed, onMounted, ref} from "@vue/runtime-core";
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+import MobileHeader from "./MobileHeader.vue";
+import SideCart from "./SideCart.vue";
 
 const {getImageLink} = useAppUtility();
 const handleMenuClick = (event) => {
     console.log(event.target);
-    const list = document.querySelectorAll('#desktop-menu ul li.has-dropdown .sub-menu li a');
-    list.forEach((element) => {
-        element.classList.remove("active");
-    })
-    event.target.classList.add('active');
+    // const list = document.querySelectorAll('#desktop-menu ul li.has-dropdown .sub-menu li a');
+    // list.forEach((element) => {
+    //     element.classList.remove("active");
+    // })
+    // event.target.classList.add('active');
 
 }
-const handleMobileMenuClick = (event) => {
-    console.log(event.target);
-    const list = document.querySelectorAll('#mobile-menu ul li.has-dropdown .sub-menu li a');
-    list.forEach((element) => {
-        console.log(element)
-        element.classList.remove("active");
-    })
-    event.target.classList.add('active');
-    $(".tpsideinfo").removeClass("tp-sidebar-opened");
-    $(".body-overlay").removeClass("opened");
 
-}
 
 const navKey = ref(1);
 const {iPropsValue} = useInertiaPropsUtility();
@@ -416,16 +256,23 @@ const isActiveLink = (sub_category) => {
 }
 
 #desktop-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     .social {
         padding: 0 12px;
         align-items: baseline;
     }
 
-    .has-dropdown {
+    .has-dropdown, .menu-item {
         padding: 0 10px;
 
-        &:has(a.active) {
-            background: var(--tp-heading-primary);
+
+        ul.sub-menu {
+            a.active {
+                color: var(--tp-heading-primary);
+            }
         }
 
     }
@@ -436,9 +283,9 @@ const isActiveLink = (sub_category) => {
         padding-left: 12px;
     }
 
-    .has-dropdown {
+    .has-dropdown, .menu-item{
         &:has(a.active) {
-            a.mobile-expand {
+            a.mobile-expand,a.mobile-expand-sub {
                 color: #fff;
                 background: var(--tp-heading-primary);
             }
@@ -469,5 +316,68 @@ a.cstm-icon {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.menu-item {
+    .sub-menu {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 !important;
+
+        .sub-menu-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            .sub-category-container {
+                display: flex;
+                flex-flow: column;
+                margin: 5px 10px;
+                flex-grow: 1;
+
+                > a {
+                    padding: 10px 0;
+                    font-weight: 600;
+                    height: 40px;
+                    font-size: 1.2rem;
+                    justify-content: start;
+                    color: var(--tp-heading-primary);
+                    border-bottom: 1px solid black;
+                }
+
+                .sub-category {
+                    display: flex;
+                    flex-flow: column;
+                    max-height: 450px;
+                    flex-wrap: wrap;
+                    li {
+                        justify-content: start;
+                        font-family: Roboto Condensed,sans-serif;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 1rem;
+                        padding: 0.4375rem 1.4375rem 0.4375rem 0;
+                        text-align:left;
+                        cursor: pointer;
+                        &hover{
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        .sub-menu-image-container {
+            width: 550px;
+            display: block;
+            padding: 20px;
+
+            img {
+                border-radius: 6px;
+            }
+        }
+    }
 }
 </style>

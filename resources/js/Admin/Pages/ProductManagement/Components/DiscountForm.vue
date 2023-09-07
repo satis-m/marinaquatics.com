@@ -77,7 +77,13 @@
             <el-divider/>
             <el-row>
                 <el-table :data="latestProductDiscount" style="width: 100%">
-                    <el-table-column prop="discount" label="Discount %"/>
+                    <el-table-column prop="discount" label="Discount %">
+                        <template #default="scope">
+                            {{ scope.row.discount}}
+                            <el-tag class="ml-2" v-if="isActiveDiscount(scope.row)" size="small" type="success">Active</el-tag>
+                            <el-tag class="ml-2" v-else size="small" type="danger">Expired</el-tag>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="start_date" label="Start Date"/>
                     <el-table-column prop="end_date" label="End Date"/>
                     <el-table-column prop="remark" label="Remark"/>
@@ -250,6 +256,16 @@ const getLatestDiscount = (productSlug) => {
         .catch(error => {
             // Handle any errors
         });
+}
+
+const isActiveDiscount = (row)=>{
+    if(Object.keys(row).length != 0)
+    {
+        const startDate = new Date(row.start_date); // Replace with your start date
+        const endDate = new Date(row.end_date);
+        const today = new Date();
+        return today >= startDate && today <= endDate;
+    }
 }
 
 defineExpose({

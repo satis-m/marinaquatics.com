@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
-use App\Models\Client;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -27,14 +26,25 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('admin');
         //        client user create
-        $client = Client::create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'gender' => 'Male',
+        //        $client = Client::create([
+        //            'first_name' => 'John',
+        //            'last_name' => 'Doe',
+        //            'gender' => 'Male',
+        //            'contact' => '0934234235',
+        //            'email' => 'client@user.com',
+        //            'password' => 'password',
+        //        ]);
+        //        $client->assignRole('client');
+
+        $staff = Admin::create([
+            'first_name' => 'staff',
+            'last_name' => 'staff',
             'contact' => '0934234235',
-            'email' => 'client@user.com',
+            'gender' => 'Male',
+            'email' => 'staff@user.com',
             'password' => 'password',
         ]);
-        $client->assignRole('client');
+
+        $staff->assignRole('staff');
     }
 }

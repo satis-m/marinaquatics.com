@@ -1,18 +1,18 @@
 <template>
     <!-- header-cart-start -->
-    <div class="tpcartinfo tp-cart-info-area p-relative">
+    <div class="tpcartinfo tp-cart-info-area">
         <button class="tpcart__close"><i class="icon-x"></i></button>
         <div class="tpcart">
-            <h4 class="tpcart__title">Your Cart</h4>
+            <h4 class="tpcart__title">My Cart</h4>
             <div class="tpcart__product">
-                <div class="tpcart__product-list">
+                <div class="tpcart__product-list flex-grow-1 overflow-y-visible">
                     <ul>
                         <li>
                             <div class="tpcart__item">
                                 <div class="tpcart__img">
                                     <img src="/web-site/assets/img/product/products1-min.jpg" alt="">
                                     <div class="tpcart__del">
-                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                        <a @click="confirmRemove" href="#"><i class="icon-x-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="tpcart__content">
@@ -30,7 +30,7 @@
                                 <div class="tpcart__img">
                                     <img src="/web-site/assets/img/product/products12-min.jpg" alt="">
                                     <div class="tpcart__del">
-                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                        <a @click="confirmRemove" href="#"><i class="icon-x-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="tpcart__content">
@@ -48,7 +48,7 @@
                                 <div class="tpcart__img">
                                     <img src="/web-site/assets/img/product/products3-min.jpg" alt="">
                                     <div class="tpcart__del">
-                                        <a href="#"><i class="icon-x-circle"></i></a>
+                                        <a @click="confirmRemove" href="#"><i class="icon-x-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="tpcart__content">
@@ -68,14 +68,14 @@
                         <span> Subtotal:</span>
                         <span class="heilight-price"> Rs 300.00</span>
                     </div>
-                    <div class="tpcart__checkout-btn">
-                        <a class="tpcart-btn mb-10" href="cart.html">View Cart</a>
-                        <a class="tpcheck-btn" href="checkout.html">Checkout</a>
+                    <div class="tpcart__checkout-btn d-flex gap-3">
+                        <a class="tpcart-btn flex-1" href="cart.html">View Cart</a>
+                        <a class="tpcheck-btn flex-1" href="checkout.html">Checkout</a>
                     </div>
                 </div>
             </div>
             <div class="tpcart__free-shipping text-center">
-                <span>Free shipping for orders <b>under 10km</b></span>
+                <span>Free shipping for orders <b>over Rs 5000</b> inside Ring Road.</span>
             </div>
         </div>
     </div>
@@ -83,4 +83,29 @@
     <!-- header-cart-end -->
 </template>
 <script setup>
+import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+const {iPropsValue} = useInertiaPropsUtility();
+import Swal from 'sweetalert2'
+const confirmRemove = ()=>{
+    Swal.fire({
+        title: '<strong>Cart Update</strong>',
+        icon: 'info',
+        html:'Remove Product From Cart ',
+        showCloseButton: false,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+            'Remove',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+            'Cancel',
+        cancelButtonAriaLabel: 'Thumbs down'
+    })
+}
 </script>
+<style lang="scss">
+.tpcart__product-list
+{
+    height: calc( 100vh - 215px);
+}
+</style>

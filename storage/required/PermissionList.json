@@ -33,5 +33,17 @@
     "product-combo-offer-edit",
     "product-combo-offer-delete",
     "trash-restore",
-    "trash-destroy"
+    "trash-destroy",
+    "slider-access",
+    "slider-create",
+    "slider-edit",
+    "slider-delete",
+    "banner-access",
+    "banner-create",
+    "banner-edit",
+    "banner-delete",
+    "store-sell-access",
+    "store-sell-create",
+    "store-sell-edit",
+    "store-sell-delete"
 ]
