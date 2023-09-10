@@ -54,7 +54,7 @@ import {ref} from "vue"
 
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 const { iPropsValue } = useInertiaPropsUtility();
-import { useStringUtility } from "@admin/Composables/StringUtility";
+import { useStringUtility } from "@admin/Composables/stringUtility";
 const { wordInitials } = useStringUtility();
 
 const viewContent = ref("personal-detail");
