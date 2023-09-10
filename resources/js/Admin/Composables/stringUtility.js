@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function useStringUtility() {
 	const wordToCamel = function (str) {
 		return str.replace(/\W+(.)/g, function (match, chr) {

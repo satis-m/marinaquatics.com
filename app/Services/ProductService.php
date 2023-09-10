@@ -26,8 +26,9 @@ class ProductService
                 'sub_category' => request('sub_category'),
                 'product_info' => request('product_info'),
                 'description' => request('description'),
-                'tag' => array_map('sanitizer', request('tag')),
+                'tag' => ! empty(request('tag')) ? array_map('sanitizer', request('tag')) : '',
                 'brand' => request('brand'),
+                'type' => request('type'),
                 'video_link' => request('video_link'),
                 'publish' => request('publish'),
                 'price' => request('price'),
@@ -68,8 +69,9 @@ class ProductService
             $product->sub_category = request('sub_category');
             $product->product_info = request('product_info');
             $product->description = request('description');
-            $product->tag = array_map('sanitizer', request('tag'));
+            $product->tag = request('tag') ? array_map('sanitizer', request('tag')) : '';
             $product->brand = request('brand');
+            $product->type = request('type');
             $product->video_link = request('video_link');
             $product->publish = request('publish');
             $product->price = request('price');
@@ -100,21 +102,25 @@ class ProductService
 
     private function updateTagsAndBrands()
     {
-        $tags = Tag::get()->pluck('name')->toArray();
-        $brands = Brand::get()->pluck('name')->toArray();
+        if (! empty(request('tag'))) {
+            $tags = Tag::get()->pluck('name')->toArray();
 
-        $brand = sanitizer(request('brand'));
-        $newTags = array_diff(array_map('sanitizer', request('tag')), $tags);
+            $newTags = array_diff(array_map('sanitizer', request('tag')), $tags);
 
-        if ($brand != '' && ! in_array($brand, $brands)) {
-            Brand::create(['name' => $brand]);
-        }
-
-        if (! empty($newTags) || empty($tags)) {
-            foreach ($newTags as $tag) {
-                Tag::create(['name' => $tag]);
+            if (! empty($newTags) || empty($tags)) {
+                foreach ($newTags as $tag) {
+                    Tag::create(['name' => $tag]);
+                }
             }
         }
+        if (request('brand') != '') {
+            $brands = Brand::get()->pluck('name')->toArray();
+            $brand = sanitizer(request('brand'));
+            if ($brand != '' && ! in_array($brand, $brands)) {
+                Brand::create(['name' => $brand]);
+            }
+        }
+
     }
 
     public function remove($productId)
@@ -396,6 +402,5 @@ class ProductService
 
             return throw new \Exception($e->getMessage());
         }
-
     }
 }

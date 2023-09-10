@@ -48,7 +48,7 @@
                             prop="sub_category"
                             :error="formErrors.sub_category"
                         >
-                            <el-select v-model="formData.sub_category" @change="updateProductType" placeholder="Select">
+                            <el-select v-model="formData.sub_category"  @change="updateProductType" placeholder="Select">
                                 <el-option
                                     v-for="(item , key ) in sub_category"
                                     :key="key"
@@ -64,7 +64,7 @@
                             prop="type"
                             :error="formErrors.type"
                         >
-                            <el-select v-model="formData.type" placeholder="Select">
+                            <el-select v-model="formData.type" filterable  placeholder="Select">
                                 <el-option
                                     v-for="(item , key ) in product_type"
                                     :key="key"
