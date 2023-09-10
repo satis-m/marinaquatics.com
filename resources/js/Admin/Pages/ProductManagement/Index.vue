@@ -471,8 +471,8 @@ const getFilterKey = (columnKey) => {
     filteredValues.forEach((item, index) => {
         filterKey[index] = {text: item, value: item};
     });
-    return filterKey;
-};
+    return filterKey
+}
 const dateFormatter = (row, column) => moment(row.date).format("MMM Do, YYYY");
 //table pagination / search related
 const currentPage = ref(1);
@@ -500,6 +500,7 @@ const changePageSize = (val) => {
 const changePage = (val = 1) => {
     currentPage.value = val;
     const listStorage = dataList.value;
+    console.log(listStorage)
     // CHECK IF SEARCH EMPTY
     if (listStorage) {
         if (searchText.value == "") {

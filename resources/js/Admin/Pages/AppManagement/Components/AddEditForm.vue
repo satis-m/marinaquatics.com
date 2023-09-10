@@ -72,8 +72,10 @@
                             <el-form-item
                                 label="Fav Icon (Dark Themed)"
                                 prop="title"
+                                class="dark-themed"
                             >
                                 <SingleFileUploader
+
                                     ref="refFavDarkUpload"
                                     :acceptExtension="'.png, .svg'"
                                     :acceptSize="150"
@@ -301,5 +303,23 @@ ul.icon-picker {
 }
 .dialog-footer button:first-child {
     margin-right: 10px;
+}
+
+</style>
+<style lang="scss">
+.dark-themed li.el-upload-list__item
+{
+    background-color: #343434;
+    .el-upload-list__item-info a
+    {
+        color: #f0f0f0;
+    }
+    img{
+        background-color: #343434;
+    }
+    .el-icon--close
+    {
+        color:#ffffff;
+    }
 }
 </style>

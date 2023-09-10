@@ -1,7 +1,7 @@
 <template>
     <Head title="Manage Product"/>
-    <section class="product-select-container rounded border-solid border border-gray-500 " >
-        <h3 class="p-2  border-b border-gray-500 font-bold text-xl text-lightBlue-600">Select Products
+    <section class="product-select-container rounded border-solid border border-gray-300 " >
+        <h3 class="p-2  border-b border-gray-300 font-bold text-xl text-lightBlue-600">Select Products
             <el-button type="success" @click="addProduct" :icon="Plus" circle />
         </h3>
         <div class="product-list p-2 h-[60vh] overflow-y-auto ">
@@ -32,17 +32,40 @@
                 v-model:price="products[index].price"
                 v-model:combo="products[index].combo"
                 v-model:rate="products[index].rate"
-               @remove="removeProduct(index)"/>
+               @remove="removeProduct(index)"
+                @addProduct="addProduct"
+            />
             </div>
         </div>
-        <div>
+    </section>
+        <div class="mt-3">
             <el-button  type="primary" @click="proceedPayment" :icon="Check">Proceed</el-button>
         </div>
-    </section>
     <section>
-        <div>total</div>
-        <div>discount</div>
-        <div>final</div>
+        <el-row :gutter="10">
+            <el-col :span="16">
+                Total -
+            </el-col>
+            <el-col :span="8">
+               Rs. {{totalPrice}}
+            </el-col>
+        </el-row>
+        <el-row :gutter="10">
+            <el-col :span="16">
+                Discount -
+            </el-col>
+            <el-col :span="8">
+                <input type="number" max="80" class="border border-gray-300 px-2 rounded w-10 text-right" placeholder="%" v-model="discount" /> %
+            </el-col>
+        </el-row>
+        <el-row :gutter="10">
+            <el-col :span="16">
+                Final -
+            </el-col>
+            <el-col :span="8">
+                Rs. {{finalPrice}}
+            </el-col>
+        </el-row>
     </section>
 </template>
 
@@ -74,12 +97,20 @@ const addProduct = ()=> {
         price: 0,
     });
 };
+const totalPrice = ref(0);
+const discount = ref(0);
+const finalPrice = ref(0);
 const removeProduct = (index) => {
     products.value.splice(index, 1);
 };
 
 const proceedPayment = () =>{
-    console.log(products.value)
+    totalPrice.value = 0;
+    products.value.forEach(function(product){
+        totalPrice.value = totalPrice.value + product.price
+    })
+    discount.value
+    finalPrice.value = discount.value > 0 ? totalPrice.value - (discount.value/100)*totalPrice.value : totalPrice.value;
 }
 </script>
 
