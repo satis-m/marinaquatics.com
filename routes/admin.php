@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPasswordController;
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\BannerController;
@@ -36,6 +37,7 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthenticateAdminController::class, 'store'])->name('admin.login');
 Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('admin.logout');
+Route::post('/change-password', [AdminPasswordController::class, 'update'])->name('admin.changePassword');
 
 Route::middleware('auth.admin')->group(function () {
 

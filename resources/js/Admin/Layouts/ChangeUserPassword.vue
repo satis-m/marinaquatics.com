@@ -145,13 +145,18 @@ const submitForm = (formEl) => {
     formEl.validate((valid, fields) => {
         if (valid) {
             clearServerValidationError();
-            formData.patch(route("changePassword"), {
+            formData.post(route("admin.changePassword"), {
                 onFinish: () => {
                     if (formData.hasErrors) {
                         loadServerValidationError();
                     } else {
                         clearServerValidationError();
-                        resetForm();
+                        ElNotification({
+                            title: "Info",
+                            message:"Password Changed Successfully.",
+                            type: "info",
+                        });
+                        handleClose();
                     }
                 },
             });
