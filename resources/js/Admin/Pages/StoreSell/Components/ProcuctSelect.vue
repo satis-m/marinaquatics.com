@@ -7,6 +7,7 @@
                         placeholder="Name"
                         v-model="selectedProduct"
                         @change="selectProduct"
+                        filterable
                     >
                         <el-option v-for="(product, key) in products" :disabled="product.available_quantity == 0" :key="key" :label="product.name" :value="product" :value-key="product.name">
                             <span style="float: left">{{ product.name }}</span>
@@ -47,7 +48,7 @@
             </el-col>
             <el-col :span="3">
                 <el-form-item label="">
-                    <el-input-number v-model="quantity" @keydown.enter.shift.prevent="handleShiftEnter" :min="1" :max="maxQuantity" @keyup="updatePrice" @change="updatePrice" />
+                    <el-input-number  v-model="quantity" @keydown.enter.shift.prevent="handleShiftEnter" :min="1" :max="maxQuantity" @keyup="updatePrice" @change="updatePrice" />
                 </el-form-item>
             </el-col>
             <el-col :span="3">
@@ -74,8 +75,10 @@ const {
     quantity: propQuantity,
     price: propPrice,
     rate: propRate,
-    combo: propCombo
-} = defineProps(['productName', 'quantity', 'price', 'rate', 'combo', 'product']);
+    combo: propCombo,
+    comboId: propComboId,
+    comboQuantity: propComboQuantity
+} = defineProps(['productName', 'quantity', 'price', 'rate', 'combo','comboQuantity','product']);
 const emit = defineEmits();
 
 
@@ -86,19 +89,22 @@ const quantity = ref(propQuantity || 0);
 const price = ref(propPrice || 0);
 const combo = ref(propCombo || '');
 const rate = ref(propRate || 0);
+const comboQuantity = ref(propComboQuantity || 0);
 
 const selectedProduct = ref('');
 const comboOffers = ref('');
 const comboIndex = ref('');
 const availableQuantity = ref();
 const maxQuantity = ref();
-watch([product, productName, rate, combo, quantity, price], () => {
+watch([product, productName, rate, combo, quantity, price,comboQuantity], () => {
+    emit('updateCalculation');
     emit('update:product', product.value);
     emit('update:productName', productName.value);
     emit('update:quantity', quantity.value);
     emit('update:price', price.value);
     emit('update:rate', rate.value);
     emit('update:combo', combo.value);
+    emit('update:comboQuantity', comboQuantity.value);
 });
 
 const removeProduct = () => {
@@ -112,6 +118,7 @@ const selectProduct = ( productInfo)=>{
     availableQuantity.value = productInfo.available_quantity
     combo.value =  comboOffers.value['name_1']
     rate.value = comboOffers.value['price_1']
+    comboQuantity.value=comboOffers.value['quantity_1']
     setMaxQuantity();
     updatePrice();
     // console.log(productInfo)
@@ -121,6 +128,7 @@ const selectProduct = ( productInfo)=>{
 const offerChange = (offerKey) => {
     combo.value =  comboOffers.value['name_'+offerKey]
     rate.value = comboOffers.value['price_'+offerKey]
+    comboQuantity.value=comboOffers.value['quantity_'+offerKey]
     updatePrice()
 }
 

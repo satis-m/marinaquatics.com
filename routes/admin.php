@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDamageController;
 use App\Http\Controllers\Admin\ProductDiscountController;
@@ -37,12 +38,17 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthenticateAdminController::class, 'store'])->name('admin.login');
 Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('admin.logout');
-Route::post('/change-password', [AdminPasswordController::class, 'update'])->name('admin.changePassword');
 
 Route::middleware('auth.admin')->group(function () {
 
+    Route::post('/change-password', [AdminPasswordController::class, 'update'])->name('admin.changePassword');
+
+    Route::post('/product-order/add', [OrderController::class, 'store'])->name('order.store');
+
     Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+
     Route::get('/store-sell', [StoreSellController::class, 'index'])->name('storeSell.index');
+    Route::get('/store-sell/list', [StoreSellController::class, 'listAll'])->name('storeSell.list');
 
     Route::resource('manage/slider', SliderController::class);
 

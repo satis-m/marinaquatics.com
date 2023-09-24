@@ -22,6 +22,11 @@
                 "icon": "fa-shop"
             },
             {
+                "link": "storeSell.list",
+                "name": "Store Sell list",
+                "icon": "fa-shop"
+            },
+            {
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
@@ -49,6 +54,11 @@
             {
                 "link": "storeSell.index",
                 "name": "Store Sell",
+                "icon": "fa-shop"
+            },
+            {
+                "link": "storeSell.list",
+                "name": "Store Sell list",
                 "icon": "fa-shop"
             },
             {
@@ -90,6 +100,11 @@
             {
                 "link": "storeSell.index",
                 "name": "Store Sell",
+                "icon": "fa-shop"
+            },
+            {
+                "link": "storeSell.list",
+                "name": "Store Sell list",
                 "icon": "fa-shop"
             }
         ]
