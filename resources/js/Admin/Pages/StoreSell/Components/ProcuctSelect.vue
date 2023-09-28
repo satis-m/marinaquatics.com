@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import {ref, defineProps, defineEmits, watch} from 'vue';
+import {ref, watch} from 'vue';
 import {Close, Plus} from "@element-plus/icons-vue";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 

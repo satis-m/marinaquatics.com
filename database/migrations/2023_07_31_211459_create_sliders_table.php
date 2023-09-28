@@ -11,9 +11,10 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('title');
-            $table->tinyText('detail');
-            $table->string('link');
+            $table->string('title')->nullable();
+            $table->tinyText('detail')->nullable();
+            $table->string('link')->nullable();
+            $table->tinyInteger('publish')->default(0);
         });
     }
 

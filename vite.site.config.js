@@ -8,7 +8,7 @@ const projectRootDir = resolve(__dirname);
 
 export default defineConfig({
     plugins: [
-        splitVendorChunkPlugin(),
+        // splitVendorChunkPlugin(),
         laravel({
             buildDirectory: "web-site/build",
             input: [

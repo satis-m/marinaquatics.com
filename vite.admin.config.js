@@ -12,7 +12,7 @@ const projectRootDir = resolve(__dirname);
 
 export default defineConfig({
     plugins: [
-        splitVendorChunkPlugin(),
+       // splitVendorChunkPlugin(),
         laravel({
             buildDirectory: "admin-site/build",
             input: [
@@ -57,7 +57,6 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: (id) => {
-
                     if (id.includes("node_modules")) {
                         if (id.includes("@fortawesome/fontawesome-svg-core")) {
                             return "@fortawesome/fontawesome-svg-core";
