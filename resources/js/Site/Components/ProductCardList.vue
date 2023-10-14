@@ -9,6 +9,7 @@
             <div class="tpproduct__info bage">
                 <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">{{ productInfo.current_discount.discount }}%</span>
                 <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
+                <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
             </div>
         </div>
         <div class="tplist__content grow h-52">
@@ -57,6 +58,8 @@ import Modal from "@/Components/Modal.vue"
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {ref, computed} from "@vue/runtime-core";
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
+import moment from "moment";
+import {useForm} from "@inertiajs/vue3";
 
 const { iPropsValue } = useInertiaPropsUtility();
 const {getImageLink} = useAppUtility();
@@ -76,6 +79,14 @@ const discountedPrice = computed(() => {
 const outOfStock = computed(() => {
     return props.productInfo.available_quantity < 1
 });
+const newStock = computed(() => {
+    if(props.productInfo.last_import?.created_at != undefined) {
+        const currentDate = moment()
+        const oneWeekFromNow = moment().add(1, 'week')
+        const dateToCheck = moment(props.productInfo.last_import.created_at);
+        return dateToCheck.isBefore(oneWeekFromNow);
+    }
+});
 const formattedPrice = computed(() => {
     if (typeof props.productInfo.price !== 'number') {
         return props.productInfo.price;
@@ -86,7 +97,28 @@ const addToCart = ()=>{
     // const userLoggedIn = iPropsValue('auth')
     if(userLoggedIn)
     {
-        vt.success("Product added to cart")
+        const formData = useForm({
+            product_slug: props.productInfo.slug,
+            name: props.productInfo.name,
+            offer: {
+                key: 1,
+                name: 'Standard',
+                quantity: '1',
+                price: props.productInfo.price,
+            },
+            quantity: 1,
+        });
+        try {
+            formData.post(route("user.cart.add"), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    formData.reset();
+                },
+            })
+        } catch (error) {
+            vt.error("Request Form Error")
+            console.log(error);
+        }
     }
     else
     {

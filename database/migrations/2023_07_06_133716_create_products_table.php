@@ -26,6 +26,8 @@ return new class extends Migration
             $table->boolean('featured')->default('0');
             $table->softDeletes();
             $table->timestamps();
+
+            DB::statement('CREATE FULLTEXT INDEX products_fulltext ON products(name, product_info, description) WITH PARSER ngram');
         });
     }
 

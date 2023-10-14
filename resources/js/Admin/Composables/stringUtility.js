@@ -17,6 +17,10 @@ export function useStringUtility() {
         const initials = words.map(word => word.charAt(0).toUpperCase());
         return initials.join('');
     }
+    const removeHTMLTags = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
 
-	return { wordToCamel, camelToWord, readableWord,wordInitials };
+	return { wordToCamel, camelToWord, readableWord,wordInitials,removeHTMLTags };
 }

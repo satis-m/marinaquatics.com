@@ -14,7 +14,11 @@ class ProductController extends Controller
             $productInfo = Product::query()
                 ->where('slug', $slug)
                 ->with('currentDiscount', 'category', 'comboOffer')
+                ->withlastImport()
                 ->firstOrFail();
+
+            $productInfo->main_picture = $productInfo->main_picture;
+            $productInfo->alternative_picture = $productInfo->alternative_picture;
 
             return Inertia::render('Product/SingleView/Index',
                 [
@@ -54,6 +58,12 @@ class ProductController extends Controller
             $products = $query->with('currentDiscount', 'category')
                 ->paginate(10)
                 ->appends(request()->query());
+
+            $products->transform(function ($item) {
+                $item->main_picture = $item->main_picture;
+
+                return $item;
+            });
 
             return Inertia::render('Product/CategoryView/Index',
                 [

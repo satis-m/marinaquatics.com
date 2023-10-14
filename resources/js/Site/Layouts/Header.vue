@@ -6,7 +6,7 @@
     <!-- Scroll-top-end-->
     <!-- header-area-start -->
     <header>
-        <div id="header-sticky" class="header__main-area d-none d-xl-block">
+        <div id="header-sticky" class="header__main-area ">
             <div class="container-fluid">
                 <div class="p-relative">
                     <div class="row align-items-center  p-relative">
@@ -20,20 +20,20 @@
                                                  alt="logo"/>
                                         </NavLink>
                                     </div>
-                                    <ul style="height: 75px; display: inline-flex;">
-                                        <li class="menu-item">
+                                    <ul class="hidden xl:inline-flex" style="height: 75px;">
+                                        <li class="menu-item" key="1" :class="hoveredIndex == 1 ? 'active' : '' " @mouseover="addClass(1)" @mouseout="removeClass(1)">
                                             <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
                                                     <div class="sub-category-container" :key="key"
                                                          v-for="(category ,key) in categories['Japanese Koi']">
-                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                        <NavLink @click="removeClass(1)" :href="appRoute('product.category.view',category.slug)">
                                                             {{ category.sub_category }}
 
                                                         </NavLink>
                                                         <ul class="sub-category">
                                                             <li :key="key" v-for="(type ,key) in category.types">
-                                                                <NavLink :href="appRoute('product.category.view',type.slug)">
+                                                                <NavLink @click="removeClass(1)" :href="appRoute('product.type.view',type.slug)">
                                                                     {{ type.name }}
                                                                 </NavLink>
                                                             </li>
@@ -47,18 +47,23 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menu-item">
+                                        <li class="menu-item" key="2" :class="hoveredIndex == 2 ? 'active' : '' " @mouseover="addClass(2)" @mouseout="removeClass(2)">
                                             <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
                                                     <div class="sub-category-container" :key="key"
                                                          v-for="(category ,key) in categories['Exotic Livestock']">
-                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                        <NavLink @click="removeClass(2)" :href="appRoute('product.category.view',category.slug)">
                                                             {{ category.sub_category }}
                                                         </NavLink>
                                                         <ul class="sub-category">
-                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+
+                                                            <li :key="key" v-for="(type ,key) in category.types">
+                                                                <NavLink @click="removeClass(2)" :href="appRoute('product.type.view',type.slug)">
+                                                                    {{ type.name }}
+                                                                </NavLink>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -67,39 +72,42 @@
                                                 </div>
                                             </div>
                                         </li>
-
-                                        <li class="menu-item">
+                                        <li class="menu-item" key="3" :class="hoveredIndex == 3 ? 'active' : '' " @mouseover="addClass(3)" @mouseout="removeClass(3)">
                                             <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
                                                     <div class="sub-category-container" :key="key"
                                                          v-for="(category ,key) in categories['Aquariums']">
-                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                        <NavLink @click="removeClass(3)" :href="appRoute('product.category.view',category.slug)">
                                                             {{ category.sub_category }}
                                                         </NavLink>
                                                         <ul class="sub-category">
-                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+                                                            <li :key="key" v-for="(type ,key) in category.types">  <NavLink @click="removeClass(3)" :href="appRoute('product.type.view',type.slug)">
+                                                                {{ type.name }}
+                                                            </NavLink></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <div class="sub-menu-image-container">
-                                                    te
+                                                    menu image here
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menu-item">
+                                        <li class="menu-item" key="4" :class="hoveredIndex == 4 ? 'active' : '' " @mouseover="addClass(4)" @mouseout="removeClass(4)">
                                             <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
                                                     <div class="sub-category-container" :key="key"
                                                          v-for="(category ,key) in categories['Aquarium Supplies']">
-                                                        <NavLink :href="appRoute('product.category.view',category.slug)">
+                                                        <NavLink @click="removeClass(4)" :href="appRoute('product.category.view',category.slug)">
                                                             {{ category.sub_category }}
                                                         </NavLink>
                                                         <ul class="sub-category">
-                                                            <li :key="key" v-for="(type ,key) in category.types"> {{ type.name }}</li>
+                                                            <li :key="key" v-for="(type ,key) in category.types"> <NavLink @click="removeClass(4)" :href="appRoute('product.type.view',type.slug)">
+                                                                {{ type.name }}
+                                                            </NavLink></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -109,26 +117,29 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    <div class="header__top d-none d-xl-block" style="width: 168px">
+                                    <div class="header__top" style="width: 168px">
                                         <div
                                             class="header__info header__top-right justify-content-end d-flex align-items-center gap-3 me-2">
 
-                                            <button class="tp-search-toggle"><i
+                                            <button class="tp-search-toggle hidden lg:block "><i
                                                 class="icon-search"></i></button>
 
                                             <NavLink
                                                 :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
                                                 <i class="icon-user"></i></NavLink>
 
-                                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"><i
+                                            <NavLink class="hidden lg:block " v-if="iPropsValue('auth')" :href="appRoute('client.login')"><i
                                                 class="icon-heart icons"></i></NavLink>
 
-                                            <button type="button" v-if="!iPropsValue('auth')"
+                                            <button type="button" v-if="iPropsValue('auth')"
                                                     class="header__info-cart tp-cart-toggle"><i
                                                 class="icon-cart icons"></i>
-                                                <span>5</span>
+                                                <span v-if='cartItemCount > 0' >{{ cartItemCount }}</span>
                                             </button>
-                                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button"
+                                            <NavLink v-if="iPropsValue('auth')"
+                                                     title="logout"
+                                                     method="post"
+                                                     as="button"
                                                      type="button"
                                                      :href="appRoute('client.logout')"><i
                                                 class="icon-log-out icons"></i></NavLink>
@@ -142,80 +153,85 @@
                 </div>
             </div>
         </div>
-        <!-- header-search -->
-        <div class="tpsearchbar tp-sidebar-area">
-            <button class="tpsearchbar__close"><i class="icon-x"></i></button>
-            <div class="search-wrap text-center">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-6 pt-100 pb-100">
-                            <h2 class="tpsearchbar__title">What Are You Looking For?</h2>
-                            <div class="tpsearchbar__form">
-                                <form action="#">
-                                    <input type="text" name="search" placeholder="Search Product...">
-                                    <button class="tpsearchbar__search-btn"><i class="icon-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="block xl:hidden">
+            <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>
         </div>
+<!--        &lt;!&ndash; header-search &ndash;&gt;-->
+<!--        <div class="tpsearchbar tp-sidebar-area">-->
+<!--            <button class="tpsearchbar__close"><i class="icon-x"></i></button>-->
+<!--            <div class="search-wrap text-center">-->
+<!--                <div class="container">-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <div class="col-6 pt-100 pb-100">-->
+<!--                            <h2 class="tpsearchbar__title">What Are You Looking For?</h2>-->
+<!--                            <div class="tpsearchbar__form">-->
+<!--                                <form action="#">-->
+<!--                                    <input type="text" name="search" placeholder="Search Product...">-->
+<!--                                    <button class="tpsearchbar__search-btn"><i class="icon-search"></i></button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <TopSearch/>
         <div class="search-body-overlay"></div>
         <!-- header-search-end -->
         <!-- header-cart-start -->
         <SideCart/>
         <!-- header-cart-end -->
         <!-- mobile-header-menu-area -->
-        <div id="header-sticky-2" class="tpmobile-menu d-xl-none p-0">
-            <div class="container-fluid">
-                <div class="row p-relative d-flex justify-content-between" style="height: 75px;">
-                    <div class="col-lg-12 text-center">
-                        <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6 col-sm-4">
-                        <div class="logo p-relative" style="z-index: 2;">
-                            <NavLink :href="appRoute('homepage')">
-                                <img :src="iPropsValue('app_info','brandLogo')"
-                                     style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
-                                     alt="logo">
-                            </NavLink>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-3 col-sm-5 h-full float-right">
-                        <div class="header__info d-flex h-full justify-content-end align-items-center gap-3 me-3">
-                            <button class="tp-search-toggle d-none d-sm-block"><i class="icon-search"></i></button>
-                            <NavLink
-                                :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
-                                <i class="icon-user"></i></NavLink>
+<!--        <div id="header-sticky-2" class="tpmobile-menu d-xl-none p-0">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="row p-relative d-flex justify-content-between" style="height: 75px;">-->
+<!--                    <div class="col-lg-12 text-center">-->
+<!--                        <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4 col-6 col-sm-4">-->
+<!--                        <div class="logo p-relative" style="z-index: 2;">-->
+<!--                            <NavLink :href="appRoute('homepage')">-->
+<!--                                <img :src="iPropsValue('app_info','brandLogo')"-->
+<!--                                     style="-webkit-filter: invert(1);filter: invert(1); height: 75px"-->
+<!--                                     alt="logo">-->
+<!--                            </NavLink>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4 col-3 col-sm-5 h-full float-right">-->
+<!--                        <div class="header__info d-flex h-full justify-content-end align-items-center gap-3 me-3">-->
+<!--                            <button class="tp-search-toggle d-none d-sm-block"><i class="icon-search"></i></button>-->
+<!--                            <NavLink-->
+<!--                                :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">-->
+<!--                                <i class="icon-user"></i></NavLink>-->
 
-                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"
-                                     class="d-none d-sm-block"><i class="icon-heart icons"></i></NavLink>
+<!--                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"-->
+<!--                                     class="d-none d-sm-block"><i class="icon-heart icons"></i></NavLink>-->
 
-                            <button type="button" class="header__info-cart tp-cart-toggle" v-if="iPropsValue('auth')"><i
-                                class="icon-cart icons"></i>
-                                <span>5</span>
-                            </button>
+<!--                            <button type="button" class="header__info-cart tp-cart-toggle" v-if="iPropsValue('auth')"><i-->
+<!--                                class="icon-cart icons"></i>-->
+<!--                                <span>5</span>-->
+<!--                            </button>-->
 
-                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button" type="button"
-                                     :href="appRoute('client.logout')"><i
-                                class="icon-log-out icons"></i></NavLink>
+<!--                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button" type="button"-->
+<!--                                     :href="appRoute('client.logout')"><i-->
+<!--                                class="icon-log-out icons"></i></NavLink>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <!-- mobile-header-menu-area-end -->
         <MobileHeader/>
     </header>
 </template>
 <script setup>
-import {computed, onMounted, ref} from "@vue/runtime-core";
+import {watch, onMounted, ref} from "@vue/runtime-core";
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 import MobileHeader from "./MobileHeader.vue";
+import TopSearch from "./TopSearch.vue";
 import SideCart from "./SideCart.vue";
 
 const {getImageLink} = useAppUtility();
@@ -231,14 +247,29 @@ const handleMenuClick = (event) => {
 
 
 const navKey = ref(1);
+const hoveredIndex  = ref(null);
 const {iPropsValue} = useInertiaPropsUtility();
 const productInfo = iPropsValue("productInfo");
 const categories = iPropsValue("categories");
+
+const cartItemCount = ref(iPropsValue('auth','cartItemsCount'))
+watch(()=> iPropsValue('auth','cartItemsCount'),()=>{
+    cartItemCount.value = iPropsValue('auth','cartItemsCount')
+})
 const isActiveLink = (sub_category) => {
     if (route().current('product.category.view', {slug: sub_category}) || (productInfo != undefined && productInfo.sub_category === sub_category)) {
         return true;
     }
     return false;
+}
+
+const addClass = (index)=>
+{
+    hoveredIndex.value = index
+}
+const removeClass = (index)=>
+{
+    hoveredIndex.value = null
 }
 </script>
 <style lang="scss">

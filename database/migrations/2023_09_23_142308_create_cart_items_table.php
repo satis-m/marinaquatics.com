@@ -10,12 +10,12 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->string('cart_id');
-            $table->string('product');
-            $table->string('quantity');
+            $table->unsignedBigInteger('cart_id');
+            $table->string('product_slug');
+            $table->int('quantity');
             $table->string('offer_name');
-            $table->string('offer_quantity');
-            $table->string('offer_price');
+            $table->int('offer_quantity');
+            $table->float('offer_price');
         });
     }
 

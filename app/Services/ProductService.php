@@ -175,7 +175,7 @@ class ProductService
                 'importer' => sanitizer(request('importer')),
                 'quantity' => request('quantity'),
                 'cost_price' => request('cost_price'),
-                'product' => $productSlug,
+                'product_slug' => $productSlug,
             ]);
             if ($created) {
                 $info = [
@@ -211,7 +211,7 @@ class ProductService
                     'importer' => sanitizer(request('importer')),
                     'quantity' => request('quantity'),
                     'cost_price' => request('cost_price'),
-                    'product' => $productSlug,
+                    'product_slug' => $productSlug,
                 ]);
             if ($updated) {
                 $info = [
@@ -244,7 +244,7 @@ class ProductService
                 'quantity' => request('quantity'),
                 'cost_price' => request('cost_price'),
                 'remark' => request('remark'),
-                'product' => $productSlug,
+                'product_slug' => $productSlug,
             ]);
             if ($created) {
                 $info = [
@@ -280,7 +280,7 @@ class ProductService
                     'quantity' => request('quantity'),
                     'cost_price' => request('cost_price'),
                     'remark' => request('remark'),
-                    'product' => $productSlug,
+                    'product_slug' => $productSlug,
                 ]);
 
             if ($updated) {
@@ -324,7 +324,7 @@ class ProductService
         DB::beginTransaction();
         self::updateImporters();
         try {
-            ComboOffer::where('product', $productSlug)
+            ComboOffer::where('product_slug', $productSlug)
                 ->update([
                     'name_1' => sanitizer(request('name_1')),
                     'quantity_1' => request('quantity_1'),
@@ -360,7 +360,7 @@ class ProductService
                 'start_date' => request('date')[0],
                 'end_date' => request('date')[1],
                 'remark' => sanitizer(request('remark')),
-                'product' => $productSlug,
+                'product_slug' => $productSlug,
             ]);
             DB::commit();
 

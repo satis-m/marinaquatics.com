@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('importer');
             $table->bigInteger('quantity');
             $table->float('cost_price');
-            $table->string('product')->index();
+            $table->string('product_slug')->index();
             $table->tinyText('remark');
             $table->timestamps();
         });

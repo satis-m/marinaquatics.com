@@ -1,8 +1,8 @@
 
-html.dark .el-menu-item,.el-sub-menu__title
-{
-    color:#9f9f9f
-}
+/*html.dark .el-menu-item,.el-sub-menu__title*/
+/*{*/
+/*    color:#9f9f9f*/
+/*}*/
 html.dark .el-sub-menu__title:hover,
 html.dark .el-menu-item:hover {
     background-color: #2e2e2e;

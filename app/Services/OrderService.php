@@ -32,7 +32,7 @@ class OrderService
             foreach ($products as $product) {
                 OrderItem::create([
                     'order_id' => $order->id,
-                    'product' => $product['product'],
+                    'product_slug' => $product['product'],
                     'quantity' => $product['quantity'],
                     'offer_name' => $product['combo'],
                     'offer_price' => $product['rate'],

@@ -1,5 +1,5 @@
 <template>
-    <div class="cart-count-wrapper">
+    <div class="cart-count-wrapper" :class="size == 'sm' ? 'input-sm' : ''">
         <button :disabled="props.disable" class="btn--minus" @click="changeCounter('-1')" type="button" name="button">
            <i class="icon-minus"></i>
         </button>
@@ -22,15 +22,23 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
+    size:{
+        type: String,
+        default: 'lg'
+    },
+    value:{
+        type: Number,
+        default: 1,
+    }
 });
-const counter = props.disable ? 0 : ref(1);
+const counter = props.disable ? 0 : ref(+props.value);
 const resetCounter = () =>{
     if (!props.disable)
     counter.value = 1
 }
 
 const changeCounter = function(num){
-    const nextNumber = counter.value + +num
+    const nextNumber = +counter.value + +num
     if (!props.disable && props.max >= nextNumber && nextNumber >=0 )
     {
         counter.value += +num
@@ -56,20 +64,37 @@ defineExpose({
 }
 /* Product Quantity */
 .cart-count-wrapper {
-    background-color: #F3F3F9;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    overflow: hidden;
-    padding: 0 5px;
+        background-color: #F3F3F9;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 0 5px;
+    &:not(.input-sm)
+    {
+        width: 110px;
+        border-radius: 20px;
+        height: 40px;
+        .btn--minus, .btn--plus {
+            height: 30px;
+            width: 30px;
+        }
+    }
+    &.input-sm{
+        width: 90px;
+        border-radius: 20px;
+        height: 26px;
+        .btn--minus, .btn--plus {
+            height: 20px;
+            width: 20px;
+        }
+    }
 }
 .btn--minus, .btn--plus
 {
     display: flex;
-    height: 30px;
-    width: 30px;
+
     justify-content: center;
     align-items: center;
     transition: none !important;

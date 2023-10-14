@@ -10,12 +10,14 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->tinyText('detail')->nullable();
-            $table->string('link');
             $table->string('type');
-            $table->string('image');
-            $table->string('video')->nullable();
+            $table->string('file_path');
+            $table->string('alt_image')->nullable();
+            $table->string('title')->nullable();
+            $table->tinyText('detail')->nullable();
+            $table->string('link')->default('#');
+            $table->string('link_text')->nullable();
+            $table->tinyInteger('publish')->default(0);
         });
     }
 

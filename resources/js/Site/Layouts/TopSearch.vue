@@ -8,8 +8,8 @@
                     <div class="col-6 pt-100 pb-100">
                         <h2 class="tpsearchbar__title">What Are You Looking For?</h2>
                         <div class="tpsearchbar__form">
-                            <form action="#">
-                                <input type="text" name="search" placeholder="Search Product...">
+                            <form method="get" :action="appRoute('product.search')">
+                                <input type="text" :value="iPropsValue('filters','search')" name="search" placeholder="Search Product">
                                 <button class="tpsearchbar__search-btn"><i class="icon-search"></i></button>
                             </form>
                         </div>
@@ -23,7 +23,8 @@
 </template>
 
 <script setup>
-
+import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
+const { iPropsValue } = useInertiaPropsUtility();
 </script>
 
 <style lang="scss" scoped>

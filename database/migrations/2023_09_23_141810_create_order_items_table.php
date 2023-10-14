@@ -11,10 +11,10 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
-            $table->string('product');
-            $table->float('quantity');
+            $table->string('product_slug');
+            $table->int('quantity');
             $table->string('offer_name');
-            $table->float('offer_quantity');
+            $table->int('offer_quantity');
             $table->float('offer_price');
         });
     }

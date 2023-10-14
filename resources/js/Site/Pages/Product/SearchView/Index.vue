@@ -1,8 +1,4 @@
 <template>
-     <Head>
-        <title>category name</title>
-
-    </Head>
     <section class="shop-area-start grey-bg pb-200">
         <div class="container">
                     <div class="col-xl-12 col-lg-12 col-md-12  pt-20">
@@ -11,7 +7,11 @@
                             <div class="row align-items-center">
                                 <div class="col-sm-4">
                                     <div class="product__item-count">
-                                        <span>Showing {{ products.from }} {{ products.from == products.to ? '' : ' - '+products.to }} of {{products.total}} Products</span>
+                                        <p>Search Result for <span class="text-red" v-text="iPropsValue('filters','search')"></span>
+                                            <span v-if="products.total > 0">
+                                            : {{ products.from }} {{ products.from == products.to ? '' : ' - '+products.to }} of {{products.total}} Products
+                                            </span>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -65,7 +65,7 @@
                             <div class="tab-pane fade" :class="{'active show' : viewListType == 'grid'}" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
                                 <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
 
-                                    <div class="col"  v-if="products.data.length > 0"  style="z-index: 1;" v-for="product in products.data">
+                                    <div class="col" v-if="products.data.length > 0" style="z-index: 1;" v-for="product in products.data">
                                         <ProductCard :product-info="product" class="mb-6"/>
                                     </div>
                                     <div v-else>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="tab-pane fade whight-product" :class="{'active show' : viewListType == 'list'}" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
                                 <div class="row">
-                                    <div class="col-lg-12"  v-if="products.data.length > 0"  v-for="product in products.data">
+                                    <div class="col-lg-12" v-if="products.data.length > 0"  v-for="product in products.data">
                                         <ProductCardList :product-info="product" />
                                     </div>
                                     <div v-else>
@@ -98,12 +98,10 @@
 import {ref,watch,computed,onMounted} from "vue";
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 import { useLocalStorageUtility } from "@admin/Composables/localStorageUtility";
-
 import Pagination from '@/Components/Pagination'
 import ProductCard from "@/Components/ProductCard.vue"
 import ProductCardList from "@/Components/ProductCardList.vue"
 import NoRecords from "@/Components/NoRecords.vue";
-
 const { iPropsValue } = useInertiaPropsUtility();
 const { setWithExpiry, getWithExpiry } = useLocalStorageUtility();
 
@@ -114,6 +112,7 @@ watch(
     ()=> iPropsValue('products'),
     ()=>{
         products.value = iPropsValue('products')
+
     }
 )
 const selectedListType = (type) => {
@@ -122,7 +121,6 @@ const selectedListType = (type) => {
 // const props = defineProps({
 //     products:Object
 // })
-    console.log(products.value)
 onMounted(()=>{
     viewListType.value = getWithExpiry('viewListType') ?? 'list'
 })

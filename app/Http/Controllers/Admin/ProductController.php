@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Tag;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -30,12 +31,22 @@ class ProductController extends Controller
     {
         $categories = File::get(base_path('/storage/required/Category.json'));
         $categories = json_decode($categories);
-        $subCategories = Category::all()->groupBy(['name'])->toArray();
-        $products = Product::with(['category', 'comboOffer'])->latest()->get();
+        $subCategories = Cache::rememberForever('productCategory', function () {
+            return Category::all()->groupBy(['name'])->toArray();
+        });
+        $products = Product::with(['category', 'comboOffer'])->latest()->get()->transform(function ($item) {
+            $item->main_picture = $item->main_picture;
+            $item->alternative_picture = $item->alternative_picture;
+
+            return $item;
+        });
         $tags = Tag::get()->pluck('name')->toArray();
         $brands = Brand::get()->pluck('name')->toArray();
         $importers = Importer::get()->pluck('name')->toArray();
-        $productTypes = ProductType::all()->groupBy(['sub_category'])->toArray();
+
+        $productTypes = Cache::rememberForever('productType', function () {
+            ProductType::all()->groupBy(['sub_category'])->toArray();
+        });
 
         return Inertia::render(
             'ProductManagement/Index',

@@ -1,16 +1,23 @@
 <template>
+    <Head>
+        <title>{{productInfo.name}}</title>
+        <meta name="description" :content="removeHTMLTags(productInfo.product_info)">
+    </Head>
     <!-- breadcrumb-area-start -->
-    <div class="breadcrumb__area grey-bg pt-5 pb-5">
+    <div class="breadcrumb__area grey-bg py-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tp-breadcrumb__content">
                         <div class="tp-breadcrumb__list">
-                            <span class="tp-breadcrumb__active"><a href="index.html">Home</a></span>
+                            <span class="tp-breadcrumb__active"><NavLink
+                                :href="appRoute('homepage')">Home</NavLink></span>
                             <span class="dvdr">/</span>
-                            <span class="tp-breadcrumb__active"><a href="index.html">{{ productInfo.category.name }}</a></span>
+                            <span class="tp-breadcrumb__active">{{ productInfo.category.name }}</span>
                             <span class="dvdr">/</span>
-                            <span>{{ productInfo.category.sub_category }}</span>
+                            <span><NavLink :href="appRoute('product.category.view',[ productInfo.category.slug ])">{{
+                                    productInfo.category.sub_category
+                                }}</NavLink></span>
                         </div>
                     </div>
                 </div>
@@ -22,25 +29,12 @@
     <section class="shopdetails-area grey-bg pb-50">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-xs-12">
+                <div class="col-xs-12">
                     <div class="tpdetails__area  pb-30">
                         <div class="tpdetails__product mb-30">
                             <div class="tpdetails__title-box">
                                 <h3 class="tpdetails__title">{{ productInfo.name }}</h3>
-                                <ul class="tpdetails__brand">
-                                    <!--                                    <li> Brands: {{ productInfo.brand }} </li>-->
-                                    <!--                                    <li>-->
-                                    <!--                                        <i class="icon-star_outline1"></i>-->
-                                    <!--                                        <i class="icon-star_outline1"></i>-->
-                                    <!--                                        <i class="icon-star_outline1"></i>-->
-                                    <!--                                        <i class="icon-star_outline1"></i>-->
-                                    <!--                                        <i class="icon-star_outline1"></i>-->
-                                    <!--                                        <b>02 Reviews</b>-->
-                                    <!--                                    </li>-->
-                                    <!--                                    <li>-->
-                                    <!--                                        SKU: <span>ORFARMVE005</span>-->
-                                    <!--                                    </li>-->
-                                </ul>
+                                <!--                                <SubInfo/>-->
                             </div>
                             <div class="tpdetails__box">
                                 <div class="row">
@@ -63,6 +57,8 @@
                                                                 productInfo.current_discount.discount
                                                             }}%</span>
                                                         <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
+                                                        <span v-if="newStock"
+                                                              class="tpproduct__info-hot bage__new">New</span>
                                                     </div>
                                                 </div>
                                                 <div :key="key"
@@ -81,6 +77,8 @@
                                                                 productInfo.current_discount.discount
                                                             }}%</span>
                                                         <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
+                                                        <span v-if="newStock"
+                                                              class="tpproduct__info-hot bage__new">New</span>
                                                     </div>
                                                 </div>
 
@@ -88,7 +86,8 @@
                                             <nav>
                                                 <div class="nav nav-tabs justify-content-center" id="nav-tab"
                                                      role="tablist">
-                                                    <button v-if="productInfo.video_link" @click="showVideo=true" class="nav-link"
+                                                    <button v-if="hasVideo" @click="showVideo=true"
+                                                            class="nav-link"
                                                             type="button" role="tab" aria-controls="nav-home"
                                                             aria-selected="true">
                                                         <img src="/web-site/assets/img/icon/youtube-icon.svg"
@@ -142,13 +141,15 @@
                                             <div class="tab-pane fade show active">
                                                 <div class="product__details">
                                                     <div class="product__details-price-box">
-                                                        <div  v-if="productInfo.current_discount != null && formData.offer.key == 1" class="product__details-price">
+                                                        <div
+                                                            v-if="productInfo.current_discount != null && formData.offer.key == 1"
+                                                            class="product__details-price">
                                                             <span>
                                                            Rs {{ formattedPrice(discountPrice) }}
                                                             </span>
-                                                            <del>  Rs {{ formattedPrice(productPrice) }}</del>
+                                                            <del> Rs {{ formattedPrice(productPrice) }}</del>
                                                         </div>
-                                                        <div  v-else class="product__details-price">
+                                                        <div v-else class="product__details-price">
                                                             <span>
                                                            Rs {{ formattedPrice(productPrice) }}
                                                             </span>
@@ -164,7 +165,8 @@
                                                                        :max="maxCartInput" ref="refCartInput"
                                                                        @updateCount="updateCount"
                                                                        :disable="outOfStock"/>
-                                                            <button class="tp-btn-2 px-4 ml-4 cart_button" @click="addToCart"
+                                                            <button class="tp-btn-2 px-4 ml-4 cart_button"
+                                                                    @click="addToCart"
                                                                     :disabled="outOfStock" data-bs-toggle="tooltip"
                                                                     data-bs-title="Default tooltip"
                                                                     :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'">
@@ -173,7 +175,8 @@
                                                         </div>
                                                         <ul class="product__details-check">
                                                             <li v-if="userLoggedIn">
-                                                                <a href="#"><i class="icon-heart icons"></i> add to wishlist</a>
+                                                                <a href="#"><i class="icon-heart icons"></i> add to
+                                                                    wishlist</a>
                                                             </li>
                                                             <!--                                                        <li>-->
                                                             <!--                                                            <a href="#"><i class="icon-layers"></i> Add to Compare</a>-->
@@ -249,12 +252,17 @@
                 </div>
             </template>
         </Modal>
-        <Modal @close-modal="showVideo=false, iframeVideoKey++" :key="iframeVideoKey" v-show="showVideo">
+
+        <Modal v-if="hasVideo" @close-modal="showVideo=false, iframeVideoKey++" :key="iframeVideoKey" v-show="showVideo">
             <template v-slot:header>
-               neon tetra
+                neon tetra
             </template>
             <template v-slot:body>
-                <iframe width="560" height="315" :src="getFrameVideoLink(productInfo.video_link)+'?playsinline=1&autoplay=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&widgetid=7'" :title="productInfo.name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315"
+                        :src="getFrameVideoLink()"
+                        :title="productInfo.name" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
             </template>
             <template v-slot:footer>
                 <div class="flex gap-2">
@@ -268,17 +276,22 @@
 import Modal from "@/Components/Modal.vue"
 import {watch, ref, unref, reactive, onMounted, computed} from "@vue/runtime-core";
 import {useAppUtility} from "@admin/Composables/appUtility";
+import {useStringUtility} from "@admin/Composables/stringUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 import CartInput from "@/Components/CartInput.vue";
 import {useForm} from "@inertiajs/vue3";
+import moment from "moment";
+import { Head } from '@inertiajs/vue3'
+// import SubInfo from "./Components/SubInfo.vue";
 
 const maxCartInput = ref(0);
 const {getImageLink, mediaCheck} = useAppUtility();
+const {removeHTMLTags} = useStringUtility();
 const {iPropsValue} = useInertiaPropsUtility();
 const productInfo = ref(iPropsValue("productInfo"));
 
 const discountedPrice = computed(() => {
-    const { price, current_discount: { discount } } = productInfo.value;
+    const {price, current_discount: {discount}} = productInfo.value;
     return +price - (+discount / 100) * +price;
 })
 
@@ -286,7 +299,7 @@ const productPrice = ref(productInfo.value.price)
 const discountPrice = ref(discountedPrice);
 const formData = useForm({
     _method: "POST",
-    slug: productInfo.value.slug,
+    product: productInfo.value.slug,
     name: productInfo.value.name,
     offer: {
         key: '',
@@ -306,10 +319,19 @@ const userLoggedIn = iPropsValue('auth')
 watch(() => iPropsValue("productInfo"),
     () => {
         productInfo.value = iPropsValue("productInfo")
-    })
+    }
+)
 const outOfStock = computed(() => {
     return productInfo.value.available_quantity < 1
 })
+const newStock = computed(() => {
+    if (productInfo.value.last_import?.created_at != undefined) {
+        const currentDate = moment()
+        const oneWeekFromNow = moment().add(1, 'week')
+        const dateToCheck = moment(productInfo.value.last_import.created_at);
+        return dateToCheck.isBefore(oneWeekFromNow);
+    }
+});
 const isOfferSelected = (option) => {
     return formData.offer.key == option ? 'active' : '';
 }
@@ -322,9 +344,10 @@ const selectOffer = (option) => {
     const available_product = productInfo.value.available_quantity;
     formData.offer.key = option;
     formData.offer.name = productInfo.value.combo_offer['name_' + option];
-    formData.offer.price = productInfo.value.current_discount != null && option ==1 ? discountPrice.value : productInfo.value.combo_offer['price_' + option];
+    formData.offer.price = productInfo.value.current_discount != null && option == 1 ? discountPrice.value : productInfo.value.combo_offer['price_' + option];
     formData.offer.quantity = productInfo.value.combo_offer['quantity_' + option];
-    productPrice.value = productInfo.value.current_discount != null && option ==1 ? productInfo.value.combo_offer['price_' + option]: productInfo.value.combo_offer['price_' + option]
+    // productPrice.value = productInfo.value.current_discount != null && option == 1 ? productInfo.value.combo_offer['price_' + option] : productInfo.value.combo_offer['price_' + option]
+    productPrice.value = productInfo.value.combo_offer['price_' + option]
     refCartInput.value.resetCounter();
     maxCartInput.value = Math.floor((available_product / productInfo.value.combo_offer['quantity_' + option]));
 }
@@ -356,18 +379,17 @@ const addToCart = () => {
 
 }
 
-const getFrameVideoLink= (link)=>
-{
-    if (link != '' && link != null)
-    {
-        console.log(link)
+const getFrameVideoLink = () => {
+    const link = productInfo.value.video_link;
+    console.log(link)
+    if (link != '' && link != null) {
         // Extract the video ID from the YouTube link
         const match = link.match(/(?:youtube\.com\/watch\?v=|youtu.be\/)([\w-]+)/i);
         if (match) {
             const videoId = match[1];
             // Create the embedded iframe URL
             const frameLink = `https://www.youtube.com/embed/${videoId}`;
-            return frameLink;
+            return frameLink + '?playsinline=1&autoplay=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&widgetid=7';
 
         } else {
             return null; // Invalid YouTube link
@@ -376,6 +398,7 @@ const getFrameVideoLink= (link)=>
     }
 
 }
+const hasVideo = getFrameVideoLink() != null;
 
 onMounted(() => {
     if (outOfStock.value === false)
@@ -392,6 +415,7 @@ onMounted(() => {
 
         .w-img {
             height: 600px;
+
             img {
                 height: 100%;
                 width: 100%;
@@ -487,6 +511,7 @@ onMounted(() => {
         }
     }
 }
+
 .cart_button {
     &[disabled] {
         color: var(--tp-common-white);

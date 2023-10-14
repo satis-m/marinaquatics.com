@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('product')->index();
+            $table->string('product_slug')->index();
             $table->integer('discount');
             $table->dateTime('start_date');
             $table->dateTime('end_date');

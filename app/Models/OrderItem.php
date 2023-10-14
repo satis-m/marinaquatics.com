@@ -15,6 +15,6 @@ class OrderItem extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'slug', 'product');
+        return $this->hasOne(Product::class, 'slug', 'product_slug');
     }
 }

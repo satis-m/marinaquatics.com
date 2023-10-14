@@ -46,7 +46,7 @@ const { isDarkMode } = useAppUtility();
 const props = defineProps({
     acceptExtension: { type: String, required: true },
     acceptSize: { type: Number, required: true },
-    listType: { type: String, required: false, default: "list" },
+    listType: { type: String, required: false, default: "text" },
     fileList: { type: Object, required: false },
 });
 
@@ -110,7 +110,7 @@ const isAcceptableFile = (fileType) => {
         .split(","); //[("jpg", "jpeg", "png")];
     let allowedType = [];
 
-    const imageExtensions = ["jpg", "jpeg", "png", "svg",'webp'];
+    const imageExtensions = ["jpg", "jpeg", "png", "svg",'webp','gif'];
     const videoExtensions = ["mp4", "mpeg","webm"];
     const audioExtensions = ["mp3", "m4a"];
     const fileExtensions = ["pdf", "doc", "xls"];
@@ -124,12 +124,12 @@ const isAcceptableFile = (fileType) => {
         });
         videoExtensions.forEach((extension) => {
             if (value.toLowerCase() == extension) {
-                allowedType.push("audio/" + extension);
+                allowedType.push("video/" + extension);
             }
         });
         audioExtensions.forEach((extension) => {
             if (value.toLowerCase() == extension) {
-                allowedType.push("video/" + extension);
+                allowedType.push("audio/" + extension);
             }
         });
         fileExtensions.forEach((extension) => {
@@ -157,12 +157,14 @@ const isAcceptableFile = (fileType) => {
             }
         });
     });
-
+    console.log(allowedType);
     return allowedType.includes(fileType);
 };
 const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
 const handlePictureCardPreview = (uploadFile) => {
+    if(props.listType == "text")
+        return false;
     dialogImageUrl.value = uploadFile.url;
     dialogVisible.value = true;
 };

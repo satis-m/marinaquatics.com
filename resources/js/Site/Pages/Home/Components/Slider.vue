@@ -1,15 +1,13 @@
 <template>
     <section class="slider-area tpslider-delay">
         <div class="swiper-container tp-slider6">
-
                 <swiper-container
                     :key="swiperKey"
                     init="false"
-                    style="height: 100%"
                     id="image-slider"
                 >
-                    <swiper-slide>
-                        <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner1.jpg">
+                    <swiper-slide :key="key" v-for="(slider , key) in parentSliders">
+                        <div class="swiper-slide tpslider__bg6" :data-background="slider.image">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -18,98 +16,10 @@
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
                                             <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">Top Quality</h3>
-                                                <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
+                                                <h3 class="tpslider__five__title">{{ slider.title }}</h3>
+                                                <p>{{ slider.detail }}.</p>
                                                 <div class="tpslider__five__btn">
-                                                    <a class="tp-btn" href="shop-3.html">Shop Now <i class="icon-chevrons-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                        <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner2.jpg">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
-                                            <!-- <div class="tpslider__five__brand mb-10">
-                                               <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
-                                            </div> -->
-                                            <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">High Quality</h3>
-                                                <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
-                                                <div class="tpslider__five__btn">
-                                                    <a class="tp-btn" href="shop-3.html">Shop Now <i class="icon-chevrons-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                        <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner3.jpg">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
-                                            <!-- <div class="tpslider__five__brand mb-10">
-                                               <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
-                                            </div> -->
-                                            <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">Fresh Fish</h3>
-                                                <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
-                                                <div class="tpslider__five__btn">
-                                                    <a class="tp-btn" href="shop-3.html">Shop Now <i class="icon-chevrons-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                        <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner4.jpg">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
-                                            <!-- <div class="tpslider__five__brand mb-10">
-                                               <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
-                                            </div> -->
-                                            <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">Top Quality</h3>
-                                                <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
-                                                <div class="tpslider__five__btn">
-                                                    <a class="tp-btn" href="shop-3.html">Shop Now <i class="icon-chevrons-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                        <div class="swiper-slide tpslider__bg6" data-background="/web-site/assets/img/slider/topbanner5.jpg">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
-                                            <!-- <div class="tpslider__five__brand mb-10">
-                                               <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
-                                            </div> -->
-                                            <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">High Quality</h3>
-                                                <p>Our fresh Vietnamese vegetable rolls look taste even better.</p>
-                                                <div class="tpslider__five__btn">
-                                                    <a class="tp-btn" href="shop-3.html">Shop Now <i class="icon-chevrons-right"></i></a>
+                                                    <NavLink class="tp-btn" v-if="slider.link!='#' && slider.link!=''" :href="slider.link">{{ slider.link_text }} <i class="icon-chevrons-right"></i></NavLink>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,10 +44,16 @@
 <script setup>
 import {ref, watch, onMounted} from "@vue/runtime-core";
 // import function to register Swiper custom elements
+import Swiper from 'swiper';
 import {register} from 'swiper/element/bundle';
 // register Swiper custom elements
 
 import 'swiper/css';
+
+const props = defineProps({
+    parentSliders: { type: Object, required: true },
+});
+
 const swiperKey = ref(1);
 onMounted(() => {
     register();
@@ -179,7 +95,19 @@ const onSlideChange = () => {
 }
 </script>
 <style scoped>
-.swiper-container {
-    height: 100vh;
+.swiper-container,#image-slider {
+    height: calc(100vh - 75px);
+}
+@media (width <= 640px) {
+    .swiper-container,#image-slider {
+        height: 100%;
+    }
+}
+.tp-btn
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:4px;
 }
 </style>

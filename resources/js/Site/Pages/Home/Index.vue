@@ -1,15 +1,35 @@
 <template>
-
+<Head>
+    <template :key="key"  v-for="(slider , key) in sliders" >
+        <link rel="preload" v-if="key < 2" :href="slider.image" as="image" fetchpriority="high">
+    </template>
+</Head>
         <!-- slider-area-start -->
-        <Slider/>
+        <Slider v-once :parentSliders="sliders" />
         <!-- slider-area-end -->
         <!-- banner-area-start -->
 
-        <Banner type="video" title="banner 1" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/2banner.webm" image="/web-site/assets/img/banner/banner-2-poster.webp" link="#" />
-        <Banner type="video" title="banner 2" detail="Our fresh Vietnamese vegetable rolls look taste even better." video="/web-site/assets/3banner.webm" image="/web-site/assets/img/banner/banner-3-poster.webp" link="#" />
-        <Banner type="gif" title="gif" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/4banner.gif" link="#" />
-        <Banner type="image" title="image" detail="Our fresh Vietnamese vegetable rolls look taste even better." image="/web-site/assets/img/banner/5banner.jpg" link="#" />
+    <template v-once v-for="(banner, key) in banners" :key="key">
+        <Banner
+            v-if="banner.type =='video'"
+                :type="banner.type"
+                :title="banner.title"
+                :detail="banner.detail"
+                :video="banner.file_path"
+                :image="banner.alt_image"
+                :linkText="banner.link_text"
+                :link="banner.link" />
+        <Banner
+            v-else
 
+            :type="banner.type"
+            :title="banner.title"
+            :detail="banner.detail"
+            :image="banner.file_path"
+            :linkText="banner.link_text"
+            :link="banner.link" />
+
+    </template>
         <!-- banner-area-end -->
         <!-- product-area-start -->
         <section class="product-area bg-black p-10 ">
@@ -26,7 +46,7 @@
                 <div class="tpproduct__arrow p-relative">
                     <div class="swiper-container tpproduct-active tpslider-bottom p-relative">
                         <swiper-container id="product-swiper" init="false">
-                            <swiper-slide :key="key" v-for="(product, key) in productList ">
+                            <swiper-slide v-memo="[product]" :key="key" v-for="(product, key) in productList ">
                                 <ProductCard :product-info="product"/>
                             </swiper-slide>
                         </swiper-container>>
@@ -46,6 +66,7 @@
 <script setup>
 import Slider from "./Components/Slider.vue"
 import {register} from 'swiper/element/bundle';
+import {Head} from "@inertiajs/vue3";
 import { Navigation, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
@@ -59,6 +80,20 @@ watch(
     () => iPropsValue("products"),
     () => {
         productList.value = iPropsValue("products");
+    }
+);
+const sliders = ref(iPropsValue("sliders"));
+watch(
+    () => iPropsValue("sliders"),
+    () => {
+        sliders.value = iPropsValue("sliders");
+    }
+);
+const banners = ref(iPropsValue("banners"));
+watch(
+    () => iPropsValue("banners"),
+    () => {
+        banners.value = iPropsValue("banners");
     }
 );
 onMounted(()=>{

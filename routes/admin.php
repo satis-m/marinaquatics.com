@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\HomepageController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDamageController;
@@ -43,8 +42,9 @@ Route::post('/logout', [AuthenticateAdminController::class, 'destroy'])->name('a
 Route::middleware('auth.admin')->group(function () {
     Route::get('/homepage/slider', [SliderController::class, 'index'])->name('admin.homepage-slider.index');
     Route::patch('/homepage/slider/{sliderId}', [SliderController::class, 'update'])->name('admin.homepage-slider.update');
-    Route::patch('/homepage/slider/{id}/delete-image', [SliderController::class, 'deleteImage'])->name('admin.homepage-slider.delete-image');
-    Route::get('/homepage/banner', [HomepageController::class, 'bannerIndex'])->name('admin.homepage-banner.index');
+
+    Route::get('/homepage/banner', [BannerController::class, 'index'])->name('admin.homepage-banner.index');
+    Route::patch('/homepage/banner/{sliderId}', [BannerController::class, 'update'])->name('admin.homepage-banner.update');
 
     Route::post('/change-password', [AdminPasswordController::class, 'update'])->name('admin.changePassword');
 

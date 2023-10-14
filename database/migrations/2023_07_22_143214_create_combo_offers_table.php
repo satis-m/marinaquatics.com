@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('combo_offers', function (Blueprint $table) {
             $table->id();
-            $table->string('product')->unique()->index();
+            $table->string('product_slug')->unique()->index();
             $table->string('name_1')->nullable();
             $table->string('name_2')->nullable();
             $table->string('name_3')->nullable();

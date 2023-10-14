@@ -13,6 +13,6 @@ class ProductDamage extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product', 'slug');
+        return $this->belongsTo(Product::class, 'product_slug', 'slug');
     }
 }

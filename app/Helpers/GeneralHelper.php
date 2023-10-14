@@ -36,7 +36,13 @@ if (! \function_exists('getPercent')) {
 if (! \function_exists('getAppInfo')) {
     function getAppInfo($key = '')
     {
-        $appInfo = ApplicationInfo::first();
+        if (Session::has('ApplicationInfo')) {
+            $appInfo = Session::get('ApplicationInfo');
+        } else {
+            $appInfo = ApplicationInfo::first();
+            Session::put('ApplicationInfo', $appInfo);
+        }
+
         if ($key != '') {
             return $appInfo->$key;
         }

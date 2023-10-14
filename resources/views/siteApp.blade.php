@@ -56,10 +56,6 @@
                 @endif
             });
         </script>
-
-        <link rel="preload" href="/web-site/assets/img/slider/topbanner1.jpg" as="image" fetchpriority="high">
-        <link rel="preload" href="/web-site/assets/img/slider/topbanner2.jpg" as="image" fetchpriority="high">
-{{--        <link rel="preload" href="/web-site/assets/img/slider/topbanner1.jpg" as="image" fetchpriority="high">--}}
     </head>
     <body class="font-sans antialiased">
         @inertia

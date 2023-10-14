@@ -7,8 +7,8 @@
         </button>
         <div class="tpsideinfo__search text-center pt-2 px-3">
             <span class="tpsideinfo__search-title mb-20">What Are You Looking For?</span>
-            <form action="#">
-                <input type="text" placeholder="Search Products...">
+            <form method="get" :action="appRoute('product.search')">
+                <input type="text" :value="iPropsValue('filters','search')" name="search" placeholder="Search Products">
                 <button><i class="icon-search"></i></button>
             </form>
         </div>
@@ -34,7 +34,7 @@
                                         </NavLink>
                                         <ul class="sub-menu" style="display: none;">
                                             <li :key="key" v-for="(type ,key) in category.types">
-                                                <NavLink @click="handleMobileMenuClick" :href="appRoute('product.category.view',type.slug)">
+                                                <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
                                                     {{ type.name }}
                                                 </NavLink>
                                             </li>
@@ -58,7 +58,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.category.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>
@@ -82,7 +82,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.category.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>
@@ -106,7 +106,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.category.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>

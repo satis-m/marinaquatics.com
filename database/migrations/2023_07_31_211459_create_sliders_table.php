@@ -13,7 +13,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('title')->nullable();
             $table->tinyText('detail')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link_text')->nullable();
+            $table->string('link')->default('#');
             $table->tinyInteger('publish')->default(0);
         });
     }

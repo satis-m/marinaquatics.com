@@ -23,7 +23,11 @@ class Product extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected $appends = ['main_picture', 'alternative_picture'];
+    //        protected $appends = ['main_picture', 'alternative_picture'];
+
+    protected $casts = [
+        'tag' => 'array',
+    ];
 
     protected static function booted(): void
     {
@@ -58,34 +62,34 @@ class Product extends Model implements HasMedia
 
     public function productImports()
     {
-        return $this->hasMany(ProductImport::class, 'product', 'slug');
+        return $this->hasMany(ProductImport::class, 'product_slug', 'slug');
     }
 
     public function productDamages()
     {
-        return $this->hasMany(ProductDamage::class, 'product', 'slug');
+        return $this->hasMany(ProductDamage::class, 'product_slug', 'slug');
     }
 
     public function comboOffer()
     {
-        return $this->hasOne(ComboOffer::class, 'product', 'slug');
+        return $this->hasOne(ComboOffer::class, 'product_slug', 'slug');
     }
 
     public function discounts()
     {
-        return $this->hasMany(Discount::class, 'product', 'slug');
+        return $this->hasMany(Discount::class, 'product_slug', 'slug');
     }
 
-    protected $casts = [
-        'tag' => 'array',
-    ];
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'product_slug', 'slug');
+    }
 
     public function getMainPictureAttribute()
     {
-
-        if ($this->getFirstMedia('main_picture') != null) {
+        $media = $this->getFirstMedia('main_picture');
+        if ($media != null) {
             $thumb = $main = $blur = $preview = '';
-            $media = $this->getFirstMedia('main_picture');
 
             if ($media->hasGeneratedConversion('blur')) {
                 $fullPath = $media->getPath('blur');
@@ -125,8 +129,9 @@ class Product extends Model implements HasMedia
 
     public function getAlternativePictureAttribute()
     {
-        if ($this->getMedia('alternative_picture')->count()) {
-            return $this->getMedia('alternative_picture')
+        $altImage = $this->getMedia('alternative_picture');
+        if ($altImage->count()) {
+            return $altImage
                 ->map(function (Media $media) {
                     $thumb = $pic = $blur = $preview = '';
                     if ($media->hasGeneratedConversion('blur')) {
@@ -214,10 +219,39 @@ class Product extends Model implements HasMedia
 
     public function currentDiscount()
     {
-        return $this->hasOne(Discount::class, 'product', 'slug')
+        return $this->hasOne(Discount::class, 'product_slug', 'slug')
             ->whereDate('start_date', '<=', now()) // Discount start date should be less than or equal to the current date.
             ->whereDate('end_date', '>=', now()) // Discount end date should be greater than or equal to the current date.
             ->orderBy('id', 'desc')
             ->limit(1);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->whereFullText(['name', 'product_info', 'description'], $search, ['mode' => 'boolean']);
+    }
+
+    public function lastImport()
+    {
+        return $this->belongsTo(ProductImport::class);
+    }
+
+    public function scopeWithLastImport($query)
+    {
+        $query->addSelect(['last_import_id' => ProductImport::select('id')
+            ->whereColumn('product_slug', 'Products.slug')
+            ->latest()
+            ->take(1),
+
+        ])->with('lastImport:created_at,id');
+    }
+
+    public function scopeOrderByLastImport($query)
+    {
+        $query->orderByDesc(ProductImport::select('created_at')
+            ->whereColumn('product_slug', 'products.slug')
+            ->latest()
+            ->take(1)
+        );
     }
 }

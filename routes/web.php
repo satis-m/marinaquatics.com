@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductSearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
-use App\Models\Product;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,32 +21,22 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    $products = Product::query()
-//        ->where('sub_category', $subCategory)
-        ->orderBy('slug')
-        ->with('currentDiscount', 'category')
-        ->get();
-    //    dd($products);
-
-    return Inertia::render('Home/Index', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'products' => $products,
-    ]);
-})->name('homepage');
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
 })->middleware(['auth.client', 'verified'])->name('client.dashboard');
-
 Route::middleware('auth.client')->group(function () {
+
+    Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
+    Route::delete('/cart/remove', [CartController::class, 'destroy'])->name('user.cart.remove');
+    Route::patch('/cart/update', [CartController::class, 'update'])->name('user.cart.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/product/search', ProductSearchController::class)->name('product.search');
 
 Route::get('/product/list/{subCategory}', [ProductController::class, 'list'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'view'])->name('product.view');
