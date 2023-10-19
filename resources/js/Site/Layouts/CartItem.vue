@@ -6,9 +6,9 @@
         <div class="tpcart__content grow flex flex-col justify-between px-1">
              <span class="tpcart__content-title ">
                  <NavLink class="cart_close" :href="appRoute('product.view',item.product_slug)">
-                     {{
-                         item.product_name
-                     }} - {{ item.offer_name }}
+                       {{
+                           item.product_name
+                       }} - {{ item.offer_name }}
                  </NavLink>
              </span>
 
@@ -17,7 +17,7 @@
                            @updateCount="updateCount" @limitReach="handleLimitReach" :size="'sm'"  :max="maxCartInput" :value="item.quantity" :disable="outOfStock" />
                 <div class="tpcart__cart-price">
                     <span class="quantity">{{ itemQuantity }} x </span>
-                    <span class="new-price">Rs {{ item.offer_price }}</span>
+                    <span class="new-price">Rs. {{ offerPrice.toLocaleString()}}</span>
                 </div>
             </div>
             <div v-else>
@@ -97,6 +97,14 @@ const updateCount = (val)=>{
           emit('updateItem')
         }});
 }
+const offerPrice = computed(() => {
+  if(props.item.last_discount != null && props.item.offer_name == 'Standard' )
+  {
+    console.log(props.item,( (+props.item.last_discount.discount / 100) * +props.item.offer_price));
+    return +props.item.offer_price - ( (+props.item.last_discount.discount / 100) * +props.item.offer_price);
+  }
+  return props.item.offer_price;
+})
 const setMaxQuantity = ()=>{
     maxCartInput.value = Math.floor((props.item.available_quantity / props.item.offer_quantity));
 }
@@ -105,6 +113,7 @@ const handleLimitReach = ()=>{
 }
 onMounted(()=>{
     setMaxQuantity();
+  console.log('moounted')
 })
 
 </script>

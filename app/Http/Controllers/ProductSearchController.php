@@ -12,15 +12,20 @@ class ProductSearchController extends Controller
     {
         try {
             $query = Product::query()
-                ->when(request('search'), function ($query, $search) {
-                    $query->search($search);
-                }, function ($query) {
-                    $query->latest();
-                });
-            $products = $query->whereHas('category')
-                ->with('currentDiscount', 'category')
-                ->paginate(20)
-                ->appends(request()->query());
+                            ->when(request('search'), function ($query, $search) {
+                                $query->search($search);
+                            }, function ($query) {
+                                $query->latest();
+                            });
+            $products = $query->with('currentDiscount', 'category')
+                              ->paginate(20)
+                              ->appends(request()->query());
+
+            $products->map(function ($item) {
+                $item->main_picture = $item->main_picture;
+
+                return $item;
+            });
 
             return Inertia::render('Product/SearchView/Index',
                 [

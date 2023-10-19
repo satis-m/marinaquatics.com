@@ -15,14 +15,6 @@ class Client extends Authenticatable implements HasMedia
 
     protected $table = 'clients';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'profile_pic',
-        'profile_id',
-    ];
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -71,5 +63,13 @@ class Client extends Authenticatable implements HasMedia
         $this->addMediaConversion('medium')
             ->width(600)
             ->height(600);
+    }
+
+    public function address() {
+        return $this->hasOne(ClientAddress::class,'customer_id','id');
+    }
+    public function newQuery()
+    {
+        return parent::newQuery()->with('address');
     }
 }

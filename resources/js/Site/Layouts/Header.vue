@@ -128,9 +128,6 @@
                                                 :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
                                                 <i class="icon-user"></i></NavLink>
 
-                                            <NavLink class="hidden lg:block " v-if="iPropsValue('auth')" :href="appRoute('client.login')"><i
-                                                class="icon-heart icons"></i></NavLink>
-
                                             <button type="button" v-if="iPropsValue('auth')"
                                                     class="header__info-cart tp-cart-toggle"><i
                                                 class="icon-cart icons"></i>
@@ -156,73 +153,11 @@
         <div class="block xl:hidden">
             <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>
         </div>
-<!--        &lt;!&ndash; header-search &ndash;&gt;-->
-<!--        <div class="tpsearchbar tp-sidebar-area">-->
-<!--            <button class="tpsearchbar__close"><i class="icon-x"></i></button>-->
-<!--            <div class="search-wrap text-center">-->
-<!--                <div class="container">-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <div class="col-6 pt-100 pb-100">-->
-<!--                            <h2 class="tpsearchbar__title">What Are You Looking For?</h2>-->
-<!--                            <div class="tpsearchbar__form">-->
-<!--                                <form action="#">-->
-<!--                                    <input type="text" name="search" placeholder="Search Product...">-->
-<!--                                    <button class="tpsearchbar__search-btn"><i class="icon-search"></i></button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
         <TopSearch/>
         <div class="search-body-overlay"></div>
         <!-- header-search-end -->
         <!-- header-cart-start -->
-        <SideCart/>
-        <!-- header-cart-end -->
-        <!-- mobile-header-menu-area -->
-<!--        <div id="header-sticky-2" class="tpmobile-menu d-xl-none p-0">-->
-<!--            <div class="container-fluid">-->
-<!--                <div class="row p-relative d-flex justify-content-between" style="height: 75px;">-->
-<!--                    <div class="col-lg-12 text-center">-->
-<!--                        <button class="tp-menu-toggle"><i class="icon-menu1"></i></button>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-4 col-md-4 col-6 col-sm-4">-->
-<!--                        <div class="logo p-relative" style="z-index: 2;">-->
-<!--                            <NavLink :href="appRoute('homepage')">-->
-<!--                                <img :src="iPropsValue('app_info','brandLogo')"-->
-<!--                                     style="-webkit-filter: invert(1);filter: invert(1); height: 75px"-->
-<!--                                     alt="logo">-->
-<!--                            </NavLink>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-4 col-md-4 col-3 col-sm-5 h-full float-right">-->
-<!--                        <div class="header__info d-flex h-full justify-content-end align-items-center gap-3 me-3">-->
-<!--                            <button class="tp-search-toggle d-none d-sm-block"><i class="icon-search"></i></button>-->
-<!--                            <NavLink-->
-<!--                                :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">-->
-<!--                                <i class="icon-user"></i></NavLink>-->
-
-<!--                            <NavLink v-if="iPropsValue('auth')" :href="appRoute('client.login')"-->
-<!--                                     class="d-none d-sm-block"><i class="icon-heart icons"></i></NavLink>-->
-
-<!--                            <button type="button" class="header__info-cart tp-cart-toggle" v-if="iPropsValue('auth')"><i-->
-<!--                                class="icon-cart icons"></i>-->
-<!--                                <span>5</span>-->
-<!--                            </button>-->
-
-<!--                            <NavLink v-if="iPropsValue('auth')" title="logout" method="post" as="button" type="button"-->
-<!--                                     :href="appRoute('client.logout')"><i-->
-<!--                                class="icon-log-out icons"></i></NavLink>-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <!-- mobile-header-menu-area-end -->
+        <SideCart v-if="iPropsValue('auth')" />
         <MobileHeader/>
     </header>
 </template>
@@ -235,17 +170,6 @@ import TopSearch from "./TopSearch.vue";
 import SideCart from "./SideCart.vue";
 
 const {getImageLink} = useAppUtility();
-const handleMenuClick = (event) => {
-    console.log(event.target);
-    // const list = document.querySelectorAll('#desktop-menu ul li.has-dropdown .sub-menu li a');
-    // list.forEach((element) => {
-    //     element.classList.remove("active");
-    // })
-    // event.target.classList.add('active');
-
-}
-
-
 const navKey = ref(1);
 const hoveredIndex  = ref(null);
 const {iPropsValue} = useInertiaPropsUtility();

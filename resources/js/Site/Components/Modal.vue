@@ -133,4 +133,11 @@ p {
     border: 1px solid #859A00;
     background-color: #f2f2f6;
 }
+.modal-footer .btn.btn-danger:disabled
+{
+  border: 1px solid #B74758FF;
+  background-color: #b9636e;
+  color: var(--tp-common-white);
+  cursor: not-allowed;
+}
 </style>

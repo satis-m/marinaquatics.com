@@ -19,9 +19,9 @@ class HomepageController extends Controller
             ->withlastImport()
             ->orderByLastImport()
             ->with('currentDiscount', 'category')
-            ->get()
             ->take(20)
-            ->transform(function ($item) {
+            ->get()
+            ->map(function ($item) {
                 $item->main_picture = $item->main_picture;
                 $item->alternative_picture = $item->alternative_picture;
 

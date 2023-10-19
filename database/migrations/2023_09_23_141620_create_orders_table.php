@@ -12,14 +12,17 @@ return new class extends Migration
             $table->id();
             $table->string('order_no');
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->float('total_amount');
-            $table->float('discount');
             $table->float('subtotal_amount');
+            $table->float('discount');
+            $table->float('total_amount');
             $table->string('payment_method');
             $table->string('payment_status');
             $table->string('payment_info')->nullable();
             $table->string('order_status')->nullable();
             $table->string('order_type');
+            $table->string('delivery_type')->nullable();
+            $table->dateTime('delivered_on')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

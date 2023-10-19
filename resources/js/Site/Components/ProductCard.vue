@@ -12,12 +12,6 @@
                 <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
                 <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
             </div>
-            <div class="tpproduct__shopping">
-                <button type="button" v-if="userLoggedIn" class="tpproduct__shopping-wishlist" title="Add to Wishlist"
-                        href="wishlist.html"><i class="icon-heart icons"></i></button>
-                <!--                <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>-->
-                <!--                <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>-->
-            </div>
         </div>
         <div class="tpproduct__content">
              <span class="tpproduct__content_category capitalize">

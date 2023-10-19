@@ -29,7 +29,7 @@
                         </div>
                     </swiper-slide>
                 </swiper-container>
-                    <div class="tpslider__arrow d-none  d-xxl-block">
+                    <div class="tpslider__arrow d-none  d-xl-block">
                         <button class="tpsliderarrow tpslider__arrow-prv tpslider__prv6">
                             <i class="icon-chevron-left"></i>
                         </button>

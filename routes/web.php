@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +23,29 @@ use Inertia\Inertia;
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard/Index');
-})->middleware(['auth.client', 'verified'])->name('client.dashboard');
-Route::middleware('auth.client')->group(function () {
+Route::middleware('auth.client','verified')->group(function () {
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('client.dashboard');
+
+    Route::patch('/user/personal-info', [DashboardController::class, 'updatePersonalInfo'])->name('client.personal-info.update');
+
+    Route::patch('/user/shipping-info', [DashboardController::class, 'updateShippingInfo'])->name('client.shipping-info.update');
+
+    Route::get('/order-list', [DashboardController::class, 'orderList'])->name('client.dashboard.order-history');
+    Route::get('/shipping-address', [DashboardController::class, 'shippingAddress'])
+         ->name('client.dashboard.shipping-address');
+    Route::get('/change-password', [DashboardController::class, 'changePassword'])
+         ->name('client.dashboard.change-password');
+    
     Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
     Route::delete('/cart/remove', [CartController::class, 'destroy'])->name('user.cart.remove');
     Route::patch('/cart/update', [CartController::class, 'update'])->name('user.cart.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/cart/proceed-payment', [CartController::class, 'proceedPayment'])->name('cart.proceed-payment');
+    Route::post('/cart/success-payment', [CartController::class, 'succeedPayment']);
 });
 
 Route::get('/product/search', ProductSearchController::class)->name('product.search');

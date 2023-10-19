@@ -34,7 +34,7 @@ class ProductController extends Controller
         $subCategories = Cache::rememberForever('productCategory', function () {
             return Category::all()->groupBy(['name'])->toArray();
         });
-        $products = Product::with(['category', 'comboOffer'])->latest()->get()->transform(function ($item) {
+        $products = Product::with(['category', 'comboOffer'])->latest()->get()->map(function ($item) {
             $item->main_picture = $item->main_picture;
             $item->alternative_picture = $item->alternative_picture;
 

@@ -120,9 +120,6 @@
                         <li v-else>
                             <a href="appRoute('client.login')"><i class="icon-user icons"></i> Login / Register</a>
                         </li>
-                        <li v-if="iPropsValue('auth')">
-                            <a href="wishlist.html" target="_parent"><i class="icon-heart"></i> Wishlist</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
@@ -136,11 +133,6 @@ const {iPropsValue} = useInertiaPropsUtility();
 const handleMobileMenuClick = (event) => {
     console.log(event.target);
     const list = document.querySelectorAll('#mobile-menu ul li.has-dropdown .sub-menu li a');
-    // list.forEach((element) => {
-    //     console.log(element)
-    //     // element.classList.remove("active");
-    // })
-    // event.target.classList.add('active');
     $(".tpsideinfo").removeClass("tp-sidebar-opened");
     $(".body-overlay").removeClass("opened");
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\OtpCodeEmail;
 use App\Models\Client;
+use App\Models\ClientAddress;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -41,10 +42,14 @@ class RegisteredUserController extends Controller
 
         $user = Client::create([
             'name' => $request->name,
-            'contact' => $request->contact,
             'email' => $request->email,
             'password' => $request->password,
             'email_verified_at' => Carbon::now(),
+        ]);
+
+        ClientAddress::create([
+            'customer_id' => $user->id,
+            'billing_contact' => $request->contact,
         ]);
 
         event(new Registered($user));

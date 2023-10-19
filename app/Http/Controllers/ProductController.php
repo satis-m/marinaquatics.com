@@ -44,9 +44,8 @@ class ProductController extends Controller
             'Product/List',
             [
                 'products' => $products,
-                'isLoggedIn' => auth()->user(),
+                'isLoggedIn' => auth('admin')->user(),
             ]);
-        dd($products);
     }
 
     public function categoryView($slug)
@@ -59,7 +58,7 @@ class ProductController extends Controller
                 ->paginate(10)
                 ->appends(request()->query());
 
-            $products->transform(function ($item) {
+            $products->map(function ($item) {
                 $item->main_picture = $item->main_picture;
 
                 return $item;

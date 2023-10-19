@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <title>Login / Signup</title>
+  </Head>
     <!-- breadcrumb-area-start -->
     <div class="breadcrumb__area pt-5 pb-5">
         <div class="container">
@@ -110,31 +113,31 @@
         </template>
         <template v-slot:body>
 
-                        <div class="tptrack__email white-bg mb-10">
+                        <div class="tptrack__email white-bg">
                             <span><i class="icon-user"></i></span>
-                            <input type="text" v-model="formData.name"  placeholder="Full Name">
-                            <div class="error-msg">{{ nameError }}</div>
+                            <input type="text" v-model="formData.name" class="!h-[45px]"  placeholder="Full Name">
                         </div>
-                        <div class="tptrack__email white-bg mb-10">
+                            <div class="text-red-600 text-left text-sm min-h-[24px]">{{ nameError }}</div>
+                        <div class="tptrack__email white-bg">
                             <span><i class="icon-phone"></i></span>
-                            <input type="tel" v-model="formData.contact" placeholder="Mobile Number">
-                            <div class="error-msg">{{ contactError }}</div>
+                            <input type="tel" v-model="formData.contact" class="!h-[45px]" placeholder="Mobile Number">
                         </div>
+                            <div class="text-red-600 text-left text-sm min-h-[24px]">{{ contactError }}</div>
 
-                        <div class="tptrack__email white-bg mb-10">
+                        <div class="tptrack__email white-bg ">
                             <span><i class="icon-key"></i></span>
-                            <input type="password" v-model="formData.password"  @blur="validatePassword" placeholder="Password">
-                            <div class="error-msg">{{ passwordError }}</div>
+                            <input type="password" v-model="formData.password"  @blur="validatePassword" class="!h-[45px]" placeholder="Password">
                         </div>
-                        <div class="tptrack__email white-bg mb-10">
+                            <div class="text-red-600 text-left text-sm min-h-[24px]">{{ passwordError }}</div>
+                        <div class="tptrack__email white-bg">
                             <span><i class="icon-key"></i></span>
-                            <input type="password" v-model="formData.password_confirmation" required @blur="validateConfirmPassword"
+                            <input type="password" v-model="formData.password_confirmation" class="!h-[45px]" required @blur="validateConfirmPassword"
                                    placeholder="Verify Password">
-                            <div class="error-msg">{{ confirmPasswordError }}</div>
                         </div>
+                            <div class="text-red-600 text-left text-sm min-h-[24px]">{{ confirmPasswordError }}</div>
         </template>
         <template v-slot:footer>
-           <button class="btn btn-danger" @click="signupUser">Register</button>
+           <button class="btn btn-danger" v-bind:disabled="!validatePassword() || !validateConfirmPassword()" @click="signupUser">Register</button>
            <button class="btn" @click="showModal=false">Cancel</button>
         </template>
     </Modal>

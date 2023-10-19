@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
-class HandleInertiaRequests extends Middleware
-{
+class HandleInertiaRequests extends Middleware {
+
     /**
      * The root template that is loaded on the first page visit.
      *
@@ -22,8 +22,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determine the current asset version.
      */
-    public function version(Request $request): ?string
-    {
+    public function version(Request $request): ?string {
         return parent::version($request);
     }
 
@@ -32,10 +31,8 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-    public function share(Request $request): array
-    {
+    public function share(Request $request): array {
         $flashMessage = $pageException = [];
-
         if (Session::get('pageException')) {
             $pageException = [
                 'token' => md5(date('Y-m-d H:i:s')),
@@ -90,7 +87,7 @@ class HandleInertiaRequests extends Middleware
 
             return array_merge(parent::share($request), [
                 'app_info' => getAppInfo(),
-                'portal_menu' => fn () => $request->user('admin')
+                'portal_menu' => fn() => $request->user('admin')
                     ? json_decode(getPortalMenu('admin'))
                     : null,
                 'ziggy' => function () use ($request) {
@@ -98,7 +95,7 @@ class HandleInertiaRequests extends Middleware
                         'location' => $request->url(),
                     ]);
                 },
-                'auth' => fn () => $request->user('admin')
+                'auth' => fn() => $request->user('admin')
                     ?
                     [
                         'user' => $request->user('admin') ?? null,
@@ -108,14 +105,13 @@ class HandleInertiaRequests extends Middleware
                 'page_exception' => $pageException,
             ]);
         } else {
-
             $this->rootView = 'siteApp';
             if ($request->user('client')) {
                 $cartItems = CartItem::query()
-                    ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
-                    ->withLastDiscount()
-                    ->where('carts.customer_id', $request->user('client')->id)
-                    ->get();
+                                     ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+                                     ->withLastDiscount()
+                                     ->where('carts.customer_id', $request->user('client')->id)
+                                     ->get();
                 $cartItems->load('product');
                 $cartItems->transform(function ($item) {
                     $item->main_picture = $item->product->main_picture;
@@ -130,9 +126,9 @@ class HandleInertiaRequests extends Middleware
             return array_merge(parent::share($request), [
                 'categories' => Cache::rememberForever('Category', function () {
                     return Category::with('types')
-                        ->get()
-                        ->groupBy(['name'])
-                        ->toArray();
+                                   ->get()
+                                   ->groupBy(['name'])
+                                   ->toArray();
                 }),
                 'app_info' => getAppInfo(),
                 //                'portal_menu' => fn () => $request->user('client')
@@ -143,7 +139,7 @@ class HandleInertiaRequests extends Middleware
                         'location' => $request->url(),
                     ]);
                 },
-                'auth' => fn () => $request->user('client')
+                'auth' => fn() => $request->user('client')
                     ?
                     [
                         'user' => $request->user('client') ?? null,

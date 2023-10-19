@@ -30,6 +30,7 @@ class OrderService
             ]);
             $products = request('products');
             foreach ($products as $product) {
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_slug' => $product['product'],
@@ -37,15 +38,11 @@ class OrderService
                     'offer_name' => $product['combo'],
                     'offer_price' => $product['rate'],
                     'offer_quantity' => $product['comboQuantity'],
+                    'item_total_price' => (float)$product['rate'] * ((int)$product['comboQuantity'] * (int)$product['quantity']),
                 ]);
                 $quantityToDecrement = $product['comboQuantity'] * $product['quantity'];
-                $product = Product::where('slug', $product['product'])->first();
-                $newQuantity = $product->available_quantity - $quantityToDecrement;
-                $product->update([
-                    'available_quantity' => $newQuantity,
-                ]);
+                Product::where('slug', $product['product'])->decrement('available_quantity',$quantityToDecrement);
             }
-
             Billing::create([
                 'order_id' => $order->id,
                 'billing_name' => request('billingInfo')['name'],
@@ -53,8 +50,8 @@ class OrderService
                 'billing_contact' => request('billingInfo')['contact'],
                 'vat_pan' => request('billingInfo')['vatpan'],
             ]);
-            DB::commit();
 
+            DB::commit();
             return true;
         } catch (QueryException $e) {
             //database related exception
