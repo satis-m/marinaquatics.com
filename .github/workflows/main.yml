@@ -12,7 +12,7 @@ jobs:
     - name: ssh git server deploy
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: marineaquatics.com.np
+        host: 202.52.248.109
         username: man_svr
         key: ${{ secrets.SSH_PRIVATE_KEY_MAIN }}
         port: 2050
