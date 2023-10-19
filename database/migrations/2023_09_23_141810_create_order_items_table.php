@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('product_slug');
-            $table->int('quantity');
+            $table->bigInteger('quantity');
             $table->string('offer_name');
-            $table->int('offer_quantity');
+            $table->bigInteger('offer_quantity');
             $table->float('offer_price');
         });
     }
