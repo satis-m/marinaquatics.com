@@ -7,6 +7,7 @@ use App\Models\ApplicationInfo;
 use App\Services\AppSettingService;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Session;
 
 class AppSettingController extends Controller
 {
@@ -39,7 +40,10 @@ class AppSettingController extends Controller
     public function update()
     {
         try {
-            (new AppSettingService())->update();
+           if( (new AppSettingService())->update())
+            {
+                Session::put('ApplicationInfo', ApplicationInfo::first());
+            }
         } catch (\Exception $e) {
             return Redirect::route('appSetting.index')->with('error', $e->getMessage());
         }
