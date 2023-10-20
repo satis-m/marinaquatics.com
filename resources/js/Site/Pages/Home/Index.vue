@@ -16,8 +16,8 @@
                 :type="banner.type"
                 :title="banner.title"
                 :detail="banner.detail"
-                :video="banner.file_path"
-                :image="banner.alt_image"
+                :video="siteUrl(banner.file_path)"
+                :image="siteUrl(banner.alt_image)"
                 :linkText="banner.link_text"
                 :link="banner.link" />
         <Banner
@@ -26,7 +26,7 @@
             :type="banner.type"
             :title="banner.title"
             :detail="banner.detail"
-            :image="banner.file_path"
+            :image="siteUrl(banner.file_path)"
             :linkText="banner.link_text"
             :link="banner.link" />
 
@@ -75,6 +75,10 @@ import Banner from "./Components/Banner.vue"
 import ProductCard from "../../Components/ProductCard.vue"
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 import {ref, watch,onMounted} from "@vue/runtime-core";
+
+import {useAppUtility} from "@admin/Composables/appUtility";
+const {siteUrl} = useAppUtility();
+
 const {iPropsValue} = useInertiaPropsUtility();
 const productList = ref(iPropsValue("products"));
 watch(

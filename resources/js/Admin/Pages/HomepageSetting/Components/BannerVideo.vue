@@ -15,11 +15,14 @@
 <script setup>
 import {ref} from "@vue/runtime-core";
 
+import {useAppUtility} from "@/Composables/appUtility";
+const {siteUrl} = useAppUtility();
+
 const FormVisible = ref(false);
 const videoPath = ref('');
 const showForm = function (filePath = "") {
     FormVisible.value = true;
-    videoPath.value = filePath;
+    videoPath.value = siteUrl(filePath);
 }
 
 defineExpose({

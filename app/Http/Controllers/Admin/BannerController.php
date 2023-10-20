@@ -20,7 +20,6 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::all();
-
         return Inertia::render(
             'HomepageSetting/BannerIndex',
             [

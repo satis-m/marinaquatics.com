@@ -7,7 +7,7 @@ export function useAppUtility() {
 	}
 	const siteUrl = function (link = "", opt = "") {
 		if (opt == "api") return App.siteUrl + "/api/v1/" + link;
-		return App.siteUrl + "/" + link;
+		return App.siteUrl + link;
 	}
 	const verifyRole = function (role) {
 		if (window.App.user.role.role_name == role) return true;

@@ -7,7 +7,7 @@
                     id="image-slider"
                 >
                     <swiper-slide :key="key" v-for="(slider , key) in parentSliders">
-                        <div class="swiper-slide tpslider__bg6" :data-background="slider.image">
+                        <div class="swiper-slide tpslider__bg6" :data-background="siteUrl(slider.image)">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -47,7 +47,8 @@ import {ref, watch, onMounted} from "@vue/runtime-core";
 import Swiper from 'swiper';
 import {register} from 'swiper/element/bundle';
 // register Swiper custom elements
-
+import {useAppUtility} from "@admin/Composables/appUtility";
+const {siteUrl} = useAppUtility();
 import 'swiper/css';
 
 const props = defineProps({

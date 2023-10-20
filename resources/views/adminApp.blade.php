@@ -13,6 +13,12 @@
     @routes
     @vite('resources/js/admin.js','admin-site/build')
     @inertiaHead
+    <script>
+        window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'siteUrl' => url('/'),
+        ]) !!};
+    </script>
 </head>
 
 <body class="font-sans antialiased">

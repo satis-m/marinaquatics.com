@@ -56,6 +56,12 @@
                 @endif
             });
         </script>
+        <script>
+            window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'siteUrl' => url('/'),
+        ]) !!};
+        </script>
     </head>
     <body class="font-sans antialiased">
         @inertia

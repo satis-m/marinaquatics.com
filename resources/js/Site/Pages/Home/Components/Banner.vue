@@ -40,6 +40,8 @@
 </template>
 
 <script setup>
+import {useAppUtility} from "@admin/Composables/appUtility";
+const {siteUrl} = useAppUtility();
 const props = defineProps({
     type: {
         type: String,

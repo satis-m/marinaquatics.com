@@ -17,9 +17,6 @@ class BannerService
         $banner->type = request('type');
         $banner->publish = request('publish');
         if (request()->file('file_path')) {
-            request()->validate([
-                'file_path' => 'file|mimes:jpg,png,webp,webm,mp4,gif',
-            ]);
             if (File::exists(public_path($banner->file_path))) {
                 File::delete(public_path($banner->file_path));
             }
