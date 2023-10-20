@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->string('shipping_address')->nullable();
             $table->string('shipping_contact')->nullable();
             $table->string('shipping_landmark')->nullable();
-            $table->string('customer_id');
-            $table->unsignedBigInteger('customer_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unique(['customer_id']);
         });
     }

@@ -233,13 +233,13 @@ class Product extends Model implements HasMedia
 
     public function lastImport()
     {
-        return $this->belongsTo(ProductImport::class);
+        return $this->belongsTo(ProductImport::class,);
     }
 
     public function scopeWithLastImport($query)
     {
         $query->addSelect(['last_import_id' => ProductImport::select('id')
-            ->whereColumn('product_slug', 'Products.slug')
+            ->whereColumn('product_slug', 'products.slug')
             ->latest()
             ->take(1),
 
