@@ -36,14 +36,14 @@ class Product extends Model implements HasMedia
         });
         static::created(function ($product) {
             ComboOffer::create([
-                'product' => $product->slug,
+                'product_slug' => $product->slug,
                 'name_1' => 'Standard',
                 'quantity_1' => 1,
                 'price_1' => $product->price,
             ]);
         });
         static::updated(function ($product) {
-            ComboOffer::where('product', $product->slug)
+            ComboOffer::where('product_slug', $product->slug)
                 ->update([
                     'price_1' => $product->price,
                 ]);
