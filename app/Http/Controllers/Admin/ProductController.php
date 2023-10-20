@@ -18,17 +18,15 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
+
     protected $permissionName = 'product';
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->implementMethodPermission($this->permissionName);
     }
 
-    public function index()
-    {
+    public function index() {
         $categories = File::get(base_path('/storage/required/Category.json'));
         $categories = json_decode($categories);
         $subCategories = Cache::rememberForever('productCategory', function () {
@@ -37,7 +35,6 @@ class ProductController extends Controller
         $products = Product::with(['category', 'comboOffer'])->latest()->get()->map(function ($item) {
             $item->main_picture = $item->main_picture;
             $item->alternative_picture = $item->alternative_picture;
-
             return $item;
         });
         $tags = Tag::get()->pluck('name')->toArray();
@@ -45,9 +42,9 @@ class ProductController extends Controller
         $importers = Importer::get()->pluck('name')->toArray();
 
         $productTypes = Cache::rememberForever('productType', function () {
-            ProductType::all()->groupBy(['sub_category'])->toArray();
+            return ProductType::all()->groupBy(['sub_category'])->toArray();
         });
-
+        
         return Inertia::render(
             'ProductManagement/Index',
             [
@@ -61,16 +58,15 @@ class ProductController extends Controller
                 'subCategories' => $subCategories,
                 'userCan' => [
                     'massAdd' => false,
-                    'create' => request()->user('admin')->hasPermissionTo($this->permissionName.'-create'),
-                    'edit' => request()->user('admin')->hasPermissionTo($this->permissionName.'-edit'),
-                    'delete' => request()->user('admin')->hasPermissionTo($this->permissionName.'-delete'),
+                    'create' => request()->user('admin')->hasPermissionTo($this->permissionName . '-create'),
+                    'edit' => request()->user('admin')->hasPermissionTo($this->permissionName . '-edit'),
+                    'delete' => request()->user('admin')->hasPermissionTo($this->permissionName . '-delete'),
                 ],
             ]
         );
     }
 
-    public function store(StoreProductRequest $request)
-    {
+    public function store(StoreProductRequest $request) {
         $request->validated();
         try {
             (new ProductService())->add();
@@ -81,8 +77,7 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Added Successfully');
     }
 
-    public function update(UpdateProductRequest $request, int $productId)
-    {
+    public function update(UpdateProductRequest $request, int $productId) {
         $request->validated();
         try {
             (new ProductService())->update($productId);
@@ -93,9 +88,7 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Updated Successfully');
     }
 
-    public function destroy(int $productId)
-    {
-
+    public function destroy(int $productId) {
         try {
             (new ProductService())->remove($productId);
         } catch (\Exception $e) {
@@ -105,8 +98,7 @@ class ProductController extends Controller
         return Redirect::route('product.index')->with('success', 'Deleted Successfully');
     }
 
-    public function deletePicture(int $mediaId)
-    {
+    public function deletePicture(int $mediaId) {
         try {
             $media = Media::where('id', $mediaId)->first();
             $product = Product::find($media->model_id);
@@ -114,7 +106,6 @@ class ProductController extends Controller
             if ($mediaItem) {
                 $mediaItem->delete();
             }
-
         } catch (\Exception $e) {
             return Redirect::route('product.index')->with('error', $e->getMessage());
         }
