@@ -10,7 +10,7 @@
     <template
         v-else-if="showMnemonic && iPropsValue('app_info', 'favIconLight')"
     >
-        <img :src="iPropsValue('app_info', 'favIconLight')" alt="Brand Logo" />
+        <img class="p-2" :src="iPropsValue('app_info', 'favIconLight')" alt="Brand Logo" />
     </template>
     <template
         v-else-if="showMnemonic && !iPropsValue('app_info', 'favIconLight')"

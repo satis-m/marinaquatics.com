@@ -64,6 +64,23 @@
                 "icon": "fa-gear"
             },
             {
+                "link": "#",
+                "name": "Homepage Setting",
+                "icon": "fa-home",
+                "children": [
+                    {
+                        "link": "admin.homepage-slider.index",
+                        "name": "Manage Slider",
+                        "icon": "icon ni ni-user-c"
+                    },
+                    {
+                        "link": "admin.homepage-banner.index",
+                        "name": "Manage banners",
+                        "icon": "icon ni ni-calendar-booking"
+                    }
+                ]
+            },
+            {
                 "link": "product.index",
                 "name": "Manage Product",
                 "icon": "fa-fish"
@@ -82,29 +99,8 @@
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
-            },
-            {
-                "link": "#",
-                "name": "School Management",
-                "icon": "fa-home",
-                "children": [
-                    {
-                        "link": "#",
-                        "name": "manage school",
-                        "icon": "icon ni ni-user-c"
-                    },
-                    {
-                        "link": "#",
-                        "name": "manage year",
-                        "icon": "icon ni ni-calendar-booking"
-                    },
-                    {
-                        "link": "#",
-                        "name": "manage teacher",
-                        "icon": "icon ni ni-user-list"
-                    }
-                ]
             }
+
         ]
     },
     "staff": {

@@ -149,7 +149,7 @@
             </template>
         </el-drawer>
         <div
-            class="brand-logo bg-primary text-white hidden-sm-and-down"
+            class="brand-logo text-white hidden-sm-and-down"
             :class="isCollapse ? '!w-16 flex' : ''"
         >
             <div class="logo" v-if="!isCollapse">
@@ -340,6 +340,8 @@ defineExpose({
     align-items: center; /* Vertical */
     justify-content: center; /* Horizontal */
     text-align: center;
+  border-right: solid 1px var(--el-menu-border-color);
+  background-color: #409eff;
 }
 #menubar {
     height: calc(100vh - 60px); /* 60px header */
