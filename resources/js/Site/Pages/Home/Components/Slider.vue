@@ -89,10 +89,8 @@ onMounted(() => {
     swiperEl.initialize();
 })
 const onProgress = () => {
-    console.log('progress')
 }
 const onSlideChange = () => {
-    console.log('change slide')
 }
 </script>
 <style scoped>

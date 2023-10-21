@@ -122,7 +122,6 @@ const selectedListType = (type) => {
 // const props = defineProps({
 //     products:Object
 // })
-    console.log(products.value)
 onMounted(()=>{
     viewListType.value = getWithExpiry('viewListType') ?? 'list'
 })

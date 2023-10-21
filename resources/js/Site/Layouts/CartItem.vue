@@ -100,7 +100,6 @@ const updateCount = (val)=>{
 const offerPrice = computed(() => {
   if(props.item.last_discount != null && props.item.offer_name == 'Standard' )
   {
-    console.log(props.item,( (+props.item.last_discount.discount / 100) * +props.item.offer_price));
     return +props.item.offer_price - ( (+props.item.last_discount.discount / 100) * +props.item.offer_price);
   }
   return props.item.offer_price;

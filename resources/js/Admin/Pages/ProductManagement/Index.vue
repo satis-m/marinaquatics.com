@@ -500,7 +500,6 @@ const changePageSize = (val) => {
 const changePage = (val = 1) => {
     currentPage.value = val;
     const listStorage = dataList.value;
-    console.log(listStorage)
     // CHECK IF SEARCH EMPTY
     if (listStorage) {
         if (searchText.value == "") {

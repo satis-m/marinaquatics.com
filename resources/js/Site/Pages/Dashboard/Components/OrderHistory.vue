@@ -50,7 +50,6 @@ watch(() => iPropsValue('orders'), (newValue) => {
   orders.value = newValue
 })
 onMounted(() => {
-  console.log(orders.value)
 })
 </script>
 <style>

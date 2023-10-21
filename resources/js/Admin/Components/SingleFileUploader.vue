@@ -157,7 +157,6 @@ const isAcceptableFile = (fileType) => {
             }
         });
     });
-    console.log(allowedType);
     return allowedType.includes(fileType);
 };
 const dialogImageUrl = ref("");

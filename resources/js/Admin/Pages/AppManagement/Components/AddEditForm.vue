@@ -47,7 +47,7 @@
                             >
                                 <SingleFileUploader
                                     ref="refLogoUpload"
-                                    :acceptExtension="'.jpg, .jpeg, .svg, .png'"
+                                    :acceptExtension="'.jpg, .jpeg, .svg, .png, .webp'"
                                     :acceptSize="2048"
                                     :listType="'picture'"
                                     @uplodable="uplodableLogo"
@@ -61,7 +61,7 @@
                         >
                             <SingleFileUploader
                                 ref="refFavLightUpload"
-                                :acceptExtension="'.png, .svg'"
+                                :acceptExtension="'.png, .svg, .webp'"
                                 :acceptSize="150"
                                 :listType="'picture'"
                                 @uplodable="uplodableFavIconLight"
@@ -77,7 +77,7 @@
                                 <SingleFileUploader
 
                                     ref="refFavDarkUpload"
-                                    :acceptExtension="'.png, .svg'"
+                                    :acceptExtension="'.png, .svg, .webp'"
                                     :acceptSize="150"
                                     :listType="'picture'"
                                     @uplodable="uplodableFavIconDark"

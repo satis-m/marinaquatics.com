@@ -363,7 +363,6 @@ const updateMaxCartInput = () => {
       maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - cartItem[0]['quantity']);
     }
     else {
-      console.log(cartItem[0]['offer_name'])
       if(formData.offer.name == "Standard" )
       {
 

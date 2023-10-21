@@ -131,7 +131,6 @@
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 const {iPropsValue} = useInertiaPropsUtility();
 const handleMobileMenuClick = (event) => {
-    console.log(event.target);
     const list = document.querySelectorAll('#mobile-menu ul li.has-dropdown .sub-menu li a');
     $(".tpsideinfo").removeClass("tp-sidebar-opened");
     $(".body-overlay").removeClass("opened");

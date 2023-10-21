@@ -100,16 +100,16 @@ class ApplicationInfo extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('logo')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png','image/webp'])
             ->singleFile();
         $this->addMediaCollection('logo-dark')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png','image/webp'])
             ->singleFile();
         $this->addMediaCollection('fav-icon-light')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png','image/webp'])
             ->singleFile();
         $this->addMediaCollection('fav-icon-dark')
-            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/svg+xml', 'image/png','image/webp'])
             ->singleFile();
     }
 

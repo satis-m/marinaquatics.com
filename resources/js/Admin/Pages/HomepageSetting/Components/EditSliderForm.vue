@@ -154,7 +154,6 @@ const showForm = function (data = "") {
 };
 
 const populateFormData = function (data) {
-    console.log(data)
     Object.assign(formData, data);
 
     if (data.image != null && data.image.length > 0) {
