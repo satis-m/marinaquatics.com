@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="Satish Maharjan (satish.maharjan55@gmail.com)" name="author">
     <title inertia>{{ getAppInfo('title') }}</title>
     <!-- Fonts -->
     <link href="{{ getAppInfo('favIconLight') }}" rel="icon" media="(prefers-color-scheme: light)" />

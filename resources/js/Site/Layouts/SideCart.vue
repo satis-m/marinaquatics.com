@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="tpcart__free-shipping text-center">
-        <span>Free shipping for orders <b>over Rs 5000</b> inside Ring Road.</span>
+        <span>Free shipping for orders <b>over Rs {{ iPropsValue('app_info','cod_threshold_amount') }}</b> inside Ring Road.</span>
       </div>
     </div>
   </div>

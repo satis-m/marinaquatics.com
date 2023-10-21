@@ -70,16 +70,18 @@
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="tpfooter__widget mb-50 text-center text-md-start">
                                 <h4 class="tpfooter__widget-title">Let Us Help You</h4>
-                                <p >If you have any question, please <br> contact us at:
-                                    <a href="mailto:marineaquatics@gmail.com" class="text-white">marineaquatics@gmail.com</a>
+                                <p >If you have any question, please <br> contact us at: <br/>
+                                  <i class="icon-phone"></i> {{iPropsValue('app_info','contact')}}
+                                  <br>
+                                  <a :href="'mailto:'+iPropsValue('app_info','email')" class="text-white"> <i class="icon-mail"></i> {{ iPropsValue('app_info','email') }}</a>
                                 </p>
                                 <div class="tpfooter__widget-social mt-45">
                                     <span class="tpfooter__widget-social-title mb-1">Social Media:</span>
                                     <div class="d-flex social-icon justify-center justify-content-md-start">
-                                    <a href="#"><i class="icon-facebook"></i></a>
-                                    <a href="#"><i class="icon-youtube"></i></a>
-                                    <a href="#"><i class="icon-instagram"></i></a>
-                                    <a href="#"><i class="icon-whatsapp d-flex">
+                                    <a target="_blank" :href="iPropsValue('app_info','fb_link')"><i class="icon-facebook"></i></a>
+                                    <a target="_blank" :href="iPropsValue('app_info','youtube_link')"><i class="icon-youtube"></i></a>
+                                    <a target="_blank" :href="iPropsValue('app_info','insta_link')"><i class="icon-instagram"></i></a>
+                                    <a target="_blank" :href="iPropsValue('app_info','whatsapp_link')"><i class="icon-whatsapp d-flex">
                                         <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
                                     </a>
                                     </div>
@@ -89,11 +91,9 @@
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="tpfooter__widget mb-50 text-center">
                                 <h4 class="tpfooter__widget-title">Looking for Marine Aquatics Nepal?</h4>
-                                <p>Sukedhara,<br> Kathmandu, Nepal.</p>
+                                <p v-html="formattedAddress"></p>
                                 <div class="tpfooter__widget-time-info mt-35">
-                                    <span>Monday – Friday: <b>8:10 AM – 8:10 PM</b></span>
-                                    <span>Saturday: <b>10:10 AM – 08:10 PM</b></span>
-                                    <span>Sunday: <b>Close</b></span>
+                                  <span v-html="iPropsValue('app_info','store_time')"></span>
                                 </div>
                             </div>
                         </div>
@@ -104,10 +104,10 @@
                                 </h4>
                                 <div class="tpfooter__widget-links">
                                     <ul>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Blogs</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                        <li><a href="#">Contact Us</a></li>
+<!--                                        <li><a href="#">About Us</a></li>-->
+<!--                                        <li><a href="#">Blogs</a></li>-->
+<!--                                        <li><a href="#">Gallery</a></li>-->
+                                        <li><a href="#" @click.prevent="showModal=true">Visit Us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="tpfooter__copyright text-center">
-                                <span class="tpfooter__copyright-text">Copyright © Marine Aquatics Nepal all rights reserved. Powered by IT Expert Group.</span>
+                                <span class="tpfooter__copyright-text">Copyright © {{ iPropsValue('app_info','title') }} all rights reserved. Powered by IT Expert Group.</span>
                             </div>
                         </div>
                     </div>
@@ -128,8 +128,34 @@
             </div>
         </div>
     </footer>
+  <Teleport to="body">
+    <Modal @close-modal="showModal=false" v-show="showModal">
+      <template v-slot:header>
+       Google Map
+      </template>
+      <template v-slot:body>
+        <div class="">
+          <div v-html="iPropsValue('app_info','google_map')"></div>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <div class="flex gap-2 mt-3">
+          <button class="action-btn btn-sm btn-grey" @click="showModal=false">close</button>
+        </div>
+      </template>
+    </Modal>
+  </Teleport>
 </template>
 <script setup>
+import Modal from "@/Components/Modal.vue"
+import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+import {ref,computed} from "@vue/runtime-core";
+const {iPropsValue} = useInertiaPropsUtility();
+
+const formattedAddress = computed(()=>{
+  return iPropsValue('app_info','address').replace(", ", ",<br>");
+})
+const showModal = ref(false);
 </script>
 <style scoped>
 .mainfeature__icon

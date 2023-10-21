@@ -15,6 +15,12 @@ class AppSettingService
             $appsetting->email = request('email');
             $appsetting->contact = request('contact');
             $appsetting->address = request('address');
+            $appsetting->fb_link = request('fb_link');
+            $appsetting->insta_link = request('insta_link');
+            $appsetting->youtube_link = request('youtube_link');
+            $appsetting->whatsapp_link = request('whatsapp_link');
+            $appsetting->google_map = request('google_map');
+            $appsetting->store_time = request('store_time');
 
             if (request()->has('logo') && request('logo') != '') {
                 $appsetting->addMediaFromRequest('logo')->toMediaCollection('logo');

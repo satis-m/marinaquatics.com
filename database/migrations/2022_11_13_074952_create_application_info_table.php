@@ -14,8 +14,13 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('contact')->nullable();
-            $table->string('map_location')->nullable();
             $table->string('esewa_merchant')->nullable();
+            $table->text('google_map')->nullable();
+            $table->string('fb_link')->nullable();
+            $table->string('youtube_link')->nullable();
+            $table->string('insta_link')->nullable();
+            $table->string('whatsapp_link')->nullable();
+            $table->string('store_time')->nullable();
             $table->string('cod_threshold_amount')->nullable();
             $table->timestamps();
         });
