@@ -115,10 +115,10 @@
                             </ul>
                         </li>
                         <li v-if="iPropsValue('auth')">
-                            <a href="appRoute('client.dashboard')"><i class="icon-user icons"></i> My Profile</a>
+                            <NavLink :href="appRoute('client.dashboard')"><i class="icon-user icons"></i> My Profile</NavLink>
                         </li>
                         <li v-else>
-                            <a href="appRoute('client.login')"><i class="icon-user icons"></i> Login / Register</a>
+                            <NavLink :href="appRoute('client.login')"><i class="icon-user icons"></i> Login / Register</NavLink>
                         </li>
                     </ul>
                 </nav>
