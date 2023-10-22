@@ -13,10 +13,10 @@
                         <div class="col-xl-12">
                             <div class="header__menu main-menu text-center">
                                 <nav id="desktop-menu">
-                                    <div class="logo">
+                                    <div class="logo relative w-[200px] h-[75px] xl:w-100 inline-flex xl:invisible" >
                                         <NavLink :href="appRoute('homepage')">
-                                            <img :src="iPropsValue('app_info','brandLogo')"
-                                                 style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
+                                            <img class="absolute z-2 top-2" :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
+                                                 style=""
                                                  alt="logo"/>
                                         </NavLink>
                                     </div>
@@ -42,7 +42,7 @@
                                                 </div>
                                                 <div class="sub-menu-image-container">
                                                     <img
-                                                        src="https://marineaquatics.test/storage/38/conversions/banner-2-poster-medium.webp"
+                                                        :src="siteUrl('storage/38/conversions/banner-2-poster-medium.webp')"
                                                         alt="banner-2-poster.webp">
                                                 </div>
                                             </div>
@@ -72,6 +72,12 @@
                                                 </div>
                                             </div>
                                         </li>
+                                      <li class="relative w-[300px]">
+                                        <NavLink class="center-logo" :href="appRoute('homepage')">
+                                          <img class="absolute z-3 top-2 " :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
+                                               alt="logo"/>
+                                        </NavLink>
+                                      </li>
                                         <li class="menu-item" key="3" :class="hoveredIndex == 3 ? 'active' : '' " @mouseover="addClass(3)" @mouseout="removeClass(3)">
                                             <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
                                             <div class="sub-menu">
@@ -162,6 +168,7 @@
     </header>
 </template>
 <script setup>
+
 import {watch, onMounted, ref} from "@vue/runtime-core";
 import {useAppUtility} from "@admin/Composables/appUtility";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
@@ -169,7 +176,7 @@ import MobileHeader from "./MobileHeader.vue";
 import TopSearch from "./TopSearch.vue";
 import SideCart from "./SideCart.vue";
 
-const {getImageLink} = useAppUtility();
+const {getImageLink,siteUrl} = useAppUtility();
 const navKey = ref(1);
 const hoveredIndex  = ref(null);
 const {iPropsValue} = useInertiaPropsUtility();
@@ -206,7 +213,7 @@ const removeClass = (index)=>
 
 .logo {
     img {
-        max-width: 250px;
+        max-width: 300px;
     }
 }
 
@@ -335,4 +342,5 @@ a.cstm-icon {
         }
     }
 }
+
 </style>
