@@ -1,11 +1,26 @@
 <template>
      <Head>
-        <title>category name</title>
-
+        <title>{{categoryName}}</title>
     </Head>
+  <div class="breadcrumb__area grey-bg py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tp-breadcrumb__content">
+            <div class="tp-breadcrumb__list">
+                            <span class="tp-breadcrumb__active"><NavLink
+                                :href="appRoute('homepage')">Home</NavLink></span>
+              <span class="dvdr"> / </span>
+              <span>{{ readableWord(categoryName) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     <section class="shop-area-start grey-bg pb-200">
         <div class="container">
-                    <div class="col-xl-12 col-lg-12 col-md-12  pt-20">
+                    <div class="col-xl-12 col-lg-12 col-md-12 ">
 
                         <div class="product__filter-content mb-10">
                             <div class="row align-items-center">
@@ -98,6 +113,7 @@
 import {ref,watch,computed,onMounted} from "vue";
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 import { useLocalStorageUtility } from "@admin/Composables/localStorageUtility";
+import { useStringUtility } from "@admin/Composables/stringUtility";
 
 import Pagination from '@/Components/Pagination'
 import ProductCard from "@/Components/ProductCard.vue"
@@ -105,11 +121,13 @@ import ProductCardList from "@/Components/ProductCardList.vue"
 import NoRecords from "@/Components/NoRecords.vue";
 
 const { iPropsValue } = useInertiaPropsUtility();
+const { readableWord } = useStringUtility();
 const { setWithExpiry, getWithExpiry } = useLocalStorageUtility();
 
 // const testData = iPropsValue('app_info','title');
 const products = ref(iPropsValue('products'));
 const viewListType = ref('list');
+const categoryName = ref('');
 watch(
     ()=> iPropsValue('products'),
     ()=>{
@@ -123,6 +141,8 @@ const selectedListType = (type) => {
 //     products:Object
 // })
 onMounted(()=>{
+  const parts = products.value.path.split('/');
+  categoryName.value = parts[parts.length - 1];
     viewListType.value = getWithExpiry('viewListType') ?? 'list'
 })
 

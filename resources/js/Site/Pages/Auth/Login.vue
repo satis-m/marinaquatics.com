@@ -3,13 +3,13 @@
     <title>Login / Signup</title>
   </Head>
     <!-- breadcrumb-area-start -->
-    <div class="breadcrumb__area pt-5 pb-5">
+    <div class="breadcrumb__area py-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tp-breadcrumb__content">
                         <div class="tp-breadcrumb__list">
-                            <span class="tp-breadcrumb__active"><a href="index.html">Home</a></span>
+                            <span class="tp-breadcrumb__active"><NavLink :href="appRoute('homepage')">Home</NavLink></span>
                             <span class="dvdr">/</span>
                             <span>Sign in</span>
                         </div>

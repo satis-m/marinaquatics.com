@@ -2,7 +2,7 @@
 <Head>
     <title>Homepage</title>
     <template :key="key"  v-for="(slider , key) in sliders" >
-        <link rel="preload" v-if="key < 2" :href="slider.image" as="image" fetchpriority="high">
+        <link rel="preload" v-if="key < 2" :href="siteUrl(slider.image)" as="image" fetchpriority="high">
     </template>
 </Head>
         <!-- slider-area-start -->

@@ -255,7 +255,7 @@
         neon tetra
       </template>
       <template v-slot:body>
-        <iframe width="560" height="315"
+        <iframe width="100%" height="315"
                 :src="getFrameVideoLink()"
                 :title="productInfo.name" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

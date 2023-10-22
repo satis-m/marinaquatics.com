@@ -15,7 +15,7 @@
                                 <nav id="desktop-menu">
                                     <div class="logo relative w-[200px] h-[75px] xl:w-100 inline-flex xl:invisible" >
                                         <NavLink :href="appRoute('homepage')">
-                                            <img class="absolute z-2 top-2" :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
+                                            <img class="absolute z-2 " :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
                                                  style=""
                                                  alt="logo"/>
                                         </NavLink>
@@ -212,9 +212,18 @@ const removeClass = (index)=>
 }
 
 .logo {
+  max-width: 300px;
+  img {
+    max-width: 300px;
+    top:10px
+  }
+  @media (width < 350px) {
     img {
-        max-width: 300px;
+      width: 230px;
+      top:25px;
+      left:-20px;
     }
+  }
 }
 
 #desktop-menu {
