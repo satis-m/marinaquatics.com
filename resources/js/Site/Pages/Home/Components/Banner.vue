@@ -40,6 +40,7 @@
 </template>
 
 <script setup>
+import {onMounted} from "vue";
 import {useAppUtility} from "@admin/Composables/appUtility";
 const {siteUrl} = useAppUtility();
 const props = defineProps({
@@ -72,6 +73,13 @@ const props = defineProps({
         required: true,
     },
 });
+onMounted(()=>{
+  var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    lazyLoadVideo(lazyVideos); //main.js function
+  }
+})
 </script>
 
 <style lang="scss" scoped>

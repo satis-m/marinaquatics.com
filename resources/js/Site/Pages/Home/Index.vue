@@ -22,7 +22,6 @@
                 :link="banner.link" />
         <Banner
             v-else
-
             :type="banner.type"
             :title="banner.title"
             :detail="banner.detail"
