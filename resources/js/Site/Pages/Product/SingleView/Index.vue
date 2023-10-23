@@ -1,7 +1,15 @@
 <template>
   <Head>
     <title>{{productInfo.name}}</title>
-    <meta name="description" :content="removeHTMLTags(productInfo.product_info)">
+    <meta head-key="description" name="description" :content="removeHTMLTags(productInfo.product_info)">
+
+    <meta head-key="og:description" property="og:description" :content="removeHTMLTags(productInfo.product_info)">
+
+    <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
+    <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">
+    <meta inertia='og:title' property="og:title" :content="productInfo.name">
+    <meta head-key='og:image' property="og:image" :content="getImageLink(productInfo.main_picture , 'thumbnail')">
+
   </Head>
   <!-- breadcrumb-area-start -->
   <div class="breadcrumb__area grey-bg py-3">

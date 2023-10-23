@@ -5,21 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta content="Satish Maharjan (satish.maharjan55@gmail.com)" name="author">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
+        <meta property="og:type" content="website">
 
+        <meta inertia='og:url' property="og:url" content="{{ url('/')}}">
+        <meta inertia='og:title' property="og:title" content="{{ config('app.name', 'Laravel') }}">
+        <meta inertia='og:description' property="og:description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium.">
+        <meta inertia='og:image' property="og:image" content="{{ getAppInfo('brand_logo') }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="628">
+
+        <meta inertia="description" name="description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium." />
+        <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <!-- Fonts -->
-        <link rel="stylesheet" href="/web-site/assets/css/animate.css">
-        <link rel="stylesheet" href="/web-site/assets/css/swiper-bundle.css">
-        <link rel="stylesheet" href="/web-site/assets/css/spacing.css">
-        <link rel="stylesheet" href="/web-site/assets/css/meanmenu.css">
-        <link rel="stylesheet" href="/web-site/assets/css/icon-dukamarket.css">
-        <link rel="stylesheet" href="/web-site/assets/css/main.css">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/animate.css')}}">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/swiper-bundle.css')}}">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/spacing.css')}}">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/meanmenu.css')}}">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/icon-dukamarket.css')}}">
+        <link rel="stylesheet" href="{{ asset('/web-site/assets/css/main.css')}}">
         <script
             src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
             crossorigin="anonymous"></script>
-        <script src="/web-site/assets/js/waypoints.js"></script>
-        <script src="/web-site/assets/js/countdown.js"></script>
+        <script src="{{ asset('/web-site/assets/js/waypoints.js')}}"></script>
+        <script src="{{ asset('/web-site/assets/js/countdown.js')}}"></script>
         <script src="{{ asset('/web-site/assets/js/main.js') }}"></script>
 
         <!-- Scripts -->

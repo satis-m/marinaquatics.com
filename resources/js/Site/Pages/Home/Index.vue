@@ -4,6 +4,12 @@
     <template :key="key"  v-for="(slider , key) in sliders" >
         <link rel="preload" v-if="key < 2" :href="siteUrl(slider.image)" as="image" fetchpriority="high">
     </template>
+    <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
+    <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">
+    <meta head-key='og:title' property="og:title" content="">
+    <meta head-key='og:description' property="og:description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium.">
+    <meta head-key='og:image' property="og:image" :content="iPropsValue('app_info','brandLogo')">
+    <meta head-key="description" name="description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium." />
 </Head>
         <!-- slider-area-start -->
         <Slider v-once :parentSliders="sliders" />
@@ -77,8 +83,8 @@ import {ref, watch,onMounted} from "@vue/runtime-core";
 
 import {useAppUtility} from "@admin/Composables/appUtility";
 const {siteUrl} = useAppUtility();
-
 const {iPropsValue} = useInertiaPropsUtility();
+
 const productList = ref(iPropsValue("products"));
 watch(
     () => iPropsValue("products"),

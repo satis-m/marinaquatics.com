@@ -159,6 +159,7 @@ export function useAppUtility() {
         const blankImage = '/admin-site/blank_image_2.svg';
         if (object !== null && typeof object === "object" && object.hasOwnProperty(propertyName)) {
             if (object[propertyName] == null) return blankImage;
+
             try {
                 const response = await fetch(object[propertyName], { method: 'HEAD' });
 
