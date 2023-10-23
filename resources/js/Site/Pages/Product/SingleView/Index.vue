@@ -53,8 +53,9 @@
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
-                          <ImageWithFallback v-if="mediaCheck('sm')" :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
-                          <ImageWithFallback v-else :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
+                          <ImageWithFallback v-if="mediaCheck('sm')" :source="productInfo.main_picture.thumbnail"
+                                             :alt="productInfo.slug"/>
+                          <ImageWithFallback v-else :source="productInfo.main_picture.preview" :alt="productInfo.slug"/>
 
                           <div class="tpproduct__info bage">
                                                         <span v-if="productInfo.current_discount != null"
@@ -104,7 +105,7 @@
                                   :data-bs-target="'#preview-image-'+productInfo.main_picture?.id"
                                   type="button" role="tab" aria-controls="nav-home"
                                   aria-selected="true">
-                            <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                            <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug"/>
                           </button>
                           <button :key="key"
                                   v-for="(alternativePicture , key) in productInfo.alternative_picture"
@@ -114,7 +115,8 @@
                                   type="button" role="tab"
                                   :aria-controls="'preview-image-'+alternativePicture.id"
                                   aria-selected="false">
-                            <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                            <ImageWithFallback :source="productInfo.alternativePicture.thumbnail"
+                                               :alt="productInfo.slug"/>
                           </button>
                         </div>
                       </nav>
@@ -364,21 +366,16 @@ const updateMaxCartInput = () => {
   const available_product = productInfo.value.available_quantity;
   const cartItem = getObjectRow(cartItems.value, 'product_slug', productInfo.value.slug);
   if (cartItem.length > 0) {
-    if (cartItem[0]['offer_name'] == formData.offer.name ) {
+    if (cartItem[0]['offer_name'] == formData.offer.name) {
       maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - cartItem[0]['quantity']);
-    }
-    else {
-      if(formData.offer.name == "Standard" )
-      {
+    } else {
+      if (formData.offer.name == "Standard") {
 
       }
-      if(cartItem[0]['offer_name'] == "Standard" )
-      {
+      if (cartItem[0]['offer_name'] == "Standard") {
         maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - cartItem[0]['quantity']);
-      }
-      else
-      {
-        maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - (cartItem[0]['quantity'] * cartItem[0]['offer_quantity'] ));
+      } else {
+        maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - (cartItem[0]['quantity'] * cartItem[0]['offer_quantity']));
       }
       // maxCartInput.value = Math.floor((available_product / cartItem[0]['offer_quantity']) - cartItem[0]['quantity']);
     }
