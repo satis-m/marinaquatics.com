@@ -8,10 +8,18 @@
         <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
         <meta property="og:type" content="website">
 
-        <meta inertia='og:url' property="og:url" content="{{ url('/')}}">
-        <meta inertia='og:title' property="og:title" content="{{ config('app.name', 'Laravel') }}">
-        <meta inertia='og:description' property="og:description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium.">
-        <meta inertia='og:image' property="og:image" content="{{ getAppInfo('brand_logo') }}">
+        @if(isset($page['props']['og_meta']))
+            <meta inertia='og:url' property="og:url" content="{{ $page['props']['og_meta']['og_url'] }}">
+            <meta inertia='og:title' property="og:title" content="{{ $page['props']['og_meta']['og_title'] }}">
+            <meta inertia='og:description' property="og:description" content="{{$page['props']['og_meta']['og_description']}}">
+            <meta inertia='og:image' property="og:image" content="{{ $page['props']['og_meta']['og_image'] }}">
+        @else
+            <meta inertia='og:url' property="og:url" content="{{ url('/')}}">
+            <meta inertia='og:title' property="og:title" content="{{ config('app.name', 'Laravel') }}">
+            <meta inertia='og:description' property="og:description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium.">
+            <meta inertia='og:image' property="og:image" content="{{ getAppInfo('brand_logo') }}">
+
+        @endif
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="628">
 

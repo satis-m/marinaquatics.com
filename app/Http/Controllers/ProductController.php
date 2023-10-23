@@ -10,6 +10,7 @@ class ProductController extends Controller
 {
     public function view($slug)
     {
+
         try {
             $productInfo = Product::query()
                 ->where('slug', $slug)
@@ -20,11 +21,15 @@ class ProductController extends Controller
             $productInfo->main_picture = $productInfo->main_picture;
             $productInfo->alternative_picture = $productInfo->alternative_picture;
 
-            return Inertia::render('Product/SingleView/Index',
-                [
-                    'productInfo' => $productInfo,
-                ]
-            );
+            $data['productInfo'] = $productInfo;
+            $data['og_meta'] = [
+                'og_title' => $productInfo->slug,
+                'og_description' => htmlentities(strip_tags($productInfo->product_info)),
+                'og_image' => $productInfo->main_picture['thumbnail'],
+                'og_url' => url()->current(),
+            ];
+            
+            return Inertia::render('Product/SingleView/Index',$data);
         } catch (ModelNotFoundException $exception) {
             // Product not found, handle the exception or return an error response
             // For example:
