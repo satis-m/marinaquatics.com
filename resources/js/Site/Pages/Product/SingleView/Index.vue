@@ -115,7 +115,7 @@
                                   type="button" role="tab"
                                   :aria-controls="'preview-image-'+alternativePicture.id"
                                   aria-selected="false">
-                            <ImageWithFallback :source="productInfo.alternativePicture.thumbnail"
+                            <ImageWithFallback :source="alternativePicture.thumbnail"
                                                :alt="productInfo.slug"/>
                           </button>
                         </div>
