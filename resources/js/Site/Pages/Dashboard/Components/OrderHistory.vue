@@ -21,7 +21,7 @@
         <div v-for="orderItem in order.order_items" class="pt-3 flex gap-2">
           <div class="grow-0">
             <NavLink :href="appRoute('product.view', orderItem.product_slug )">
-              <img :src="orderItem.product_main_picture.thumbnail" class="w-[75px] rounded" alt="">
+              <img :src="orderItem.product_main_picture.thumbnail" class="w-[75px] rounded" :alt="orderItem.product_slug">
             </NavLink>
           </div>
           <div class="grow flex flex-col justify-between ml-2">

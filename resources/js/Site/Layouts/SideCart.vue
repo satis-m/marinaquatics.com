@@ -16,7 +16,7 @@
         </div>
         <div  v-else class="tpcart__product-list flex-grow-1 overflow-y-visible">
           <p class="text-center flex justify-center flex-col h-100 items-center">
-            <img src="/web-site/assets/img/icon/empty-cart.svg" style="width: 75px;" alt="">
+            <img src="/web-site/assets/img/icon/empty-cart.svg" style="width: 75px;" alt="empty cart">
             <span class="mt-2">Cart is empty.</span>
           </p>
         </div>

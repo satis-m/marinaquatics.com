@@ -176,7 +176,7 @@ import MobileHeader from "./MobileHeader.vue";
 import TopSearch from "./TopSearch.vue";
 import SideCart from "./SideCart.vue";
 
-const {getImageLink,siteUrl} = useAppUtility();
+const {siteUrl} = useAppUtility();
 const navKey = ref(1);
 const hoveredIndex  = ref(null);
 const {iPropsValue} = useInertiaPropsUtility();

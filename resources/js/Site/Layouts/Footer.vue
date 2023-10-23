@@ -7,7 +7,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img src="/web-site/assets/img/icon/feature-icon-1.svg" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-1.svg')" alt="">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Fast Delivery</h4>
@@ -18,7 +18,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img src="/web-site/assets/img/icon/feature-icon-2.svg" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-2.svg')" alt="">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Safe payment</h4>
@@ -29,7 +29,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img src="/web-site/assets/img/icon/feature-icon-3.svg" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-3.svg')" alt="">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Online Discount</h4>
@@ -40,7 +40,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img src="/web-site/assets/img/icon/feature-icon-4.svg" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-4.svg')" alt="">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Help Center</h4>
@@ -51,7 +51,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img src="/web-site/assets/img/icon/feature-icon-5.svg" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-5.svg')" alt="">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Curated items</h4>
@@ -82,7 +82,7 @@
                                     <a target="_blank" :href="iPropsValue('app_info','youtube_link')"><i class="icon-youtube"></i></a>
                                     <a target="_blank" :href="iPropsValue('app_info','insta_link')"><i class="icon-instagram"></i></a>
                                     <a target="_blank" :href="iPropsValue('app_info','whatsapp_link')"><i class="icon-whatsapp d-flex">
-                                        <img class="icon" src="/web-site/assets/img/icon/whatsapp.svg" width="20px" height="20px"></i>
+                                        <img class="icon" :src="siteUrl('/web-site/assets/img/icon/whatsapp.svg')" width="20px" height="20px"></i>
                                     </a>
                                     </div>
                                 </div>
@@ -148,10 +148,11 @@
 </template>
 <script setup>
 import Modal from "@/Components/Modal.vue"
-import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 import {ref,computed} from "@vue/runtime-core";
+import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 const {iPropsValue} = useInertiaPropsUtility();
-
+import {useAppUtility} from "@admin/Composables/appUtility";
+const {siteUrl} = useAppUtility();
 const formattedAddress = computed(()=>{
   return iPropsValue('app_info','address').replace(", ", ",<br>");
 })

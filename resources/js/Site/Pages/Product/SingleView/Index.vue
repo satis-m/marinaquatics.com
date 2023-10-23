@@ -8,7 +8,7 @@
     <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
     <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">
     <meta inertia='og:title' property="og:title" :content="productInfo.name">
-    <meta head-key='og:image' property="og:image" :content="getImageLink(productInfo.main_picture , 'thumbnail')">
+    <meta head-key='og:image' property="og:image" :content="productInfo.main_picture.thumbnail">
 
   </Head>
   <!-- breadcrumb-area-start -->
@@ -53,12 +53,9 @@
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
-                          <img v-if="mediaCheck('sm')"
-                               :src="getImageLink(productInfo.main_picture , 'thumbnail')"
-                               :alt="productInfo.main_picture">
-                          <img v-else
-                               :src="getImageLink(productInfo.main_picture , 'preview')"
-                               :alt="productInfo.main_picture?.name">
+                          <ImageWithFallback v-if="mediaCheck('sm')" :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                          <ImageWithFallback v-else :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
+
                           <div class="tpproduct__info bage">
                                                         <span v-if="productInfo.current_discount != null"
                                                               class="tpproduct__info-discount bage__discount">{{
@@ -98,7 +95,7 @@
                                   class="nav-link"
                                   type="button" role="tab" aria-controls="nav-home"
                                   aria-selected="true">
-                            <img src="/web-site/assets/img/icon/youtube-icon.svg"
+                            <img :src="siteUrl('/web-site/assets/img/icon/youtube-icon.svg')"
                                  alt="video link">
                           </button>
                           <button class="nav-link active"
@@ -107,8 +104,7 @@
                                   :data-bs-target="'#preview-image-'+productInfo.main_picture?.id"
                                   type="button" role="tab" aria-controls="nav-home"
                                   aria-selected="true">
-                            <img :src="getImageLink(productInfo.main_picture , 'thumbnail')"
-                                 :alt="productInfo.main_picture">
+                            <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
                           </button>
                           <button :key="key"
                                   v-for="(alternativePicture , key) in productInfo.alternative_picture"
@@ -118,7 +114,7 @@
                                   type="button" role="tab"
                                   :aria-controls="'preview-image-'+alternativePicture.id"
                                   aria-selected="false">
-                            <img :src="alternativePicture.thumbnail" alt="">
+                            <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
                           </button>
                         </div>
                       </nav>
@@ -288,10 +284,11 @@ import CartInput from "@/Components/CartInput.vue";
 import {useForm} from "@inertiajs/vue3";
 import moment from "moment";
 import {Head} from '@inertiajs/vue3'
+import ImageWithFallback from "@/Components/ImageWithFallback.vue";
 // import SubInfo from "./Components/SubInfo.vue";
 
 const maxCartInput = ref(0);
-const {getImageLink, mediaCheck} = useAppUtility();
+const {mediaCheck, siteUrl} = useAppUtility();
 const {removeHTMLTags} = useStringUtility();
 const {iPropsValue} = useInertiaPropsUtility();
 let {getObjectRow} = useObjectUtility();

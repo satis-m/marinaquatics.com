@@ -229,7 +229,7 @@
                   <td class="product-name">
                     <div class="flex gap-2 justify-start items-center">
                       <div class="relative">
-                        <img :src="cartItem.main_picture.thumbnail" class="w-[75px] rounded" alt="">
+                        <img :src="cartItem.main_picture.thumbnail" class="w-[75px] rounded" :alt="cartItem.product_name">
                         <div
                             class="absolute -top-2 -right-2 border border-gray-50000 bg-gray-800/[.8] text-white px-2 rounded-full">
                           {{ cartItem.quantity }}
@@ -268,7 +268,7 @@
               </table>
             </div>
             <div class="flex flex-col justify-center items-center" v-else>
-              <img src="/web-site/assets/img/icon/empty-cart.svg" alt="" style="width: 75px;">
+              <img src="/web-site/assets/img/icon/empty-cart.svg" alt="empty cart" style="width: 75px;">
               <p class="mt-2">Order list is Empty</p>
             </div>
           </div>

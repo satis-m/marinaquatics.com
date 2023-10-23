@@ -20,19 +20,6 @@ export function useAppUtility() {
             });
         }, 500);
     }
-    const studentAvatar = async (imageLink)=> {
-        if (imageLink == null) return App.emptyStudentAvatar;
-        try {
-            const response = await fetch(imageLink, { method: 'HEAD' });
-
-            if (response.ok) {
-                return imageLink;
-            }
-        } catch (error) {
-            console.error('Error while fetching student avatar:', error);
-        }
-        return App.emptyStudentAvatar;
-    }
     const ifUrlExist = async (url) => {
         if (url == '' || url == null)
             return false
@@ -154,25 +141,7 @@ export function useAppUtility() {
         // Whenever the user explicitly chooses to respect the OS preference
         localStorage.removeItem("theme");
     };
-    const getImageLink = async (object, propertyName) => {
-        // Whenever the user explicitly chooses to respect the OS preference
-        const blankImage = '/admin-site/blank_image_2.svg';
-        if (object !== null && typeof object === "object" && object.hasOwnProperty(propertyName)) {
-            if (object[propertyName] == null) return blankImage;
 
-            try {
-                const response = await fetch(object[propertyName], { method: 'HEAD' });
-
-                if (response.ok) {
-                    return object[propertyName];
-                }
-            } catch (error) {
-                console.error('Error while fetching image:', error);
-            }
-
-        }
-        return blankImage;
-    };
     const isSlowConnection = () => {
         if ("connection" in navigator) {
             const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -221,13 +190,11 @@ export function useAppUtility() {
     }
 
     return {
-        getImageLink,
         ifUrlExist,
         isAuthorize,
         mobileAndTabletCheck,
         siteUrl,
         smoothScrollIntoView,
-        studentAvatar,
         themeOption,
         verifyRole,
         mediaCheck,

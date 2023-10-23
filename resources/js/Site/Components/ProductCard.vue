@@ -2,7 +2,7 @@
     <div class="tpproduct p-relative mb-6">
         <div class="tpproduct__thumb p-relative text-center">
             <NavLink :href="appRoute('product.view',productInfo.slug)">
-                <img :src="getImageLink(productInfo.main_picture , 'thumbnail')" alt="">
+                <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
             </NavLink>
 
             <div class="tpproduct__info bage">
@@ -65,9 +65,9 @@ import {ref, computed, onMounted, onRenderTracked} from "@vue/runtime-core";
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 import moment from "moment";
 import {useForm} from "@inertiajs/vue3";
+import ImageWithFallback from "@/Components/ImageWithFallback.vue";
 
 const {iPropsValue} = useInertiaPropsUtility();
-const {getImageLink} = useAppUtility();
 const userLoggedIn = iPropsValue('auth')
 const props = defineProps({
     productInfo: {

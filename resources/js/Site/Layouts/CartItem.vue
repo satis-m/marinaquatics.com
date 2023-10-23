@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex gap-2">
         <div class="">
-            <img :src="item.main_picture.thumbnail" class="w-[75px] rounded" alt="">
+            <img :src="item.main_picture.thumbnail" class="w-[75px] rounded" :alt="item.product_slug">
         </div>
         <div class="tpcart__content grow flex flex-col justify-between px-1">
              <span class="tpcart__content-title ">
