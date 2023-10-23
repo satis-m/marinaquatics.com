@@ -13,17 +13,19 @@
             <meta inertia='og:title' property="og:title" content="{{ $page['props']['og_meta']['og_title'] }}">
             <meta inertia='og:description' property="og:description" content="{{$page['props']['og_meta']['og_description']}}">
             <meta inertia='og:image' property="og:image" content="{{ $page['props']['og_meta']['og_image'] }}">
+            <meta inertia="description" name="description" content="{{$page['props']['og_meta']['og_description']}}" />
         @else
             <meta inertia='og:url' property="og:url" content="{{ url('/')}}">
             <meta inertia='og:title' property="og:title" content="{{ config('app.name', 'Laravel') }}">
             <meta inertia='og:description' property="og:description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium.">
             <meta inertia='og:image' property="og:image" content="{{ getAppInfo('brand_logo') }}">
+            <meta inertia="description" name="description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium." />
 
         @endif
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="628">
 
-        <meta inertia="description" name="description" content="We focus on Live Aquarium Plants, selling both in our retail store and online. Live Aquatic Plants are essential to a healthy aquarium." />
+
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ asset('/web-site/assets/css/animate.css')}}">
