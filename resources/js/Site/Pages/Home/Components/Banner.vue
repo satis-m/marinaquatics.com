@@ -42,7 +42,7 @@
 <script setup>
 import {onMounted} from "vue";
 import {useAppUtility} from "@admin/Composables/appUtility";
-const {siteUrl} = useAppUtility();
+const {siteUrl,lazyLoadVideo} = useAppUtility();
 const props = defineProps({
     type: {
         type: String,
@@ -77,7 +77,7 @@ onMounted(()=>{
   var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
 
   if ("IntersectionObserver" in window) {
-    window.lazyLoadVideo(lazyVideos); //main.js function
+    lazyLoadVideo(lazyVideos);
   }
 })
 </script>
