@@ -77,7 +77,7 @@ onMounted(()=>{
   var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
 
   if ("IntersectionObserver" in window) {
-    lazyLoadVideo(lazyVideos); //main.js function
+    window.lazyLoadVideo(lazyVideos); //main.js function
   }
 })
 </script>

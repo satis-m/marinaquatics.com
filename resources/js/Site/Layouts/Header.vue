@@ -42,7 +42,7 @@
                                                 </div>
                                                 <div class="sub-menu-image-container">
                                                     <img
-                                                        :src="siteUrl('storage/38/conversions/banner-2-poster-medium.webp')"
+                                                        :src="siteUrl('/web-site/assets/img/menu1.webp')"
                                                         alt="banner-2-poster.webp">
                                                 </div>
                                             </div>
