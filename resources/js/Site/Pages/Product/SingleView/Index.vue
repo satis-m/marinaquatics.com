@@ -41,7 +41,7 @@
           <div class="tpdetails__area  pb-30">
             <div class="tpdetails__product mb-30">
               <div class="tpdetails__title-box">
-                <h3 class="tpdetails__title">{{ productInfo.name }}</h3>
+                <h1 class="tpdetails__title">{{ productInfo.name }}</h1>
                 <!--                                <SubInfo/>-->
               </div>
               <div class="tpdetails__box">
@@ -73,10 +73,9 @@
                              :id="'preview-image-'+alternativePicture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+alternativePicture?.id"
                              tabindex="0">
-                          <img v-if="mediaCheck('sm')" :src="alternativePicture.thumbnail"
-                               :alt="alternativePicture.name">
-                          <img v-else :src="alternativePicture.preview"
-                               :alt="alternativePicture.name">
+                          <ImageWithFallback v-if="mediaCheck('sm')" :source="alternativePicture.thumbnail"
+                                             :alt="productInfo.slug"/>
+                          <ImageWithFallback v-else :source="alternativePicture.preview" :alt="productInfo.slug"/>
                           <div class="tpproduct__info bage">
                                                         <span v-if="productInfo.current_discount != null"
                                                               class="tpproduct__info-discount bage__discount">{{
@@ -97,7 +96,7 @@
                                   type="button" role="tab" aria-controls="nav-home"
                                   aria-selected="true">
                             <img :src="siteUrl('/web-site/assets/img/icon/youtube-icon.svg')"
-                                 alt="video link">
+                                 :alt="productInfo.slug+' video link'">
                           </button>
                           <button class="nav-link active"
                                   :id="'nav-image-'+productInfo.main_picture?.id"
@@ -218,11 +217,11 @@
               <div class="tpdescription__box-center d-flex align-items-center justify-content-start">
                 <nav>
                   <div class="nav nav-tabs" role="tablist">
-                    <button class="nav-link active m-0 py-2 px-0" id="nav-description-tab"
+                    <h2 class="nav-link active m-0 py-2 px-0" id="nav-description-tab"
                             data-bs-toggle="tab" data-bs-target="#nav-description" type="button"
                             role="tab" aria-controls="nav-description" aria-selected="true">Product
                       Description
-                    </button>
+                    </h2>
                   </div>
                 </nav>
               </div>

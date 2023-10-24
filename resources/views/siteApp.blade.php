@@ -8,12 +8,12 @@
         <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
         <meta property="og:type" content="website">
 
-        @if(isset($page['props']['og_meta']))
-            <meta inertia='og:url' property="og:url" content="{{ $page['props']['og_meta']['og_url'] }}">
-            <meta inertia='og:title' property="og:title" content="{{ $page['props']['og_meta']['og_title'] }}">
-            <meta inertia='og:description' property="og:description" content="{{$page['props']['og_meta']['og_description']}}">
-            <meta inertia='og:image' property="og:image" content="{{ $page['props']['og_meta']['og_image'] }}">
-            <meta inertia="description" name="description" content="{{$page['props']['og_meta']['og_description']}}" />
+        @if(isset($og_meta))
+            <meta inertia='og:url' property="og:url" content="{{ $og_meta['og_url'] }}">
+            <meta inertia='og:title' property="og:title" content="{{ $og_meta['og_title'] }}">
+            <meta inertia='og:description' property="og:description" content="{{$og_meta['og_description']}}">
+            <meta inertia='og:image' property="og:image" content="{{ $og_meta['og_image'] }}">
+            <meta inertia="description" name="description" content="{{$og_meta['og_description']}}" />
         @else
             <meta inertia='og:url' property="og:url" content="{{ url('/')}}">
             <meta inertia='og:title' property="og:title" content="{{ config('app.name', 'Laravel') }}">

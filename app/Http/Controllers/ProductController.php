@@ -22,14 +22,15 @@ class ProductController extends Controller
             $productInfo->alternative_picture = $productInfo->alternative_picture;
 
             $data['productInfo'] = $productInfo;
-            $data['og_meta'] = [
+            //meta for seo of singel product
+            $meta['og_meta'] = [
                 'og_title' => $productInfo->slug,
                 'og_description' => htmlentities(strip_tags($productInfo->product_info)),
                 'og_image' => $productInfo->main_picture['thumbnail'],
                 'og_url' => url()->current(),
             ];
-            
-            return Inertia::render('Product/SingleView/Index',$data);
+
+            return Inertia::render('Product/SingleView/Index',$data)->withViewData($meta);
         } catch (ModelNotFoundException $exception) {
             // Product not found, handle the exception or return an error response
             // For example:
