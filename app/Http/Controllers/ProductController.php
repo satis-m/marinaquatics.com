@@ -92,6 +92,12 @@ class ProductController extends Controller
                 ->paginate(10)
                 ->appends(request()->query());
 
+            $products->map(function ($item) {
+                $item->main_picture = $item->main_picture;
+
+                return $item;
+            });
+            
             return Inertia::render('Product/CategoryView/Index',
                 [
                     'products' => $products,
