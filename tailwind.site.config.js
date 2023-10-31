@@ -136,7 +136,7 @@ export default {
                 {
                     [`@media (min-width: ${screens["2xl"]})`]: {
                         ".container": {
-                            "max-width": "1280px",
+                            "max-width": "calc(100% - 250px)",
                         },
                     },
                 },

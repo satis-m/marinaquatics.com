@@ -13,16 +13,16 @@
                         <div class="col-xl-12">
                             <div class="header__menu main-menu text-center">
                                 <nav id="desktop-menu">
-                                    <div class="logo relative w-[200px] h-[75px] xl:w-100 inline-flex xl:invisible" >
+                                    <div class="logo relative xl:w-100 inline-flex xl:invisible" >
                                         <NavLink :href="appRoute('homepage')">
-                                            <img class="absolute z-2 " :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
-                                                 style=""
+                                            <img class="" :src="iPropsValue('app_info','brandLogo')"
+                                                 style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
                                                  alt="logo"/>
                                         </NavLink>
                                     </div>
-                                    <ul class="hidden xl:inline-flex" style="height: 75px;">
+                                    <ul class="hidden xl:inline-flex gap-2" style="height: 75px;">
                                         <li class="menu-item" key="1" :class="hoveredIndex == 1 ? 'active' : '' " @mouseover="addClass(1)" @mouseout="removeClass(1)">
-                                            <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
+                                            <span class="mobile-expand">Japanese Koi</span>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
                                                     <div class="sub-category-container" :key="key"
@@ -48,7 +48,7 @@
                                             </div>
                                         </li>
                                         <li class="menu-item" key="2" :class="hoveredIndex == 2 ? 'active' : '' " @mouseover="addClass(2)" @mouseout="removeClass(2)">
-                                            <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
+                                            <span class="mobile-expand">Exotic Livestock</span>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
@@ -72,14 +72,14 @@
                                                 </div>
                                             </div>
                                         </li>
-                                      <li class="relative w-[300px]">
-                                        <NavLink class="center-logo" :href="appRoute('homepage')">
-                                          <img class="absolute z-3 top-2 " :src="siteUrl('/web-site/assets/img/logo/logo-header.png')"
+                                      <li class="relative">
+                                        <NavLink class="center-logo px-4" :href="appRoute('homepage')">
+                                          <img style="-webkit-filter: invert(1);filter: invert(1); height: 75px" :src="iPropsValue('app_info','brandLogo')"
                                                alt="logo"/>
                                         </NavLink>
                                       </li>
                                         <li class="menu-item" key="3" :class="hoveredIndex == 3 ? 'active' : '' " @mouseover="addClass(3)" @mouseout="removeClass(3)">
-                                            <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
+                                            <span class="mobile-expand">Aquariums</span>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
@@ -101,7 +101,7 @@
                                             </div>
                                         </li>
                                         <li class="menu-item" key="4" :class="hoveredIndex == 4 ? 'active' : '' " @mouseover="addClass(4)" @mouseout="removeClass(4)">
-                                            <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
+                                            <span class="mobile-expand">Aquarium Supplies</span>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
@@ -204,6 +204,10 @@ const removeClass = (index)=>
 }
 </script>
 <style lang="scss">
+.main-menu ul li a:hover {
+  color: var(--tp-common-black);
+}
+
 .has-logo {
     .logo {
         margin-top: 20px;
@@ -212,7 +216,7 @@ const removeClass = (index)=>
 }
 
 .logo {
-  max-width: 300px;
+  max-width: 160px;
   img {
     max-width: 300px;
     top:10px
@@ -237,12 +241,12 @@ const removeClass = (index)=>
     }
 
     .has-dropdown, .menu-item {
-        padding: 0 10px;
+        padding: 0 15px;
 
 
         ul.sub-menu {
             a.active {
-                color: var(--tp-heading-primary);
+                //color: var(--tp-heading-primary);
             }
         }
 
@@ -293,7 +297,7 @@ a.cstm-icon {
     .sub-menu {
         display: flex;
         justify-content: space-between;
-        padding: 0 !important;
+        padding: 5px 20px 10px 20px !important;
 
         .sub-menu-container {
             display: flex;
@@ -309,25 +313,27 @@ a.cstm-icon {
                 > a {
                     padding: 10px 0;
                     font-weight: 600;
-                    height: 40px;
+                    height: 50px;
                     font-size: 1.2rem;
                     justify-content: start;
-                    color: var(--tp-heading-primary);
+                  text-transform: uppercase;
+                    //color: var(--tp-heading-primary);
                     border-bottom: 1px solid black;
                 }
 
                 .sub-category {
                     display: flex;
                     flex-flow: column;
-                    max-height: 450px;
+                    max-height: 350px;
                     flex-wrap: wrap;
+                  margin-top:10px;
                     li {
                         justify-content: start;
                         font-family: Roboto Condensed,sans-serif;
                         font-style: normal;
                         font-weight: 400;
                         font-size: 1rem;
-                        padding: 0.4375rem 1.4375rem 0.4375rem 0;
+                        padding: 0.4375rem 1.4375rem 0 0;
                         text-align:left;
                         cursor: pointer;
                         &hover{
@@ -351,5 +357,18 @@ a.cstm-icon {
         }
     }
 }
-
+.main-menu ul li.menu-item > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  position: relative;
+  color: #fff;
+  font-size: 1.075rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  &:hover{
+    cursor: pointer;
+  }
+}
 </style>

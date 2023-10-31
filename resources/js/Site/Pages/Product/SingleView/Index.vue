@@ -40,10 +40,10 @@
         <div class="col-xs-12">
           <div class="tpdetails__area  pb-30">
             <div class="tpdetails__product mb-30">
-              <div class="tpdetails__title-box">
-                <h1 class="tpdetails__title">{{ productInfo.name }}</h1>
-                <!--                                <SubInfo/>-->
-              </div>
+<!--              <div class="tpdetails__title-box">-->
+
+<!--                &lt;!&ndash;                                <SubInfo/>&ndash;&gt;-->
+<!--              </div>-->
               <div class="tpdetails__box">
                 <div class="row">
                   <div class="col-lg-8">
@@ -89,7 +89,7 @@
 
                       </div>
                       <nav>
-                        <div class="nav nav-tabs justify-content-center" id="nav-tab"
+                        <div class="nav nav-tabs justify-content-left" id="nav-tab"
                              role="tablist">
                           <button v-if="hasVideo" @click="showVideo=true"
                                   class="nav-link"
@@ -122,6 +122,7 @@
                     </div>
                   </div>
                   <div class="col-lg-4 mt-10 lg:mt-0">
+                    <h1 class=" text-4xl font-bold uppercase mb-3">{{ productInfo.name }}</h1>
                     <ul class="combo-offer mb-3  md:justify-start justify-center">
                       <button
                           v-if="productInfo.combo_offer.name_1 !='' && productInfo.combo_offer.name_1 != null  "
@@ -160,7 +161,7 @@
                                                             </span>
                             </div>
                             <div v-html="productInfo.product_info"
-                                 class="product-info"></div>
+                                 class="product-info mt-3"></div>
                           </div>
                           <div class="product__details-cart">
                             <div
@@ -217,7 +218,7 @@
               <div class="tpdescription__box-center d-flex align-items-center justify-content-start">
                 <nav>
                   <div class="nav nav-tabs" role="tablist">
-                    <h2 class="nav-link active m-0 py-2 px-0" id="nav-description-tab"
+                    <h2 class="nav-link active m-0 py-3 text-lg px-0" id="nav-description-tab"
                             data-bs-toggle="tab" data-bs-target="#nav-description" type="button"
                             role="tab" aria-controls="nav-description" aria-selected="true">Product
                       Description
@@ -517,7 +518,6 @@ onMounted(() => {
       font-family: var(--tp-ff-jost);
       list-style: none;
       font-weight: 400;
-      font-size: 14px;
       line-height: 22px;
       color: var(--tp-text-body);
       position: relative;
