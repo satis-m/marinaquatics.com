@@ -42,18 +42,18 @@
                                                 </div>
                                                 <div class="sub-menu-image-container">
                                                     <img
-                                                        :src="siteUrl('/web-site/assets/img/menu1.webp')"
-                                                        alt="banner-2-poster.webp">
+                                                        :src="siteUrl('/web-site/assets/img/japanese-koi.webp')"
+                                                        alt="japnese koi fish">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menu-item" key="2" :class="hoveredIndex == 2 ? 'active' : '' " @mouseover="addClass(2)" @mouseout="removeClass(2)">
-                                            <span class="mobile-expand">Exotic Livestock</span>
+                                            <span class="mobile-expand">Exotic Collection</span>
                                             <div class="sub-menu">
                                                 <div class="sub-menu-container">
 
                                                     <div class="sub-category-container" :key="key"
-                                                         v-for="(category ,key) in categories['Exotic Livestock']">
+                                                         v-for="(category ,key) in categories['Exotic Collection']">
                                                         <NavLink @click="removeClass(2)" :href="appRoute('product.category.view',category.slug)">
                                                             {{ category.sub_category }}
                                                         </NavLink>
@@ -68,7 +68,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="sub-menu-image-container">
-                                                    te
+                                                  <img
+                                                      :src="siteUrl('/web-site/assets/img/exotic-livestocks.webp')"
+                                                      alt="exotic fish">
                                                 </div>
                                             </div>
                                         </li>
@@ -96,7 +98,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="sub-menu-image-container">
-                                                    menu image here
+                                                  <img
+                                                      :src="siteUrl('/web-site/assets/img/aquariums.webp')"
+                                                      alt="aquariums">
                                                 </div>
                                             </div>
                                         </li>
@@ -118,7 +122,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="sub-menu-image-container" style="width: 400px">
-                                                    te
+                                                  <img
+                                                      :src="siteUrl('/web-site/assets/img/aquarium-supplies.webp')"
+                                                      alt="aquarium supplies">
                                                 </div>
                                             </div>
                                         </li>
