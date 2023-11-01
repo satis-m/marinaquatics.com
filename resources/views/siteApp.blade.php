@@ -25,6 +25,8 @@
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="628">
 
+        <link href="{{ getAppInfo('favIconLight') }}" rel="icon" media="(prefers-color-scheme: light)" />
+        <link href="{{ getAppInfo('favIconDark') }}" rel="icon" media="(prefers-color-scheme: dark)" />
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <!-- Fonts -->

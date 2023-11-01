@@ -6,9 +6,9 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <div class="admin-login min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div>
-            <Link href="/">
-                <ApplicationLogo class="w-220 fill-current text-gray-500" />
-            </Link>
+            <a :href="appRoute('homepage')">
+                <ApplicationLogo class="w-[250px] fill-current text-gray-500" />
+            </a>
         </div>
 
         <div

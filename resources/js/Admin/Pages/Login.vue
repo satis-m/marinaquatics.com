@@ -39,7 +39,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head title="Admin log in" />
 
         <p class="text-center font-bold text-2xl">Login in</p>
 

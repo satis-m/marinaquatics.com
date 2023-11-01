@@ -141,13 +141,28 @@ const checkDiscount = () => {
   }
 }
 const proceedPayment = () => {
-  subtotalAmount.value = 0;
-  products.value.forEach(function (product) {
-    subtotalAmount.value = subtotalAmount.value + product.price
-  })
-  discount.value
-  totalAmount.value = discount.value > 0 ? subtotalAmount.value - (discount.value / 100) * subtotalAmount.value : subtotalAmount.value;
-  needProcessing.value = false
+  if(products.value.length > 0)
+  {
+    subtotalAmount.value = 0;
+    products.value.forEach(function (product) {
+      subtotalAmount.value = subtotalAmount.value + product.price
+    })
+    discount.value
+    totalAmount.value = discount.value > 0 ? subtotalAmount.value - (discount.value / 100) * subtotalAmount.value : subtotalAmount.value;
+
+  }
+  if(totalAmount.value > 0)
+  {
+    needProcessing.value = false
+  }
+  else {
+    ElMessageBox.alert('To proceed total price must be greater than 0', 'Invalid Total Amount', {
+      // if you want to disable its autofocus
+      // autofocus: false,
+      type:'info',
+      confirmButtonText: 'OK',
+    })
+  }
 }
 
 </script>

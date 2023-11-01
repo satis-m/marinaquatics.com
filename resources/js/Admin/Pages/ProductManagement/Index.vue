@@ -448,6 +448,14 @@ const filterStatus = (value, row) => {
     }
 };
 const deleteForm = (data) => {
+  if(data.available_quantity > 0 )
+  {
+    ElMessageBox.alert('Product with stock available cannot be trashed, instead un-publish it.', 'Cannot Trash Product', {
+      type: "warning",
+      confirmButtonText: 'OK'
+    })
+    return;
+  }
     ElMessageBox.confirm("Move to trash, You can restore from trash. Continue?", "Warning", {
         type: "warning",
         icon: markRaw(Delete),
