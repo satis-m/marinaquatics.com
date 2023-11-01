@@ -17,7 +17,7 @@
                                         <NavLink :href="appRoute('homepage')">
                                             <img class="" :src="iPropsValue('app_info','brandLogo')"
                                                  style="-webkit-filter: invert(1);filter: invert(1); height: 75px"
-                                                 alt="logo"/>
+                                                 alt="brand logo"/>
                                         </NavLink>
                                     </div>
                                     <ul class="hidden xl:inline-flex gap-2" style="height: 75px;">

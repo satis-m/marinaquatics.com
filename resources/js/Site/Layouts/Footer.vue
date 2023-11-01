@@ -7,7 +7,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-1.svg')" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-1.svg')" alt="fast delevery feature">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Fast Delivery</h4>
@@ -18,7 +18,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-2.svg')" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-2.svg')" alt="safe payment feature">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Safe payment</h4>
@@ -29,7 +29,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-3.svg')" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-3.svg')" alt="online discount feature">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Online Discount</h4>
@@ -40,7 +40,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-4.svg')" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-4.svg')" alt="help center feature">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Help Center</h4>
@@ -51,7 +51,7 @@
                         <div class="col">
                             <div class="mainfeature__item text-center mb-30">
                                 <div class="mainfeature__icon">
-                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-5.svg')" alt="">
+                                    <img :src="siteUrl('/web-site/assets/img/icon/feature-icon-5.svg')" alt="curated item">
                                 </div>
                                 <div class="mainfeature__content">
                                     <h4 class="mainfeature__title">Curated items</h4>
@@ -82,7 +82,7 @@
                                     <a target="_blank" :href="iPropsValue('app_info','youtube_link')"><i class="icon-youtube"></i></a>
                                     <a target="_blank" :href="iPropsValue('app_info','insta_link')"><i class="icon-instagram"></i></a>
                                     <a target="_blank" :href="iPropsValue('app_info','whatsapp_link')"><i class="icon-whatsapp d-flex">
-                                        <img class="icon" :src="siteUrl('/web-site/assets/img/icon/whatsapp.svg')" width="20px" height="20px"></i>
+                                        <img class="icon" :src="siteUrl('/web-site/assets/img/icon/whatsapp.svg')" width="20px" alt="whatsapp icon" height="20px"></i>
                                     </a>
                                     </div>
                                 </div>

@@ -21,7 +21,7 @@
                             <a class="mean-expand" href="#" style="font-size: 18px">
                                 <i class="icon-plus"></i>
                             </a>
-                            <a href="javascript:void(0)" class="mobile-expand">Japanese Koi</a>
+                            <a class="mobile-expand"  href="#">Japanese Koi</a>
                             <ul class="sub-menu" style="display: none;">
                                     <li :key="key" v-for="(category ,key) in categories['Japanese Koi']" class="has-dropdown">
                                         <a class="mean-expand" href="#" style="font-size: 18px">
@@ -46,9 +46,9 @@
                             <a class="mean-expand" href="#" style="font-size: 18px">
                                 <i class="icon-plus"></i>
                             </a>
-                            <a href="javascript:void(0)" class="mobile-expand">Exotic Livestock</a>
+                            <a class="mobile-expand"  href="#">Exotic Collection</a>
                             <ul class="sub-menu" style="display: none;">
-                                <li :key="key" v-for="(category ,key) in categories['Exotic Livestock']" class="has-dropdown">
+                                <li :key="key" v-for="(category ,key) in categories['Exotic Collection']" class="has-dropdown">
                                     <a class="mean-expand" href="#" style="font-size: 18px">
                                         <i class="icon-plus"></i>
                                     </a>
@@ -70,7 +70,7 @@
                             <a class="mean-expand" href="#" style="font-size: 18px">
                                 <i class="icon-plus"></i>
                             </a>
-                            <a href="javascript:void(0)" class="mobile-expand">Aquariums</a>
+                            <a class="mobile-expand"  href="#">Aquariums</a>
                             <ul class="sub-menu" style="display: none;">
                                 <li :key="key" v-for="(category ,key) in categories['Aquariums']" class="has-dropdown">
                                     <a class="mean-expand" href="#" style="font-size: 18px">
@@ -94,7 +94,7 @@
                             <a class="mean-expand" href="#" style="font-size: 18px">
                                 <i class="icon-plus"></i>
                             </a>
-                            <a href="javascript:void(0)" class="mobile-expand">Aquarium Supplies</a>
+                            <a class="mobile-expand"  href="#">Aquarium Supplies</a>
                             <ul class="sub-menu" style="display: none;">
                                 <li :key="key" v-for="(category ,key) in categories['Aquarium Supplies']" class="has-dropdown">
                                     <a class="mean-expand" href="#" style="font-size: 18px">
