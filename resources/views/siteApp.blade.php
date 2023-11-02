@@ -7,6 +7,7 @@
 
         <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
         <meta property="og:type" content="website">
+        <meta property="og:locale" content="en_us">
 
         @if(isset($og_meta))
             <meta inertia='og:url' property="og:url" content="{{ $og_meta['og_url'] }}">

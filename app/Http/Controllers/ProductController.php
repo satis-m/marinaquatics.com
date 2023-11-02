@@ -24,8 +24,8 @@ class ProductController extends Controller
             $data['productInfo'] = $productInfo;
             //meta for seo of singel product
             $meta['og_meta'] = [
-                'og_title' => $productInfo->slug,
-                'og_description' => htmlentities(strip_tags($productInfo->product_info)),
+                'og_title' => $productInfo->name,
+                'og_description' => $productInfo->name.' | '.htmlentities(strip_tags($productInfo->product_info)),
                 'og_image' => $productInfo->main_picture['thumbnail'],
                 'og_url' => url()->current(),
             ];
@@ -120,6 +120,11 @@ class ProductController extends Controller
                 ->paginate(10)
                 ->appends(request()->query());
 
+            $products->map(function ($item) {
+                $item->main_picture = $item->main_picture;
+
+                return $item;
+            });
             return Inertia::render('Product/CategoryView/Index',
                 [
                     'products' => $products,
@@ -142,6 +147,12 @@ class ProductController extends Controller
                 ->paginate(10)
                 ->appends(request()->query());
 
+            $products->map(function ($item) {
+                $item->main_picture = $item->main_picture;
+
+                return $item;
+            });
+            
             return Inertia::render('Product/CategoryView/Index',
                 [
                     'products' => $products,

@@ -1,9 +1,9 @@
 <template>
   <Head>
     <title>{{productInfo.name}}</title>
-    <meta head-key="description" name="description" :content="removeHTMLTags(productInfo.product_info)">
+    <meta head-key="description" name="description" :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
 
-    <meta head-key="og:description" property="og:description" :content="removeHTMLTags(productInfo.product_info)">
+    <meta head-key="og:description" property="og:description" :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
 
     <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
     <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">

@@ -247,7 +247,11 @@ const removeClass = (index)=>
     }
 
     .has-dropdown, .menu-item {
+      &>span
+      {
         padding: 0 15px;
+
+      }
 
 
         ul.sub-menu {
@@ -354,9 +358,9 @@ a.cstm-icon {
 
         .sub-menu-image-container {
             width: 550px;
-            display: block;
+            display: flex;
             padding: 20px;
-
+            align-items: center;
             img {
                 border-radius: 6px;
             }
