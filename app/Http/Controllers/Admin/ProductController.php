@@ -30,19 +30,19 @@ class ProductController extends Controller {
         $categories = File::get(base_path('/storage/required/Category.json'));
         $categories = json_decode($categories);
         $subCategories = Cache::rememberForever('productCategory', function () {
-            return Category::all()->groupBy(['name'])->toArray();
+            return Category::orderBy('sub_category')->get()->groupBy(['name'])->toArray();
         });
         $products = Product::with(['category', 'comboOffer'])->latest()->get()->map(function ($item) {
             $item->main_picture = $item->main_picture;
             $item->alternative_picture = $item->alternative_picture;
             return $item;
         });
-        $tags = Tag::get()->pluck('name')->toArray();
-        $brands = Brand::get()->pluck('name')->toArray();
-        $importers = Importer::get()->pluck('name')->toArray();
+        $tags = Tag::orderBy('name')->get()->pluck('name')->toArray();
+        $brands = Brand::orderBy('name')->get()->pluck('name')->toArray();
+        $importers = Importer::orderBy('name')->get()->pluck('name')->toArray();
 
         $productTypes = Cache::rememberForever('productType', function () {
-            return ProductType::all()->groupBy(['sub_category'])->toArray();
+            return ProductType::orderBy('name')->get()->groupBy(['sub_category'])->toArray();
         });
         
         return Inertia::render(

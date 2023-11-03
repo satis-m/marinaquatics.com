@@ -22,7 +22,7 @@ class Category extends Model
 
     public function types()
     {
-        return $this->hasMany(ProductType::class, 'sub_category', 'slug');
+        return $this->hasMany(ProductType::class, 'sub_category', 'slug')->orderBy('name', 'asc');
     }
 
     protected static function booted(): void

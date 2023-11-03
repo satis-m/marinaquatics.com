@@ -452,11 +452,18 @@
                     "name" : "Surface Skimmer",
                     "slug" : "surface-skimmer"
                 },{
+                    "name" : "Protein Skimmer",
+                    "slug" : "protein-skimmer"
+                },{
                     "name" : "Submersible Pumps",
                     "slug" : "submersible-pumps"
                 },{
                     "name" : "UV Filter",
                     "slug" : "uv-filter"
+                },
+                {
+                    "name" : "Wavemaker",
+                    "slug" : "wavemaker"
                 }
             ]
         },
