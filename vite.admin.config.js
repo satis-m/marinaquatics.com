@@ -19,6 +19,11 @@ export default defineConfig({
                 'resources/js/admin.js',
             ],
             refresh: true,
+            optimizeDeps:{
+                vendorChunk:true,
+                preBundleDependencies: true,
+                exclude:['@types/*'],
+            }
         }),
         vue({
             template: {

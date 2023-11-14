@@ -15,6 +15,11 @@ export default defineConfig({
                 'resources/js/site.js',
                 ],
             refresh: true,
+            optimizeDeps:{
+                vendorChunk:true,
+                preBundleDependencies: true,
+                exclude:['@types/*'],
+            }
         }),
         vue({
             template: {
