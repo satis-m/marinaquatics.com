@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-detail flex flex-col text-white " >
                     <div class="title">Users</div>
-                    <div class="body">110</div>
+                    <div class="body">{{ iPropsValue('userCount') }}</div>
                 </div>
             </el-card>
         </el-col><el-col :sm="8">
