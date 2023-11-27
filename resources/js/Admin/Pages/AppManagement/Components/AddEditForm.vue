@@ -62,15 +62,20 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :xs="24" :sm="12" :md="8">
               <el-form-item label="Store Time" prop="store_time">
-                <el-input :rows="3" class="pr-4" v-model="formData.store_time" type="textarea"/>
+                <el-input :rows="3"  v-model="formData.store_time" type="textarea"/>
               </el-form-item>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="16">
+            <el-col :xs="24" :sm="12" :md="8">
               <el-form-item label="Google Map" prop="google_map">
                 <el-input :rows="3"  v-model="formData.google_map" type="textarea"/>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8">
+              <el-form-item label="End Banner Title" prop="end_banner">
+                <el-input :rows="3"  v-model="formData.end_banner" type="textarea"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -195,6 +200,7 @@ const formData = useForm({
   logo: "",
   favLight: "",
   favDark: "",
+  end_banner: "",
 });
 const rules = reactive({
   name: [
@@ -276,6 +282,7 @@ let populateFormData = function (data) {
   formData.whatsapp_link = data.whatsapp_link;
   formData.google_map = data.google_map;
   formData.store_time = data.store_time;
+  formData.end_banner = data.end_banner;
   const logo = getObjectRow(data.media, "collection_name", "logo");
   const fav_light = getObjectRow(
       data.media,

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\ApplicationInfo;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Cache;
 
 class AppSettingService
 {
@@ -21,6 +22,7 @@ class AppSettingService
             $appsetting->whatsapp_link = request('whatsapp_link');
             $appsetting->google_map = request('google_map');
             $appsetting->store_time = request('store_time');
+            $appsetting->end_banner = request('end_banner');
 
             if (request()->has('logo') && request('logo') != '') {
                 $appsetting->addMediaFromRequest('logo')->toMediaCollection('logo');
@@ -31,7 +33,7 @@ class AppSettingService
             if (request()->has('favDark') && request('favDark') != '') {
                 $appsetting->addMediaFromRequest('favDark')->toMediaCollection('fav-icon-dark');
             }
-
+            Cache::forget('ApplicationInfo');
             return $appsetting->save();
         } catch (QueryException $e) {
             return throw new \Exception($e->errorInfo[2]);

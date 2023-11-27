@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('whatsapp_link')->nullable();
             $table->string('store_time')->nullable();
             $table->string('cod_threshold_amount')->nullable();
+            $table->text('end_banner')->nullable();
             $table->timestamps();
         });
     }

@@ -42,10 +42,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <div class="tpsection mb-35">
-                            <h4 class="tpsection__sub-title">~ Special Products ~</h4>
-                            <h4 class="tpsection__title">Weekly Offers</h4>
-                            <p>The liber tempor cum soluta nobis eleifend option congue doming quod mazim.</p>
+                        <div class="tpsection mb-35" v-html="iPropsValue('app_info','end_banner')">
                         </div>
                     </div>
                 </div>

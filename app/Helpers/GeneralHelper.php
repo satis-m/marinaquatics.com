@@ -3,6 +3,7 @@
 use App\Models\Admin;
 use App\Models\ApplicationInfo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
@@ -36,12 +37,9 @@ if (! \function_exists('getPercent')) {
 if (! \function_exists('getAppInfo')) {
     function getAppInfo($key = '')
     {
-        if (Session::has('ApplicationInfo')) {
-            $appInfo = Session::get('ApplicationInfo');
-        } else {
-            $appInfo = ApplicationInfo::first();
-            Session::put('ApplicationInfo', $appInfo);
-        }
+        $appInfo = Cache::rememberForever('ApplicationInfo', function () {
+            return ApplicationInfo::first();
+        });
 
         if ($key != '') {
             return $appInfo->$key;
