@@ -53,7 +53,7 @@
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
-                          <ImageWithFallback data-media="sm" v-if="mediaCheck('sm')" :source="productInfo.main_picture.thumbnail"
+                          <ImageWithFallback data-media="sm" v-if="mediaCheck('sm')" :source="productInfo.main_picture.preview"
                                              :alt="productInfo.slug"/>
                           <ImageWithFallback data-media="md"  v-else-if="mediaCheck('md')" :source="productInfo.main_picture.preview" :alt="productInfo.slug"/>
                           <ImageWithFallback data-media="lg"  v-else :source="productInfo.main_picture.original" :alt="productInfo.slug"/>
@@ -73,7 +73,7 @@
                              :id="'preview-image-'+alternativePicture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+alternativePicture?.id"
                              tabindex="0">
-                          <ImageWithFallback data-media="sm" v-if="mediaCheck('sm')" :source="alternativePicture.thumbnail"
+                          <ImageWithFallback data-media="sm" v-if="mediaCheck('sm')" :source="alternativePicture.preview"
                                              :alt="productInfo.slug"/>
                           <ImageWithFallback data-media="md" v-else-if="mediaCheck('md')" :source="alternativePicture.preview" :alt="productInfo.slug"/>
                           <ImageWithFallback data-media="lg" v-else :source="alternativePicture.original" :alt="productInfo.slug"/>
