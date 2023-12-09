@@ -12,6 +12,8 @@ import { ZiggyVue } from 'ziggy-vue';
 import route from 'ziggy';
 import { Head } from '@inertiajs/vue3'
 
+import VueViewer from 'v-viewer'
+
 import Site from "@/Layouts/Site.vue";
 import NavLink from '@admin/Components/NavLink.vue'
 
@@ -36,6 +38,7 @@ createInertiaApp({
         // VueApp.use(bootstrap)
         VueApp.use(plugin)
         VueApp.use(ZiggyVue)
+        VueApp.use(VueViewer)
         VueApp.component("Head", Head)
         VueApp.component("Link", Link)
         VueApp.component("NavLink", NavLink)

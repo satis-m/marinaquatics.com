@@ -48,7 +48,7 @@
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="tpproduct-details__nab">
-                      <div class="tab-content product-image-preview" id="nav-tabContents">
+                      <div class="tab-content product-image-preview"  v-viewer="options" id="nav-tabContents">
                         <div class="tab-pane fade show active w-img"
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
@@ -288,6 +288,8 @@ import {useForm} from "@inertiajs/vue3";
 import moment from "moment";
 import {Head} from '@inertiajs/vue3'
 import ImageWithFallback from "@/Components/ImageWithFallback.vue";
+
+import 'viewerjs/dist/viewer.css'
 // import SubInfo from "./Components/SubInfo.vue";
 
 const maxCartInput = ref(0);
@@ -446,6 +448,22 @@ const getFrameVideoLink = () => {
 }
 const hasVideo = getFrameVideoLink() != null;
 
+const options = {
+  movable: false,
+  toolbar: {
+    prev: 1, // Keep previous button
+    zoomIn: 1, // Remove zoom in button
+    zoomOut: 1, // Remove zoom out button
+    reset: 1, // Remove reset button
+    next: 1, // Keep next button
+    oneToOne: 0, // Remove original size button
+    play: 0, // Keep play button
+    rotateLeft: 0, // Keep rotate left button
+    rotateRight: 0, // Keep rotate right button
+    flipHorizontal: 0, // Keep flip horizontal button
+    flipVertical: 0, // Keep flip vertical button
+  }
+};
 onMounted(() => {
   if (outOfStock.value === false)
     selectOffer(1);
