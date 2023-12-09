@@ -49,7 +49,7 @@
                   <div class="col-lg-8">
                     <div class="tpproduct-details__nab">
                       <div class="tab-content product-image-preview"  v-viewer="options" id="nav-tabContents">
-                        <div class="tab-pane fade show active w-img"
+                        <div class="tab-pane fade show active w-img hover:cursor-zoom-in"
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
@@ -69,7 +69,7 @@
                         </div>
                         <div :key="key"
                              v-for="(alternativePicture , key) in productInfo.alternative_picture"
-                             class="tab-pane fade w-img"
+                             class="tab-pane fade w-img hover:cursor-zoom-in"
                              :id="'preview-image-'+alternativePicture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+alternativePicture?.id"
                              tabindex="0">
