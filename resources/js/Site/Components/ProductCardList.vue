@@ -15,7 +15,7 @@
         <div class="tplist__content grow h-52">
             <span>{{ productInfo.category.name }}, {{ productInfo.category.sub_category }}</span>
             <h4 class="tplist__content-title mb-4">   <NavLink :href="appRoute('product.view',productInfo.slug)">{{ productInfo.name }}</NavLink></h4>
-            <div  class="tplist__content-info" v-html="productInfo.product_info">
+            <div  class="tplist__content-info h-[154px] overflow-hidden" v-html="productInfo.product_info">
             </div>
         </div>
         <div class="tplist__price grow-0 justify-content-end">

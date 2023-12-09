@@ -3,7 +3,7 @@
         <div class="col-md-12 col-xs-12 col-lg-12 col-xl-12">
             <div class="relative">
                 <div class="video_overlays"></div>
-                <video class="lazy" preload="none" autoplay muted playsinline loop :poster="image">
+                <video class="lazy" autoplay muted playsinline loop :poster="image">
                     <source :data-src="video" type="video/webm"/>
                 </video>
 
