@@ -11,12 +11,12 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="tpslider__five__wrapper pt-50 d-flex text-left">
+                                        <div class="tpslider__five__wrapper pt-2 sm:pt-50 d-flex text-left">
                                             <!-- <div class="tpslider__five__brand mb-10">
                                                <img src="/web-site/assets/img/logo/MAN White.png" width="250px" alt="logo">
                                             </div> -->
                                             <div class="tpslider__five__contact text-center">
-                                                <h3 class="tpslider__five__title">{{ slider.title }}</h3>
+                                                <h3 class="tpslider__five__title ">{{ slider.title }}</h3>
                                                 <p>{{ slider.detail }}.</p>
                                                 <div class="tpslider__five__btn">
                                                     <NavLink class="tp-btn" v-if="slider.link!='#' && slider.link!=''" :href="slider.link">{{ slider.link_text }} <i class="icon-chevrons-right"></i></NavLink>

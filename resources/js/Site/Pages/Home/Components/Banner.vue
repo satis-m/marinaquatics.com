@@ -7,10 +7,10 @@
                     <source :data-src="video" type="video/webm"/>
                 </video>
 
-                <div class="heroContent md:justify-start justify-center items-end md:p-10 pb-6 md:items-center">
+                <div class="heroContent md:justify-start justify-center items-end md:p-10 pb-2 md:items-center">
                     <div class="tpslider__five__contact">
                         <h3 class="tpslider__five__title">{{ title }}</h3>
-                        {{ detail }}
+                        <p class="mb-0">{{ detail }}</p>
                         <div class="tpslider__five__btn flex justify-center items-center">
                             <NavLink class="tp-btn" v-if="link!='#' && link!=''" :href="link">{{ linkText }} <i class="icon-chevrons-right"></i></NavLink>
                         </div>

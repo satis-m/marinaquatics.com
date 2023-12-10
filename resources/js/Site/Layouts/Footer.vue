@@ -63,12 +63,12 @@
                 </div>
             </div>
         </section>
-        <div class="tpfooter__area pt-5 theme-bg-1">
+        <div class="tpfooter__area theme-bg-1">
             <div class="tpfooter__top pb-15">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="tpfooter__widget mb-50 text-center text-md-start">
+                            <div class="tpfooter__widget mb-4 md:!mb-0 text-center text-md-start">
                                 <h4 class="tpfooter__widget-title">Let Us Help You</h4>
                                 <p >If you have any question, please <br> contact us at: <br/>
                                   <i class="icon-phone"></i> {{iPropsValue('app_info','contact')}}
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="tpfooter__widget mb-50 text-center">
+                            <div class="tpfooter__widget mb-4 md:!mb-0 text-center">
                                 <h4 class="tpfooter__widget-title">Looking for Marine Aquatics Nepal?</h4>
                                 <p v-html="formattedAddress"></p>
                                 <div class="tpfooter__widget-time-info mt-35">
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="tpfooter__widget mb-50 text-center text-md-end">
+                            <div class="tpfooter__widget mb-4 md:!mb-0 text-center text-md-end">
                                 <h4 class="tpfooter__widget-title">
                                     Our Site
                                 </h4>
@@ -115,11 +115,11 @@
                     </div>
                 </div>
             </div>
-            <div class="tpfooter___bottom pt-25 pb-25">
+            <div class="tpfooter___bottom py-2">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="tpfooter__copyright text-center">
+                            <div class="tpfooter__copyright text-center mb-0">
                                 <span class="tpfooter__copyright-text">Copyright © {{ iPropsValue('app_info','title') }} all rights reserved. Powered by IT Expert Group.</span>
                             </div>
                         </div>
