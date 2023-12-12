@@ -34,7 +34,7 @@
                                         </NavLink>
                                         <ul class="sub-menu" style="display: none;">
                                             <li :key="key" v-for="(type ,key) in category.types">
-                                                <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
+                                                <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                     {{ type.name }}
                                                 </NavLink>
                                             </li>
@@ -58,7 +58,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>
@@ -82,7 +82,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>
@@ -106,7 +106,7 @@
                                     </NavLink>
                                     <ul class="sub-menu" style="display: none;">
                                         <li :key="key" v-for="(type ,key) in category.types">
-                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',type.slug)">
+                                            <NavLink @click="handleMobileMenuClick" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                 {{ type.name }}
                                             </NavLink>
                                         </li>

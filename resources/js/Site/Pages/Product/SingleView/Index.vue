@@ -443,7 +443,7 @@ const getFrameVideoLink = () => {
 const hasVideo = getFrameVideoLink() != null;
 
 const options = {
-  movable: false,
+  movable: true,
   toolbar: {
     prev: 1, // Keep previous button
     zoomIn: 1, // Remove zoom in button

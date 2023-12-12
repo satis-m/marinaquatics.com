@@ -82,11 +82,12 @@ class ProductController extends Controller
         }
     }
 
-    public function typeView($slug)
+    public function typeView($category,$slug)
     {
 
         try {
             $query = Product::query()
+                ->where('sub_category', $category)
                 ->where('type', $slug);
             $products = $query->with('currentDiscount', 'category')
                 ->paginate(10)
@@ -98,7 +99,7 @@ class ProductController extends Controller
                 return $item;
             });
             
-            return Inertia::render('Product/CategoryView/Index',
+            return Inertia::render('Product/TypeView/Index',
                 [
                     'products' => $products,
                 ]

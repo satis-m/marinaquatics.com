@@ -33,7 +33,7 @@
                                                         </NavLink>
                                                         <ul class="sub-category">
                                                             <li :key="key" v-for="(type ,key) in category.types">
-                                                                <NavLink @click="removeClass(1)" :href="appRoute('product.type.view',type.slug)">
+                                                                <NavLink @click="removeClass(1)" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                                     {{ type.name }}
                                                                 </NavLink>
                                                             </li>
@@ -60,7 +60,7 @@
                                                         <ul class="sub-category">
 
                                                             <li :key="key" v-for="(type ,key) in category.types">
-                                                                <NavLink @click="removeClass(2)" :href="appRoute('product.type.view',type.slug)">
+                                                                <NavLink @click="removeClass(2)" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                                     {{ type.name }}
                                                                 </NavLink>
                                                             </li>
@@ -91,7 +91,7 @@
                                                             {{ category.sub_category }}
                                                         </NavLink>
                                                         <ul class="sub-category">
-                                                            <li :key="key" v-for="(type ,key) in category.types">  <NavLink @click="removeClass(3)" :href="appRoute('product.type.view',type.slug)">
+                                                            <li :key="key" v-for="(type ,key) in category.types">  <NavLink @click="removeClass(3)" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                                 {{ type.name }}
                                                             </NavLink></li>
                                                         </ul>
@@ -115,7 +115,7 @@
                                                             {{ category.sub_category }}
                                                         </NavLink>
                                                         <ul class="sub-category">
-                                                            <li :key="key" v-for="(type ,key) in category.types"> <NavLink @click="removeClass(4)" :href="appRoute('product.type.view',type.slug)">
+                                                            <li :key="key" v-for="(type ,key) in category.types"> <NavLink @click="removeClass(4)" :href="appRoute('product.type.view',[category.slug,type.slug])">
                                                                 {{ type.name }}
                                                             </NavLink></li>
                                                         </ul>

@@ -1,6 +1,6 @@
 <template>
   <Head>
-    <title>{{categoryName}}</title>
+    <title>{{typeName}}</title>
   </Head>
   <div class="breadcrumb__area grey-bg py-3">
     <div class="container">
@@ -11,7 +11,12 @@
                             <span class="tp-breadcrumb__active"><NavLink
                                 :href="appRoute('homepage')">Home</NavLink></span>
               <span class="dvdr"> / </span>
-              <span>{{ readableWord(categoryName) }}</span>
+              <span><NavLink
+                  :href="appRoute('product.category.view',categoryName)">{{
+                  readableWord(categoryName)
+                }}</NavLink> </span>
+              <span class="dvdr"> / </span>
+              <span>{{ readableWord(typeName) }}</span>
             </div>
           </div>
         </div>
@@ -174,6 +179,7 @@ const {setWithExpiry, getWithExpiry} = useLocalStorageUtility();
 const products = ref(iPropsValue('products'));
 const viewListType = ref('list');
 const categoryName = ref('');
+const typeName = ref('');
 watch(
     () => iPropsValue('products'),
     () => {
@@ -188,7 +194,8 @@ const selectedListType = (type) => {
 // })
 onMounted(() => {
   const parts = products.value.path.split('/');
-  categoryName.value = parts[parts.length - 1];
+  categoryName.value = parts[parts.length - 2];
+  typeName.value = parts[parts.length - 1];
   viewListType.value = getWithExpiry('viewListType') ?? 'list'
 })
 
