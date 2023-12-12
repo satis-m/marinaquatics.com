@@ -185,8 +185,7 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 250, 250)
-            ->sharpen(10);
+            ->crop(Manipulations::CROP_CENTER, 350, 350);
 
         $this->addMediaConversion('blur')
             ->format(Manipulations::FORMAT_WEBP)
