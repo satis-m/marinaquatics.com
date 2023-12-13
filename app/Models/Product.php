@@ -194,8 +194,7 @@ class Product extends Model implements HasMedia
 
         $this->addMediaConversion('medium')
             ->format(Manipulations::FORMAT_WEBP)
-            ->width(600)
-            ->height(600);
+            ->crop(Manipulations::CROP_CENTER, 600, 600);
     }
 
     public static function generateUniqueSlug($name)
