@@ -468,8 +468,8 @@
             ]
         },
         {
-            "name": "Lighting",
-            "slug": "lighting",
+            "name": "Lighting and Heating",
+            "slug": "lighting-and-heating",
             "types": [
                 {
                     "name" : "Clip On Light",
@@ -483,6 +483,9 @@
                 },{
                     "name" : "UV Light",
                     "slug" : "uv-light"
+                },{
+                    "name" : "Thermostat",
+                    "slug" : "thermostat"
                 },{
                     "name" : "Others",
                     "slug" : "others"
