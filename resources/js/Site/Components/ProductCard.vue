@@ -16,8 +16,8 @@
         </div>
         <div class="tpproduct__content">
              <span class="tpproduct__content_category capitalize">
-             <a href="shop-details-4.html">{{ productInfo.category.name }}</a>,
-             <a href="shop-details-4.html">{{ productInfo.category.sub_category }}</a>
+             <span>{{ productInfo.category.name }}</span>,
+             <span>{{ productInfo.category.sub_category }}</span>
              </span>
             <h4 class="tpproduct__title capitalize">
                 <NavLink :href="appRoute('product.view',productInfo.slug)">{{ productInfo.name }}</NavLink>
@@ -26,7 +26,7 @@
                 <div class="tpproduct__price" v-if="productInfo.current_discount === null">
                     <span>Rs {{ productInfo.price }}</span>
                 </div>
-                <div class="tpproduct__price" v-else>
+                <div class="tpproduct__price flex flex-col" v-else>
                     <span>Rs {{ discountedPrice }}</span>
                     <del>Rs {{ formattedPrice }}</del>
                 </div>
@@ -181,7 +181,7 @@ onRenderTracked(()=>{
     }
 
     .tpproduct__content {
-        height: 135px;
+        height: 145px;
         display: flex;
         flex-flow: column;
 
@@ -190,7 +190,7 @@ onRenderTracked(()=>{
             color: var(--tp-text-3);
             display: block;
             width: 100%;
-            height: 20px;
+            height: 22px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

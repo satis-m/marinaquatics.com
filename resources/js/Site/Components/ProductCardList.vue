@@ -24,7 +24,7 @@
             <div class="tpproduct__price mb-15" v-if="productInfo.current_discount === null" >
                 <span>Rs {{ productInfo.price }}</span>
             </div>
-            <div class="tpproduct__price mb-15" v-else >
+            <div class="tpproduct__price flex flex-col mb-15" v-else >
                 <span>Rs {{ discountedPrice }}</span>
                 <del>Rs {{ formattedPrice }}</del>
             </div>

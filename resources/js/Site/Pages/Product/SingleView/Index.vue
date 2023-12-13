@@ -144,7 +144,7 @@
                           <div class="product__details-price-box">
                             <div
                                 v-if="productInfo.current_discount != null && formData.offer.key == 1"
-                                class="product__details-price">
+                                class="product__details-price flex flex-col">
                                                             <span>
                                                            Rs {{ formattedPrice(discountPrice) }}
                                                             </span>
