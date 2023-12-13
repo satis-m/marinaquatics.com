@@ -3,7 +3,8 @@
         <div class="tplist__product-img grow-0 ">
 
                 <NavLink class="tplist__product-img-one" :href="appRoute('product.view',productInfo.slug)">
-                  <ImageWithFallback :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                  <ImageWithFallback v-if="mediaCheck('xl')" :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
+                  <ImageWithFallback v-else :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
                 </NavLink>
 
             <div class="tpproduct__info bage">
@@ -62,6 +63,7 @@ import moment from "moment";
 import {useForm} from "@inertiajs/vue3";
 import ImageWithFallback from "@/Components/ImageWithFallback.vue";
 const { iPropsValue } = useInertiaPropsUtility();
+const {mediaCheck} = useAppUtility();
 const showModal = ref(false);
 const userLoggedIn = iPropsValue('auth')
 const props = defineProps({

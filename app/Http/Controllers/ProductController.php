@@ -26,7 +26,7 @@ class ProductController extends Controller
             $meta['og_meta'] = [
                 'og_title' => $productInfo->name,
                 'og_description' => $productInfo->name.' | '.htmlentities(strip_tags($productInfo->product_info)),
-                'og_image' => $productInfo->main_picture['thumbnail'],
+                'og_image' => $productInfo->main_picture['preview'],
                 'og_url' => url()->current(),
             ];
 

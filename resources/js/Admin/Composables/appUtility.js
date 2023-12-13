@@ -67,7 +67,7 @@ export function useAppUtility() {
                 return window.matchMedia("(max-width: 991.98px)").matches; // Medium devices (tablets, less than 992px)
                 break;
             case 'xl':
-                return window.matchMedia("(max-width: 991.98px)").matches; // Large devices (desktops, less than 1200px)
+                return window.matchMedia("(max-width: 1199.98px)").matches; // Large devices (desktops, less than 1200px)
                 break;
             case '2xl':
                 return window.matchMedia("(max-width: 1399.98px)").matches; // X-Large devices (large desktops, less than 1400px)

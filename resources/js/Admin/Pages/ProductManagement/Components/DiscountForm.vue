@@ -199,7 +199,7 @@ const submitForm = async (formEl) => {
 };
 
 const create = async function () {
-    ElMessageBox.confirm("You are trying to Add Product. Continue?", "Warning", {
+    ElMessageBox.confirm("You are trying to add product discount. Continue?", "Warning", {
         type: "warning",
         icon: markRaw(Edit),
         callback: (action) => {
