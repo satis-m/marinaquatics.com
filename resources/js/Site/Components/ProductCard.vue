@@ -2,8 +2,8 @@
     <div class="tpproduct p-relative mb-6">
         <div class="tpproduct__thumb p-relative text-center">
             <NavLink :href="appRoute('product.view',productInfo.slug)">
-                <ImageWithFallback v-if="mediaCheck('xl')" :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
-                <ImageWithFallback v-else :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                <ImageWithFallback v-if="mediaCheck('xl')" :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
+                <ImageWithFallback v-else :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
             </NavLink>
 
             <div class="tpproduct__info bage">
