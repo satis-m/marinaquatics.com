@@ -61,6 +61,8 @@ class ProductController extends Controller
             $query = Product::query()
                 ->where('sub_category', $slug);
             $products = $query->with('currentDiscount', 'category')
+                ->orderByDesc('available_quantity')
+                ->orderBy('products.name')
                 ->paginate(10)
                 ->appends(request()->query());
 
@@ -90,6 +92,8 @@ class ProductController extends Controller
                 ->where('sub_category', $category)
                 ->where('type', $slug);
             $products = $query->with('currentDiscount', 'category')
+                ->orderByDesc('available_quantity')
+                ->orderBy('products.name')
                 ->paginate(10)
                 ->appends(request()->query());
 
