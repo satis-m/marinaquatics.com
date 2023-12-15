@@ -17,7 +17,8 @@ class HomepageController extends Controller {
                            ->where('available_quantity', '>', 0)
                            ->withlastImport()
                            ->orderByLastImport()
-                           ->with('currentDiscount', 'category')
+                           ->withCurrentDiscount()
+                           ->with('category')
                            ->whereHas('discounts', function ($query) use ($today) {
                                // Filter discounts based on your criteria, for example, check for an active status
                                $query->whereDate('start_date', '<=', $today)
@@ -36,7 +37,8 @@ class HomepageController extends Controller {
                               ->where('brand', 'man')
                               ->withlastImport()
                               ->orderByLastImport()
-                              ->with('currentDiscount', 'category')
+                              ->withCurrentDiscount()
+                              ->with('category')
                               ->take(20)
                               ->get()
                               ->map(function ($item) {

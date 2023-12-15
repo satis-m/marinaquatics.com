@@ -18,7 +18,7 @@ class StoreSellController extends Controller
 
     public function index()
     {
-        $products = Product::with(['category', 'comboOffer','currentDiscount'])->orderBy('slug')->get();
+        $products = Product::with(['category', 'comboOffer'])->withCurrentDiscount()->orderBy('slug')->get();
 
         return Inertia::render(
             'StoreSell/Index',

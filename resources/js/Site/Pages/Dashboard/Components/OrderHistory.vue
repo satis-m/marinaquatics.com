@@ -3,7 +3,7 @@
     <title>Order History</title>
   </Head>
   <div class="flex flex-col w-100 gap-3">
-    <div :key="key" v-for="(order,key) in orders" class="orders bg-white p-3  rounded  divide-y">
+    <div :key="key" v-for="(order,key) in orders" v-if="orders.length > 0" class="orders bg-white p-3  rounded  divide-y">
       <div class="order-info flex justify-between">
         <div class="flex flex-col justify-between">
           <p>Order Id: <span class="text-red font-bold">{{ order.order_no }}</span> (<span class="text-sm">{{ order.delivery_type == 'pick' ? 'Store Pickup' : 'Deliver'}}</span>)</p>
@@ -35,11 +35,15 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <NoRecords>Order list is empty.</NoRecords>
+    </div>
   </div>
 </template>
 
 <script setup>
 import {ref, watch, onMounted} from "@vue/runtime-core";
+import NoRecords from "@/Components/NoRecords.vue";
 
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 

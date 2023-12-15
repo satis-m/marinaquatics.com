@@ -217,13 +217,18 @@ class Product extends Model implements HasMedia
 
     public function currentDiscount()
     {
-        return $this->hasOne(Discount::class, 'product_slug', 'slug')
-            ->whereDate('start_date', '<=', now()) // Discount start date should be less than or equal to the current date.
-            ->whereDate('end_date', '>=', now()) // Discount end date should be greater than or equal to the current date.
-            ->orderBy('id', 'desc')
-            ->limit(1);
+        return $this->belongsTo(Discount::class);
     }
 
+    public function scopeWithCurrentDiscount($query) {
+        $query->addSelect(['current_discount_id' => Discount::select('id')
+            ->whereColumn('product_slug', 'products.slug')
+            ->whereDate('start_date', '<=', now())
+            ->whereDate('end_date', '>=', now())
+            ->orderBy('id', 'desc')
+            ->take(1)
+        ])->with('currentDiscount');
+    }
     public function scopeSearch($query, $search)
     {
         return $query->whereFullText(['name', 'product_info', 'description'], $search, ['mode' => 'boolean']);
@@ -231,7 +236,7 @@ class Product extends Model implements HasMedia
 
     public function lastImport()
     {
-        return $this->belongsTo(ProductImport::class,);
+        return $this->belongsTo(ProductImport::class);
     }
 
     public function scopeWithLastImport($query)

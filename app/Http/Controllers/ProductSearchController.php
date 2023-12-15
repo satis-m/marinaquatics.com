@@ -17,7 +17,8 @@ class ProductSearchController extends Controller
                             }, function ($query) {
                                 $query->latest();
                             });
-            $products = $query->with('currentDiscount', 'category')
+            $products = $query->with( 'category')
+                              ->withCurrentDiscount()
                               ->paginate(20)
                               ->appends(request()->query());
 

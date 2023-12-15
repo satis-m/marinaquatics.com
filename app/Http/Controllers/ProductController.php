@@ -14,7 +14,8 @@ class ProductController extends Controller
         try {
             $productInfo = Product::query()
                 ->where('slug', $slug)
-                ->with('currentDiscount', 'category', 'comboOffer')
+                ->with( 'category', 'comboOffer')
+                ->withCurrentDiscount()
                 ->withlastImport()
                 ->firstOrFail();
 
@@ -42,8 +43,9 @@ class ProductController extends Controller
     {
         $products = Product::query()
             ->where('sub_category', $subCategory)
+            ->with('media')
+            ->withCurrentDiscount()
             ->orderBy('slug')
-            ->with('media', 'currentDiscount')
             ->get();
 
         return Inertia::render(
@@ -60,7 +62,9 @@ class ProductController extends Controller
         try {
             $query = Product::query()
                 ->where('sub_category', $slug);
-            $products = $query->with('currentDiscount', 'category')
+            $products = $query->with( 'category')
+                ->withCurrentDiscount()
+                ->withlastImport()
                 ->orderByDesc('available_quantity')
                 ->orderBy('products.name')
                 ->paginate(10)
@@ -91,7 +95,9 @@ class ProductController extends Controller
             $query = Product::query()
                 ->where('sub_category', $category)
                 ->where('type', $slug);
-            $products = $query->with('currentDiscount', 'category')
+            $products = $query->with( 'category')
+                ->withCurrentDiscount()
+                ->withlastImport()
                 ->orderByDesc('available_quantity')
                 ->orderBy('products.name')
                 ->paginate(10)
@@ -121,7 +127,9 @@ class ProductController extends Controller
         try {
             $query = Product::query()
                 ->where('brand', $slug);
-            $products = $query->with('currentDiscount', 'category')
+            $products = $query->with( 'category')
+                ->withCurrentDiscount()
+                ->withlastImport()
                 ->paginate(10)
                 ->appends(request()->query());
 
@@ -148,7 +156,9 @@ class ProductController extends Controller
         try {
             $query = Product::query()
                 ->whereJsonContains('tag', $slug);
-            $products = $query->with('currentDiscount', 'category')
+            $products = $query->with('category')
+                ->withCurrentDiscount()
+                ->withlastImport()
                 ->paginate(10)
                 ->appends(request()->query());
 

@@ -365,3 +365,22 @@ if (! \function_exists('otpGenerate')) {
         return $otp;
     }
 }
+if (! \function_exists('generateUniqueOrderNumber')) {
+    function generateUniqueOrderNumber($length = 6) {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+
+        do {
+            $orderNumber = '';
+
+            for ($i = 0; $i < $length; $i++) {
+                $orderNumber .= $characters[rand(0, $charactersLength - 1)];
+            }
+            $orderNumber = date('ym') . '-' . $orderNumber;
+            // Check if the order number is already used
+            $isUnique = !\DB::table('orders')->where('order_no', $orderNumber)->exists();
+        } while (!$isUnique);
+
+        return $orderNumber;
+    }
+}
