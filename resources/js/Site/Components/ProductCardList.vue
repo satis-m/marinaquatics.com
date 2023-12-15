@@ -8,12 +8,13 @@
                 </NavLink>
 
             <div class="tpproduct__info bage">
+              <span v-if="productInfo.highlight != null" class="tpproduct__info-hot bage__highlight">{{ productInfo.highlight }}</span>
                 <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">{{ productInfo.current_discount.discount }}%</span>
                 <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
                 <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
             </div>
         </div>
-        <div class="tplist__content grow h-52">
+        <div class="tplist__content grow h-56 overflow-hidden">
             <span>{{ productInfo.category.name }}, {{ productInfo.category.sub_category }}</span>
             <h4 class="tplist__content-title mb-4">   <NavLink :href="appRoute('product.view',productInfo.slug)">{{ productInfo.name }}</NavLink></h4>
             <div  class="tplist__content-info h-[154px] overflow-hidden" v-html="productInfo.product_info">

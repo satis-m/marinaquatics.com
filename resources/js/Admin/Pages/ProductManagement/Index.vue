@@ -427,6 +427,7 @@ const formInputNames = {
     tag: "",
     brand: "",
     video_link: "",
+    highlight: "",
     category: "",
     sub_category: "",
     publish: 1,

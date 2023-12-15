@@ -99,7 +99,7 @@
 
                 </el-row>
                 <el-row :gutter="10">
-                    <el-col :lg="12">
+                    <el-col :lg="6">
 
                         <el-form-item label="Tag" prop="tag">
                             <el-select
@@ -119,6 +119,16 @@
                                     :value="item"
                                 />
                             </el-select>
+                        </el-form-item>
+                    </el-col>
+                  <el-col :lg="6">
+
+                        <el-form-item label="Highlight" prop="highlight">
+                          <el-input
+                              v-model="formData.highlight"
+                              placeholder="Product Highlight"
+                              autocomplete="off"
+                          />
                         </el-form-item>
                     </el-col>
                     <el-col :lg="6">

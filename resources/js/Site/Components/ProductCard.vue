@@ -7,6 +7,7 @@
             </NavLink>
 
             <div class="tpproduct__info bage">
+              <span v-if="productInfo.highlight != null" class="tpproduct__info-hot bage__highlight">{{ productInfo.highlight }}</span>
                 <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">{{
                         productInfo.current_discount.discount
                     }}%</span>

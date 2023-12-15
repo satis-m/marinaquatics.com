@@ -1,9 +1,11 @@
 <template>
   <Head>
     <title>{{productInfo.name}}</title>
-    <meta head-key="description" name="description" :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
+    <meta head-key="description" name="description"
+          :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
 
-    <meta head-key="og:description" property="og:description" :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
+    <meta head-key="og:description" property="og:description"
+          :content="productInfo.name+' | '+removeHTMLTags(productInfo.product_info)">
 
     <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
     <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">
@@ -40,28 +42,27 @@
         <div class="col-xs-12">
           <div class="tpdetails__area  pb-30">
             <div class="tpdetails__product mb-30">
-<!--              <div class="tpdetails__title-box">-->
+              <!--              <div class="tpdetails__title-box">-->
 
-<!--                &lt;!&ndash;                                <SubInfo/>&ndash;&gt;-->
-<!--              </div>-->
+              <!--                &lt;!&ndash;                                <SubInfo/>&ndash;&gt;-->
+              <!--              </div>-->
               <div class="tpdetails__box">
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="tpproduct-details__nab">
-                      <div class="tab-content product-image-preview"  v-viewer="options" id="nav-tabContents">
+                      <div class="tab-content product-image-preview" v-viewer="options" id="nav-tabContents">
                         <div class="tab-pane fade show active w-img hover:cursor-zoom-in"
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
                           <ImageWithFallback :source="productInfo.main_picture.original" :alt="productInfo.slug"/>
                           <div class="tpproduct__info bage">
-                                                        <span v-if="productInfo.current_discount != null"
-                                                              class="tpproduct__info-discount bage__discount">{{
-                                                            productInfo.current_discount.discount
-                                                          }}%</span>
+                            <span v-if="productInfo.highlight != null" class="tpproduct__info-hot bage__highlight">{{ productInfo.highlight }}</span>
+                            <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">
+                              {{ productInfo.current_discount.discount}}%
+                            </span>
                             <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
-                            <span v-if="newStock"
-                                  class="tpproduct__info-hot bage__new">New</span>
+                            <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
                           </div>
                         </div>
                         <div :key="key"
@@ -166,7 +167,7 @@
                                          :max="maxCartInput" ref="refCartInput"
                                          @updateCount="updateCount"
                                          :disable="outOfStock"/>
-                              <button class="tp-btn-2 px-4 ml-4 cart_button"
+                              <button class="tp-btn-2 px-4 ml-4 cart_button max-sm:mt-2"
                                       @click="addToCart"
                                       :disabled="outOfStock" data-bs-toggle="tooltip"
                                       data-bs-title="Default tooltip"
@@ -214,8 +215,8 @@
                 <nav>
                   <div class="nav nav-tabs" role="tablist">
                     <h2 class="nav-link active m-0 py-3 text-lg px-0" id="nav-description-tab"
-                            data-bs-toggle="tab" data-bs-target="#nav-description" type="button"
-                            role="tab" aria-controls="nav-description" aria-selected="true">Product
+                        data-bs-toggle="tab" data-bs-target="#nav-description" type="button"
+                        role="tab" aria-controls="nav-description" aria-selected="true">Product
                       Description
                     </h2>
                   </div>

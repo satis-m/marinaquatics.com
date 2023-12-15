@@ -30,6 +30,7 @@ class ProductService
                 'brand' => request('brand'),
                 'type' => request('type'),
                 'video_link' => request('video_link'),
+                'highlight' => request('highlight'),
                 'publish' => request('publish'),
                 'price' => request('price'),
                 'unit' => request('unit'),
@@ -73,6 +74,7 @@ class ProductService
             $product->brand = request('brand');
             $product->type = request('type');
             $product->video_link = request('video_link');
+            $product->highlight = request('highlight');
             $product->publish = request('publish');
             $product->price = request('price');
             $product->unit = request('unit');

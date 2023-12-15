@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('unit');
             $table->string('video_link')->nullable();
+            $table->string('highlight')->nullable();
             $table->string('brand')->nullable()->index();
             $table->float('price');
             $table->integer('available_quantity')->default('0');
