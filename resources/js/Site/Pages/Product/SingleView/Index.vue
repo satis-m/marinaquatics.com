@@ -50,20 +50,20 @@
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="tpproduct-details__nab">
-                      <div class="tab-content product-image-preview" v-viewer="options" id="nav-tabContents">
+                      <div class="tab-content product-image-preview relative" v-viewer="options" id="nav-tabContents">
+                        <div class="tpproduct__info bage">
+                          <span v-if="productInfo.highlight != null" class="tpproduct__info-hot bage__highlight">{{ productInfo.highlight }}</span>
+                          <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">
+                              {{ productInfo.current_discount.discount}}%
+                            </span>
+                          <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
+                          <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
+                        </div>
                         <div class="tab-pane fade show active w-img hover:cursor-zoom-in"
                              :id="'preview-image-'+productInfo.main_picture?.id" role="tabpanel"
                              :aria-labelledby="'nav-image-'+productInfo.main_picture?.id"
                              tabindex="0">
                           <ImageWithFallback :source="productInfo.main_picture.original" :alt="productInfo.slug"/>
-                          <div class="tpproduct__info bage">
-                            <span v-if="productInfo.highlight != null" class="tpproduct__info-hot bage__highlight">{{ productInfo.highlight }}</span>
-                            <span v-if="productInfo.current_discount != null" class="tpproduct__info-discount bage__discount">
-                              {{ productInfo.current_discount.discount}}%
-                            </span>
-                            <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
-                            <span v-if="newStock" class="tpproduct__info-hot bage__new">New</span>
-                          </div>
                         </div>
                         <div :key="key"
                              v-for="(alternativePicture , key) in productInfo.alternative_picture"
