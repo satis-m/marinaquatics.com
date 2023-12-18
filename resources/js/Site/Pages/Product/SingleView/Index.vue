@@ -72,15 +72,7 @@
                              :aria-labelledby="'nav-image-'+alternativePicture?.id"
                              tabindex="0">
                           <ImageWithFallback :source="alternativePicture.original" :alt="productInfo.slug"/>
-                          <div class="tpproduct__info bage">
-                                                        <span v-if="productInfo.current_discount != null"
-                                                              class="tpproduct__info-discount bage__discount">{{
-                                                            productInfo.current_discount.discount
-                                                          }}%</span>
-                            <span v-if="outOfStock" class="tpproduct__info-hot bage__hot">Out of Stock</span>
-                            <span v-if="newStock"
-                                  class="tpproduct__info-hot bage__new">New</span>
-                          </div>
+
                         </div>
 
                       </div>

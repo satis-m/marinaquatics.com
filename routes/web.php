@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,3 +67,35 @@ Route::post('/login/sign-up', [RegisteredUserController::class, 'store'])->name(
 
 require __DIR__.'/auth.php';
 Route::fallback(fn () => abort('404'));
+
+Route::get('/cache-clear/{cacheKey}/{passkey}', function($cacheKey,$passkey){
+   if($passkey == 'clear'){
+       switch ($cacheKey){
+           case 'category':
+               Cache::forget('Category');
+               break;
+           case 'productCategory':
+               Cache::forget('productCategory');
+               break;
+           case 'productType':
+               Cache::forget('productType');
+               break;
+           case 'appInfo':
+               Cache::forget('ApplicationInfo');
+               break;
+           case 'all':
+               Cache::forget('Category');
+               Cache::forget('productCategory');
+               Cache::forget('productType');
+               Cache::forget('ApplicationInfo');
+               break;
+           default:
+               echo"Bad cache request";
+               break;
+       }
+   }
+   else
+   {
+       echo"Bad pass request";
+   }
+});
