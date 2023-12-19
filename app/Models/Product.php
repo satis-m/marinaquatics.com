@@ -231,7 +231,9 @@ class Product extends Model implements HasMedia
     }
     public function scopeSearch($query, $search)
     {
-        return $query->whereFullText(['name', 'product_info', 'description'], $search, ['mode' => 'boolean']);
+        return $query->whereFullText(['name', 'product_info','type','sub_category'], $search, ['mode' => 'boolean'])
+            ->orWhere('name', 'like', "%{$search}%")
+            ->orderByRaw('MATCH(name, product_info,type,sub_category) AGAINST (?) DESC', [$search]);
     }
 
     public function lastImport()

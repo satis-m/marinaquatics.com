@@ -6,20 +6,20 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Inertia\Inertia;
 
-class ProductSearchController extends Controller
-{
-    public function __invoke()
-    {
+class ProductSearchController extends Controller {
+
+    public function __invoke() {
         try {
             $query = Product::query()
                             ->when(request('search'), function ($query, $search) {
                                 $query->search($search);
-                            }, function ($query) {
-                                $query->latest();
                             });
-            $products = $query->with( 'category')
+            $products = $query->with('category')
                               ->withCurrentDiscount()
-                              ->paginate(20)
+                              ->orderByDesc('available_quantity')
+                              ->orderBy('products.name')
+                              ->withlastImport()
+                              ->paginate(12)
                               ->appends(request()->query());
 
             $products->map(function ($item) {

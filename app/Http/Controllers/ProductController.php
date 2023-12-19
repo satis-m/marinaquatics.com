@@ -39,23 +39,6 @@ class ProductController extends Controller
         }
     }
 
-    public function list($subCategory)
-    {
-        $products = Product::query()
-            ->where('sub_category', $subCategory)
-            ->with('media')
-            ->withCurrentDiscount()
-            ->orderBy('slug')
-            ->get();
-
-        return Inertia::render(
-            'Product/List',
-            [
-                'products' => $products,
-                'isLoggedIn' => auth('admin')->user(),
-            ]);
-    }
-
     public function categoryView($slug)
     {
 
@@ -67,7 +50,7 @@ class ProductController extends Controller
                 ->withlastImport()
                 ->orderByDesc('available_quantity')
                 ->orderBy('products.name')
-                ->paginate(10)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $products->map(function ($item) {
@@ -100,7 +83,7 @@ class ProductController extends Controller
                 ->withlastImport()
                 ->orderByDesc('available_quantity')
                 ->orderBy('products.name')
-                ->paginate(10)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $products->map(function ($item) {
@@ -130,7 +113,7 @@ class ProductController extends Controller
             $products = $query->with( 'category')
                 ->withCurrentDiscount()
                 ->withlastImport()
-                ->paginate(10)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $products->map(function ($item) {
@@ -159,7 +142,7 @@ class ProductController extends Controller
             $products = $query->with('category')
                 ->withCurrentDiscount()
                 ->withlastImport()
-                ->paginate(10)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $products->map(function ($item) {

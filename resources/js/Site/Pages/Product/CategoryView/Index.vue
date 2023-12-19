@@ -172,7 +172,7 @@ const {setWithExpiry, getWithExpiry} = useLocalStorageUtility();
 
 // const testData = iPropsValue('app_info','title');
 const products = ref(iPropsValue('products'));
-const viewListType = ref('list');
+const viewListType = ref('grid');
 const categoryName = ref('');
 watch(
     () => iPropsValue('products'),

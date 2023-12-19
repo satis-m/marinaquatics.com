@@ -50,8 +50,6 @@ Route::middleware('auth.client','verified')->group(function () {
 });
 
 Route::get('/product/search', ProductSearchController::class)->name('product.search');
-
-Route::get('/product/list/{subCategory}', [ProductController::class, 'list'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'view'])->name('product.view');
 Route::get('/product/category/{slug}', [ProductController::class, 'categoryView'])->name('product.category.view');
 Route::get('/product/type/{category}/{slug}', [ProductController::class, 'typeView'])->name('product.type.view');
