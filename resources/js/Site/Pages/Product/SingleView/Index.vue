@@ -77,7 +77,7 @@
 
                       </div>
                       <nav>
-                        <div class="nav nav-tabs justify-content-left" id="nav-tab"
+                        <div class="nav nav-tabs justify-left sm:justify-center flex gap-2" id="nav-tab"
                              role="tablist">
                           <button v-if="hasVideo" @click="showVideo=true"
                                   class="nav-link"
