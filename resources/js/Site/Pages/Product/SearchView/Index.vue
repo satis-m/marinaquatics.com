@@ -187,7 +187,7 @@ const selectedListType = (type) => {
 //     products:Object
 // })
 onMounted(() => {
-  viewListType.value = getWithExpiry('viewListType') ?? 'list'
+  viewListType.value = getWithExpiry('viewListType') ?? 'grid'
 })
 
 </script>

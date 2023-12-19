@@ -189,7 +189,7 @@ const selectedListType = (type) => {
 onMounted(() => {
   const parts = products.value.path.split('/');
   categoryName.value = parts[parts.length - 1];
-  viewListType.value = getWithExpiry('viewListType') ?? 'list'
+  viewListType.value = getWithExpiry('viewListType') ?? 'grid'
 })
 
 </script>
