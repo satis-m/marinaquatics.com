@@ -16,9 +16,10 @@ class ProductSearchController extends Controller {
                             });
             $products = $query->with('category')
                               ->withCurrentDiscount()
-                              ->orderByDesc('available_quantity')
-                              ->orderBy('products.name')
                               ->withlastImport()
+                              ->orderByDesc('available_quantity')
+                              ->orderByRaw('MATCH(name, product_info,type,sub_category) AGAINST (?) DESC', [request('search')])
+                              ->orderBy('products.name')
                               ->paginate(12)
                               ->appends(request()->query());
 

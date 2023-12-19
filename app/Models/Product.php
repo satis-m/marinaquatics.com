@@ -229,11 +229,12 @@ class Product extends Model implements HasMedia
             ->take(1)
         ])->with('currentDiscount');
     }
+    
     public function scopeSearch($query, $search)
     {
         return $query->whereFullText(['name', 'product_info','type','sub_category'], $search, ['mode' => 'boolean'])
-            ->orWhere('name', 'like', "%{$search}%")
-            ->orderByRaw('MATCH(name, product_info,type,sub_category) AGAINST (?) DESC', [$search]);
+                     ->orWhere('name', 'like', "%{$search}%");
+
     }
 
     public function lastImport()
