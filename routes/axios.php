@@ -30,3 +30,8 @@ Route::prefix('axios')->middleware('auth.admin')->group(function () {
         return Response::json(['results' => $importList]);
     })->name('product.discount.latest');
 });
+Route::prefix('axios')->middleware(['throttle:3,1','auth.client'])->group(function () {
+    Route::get('cart/order-no', function () {
+       return generateUniqueOrderNumber();
+    })->name('cart.order-no-request');
+});

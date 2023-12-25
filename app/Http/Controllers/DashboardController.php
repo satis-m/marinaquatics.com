@@ -27,6 +27,8 @@ class DashboardController extends Controller {
                                 'order_no' => $order->order_no,
                                 'total_amount' => $order->total_amount,
                                 'order_status' => $order->order_status,
+                                'payment_status' => $order->payment_status,
+                                'payment_method' => $order->payment_method,
                                 'order_date' => Carbon::parse($order->created_at)->format('d M Y h:i a'),
                                 'delivery_type' => $order->delivery_type,
                                 'delivered_date' => $order->delivered_on ? Carbon::parse($order->delivered_on)->format('d M Y h:i a') : null,

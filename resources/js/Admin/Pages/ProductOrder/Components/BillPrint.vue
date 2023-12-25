@@ -11,7 +11,7 @@
                         <div>
                             Order No: {{ BillData.order_no }}
                         </div>
-                        <div v-if="BillData.order_status == 'canceled'" class="text-red-600 capitalize">
+                        <div v-if="BillData.order_status == 'cancelled'" class="text-red-600 capitalize">
                             {{ BillData.order_status }}
                         </div>
                     </div>

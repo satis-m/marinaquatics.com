@@ -41,6 +41,10 @@ Route::middleware('auth.client','verified')->group(function () {
     Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
     Route::delete('/cart/remove', [CartController::class, 'destroy'])->name('user.cart.remove');
     Route::patch('/cart/update', [CartController::class, 'update'])->name('user.cart.update');
+    Route::post('/cart/confirm-order', [CartController::class, 'confirmOrder'])->name('user.cart.confirm-order');
+
+    Route::delete('/order/cancel', [CartController::class, 'cancelOrder'])->name('user.order.cancel');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

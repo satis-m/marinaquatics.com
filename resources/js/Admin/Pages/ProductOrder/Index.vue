@@ -48,15 +48,35 @@
                         <template #default="props">
                             {{ props.row.order_no }}
                             <el-tag
-                                v-if="props.row.order_status == 'canceled'"
+                                v-if="props.row.order_status == 'cancelled'"
                                 type="danger"
-                                class="mx-1 "
+                                class="mx-1 flex-sra "
                                 effect="dark"
                                 round
                                 size="small"
                             >
                                 {{ props.row.order_status }}
                             </el-tag>
+                            <el-tag
+                                v-else-if="props.row.order_status == 'queue'"
+                                type="warning"
+                                class="mx-1 flex-sra "
+                                effect="dark"
+                                round
+                                size="small"
+                            >
+                              {{ props.row.order_status }}
+                            </el-tag>
+                          <el-tag
+                              v-else-if="props.row.order_status == 'delivered'"
+                              type="success"
+                              class="mx-1 flex-sra "
+                              effect="dark"
+                              round
+                              size="small"
+                          >
+                            {{ props.row.order_status }}
+                          </el-tag>
 
                         </template>
                     </el-table-column>
@@ -131,6 +151,11 @@
                                         >
                                            Update Status
                                         </el-dropdown-item>
+                                      <el-dropdown-item
+                                          @click="updateStatusForm(scope.row)"
+                                      >
+                                        Cancel Order
+                                      </el-dropdown-item>
 
                                     </el-dropdown-menu>
                                 </template>

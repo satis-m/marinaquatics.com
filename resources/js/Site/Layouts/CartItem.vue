@@ -112,7 +112,6 @@ const handleLimitReach = ()=>{
 }
 onMounted(()=>{
     setMaxQuantity();
-  console.log('moounted')
 })
 
 </script>

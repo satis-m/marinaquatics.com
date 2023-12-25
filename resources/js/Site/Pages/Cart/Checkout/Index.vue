@@ -206,8 +206,10 @@
                 </div>
               </div>
               <div class="tptrack__btn mt-4" v-if="totalAmount > 0">
-                <button class="tptrack__submition active" @click="placeOrder" type="button">Proceed to Payment <i
-                    class="icon-arrow-right"></i>
+                <button class="tptrack__submition active " @click="placeOrder" type="button">Proceed to Payment <i v-if="isLoadingProceed"
+                    class="icon-loader spiner"></i>
+                  <i v-else
+                     class="icon-arrow-right"></i>
                 </button>
               </div>
             </form>
@@ -239,7 +241,7 @@
                     </div>
                   </td>
                   <td class="product-total text-right">
-                    <span class="amount">Rs {{ itemTotalPrice(cartItem).toLocaleString() }}</span>
+                    <span class="amount">{{ formattedCurrency(itemTotalPrice(cartItem)) }}</span>
                   </td>
                 </tr>
                 </tbody>
@@ -251,8 +253,8 @@
 
                 <tr class="order-total">
                   <td>Order Total <span class="text-red" v-if="formData.delivery_type == 'ship'" >*</span></td>
-                  <td class="text-right"><strong><span class="amount">Rs. {{
-                      totalAmount.toLocaleString()
+                  <td class="text-right"><strong><span class="amount">{{
+                      formattedCurrency(totalAmount)
                     }}</span></strong>
                   </td>
                 </tr>
@@ -277,19 +279,107 @@
     </div>
   </section>
   <!-- checkout-area end -->
+
+  <Modal @close-modal="showModal=false" v-show="showModal">
+    <template v-slot:header>
+      Payment Info
+    </template>
+    <template v-slot:body>
+      <div class>
+        <p class="bg-red-700 text-white p-2 rounded max-w-xl">
+        Please, use your order number in your bank app remark field while making Payment for Payment Verification.
+        </p>
+        <p class="py-2">
+          <b>
+            Total Amount:
+          </b>
+           {{ formattedCurrency(totalAmount)}}
+          <br>
+          <b>
+            Order-No:
+          </b>
+          {{formData.order_number}}
+        </p>
+        <div class="flex justify-center mb-4">
+            <img class="md:w-1/2" src="https://cdn.britannica.com/17/155017-004-7812A49F/Example-QR-code.jpg?s=1500x700&q=85" alt="bank payment QR">
+        </div>
+      </div>
+    </template>
+    <template v-slot:footer>
+      <button class="btn btn-danger" @click="confirmOrderWithPayment">
+        Confirm Order
+        <i v-if="isLoadingConfirm" class="icon-loader spiner"></i>
+        <i v-else class="icon-arrow-right"></i>
+      </button>
+      <button class="btn" @click="showModal=false, formData.order_number = null">Cancel</button>
+    </template>
+  </Modal>
+
+  <Modal @close-modal="showConfirmModal=false" v-show="showConfirmModal">
+    <template v-slot:header>
+      Purchase Info
+    </template>
+    <template v-slot:body>
+      <div class="min-h-[140px] max-w-xl mb-4">
+       {{ purchaseMessage }}
+      </div>
+    </template>
+    <template v-slot:footer>
+      <NavLink class="btn btn-danger" :href="appRoute('client.dashboard.order-history')" >
+        View Order History
+      </NavLink>
+      <NavLink class="btn" :href="appRoute('homepage')">
+        Back to Home
+      </NavLink>
+    </template>
+  </Modal>
 </template>
 
 <script setup>
 
-import {computed, ref, reactive, watch} from "@vue/runtime-core";
+import {computed, ref, reactive, watch, onMounted} from "@vue/runtime-core";
 
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+import {useNumberUtility} from "@admin/Composables/numberUtility";
 import {useForm} from "@inertiajs/vue3";
 import {Select} from "@element-plus/icons-vue";
+import Modal from "@/Components/Modal.vue"
 
 const {iPropsValue} = useInertiaPropsUtility();
+const {formattedCurrency} = useNumberUtility();
 const userInfo = reactive(iPropsValue('auth', 'user'))
+const showConfirmModal = ref(false);
+const showModal = ref(false);
+const isLoadingProceed = ref(false);
+const isLoadingConfirm = ref(false);
 
+const purchaseMessage = computed(() => {
+  let message = '';
+  if(formData.delivery_type == "pick"){
+    message = "Thank you for your purchase! Your order is being processed and will be ready for pickup within 24 hours. You can track its progress and receive updates on your order history page in your profile or through your email. We'll let you know as soon as it's ready!"
+  }
+  else
+  {
+    message = 'Your order is in progress! We\'re carefully preparing your items for shipment. We\'ll contact you shortly to confirm your order details and shipping costs before we send it on its way. Keep an eye out for our email or call!';
+  }
+  return message;
+})
+const confirmOrderWithPayment = ()=>{
+  isLoadingConfirm.value = true
+  try {
+    formData.post(route("user.cart.confirm-order"), {
+      preserveScroll: true,
+      onSuccess: () => {
+        showModal.value = false
+        isLoadingConfirm.value = false
+        showConfirmModal.value = true
+      },
+    })
+  } catch (error) {
+    vt.error("Request Cart Error")
+    console.log(error);
+  }
+}
 const billingError = reactive({
   state: '',
   city: '',
@@ -308,6 +398,7 @@ const formData = useForm({
   delivery_type: 'ship',
   payment_method: 'bank',
   order_note: '',
+  order_number: null,
   billing_info: {
     state: userInfo.address.billing_state,
     city: userInfo.address.billing_city,
@@ -328,8 +419,9 @@ const formData = useForm({
 })
 const totalAmount = ref(0);
 const userCart = ref(iPropsValue('auth', 'cart'));
-watch(() => iPropsValue('auth', 'cart'), (newVal) => {
-  userCart.value = newVal;
+watch(() => iPropsValue('auth', 'cart'), () => {
+  console.log(iPropsValue('auth', 'cart'));
+  userCart.value = iPropsValue('auth', 'cart');
   totalAmount.value = 0;
 })
 
@@ -340,30 +432,55 @@ const itemTotalPrice = (item) => {
   } else {
     itemTotal = (+item.offer_price * +item.offer_quantity) * +item.quantity;
   }
-  totalAmount.value = +totalAmount.value + +itemTotal
   return itemTotal;
 }
+const updateTotal = ()=>{
+  totalAmount.value = 0;
+  userCart.value.forEach(item => {
+    let itemTotal = 0;
+    if (item.last_discount != null && item.offer_name == 'Standard') {
+      itemTotal = (+item.offer_price - (+item.last_discount.discount / 100) * +item.offer_price) * +item.quantity;
+    } else {
+      itemTotal = (+item.offer_price * +item.offer_quantity) * +item.quantity;
+    }
+    totalAmount.value = +totalAmount.value + +itemTotal
+  });
+}
 const validateBilling = (input) => {
-  if (formData.billing_info[input] == '') {
+  if (formData.billing_info[input] == '' || formData.billing_info[input] == null) {
     billingError[input] = 'Please fill out this field'
   } else {
     billingError[input] = ''
   }
 }
 const validateShipping = (input) => {
-  if (formData.shipping_info[input] == '') {
+  if (formData.shipping_info[input] == '' || formData.shipping_info[input] == null) {
     shippingError[input] = 'Please fill out this field'
   } else {
     shippingError[input] = ''
   }
 }
 const formValid = () => {
+  if (formData.billing_info.phone == '' ||formData.billing_info.phone == null
+      || formData.billing_info.state == '' ||formData.billing_info.state == null
+      || formData.billing_info.city == '' ||formData.billing_info.city == null
+      || formData.billing_info.address == '' ||formData.billing_info.address == null
+      || formData.billing_info.full_name == '' ||formData.billing_info.full_name == null
+  ) {
+    validateBilling('phone')
+    validateBilling('state')
+    validateBilling('city')
+    validateBilling('address')
+    validateBilling('full_name')
+    return false
+  }
+
   if (formData.ship_different == true && formData.delivery_type == 'ship') {
-    if (formData.shipping_info.phone == ''
-        || formData.shipping_info.state == ''
-        || formData.shipping_info.city == ''
-        || formData.shipping_info.address == ''
-        || formData.shipping_info.full_name == ''
+    if (formData.shipping_info.phone == '' || formData.shipping_info.phone == null
+        || formData.shipping_info.state == '' || formData.shipping_info.state == null
+        || formData.shipping_info.city == '' || formData.shipping_info.city == null
+        || formData.shipping_info.address == '' || formData.shipping_info.address == null
+        || formData.shipping_info.full_name == '' || formData.shipping_info.full_name == null
     ) {
       validateShipping('phone')
       validateShipping('state')
@@ -373,24 +490,21 @@ const formValid = () => {
       return false
     }
   }
-  if (formData.billing_info.phone == ''
-      || formData.billing_info.state == ''
-      || formData.billing_info.city == ''
-      || formData.billing_info.address == ''
-      || formData.billing_info.full_name == ''
-  ) {
-    validateBilling('phone')
-    validateBilling('state')
-    validateBilling('city')
-    validateBilling('address')
-    validateBilling('full_name')
-    return false
-  }
+
   return true;
 }
 const placeOrder = () => {
   if (formValid()) {
-    formData.post(route('cart.proceed-payment'))
+    isLoadingProceed.value= true
+    axios.get(route("cart.order-no-request"))
+        .then(response => {
+          showModal.value = true
+          formData.order_number =  response.data
+          isLoadingProceed.value= false
+        })
+        .catch(error => {
+          vt.error(error.response.data.message)
+        })
   } else {
     window.scrollTo({
       top: 0,
@@ -401,6 +515,9 @@ const placeOrder = () => {
 
 }
 
+onMounted(()=>{
+  updateTotal()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -428,4 +545,5 @@ const placeOrder = () => {
   color: var(--tp-theme-1);
   font-size: 14px;
 }
+
 </style>

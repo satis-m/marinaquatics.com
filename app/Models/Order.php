@@ -9,7 +9,9 @@ class Order extends Model
     protected static function booted(): void
     {
         static::creating(function ($product) {
-            $product->order_no = generateUniqueOrderNumber();
+            if (empty($product->order_no)) {
+                $product->order_no = generateUniqueOrderNumber();
+            }
         });
     }
 

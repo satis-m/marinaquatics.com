@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('offer_name');
             $table->bigInteger('offer_quantity');
             $table->float('offer_price');
+            $table->float('item_total_price');
         });
     }
 
