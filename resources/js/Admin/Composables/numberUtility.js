@@ -7,6 +7,9 @@ export function useNumberUtility() {
 	}
 
 	const formattedCurrency = function (number) {
+		if (isNaN(number) || number == null)
+			number = 0;
+
 		return number.toLocaleString('en-US', {
 			style: 'currency',
 			currency: 'NPR'

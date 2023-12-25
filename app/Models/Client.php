@@ -68,8 +68,11 @@ class Client extends Authenticatable implements HasMedia
     public function address() {
         return $this->hasOne(ClientAddress::class,'customer_id','id');
     }
-    public function newQuery()
+
+    public function orders()
     {
-        return parent::newQuery()->with('address');
+        return $this->hasMany(Order::class,'customer_id','id');
     }
+    
+
 }

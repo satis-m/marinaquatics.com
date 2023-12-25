@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminPasswordController;
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -54,6 +55,13 @@ Route::middleware('auth.admin')->group(function () {
 
     Route::get('/store-sell', [StoreSellController::class, 'index'])->name('storeSell.index');
     Route::get('/store-sell/list', [StoreSellController::class, 'listAll'])->name('storeSell.list');
+
+    Route::get('/client/list', [CustomerController::class, 'index'])->name('clients.list');
+    Route::patch('/client/update-status/{clientId}', [CustomerController::class, 'updateStatus'])->name('client.status.update');
+
+    Route::get('/client-orders/list', [OrderController::class, 'listAll'])->name('clientOrders.list');
+    Route::delete('/client-order/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+    Route::patch('/client-order/update/{orderNo}', [OrderController::class, 'updateOrderStatus'])->name('order.update-status');
 
     Route::resource('manage/slider', SliderController::class);
 

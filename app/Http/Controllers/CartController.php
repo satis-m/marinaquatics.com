@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Services\OrderService;
 use Exception;
 use Inertia\Inertia;
@@ -111,7 +112,8 @@ class CartController extends Controller {
 
     public function cancelOrder() {
         $orderNo = request('orderNo');
-        if ((new OrderService())->cancelOrder($orderNo)) {
+        $isClientOrder = Order::where('order_no',$orderNo)->where('customer_id',auth('client')->user()->id)->count();
+        if ($isClientOrder > 0 && (new OrderService())->cancelOrder($orderNo)) {
             return redirect()->back()->with('success', 'Your order has be Cancelled');
         }
         return redirect()->back()->with('error', 'Error while cancelling order.');

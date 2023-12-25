@@ -1,6 +1,6 @@
 <template>
     <el-row :gutter="12">
-        <el-col :sm="8">
+        <el-col :sm="24" :md="12" :lg="8">
             <el-card shadow="always" class="product-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Goods /></el-icon>
@@ -17,17 +17,28 @@
                     </div>
                 </div>
             </el-card>
-        </el-col><el-col :sm="8">
+        </el-col>
+        <el-col :sm="24" :md="12" :lg="8">
             <el-card shadow="always"  class="user-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Avatar /></el-icon>
                 </div>
                 <div class="card-detail flex flex-col text-white " >
-                    <div class="title">Users</div>
-                    <div class="body">{{ iPropsValue('userCount') }}</div>
+                    <div class="title">Users Account</div>
+                    <div class="body">
+                      <div class="flex">
+                        <div class="w-28">Active</div>
+                        <div>{{ iPropsValue('userCount','active') }}</div>
+                      </div>
+                      <div class="flex">
+                        <div class="w-28">Blocked</div>
+                        <div>{{ iPropsValue('userCount','block') > 0 ? iPropsValue('userCount','block') : 0 }}</div>
+                      </div>
+                    </div>
                 </div>
             </el-card>
-        </el-col><el-col :sm="8">
+        </el-col>
+        <el-col :sm="24" :md="12" :lg="8">
             <el-card shadow="always"  class="cash-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Coin /></el-icon>
@@ -36,10 +47,16 @@
                     <div class="title">Sells</div>
                     <div class="body">
                             <div class="flex">
-                               <div class="w-20">Total</div>  <div class="inline-block" style="width:100px">1000</div>
+                               <div class="w-28">Total</div>
+                              <div>{{ formattedCurrency(iPropsValue('sales','till_date_total')) }}</div>
                             </div>
                             <div class="flex">
-                                <div class="w-20">Today</div> <div class="inline-block">100</div>
+                               <div class="w-28"> {{ iPropsValue('sales','current_month') }} </div>
+                              <div>{{ formattedCurrency(iPropsValue('sales','monthly_total')) }}</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-28">Today</div>
+                              <div>{{ formattedCurrency(iPropsValue('sales','today_total')) }}</div>
                             </div>
                     </div>
                 </div>
@@ -52,11 +69,15 @@ defineOptions({layout: "admin"});
 import {Goods,Avatar,Coin} from "@element-plus/icons-vue";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 let { iPropsValue } = useInertiaPropsUtility();
+
+import {useNumberUtility} from "@/Composables/numberUtility";
+const {formattedCurrency} = useNumberUtility();
+
 </script>
 <style  lang="scss">
 .dashboard-card
 {
-    height: 150px;
+    height: 100%;
     color: #f1e8e8;
     &.product-card
     {

@@ -44,6 +44,16 @@
                 "icon": "fa-shop"
             },
             {
+                "link": "clients.list",
+                "name": "Customers",
+                "icon": "fa-shop"
+            },
+            {
+                "link": "clientOrders.list",
+                "name": "Customer Orders",
+                "icon": "fa-shop"
+            },
+            {
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
@@ -96,6 +106,16 @@
                 "icon": "fa-shop"
             },
             {
+                "link": "clients.list",
+                "name": "Customers",
+                "icon": "fa-shop"
+            },
+            {
+                "link": "clientOrders.list",
+                "name": "Customer Orders",
+                "icon": "fa-cart-shopping"
+            },
+            {
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
@@ -113,6 +133,11 @@
             {
                 "link": "storeSell.index",
                 "name": "Store Sell",
+                "icon": "fa-shop"
+            },
+            {
+                "link": "clientOrders.list",
+                "name": "Customer Orders",
                 "icon": "fa-shop"
             },
             {

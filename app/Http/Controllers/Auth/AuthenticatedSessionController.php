@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -50,6 +51,12 @@ class AuthenticatedSessionController extends Controller
         if ($intendedUrl) {
             Session::forget('intended_url');
 
+            if (auth('client')->user()->status === 'blocked') {
+                auth('client')->logout();
+                throw ValidationException::withMessages([
+                    'email' => 'Your account has been blocked by the admin.',
+                ])->errorBag('login');
+            }
             return redirect($intendedUrl);
         }
 

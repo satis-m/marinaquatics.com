@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('contact')->nullable();
             $table->string('gender')->nullable();
             $table->string('email')->unique();
+            $table->string('status')->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

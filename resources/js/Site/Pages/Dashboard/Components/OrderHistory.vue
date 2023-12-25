@@ -23,7 +23,7 @@
         </div>
         <div class="flex justify-center max-sm:flex-col px-2">
           <div :class="order.order_status" class="capitalize h-7 text-sm tracking-wider">{{ order.order_status}}</div>
-          <div v-if="order.order_status == 'queue'" class="capitalize text-sm tracking-wider bg-red-700 rounded-3xl flex justify-center items-center w-7 h-7 hover:cursor-pointer text-white" @click="confirmOrderCancel(order.order_no)" title="cancel order">
+          <div v-if="order.order_status == 'queue' && order.payment_method == 'cod' " class="capitalize text-sm tracking-wider bg-red-700 rounded-3xl flex justify-center items-center w-7 h-7 hover:cursor-pointer text-white" @click="confirmOrderCancel(order.order_no)" title="cancel order">
             <i class="icon-x"></i>
           </div>
         </div>
@@ -126,6 +126,13 @@ onMounted(() => {
 }
 .cancelled{
   background: var(--tp-theme-1);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 30px;
+}
+.shipped
+{
+  background: #4c80bb;
   color: #fff;
   padding: 4px 10px;
   border-radius: 30px;

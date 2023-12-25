@@ -50,7 +50,7 @@
                             <el-tag
                                 v-if="props.row.order_status == 'cancelled'"
                                 type="danger"
-                                class="mx-1 flex-sra "
+                                class="mx-1"
                                 effect="dark"
                                 round
                                 size="small"
@@ -59,8 +59,18 @@
                             </el-tag>
                             <el-tag
                                 v-else-if="props.row.order_status == 'queue'"
+                                type="info"
+                                class="mx-1"
+                                effect="dark"
+                                round
+                                size="small"
+                            >
+                              {{ props.row.order_status }}
+                            </el-tag>
+                          <el-tag
+                                v-else-if="props.row.order_status == 'processing'"
                                 type="warning"
-                                class="mx-1 flex-sra "
+                                class="mx-1"
                                 effect="dark"
                                 round
                                 size="small"
@@ -70,7 +80,17 @@
                           <el-tag
                               v-else-if="props.row.order_status == 'delivered'"
                               type="success"
-                              class="mx-1 flex-sra "
+                              class="mx-1"
+                              effect="dark"
+                              round
+                              size="small"
+                          >
+                            {{ props.row.order_status }}
+                          </el-tag>
+                          <el-tag
+                              v-else-if="props.row.order_status == 'shipped'"
+                              type="primary"
+                              class="mx-1"
                               effect="dark"
                               round
                               size="small"
@@ -86,6 +106,26 @@
                     >
                         <template #default="props">
                             {{ props.row.payment_method }}
+                          <el-tag
+                              v-if="props.row.payment_status == 'pending'"
+                              type="warning"
+                              class="mx-1"
+                              effect="dark"
+                              round
+                              size="small"
+                          >
+                            {{ props.row.payment_status }}
+                          </el-tag>
+                          <el-tag
+                              v-else-if="props.row.payment_status == 'verified'"
+                              type="success"
+                              class="mx-1"
+                              effect="dark"
+                              round
+                              size="small"
+                          >
+                            {{ props.row.payment_status }}
+                          </el-tag>
                             <span v-if="props.row.payment_info != '' && props.row.payment_info != null">
                             ( {{ props.row.payment_info }} )
                             </span>
@@ -147,12 +187,14 @@
                                         </el-dropdown-item>
                                         <el-dropdown-item
                                             divided
+                                            v-if="scope.row.order_status != 'cancelled' && scope.row.order_status != 'delivered'"
                                             @click="updateStatusForm(scope.row)"
                                         >
                                            Update Status
                                         </el-dropdown-item>
                                       <el-dropdown-item
-                                          @click="updateStatusForm(scope.row)"
+                                          v-if="scope.row.order_status != 'cancelled'"
+                                          @click="cancelOrder(scope.row)"
                                       >
                                         Cancel Order
                                       </el-dropdown-item>
@@ -179,17 +221,21 @@
     </el-row>
 
     <BillPrint ref="refBillPrint"/>
+    <OrderedItems ref="refOrderedItems"/>
+    <UpdateOrderStatusForm ref="refUpdateOrderStatusForm" />
 </template>
 
 <script setup>
-import {MoreFilled, Search} from "@element-plus/icons-vue";
+import {Delete, MoreFilled, Search} from "@element-plus/icons-vue";
 
 defineOptions({layout: "admin"});
 
-import {Head} from "@inertiajs/vue3";
-import {onMounted, ref, watch} from "@vue/runtime-core";
+import {Head, useForm} from "@inertiajs/vue3";
+import {markRaw, onMounted, ref, watch} from "@vue/runtime-core";
 import moment from "moment/moment.js";
 import BillPrint from "./Components/BillPrint.vue";
+import OrderedItems from "./Components/OrderedItems.vue";
+import UpdateOrderStatusForm from "./Components/UpdateOrderStatusForm.vue";
 
 //composable imports
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
@@ -204,6 +250,8 @@ const {readableWord} = useStringUtility();
 
 const isMobile = ref(isScreenMd);
 const refBillPrint = ref(null);
+const refOrderedItems = ref(null);
+const refUpdateOrderStatusForm = ref(null);
 const printData = ref();
 //table variables
 const dateFormatter = (row, column) => moment(row.date).format("MMM Do, YYYY");
@@ -299,11 +347,28 @@ const billPrint = (order)=>{
     refBillPrint.value.showBill(order);
 }
 const showOrderItems = (order)=>{
-
+  refOrderedItems.value.showItems(order);
 }
-const updateStatusForm = (order)=>{
-
+const cancelOrder = (order)=>{
+  ElMessageBox.confirm("Cancel Order No: <b>"+order.order_no+"</b> ?", "Warning", {
+    type: "error",
+    dangerouslyUseHTMLString: true,
+    icon: markRaw(Delete),
+    callback: (action) => {
+      if (action == "confirm") {
+        const formData = useForm({"orderNo":order.order_no});
+        formData.delete(route("order.cancel"), {
+          preserveScroll: true,
+          onSuccess: () => {
+            formData.reset();
+          },
+        });
+      }
+    },
+  });
 }
+const updateStatusForm = (order) => refUpdateOrderStatusForm.value.showForm(order);
+
 onMounted(() => {
     changePage();
 });
