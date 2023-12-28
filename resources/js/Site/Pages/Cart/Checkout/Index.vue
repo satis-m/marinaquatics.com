@@ -31,13 +31,13 @@
                 </p>
                 <div class="flex flex-row gap-4 mt-2">
                   <div class="flex items-center ">
-                    <input required id="delivery-type-1" v-model="formData.delivery_type" type="radio" value="ship"
+                    <input required id="delivery-type-1" v-model="formData.delivery_type" @change="checkCOD()" type="radio" value="ship"
                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300  dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
                     <label for="delivery-type-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ship
                       to address </label>
                   </div>
                   <div class="flex items-center">
-                    <input required id="delivery-type-2" v-model="formData.delivery_type" type="radio" value="pick"
+                    <input required id="delivery-type-2" v-model="formData.delivery_type" @change="checkCOD()" type="radio" value="pick"
                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
                     <label for="delivery-type-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Store
                       Pick up</label>
@@ -68,7 +68,7 @@
                 <div class="col-md-6">
                   <div class="checkout-form-list">
                     <label>Town / City <span class="required">*</span></label>
-                    <input required type="text" v-model="formData.billing_info.city" @blur="validateBilling('city')"
+                    <input required type="text" v-model="formData.billing_info.city" @blur="validateBilling('city'),checkCOD()"
                            placeholder="Town / City">
                     <div class="error-msg">{{ billingError.city }}</div>
                   </div>
@@ -133,7 +133,7 @@
                     <div class="col-md-6">
                       <div class="checkout-form-list">
                         <label>Town / City <span class="required">*</span></label>
-                        <input type="text" v-model="formData.shipping_info.city" @blur="validateShipping('city')"
+                        <input type="text" v-model="formData.shipping_info.city" @blur="validateShipping('city'),checkCOD()"
                                v-bind:required="formData.ship_different" placeholder="Town / City">
                         <div class="error-msg">{{ shippingError.city }}</div>
                       </div>
@@ -195,7 +195,7 @@
                       <label for="payment-type-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Bank
                         Transfer </label>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-if="canCOD">
                       <input id="payment-type-2" v-model="formData.payment_method" type="radio" value="cod"
                              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
                       <label for="payment-type-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">cash
@@ -206,7 +206,7 @@
                 </div>
               </div>
               <div class="tptrack__btn mt-4" v-if="totalAmount > 0">
-                <button class="tptrack__submition active " @click="placeOrder" type="button">Proceed to Payment <i v-if="isLoadingProceed"
+                <button class="tptrack__submition active " @click="placeOrder" type="button"> {{ formData.payment_method == 'bank' ? 'Proceed to Payment' : 'Confirm Order'}} <i v-if="isLoadingProceed"
                     class="icon-loader spiner"></i>
                   <i v-else
                      class="icon-arrow-right"></i>
@@ -289,24 +289,25 @@
         <p class="bg-red-700 text-white p-2 rounded max-w-xl">
         Please, use your order number in your bank app remark field while making Payment for Payment Verification.
         </p>
-        <p class="py-2">
-          <b>
-            Total Amount:
-          </b>
-           {{ formattedCurrency(totalAmount)}}
-          <br>
+        <p class="py-2 text-2xl">
           <b>
             Order-No:
           </b>
           {{formData.order_number}}
+          <br>
+          <b>
+            Total Amount:
+          </b>
+           {{ formattedCurrency(totalAmount)}}
+
         </p>
-        <div class="flex justify-center mb-4">
-            <img class="md:w-1/2" src="https://cdn.britannica.com/17/155017-004-7812A49F/Example-QR-code.jpg?s=1500x700&q=85" alt="bank payment QR">
+        <div class="flex justify-center mb-2">
+          <img class="max-w-xl h-[250px]" :src="appRoute('qr.payment')" alt="bank payment QR">
         </div>
       </div>
     </template>
     <template v-slot:footer>
-      <button class="btn btn-danger" @click="confirmOrderWithPayment">
+      <button class="btn btn-danger" @click="confirmOrder('payment')">
         Confirm Order
         <i v-if="isLoadingConfirm" class="icon-loader spiner"></i>
         <i v-else class="icon-arrow-right"></i>
@@ -364,14 +365,18 @@ const purchaseMessage = computed(() => {
   }
   return message;
 })
-const confirmOrderWithPayment = ()=>{
-  isLoadingConfirm.value = true
+const confirmOrder = (type )=>{
+  if(type == 'payment'){
+
+    isLoadingConfirm.value = true
+  }
   try {
     formData.post(route("user.cart.confirm-order"), {
       preserveScroll: true,
       onSuccess: () => {
         showModal.value = false
         isLoadingConfirm.value = false
+        isLoadingProceed.value= false
         showConfirmModal.value = true
       },
     })
@@ -496,15 +501,22 @@ const formValid = () => {
 const placeOrder = () => {
   if (formValid()) {
     isLoadingProceed.value= true
-    axios.get(route("cart.order-no-request"))
-        .then(response => {
-          showModal.value = true
-          formData.order_number =  response.data
-          isLoadingProceed.value= false
-        })
-        .catch(error => {
-          vt.error(error.response.data.message)
-        })
+    if(formData.payment_method == 'cod')
+    {
+      confirmOrder('cod')
+    }
+    else
+    {
+      axios.get(route("cart.order-no-request"))
+          .then(response => {
+            showModal.value = true
+            formData.order_number =  response.data
+            isLoadingProceed.value= false
+          })
+          .catch(error => {
+            vt.error(error.response.data.message)
+          })
+    }
   } else {
     window.scrollTo({
       top: 0,
@@ -514,7 +526,36 @@ const placeOrder = () => {
   }
 
 }
-
+const canCOD = ref(false);
+const checkCOD = ()=>{
+  if(formData.delivery_type == 'pick')
+  {
+    canCOD.value = true;
+  }
+  else
+  {
+    const cities = ['kathmandu','ktm','bhaktapur','lalitpur']
+    if(formData.ship_different == true && formData.delivery_type == 'ship' )
+    {
+      if(formData.shipping_info.city != '' && formData.shipping_info.city != null && cities.includes(formData.shipping_info.city.toLowerCase()) ){
+        canCOD.value = true
+      }
+      else{
+        canCOD.value = false
+      }
+    }
+    else{
+      if(formData.billing_info.city != ''&& formData.billing_info.city != null && cities.includes(formData.billing_info.city.toLowerCase()))
+      {
+       canCOD.value = true;
+      }
+      else
+      {
+        canCOD.value = false;
+      }
+    }
+  }
+}
 onMounted(()=>{
   updateTotal()
 })

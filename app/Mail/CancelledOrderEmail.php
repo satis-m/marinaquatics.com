@@ -9,18 +9,15 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OtpCodeEmail extends Mailable
+class CancelledOrderEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $otpCode;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($otpCode)
+    public function __construct(public $orderInfo)
     {
-        $this->otpCode = $otpCode;
     }
 
     /**
@@ -30,7 +27,7 @@ class OtpCodeEmail extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_USERNAME'), 'Marine Aquatics Nepal'),
-            subject: 'OTP for Account Registration - MAN',
+            subject: 'Cancelled Order Notification - MAN',
         );
     }
 
@@ -40,7 +37,7 @@ class OtpCodeEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.send-otp',
+            view: 'emails.send-cancelled-order-notification',
         );
     }
 

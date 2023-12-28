@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Events\NewOrder;
+use App\Events\CancelOrder;
 use App\Models\Billing;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -143,6 +145,14 @@ class OrderService
             CartItem::where('cart_id', $cartId)->delete();
 
             DB::commit();
+
+            $orderInfo = (object)[
+                'orderNo' => $order->order_no,
+                'orderAmount' => 'Rs. '.number_format($order->total_amount,2),
+                'deliveryType' => $order->payment_method == "bank" ? "Bank Transfer" : "Cash On Delivery",
+                'paymentMethod' => $order->delivery_type == "ship" ? 'Shipping' : 'Store Pickup'
+            ];
+            event(new NewOrder($orderInfo));
             return true;
         } catch (QueryException $e) {
             //database related exception
@@ -158,28 +168,46 @@ class OrderService
     }
 
     public function cancelOrder($orderNumber) {
-        $order = Order::where('order_no',$orderNumber)->first();
-        $cancelProducts = OrderItem::where('order_id',$order->id)->get();
-        DB::beginTransaction();
-        try {
-            foreach ($cancelProducts as $cancelProduct) {
-                $quantityToIncrement = $cancelProduct->offer_quantity * $cancelProduct->quantity;
-                Product::where('slug', $cancelProduct->product_slug)->increment('available_quantity',$quantityToIncrement);
+
+        if(request()->is('admin/*'))
+        {
+            $order = Order::where('order_no',$orderNumber)->first();
+        }else
+        {
+            $order = Order::where('order_no',$orderNumber)->where('customer_id',auth('client')->user()->id)->first();
+        }
+        if($order){
+            $cancelProducts = OrderItem::where('order_id',$order->id)->get();
+            DB::beginTransaction();
+            try {
+                foreach ($cancelProducts as $cancelProduct) {
+                    $quantityToIncrement = $cancelProduct->offer_quantity * $cancelProduct->quantity;
+                    Product::where('slug', $cancelProduct->product_slug)->increment('available_quantity',$quantityToIncrement);
+                }
+                $order->order_status = 'cancelled';
+                $order->save();
+                DB::commit();
+                $orderInfo = (object)[
+                    'orderNo' => $orderNumber
+                ];
+                if(request()->is('admin/*'))
+                {}
+                else
+                {
+                    event(new CancelOrder($orderInfo));
+                }
+                return true;
+            } catch (QueryException $e) {
+                //database related exception
+                DB::rollBack();
+
+                return throw new \Exception($e->errorInfo[2]);
+            } catch (\Exception $e) {
+                //general exception
+                DB::rollBack();
+
+                return throw new \Exception($e->getMessage());
             }
-            $order->order_status = 'cancelled';
-            $order->save();
-            DB::commit();
-            return true;
-        } catch (QueryException $e) {
-            //database related exception
-            DB::rollBack();
-
-            return throw new \Exception($e->errorInfo[2]);
-        } catch (\Exception $e) {
-            //general exception
-            DB::rollBack();
-
-            return throw new \Exception($e->getMessage());
         }
     }
 }

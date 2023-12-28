@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\NewOrder;
+use App\Events\CancelOrder;
+use App\Listeners\SendNewOrderNotification;
+use App\Listeners\SendCancelledOrderNotification;
 use App\Models\Banner;
 use App\Models\Slider;
 use App\Observers\BannerObserver;
@@ -20,6 +24,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        NewOrder::class => [
+            SendNewOrderNotification::class,
+        ],
+        CancelOrder::class => [
+            SendCancelledOrderNotification::class,
         ],
     ];
 

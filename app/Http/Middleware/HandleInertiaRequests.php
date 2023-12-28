@@ -39,7 +39,6 @@ class HandleInertiaRequests extends Middleware {
                 'statusCode' => Session::get('pageException'),
             ];
         }
-
         if ($message = Session::get('success')) {
             $flashMessage = ['message' => '', 'type' => 'success', 'title' => 'Success', 'hasHTML' => false];
             if (\is_array($message)) {
@@ -142,7 +141,7 @@ class HandleInertiaRequests extends Middleware {
                 'auth' => fn() => $request->user('client')
                     ?
                     [
-                        'user' => $request->user('client') ?? null,
+                        'user' => $request->user('client')->with('address')->first() ?? null,
                         'cart' => $cartItems,
                         'cartItemsCount' => $cartItems->count(),
                     ] : null,

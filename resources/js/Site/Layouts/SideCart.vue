@@ -3,7 +3,7 @@
   <div class="tpcartinfo tp-cart-info-area">
     <div class="tpcart">
       <div class="tpcart__title pl-3 pr-2 flex flex-row justify-between align-items-center">
-        <h4 class="grow h-12 text-lg flex align-items-center ">My Cart</h4>
+        <h4 class="grow h-16 text-lg flex align-items-center ">My Cart</h4>
         <button class="tpcart__close"><i class="icon-x"></i></button>
       </div>
       <div class="tpcart__product">
