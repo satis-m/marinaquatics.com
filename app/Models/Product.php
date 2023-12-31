@@ -220,20 +220,21 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Discount::class);
     }
 
-    public function scopeWithCurrentDiscount($query) {
+    public function scopeWithCurrentDiscount($query)
+    {
         $query->addSelect(['current_discount_id' => Discount::select('id')
             ->whereColumn('product_slug', 'products.slug')
             ->whereDate('start_date', '<=', now())
             ->whereDate('end_date', '>=', now())
             ->orderBy('id', 'desc')
-            ->take(1)
+            ->take(1),
         ])->with('currentDiscount');
     }
-    
+
     public function scopeSearch($query, $search)
     {
-        return $query->whereFullText(['name', 'product_info','type','sub_category'], $search, ['mode' => 'boolean'])
-                     ->orWhere('name', 'like', "%{$search}%");
+        return $query->whereFullText(['name', 'product_info', 'type', 'sub_category'], $search, ['mode' => 'boolean'])
+            ->orWhere('name', 'like', "%{$search}%");
 
     }
 

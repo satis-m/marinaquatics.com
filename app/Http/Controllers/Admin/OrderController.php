@@ -8,15 +8,17 @@ use App\Services\OrderService;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
-class OrderController extends Controller {
-
+class OrderController extends Controller
+{
     protected $permissionName = 'store-sell';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->implementMethodPermission($this->permissionName);
     }
 
-    public function store() {
+    public function store()
+    {
         try {
             (new OrderService())->add();
         } catch (\Exception $e) {
@@ -26,11 +28,12 @@ class OrderController extends Controller {
         return Redirect::route('storeSell.list')->with('success', 'Order Entered Successfully');
     }
 
-    public function listAll() {
+    public function listAll()
+    {
         $orderList = Order::query()
-                          ->where('order_type', 'website')
-                          ->with(['orderItems', 'orderItems.product', 'billing'])
-                          ->get();
+            ->where('order_type', 'website')
+            ->with(['orderItems', 'orderItems.product', 'billing'])
+            ->get();
 
         return Inertia::render(
             'ProductOrder/Index',
@@ -41,15 +44,18 @@ class OrderController extends Controller {
         );
     }
 
-    public function cancelOrder() {
+    public function cancelOrder()
+    {
         $orderNo = request('orderNo');
         if ((new OrderService())->cancelOrder($orderNo)) {
-            return redirect()->back()->with('success', 'Order No ' . $orderNo . ' order has been Cancelled');
+            return redirect()->back()->with('success', 'Order No '.$orderNo.' order has been Cancelled');
         }
+
         return redirect()->back()->with('error', 'Error while cancelling order.');
     }
 
-    public function updateOrderStatus($orderNo) {
+    public function updateOrderStatus($orderNo)
+    {
         try {
             $order = Order::where('order_no', $orderNo)->first();
             $order->delivered_on = request('delivery_date');
