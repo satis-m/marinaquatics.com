@@ -57,7 +57,7 @@ Route::middleware('auth.admin')->group(function () {
     Route::get('/store-sell/list', [StoreSellController::class, 'listAll'])->name('storeSell.list');
 
     Route::get('/client/list', [CustomerController::class, 'index'])->name('clients.list');
-    Route::patch('/client/update-status/{clientId}', [CustomerController::class, 'updateStatus'])->name('client.status.update');
+    Route::patch('/client/{clientId}/update-status', [CustomerController::class, 'updateStatus'])->name('client.status.update');
 
     Route::get('/client-orders/list', [OrderController::class, 'listAll'])->name('clientOrders.list');
     Route::delete('/client-order/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');

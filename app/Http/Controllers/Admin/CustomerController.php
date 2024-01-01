@@ -17,9 +17,13 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customerList = Client::withSum(['orders' => function ($query) {
-            $query->where('order_status', '!=', 'cancelled');
-        }], 'total_amount')
+        $customerList = Client::query()
+            ->withSum(['orders' => function ($query) {
+                $query->where('order_status', '!=', 'cancelled');
+            }], 'total_amount')
+            ->withCount(['orders as cancelled_order' => function ($query) {
+                $query->where('order_status', '=', 'cancelled');
+            }])
             ->get();
 
         return Inertia::render(

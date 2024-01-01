@@ -29,9 +29,20 @@ Route::prefix('axios')->middleware('auth.admin')->group(function () {
 
         return Response::json(['results' => $importList]);
     })->name('product.discount.latest');
+
+    Route::get('/client/{id}/ordered/product-list', function ($id) {
+        $orderedProductList = \App\Models\OrderItem::with('product')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->where('orders.customer_id', $id)
+            ->where('orders.order_status', '!=', 'cancelled')
+            ->get()
+            ->toArray();
+
+        return Response::json(['results' => $orderedProductList]);
+    })->name('client.productOrder.list');
 });
-Route::prefix('axios')->middleware(['throttle:3,1','auth.client'])->group(function () {
+Route::prefix('axios')->middleware(['throttle:3,1', 'auth.client'])->group(function () {
     Route::get('cart/order-no', function () {
-       return generateUniqueOrderNumber();
+        return generateUniqueOrderNumber();
     })->name('cart.order-no-request');
 });

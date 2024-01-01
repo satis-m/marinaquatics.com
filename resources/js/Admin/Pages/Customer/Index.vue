@@ -87,6 +87,22 @@
 
             </template>
           </el-table-column>
+            <el-table-column
+                label="Cancelled Order"
+                prop="cancelled_order"
+            >
+                <template #default="props">
+                    <el-tag
+                        type="danger"
+                        class="mx-1"
+                        effect="dark"
+                        round
+                        size="small"
+                    >
+                        {{ props.row.cancelled_order }}
+                    </el-tag>
+                </template>
+            </el-table-column>
           <el-table-column
               label="Total Ordered Amount"
               prop="total_ordered_amount"
@@ -113,11 +129,11 @@
                                     </span>
                 <template #dropdown>
                   <el-dropdown-menu>
-<!--                    <el-dropdown-item-->
-<!--                        @click="billPrint(scope.row)"-->
-<!--                    >-->
-<!--                      Bill Print-->
-<!--                    </el-dropdown-item>-->
+                    <el-dropdown-item
+                        @click="listOrdered(scope.row)"
+                    >
+                      Ordered Products
+                    </el-dropdown-item>
                     <el-dropdown-item
                         v-if="scope.row.status=='active'"
                         @click="updateAccount(scope.row,'block')"
@@ -150,7 +166,7 @@
       </el-card>
     </el-col>
   </el-row>
-
+    <OrderedProductList ref="refOrderedProductList"></OrderedProductList>
 </template>
 
 <script setup>
@@ -168,6 +184,7 @@ import {useObjectUtility} from "@/Composables/objectUtility";
 import {useAppUtility} from "@/Composables/appUtility";
 import {useStringUtility} from "@/Composables/stringUtility";
 import {useNumberUtility} from "@/Composables/numberUtility";
+import OrderedProductList from "./Components/OrderedProductList.vue";
 
 const {formattedCurrency} = useNumberUtility();
 const {iPropsValue} = useInertiaPropsUtility();
@@ -175,6 +192,7 @@ const {filterObjectWithGroupedValue} = useObjectUtility();
 const {isScreenMd, isDarkMode} = useAppUtility();
 const {readableWord} = useStringUtility();
 const isMobile = ref(isScreenMd);
+const refOrderedProductList = ref(null);
 //table variables
 const dateFormatter = (row, column) => moment(row.date).format("MMM Do, YYYY");
 const currentPage = ref(1);
@@ -285,6 +303,9 @@ const updateAccount = (accountInfo,status) => {
       }
     },
   });
+}
+const listOrdered = (customerInfo)=>{
+    refOrderedProductList.value.showList(customerInfo)
 }
 onMounted(() => {
   changePage();

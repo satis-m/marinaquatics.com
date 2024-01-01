@@ -212,7 +212,8 @@ class Product extends Model implements HasMedia
             ->format(Manipulations::FORMAT_WEBP)
             ->crop(Manipulations::CROP_CENTER, 600, 600)
             ->watermark(storage_path('/required/watermark.png'))
-            ->watermarkHeight('12', '%')
+            ->watermarkHeight('10', '%')
+            ->watermarkwidth('100', '%')
             ->watermarkPosition('left')
             ->watermarkFit('stretch')
             ->watermarkOpacity('60');
@@ -220,7 +221,8 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('original')
             ->format(Manipulations::FORMAT_WEBP)
             ->watermark(storage_path('/required/watermark.png'))
-            ->watermarkHeight('12', '%')
+            ->watermarkHeight('10', '%')
+            ->watermarkwidth('100', '%')
             ->watermarkPosition('left')
             ->watermarkFit('stretch')
             ->watermarkOpacity('60');
