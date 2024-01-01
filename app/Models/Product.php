@@ -216,7 +216,7 @@ class Product extends Model implements HasMedia
             ->watermarkwidth('100', '%')
             ->watermarkPosition('left')
             ->watermarkFit('stretch')
-            ->watermarkOpacity('60');
+            ->watermarkOpacity('36');
 
         $this->addMediaConversion('original')
             ->format(Manipulations::FORMAT_WEBP)
@@ -225,7 +225,7 @@ class Product extends Model implements HasMedia
             ->watermarkwidth('100', '%')
             ->watermarkPosition('left')
             ->watermarkFit('stretch')
-            ->watermarkOpacity('60');
+            ->watermarkOpacity('36');
     }
 
     public static function generateUniqueSlug($name)
@@ -267,7 +267,6 @@ class Product extends Model implements HasMedia
         return $query->whereJsonContains('tag', [$search])
             ->orWhereFullText(['name', 'product_info', 'type', 'sub_category'], $search, ['mode' => 'boolean'])
             ->orWhere('name', 'like', "%{$search}%");
-
     }
 
     public function lastImport()
