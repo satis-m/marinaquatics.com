@@ -78,6 +78,6 @@ onMounted(() => {
 </script>
 <style lang="scss">
 .tpcart__product-list {
-  height: calc(100vh - 215px);
+  height: calc(100vh - 230px);
 }
 </style>
