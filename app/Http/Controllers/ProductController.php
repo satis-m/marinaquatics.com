@@ -14,13 +14,10 @@ class ProductController extends Controller
         try {
             $productInfo = Product::query()
                 ->where('slug', $slug)
-                ->with( 'category', 'comboOffer')
+                ->with('category', 'comboOffer')
                 ->withCurrentDiscount()
                 ->withlastImport()
                 ->firstOrFail();
-
-            $productInfo->main_picture = $productInfo->main_picture;
-            $productInfo->alternative_picture = $productInfo->alternative_picture;
 
             $data['productInfo'] = $productInfo;
             //meta for seo of singel product
@@ -31,7 +28,7 @@ class ProductController extends Controller
                 'og_url' => url()->current(),
             ];
 
-            return Inertia::render('Product/SingleView/Index',$data)->withViewData($meta);
+            return Inertia::render('Product/SingleView/Index', $data)->withViewData($meta);
         } catch (ModelNotFoundException $exception) {
             // Product not found, handle the exception or return an error response
             // For example:
@@ -45,19 +42,13 @@ class ProductController extends Controller
         try {
             $query = Product::query()
                 ->where('sub_category', $slug);
-            $products = $query->with( 'category')
+            $products = $query->with('category')
                 ->withCurrentDiscount()
                 ->withlastImport()
                 ->orderByDesc('available_quantity')
                 ->orderBy('products.name')
                 ->paginate(12)
                 ->appends(request()->query());
-
-            $products->map(function ($item) {
-                $item->main_picture = $item->main_picture;
-
-                return $item;
-            });
 
             return Inertia::render('Product/CategoryView/Index',
                 [
@@ -71,14 +62,14 @@ class ProductController extends Controller
         }
     }
 
-    public function typeView($category,$slug)
+    public function typeView($category, $slug)
     {
 
         try {
             $query = Product::query()
                 ->where('sub_category', $category)
                 ->where('type', $slug);
-            $products = $query->with( 'category')
+            $products = $query->with('category')
                 ->withCurrentDiscount()
                 ->withlastImport()
                 ->orderByDesc('available_quantity')
@@ -86,12 +77,6 @@ class ProductController extends Controller
                 ->paginate(12)
                 ->appends(request()->query());
 
-            $products->map(function ($item) {
-                $item->main_picture = $item->main_picture;
-
-                return $item;
-            });
-            
             return Inertia::render('Product/TypeView/Index',
                 [
                     'products' => $products,
@@ -110,17 +95,12 @@ class ProductController extends Controller
         try {
             $query = Product::query()
                 ->where('brand', $slug);
-            $products = $query->with( 'category')
+            $products = $query->with('category')
                 ->withCurrentDiscount()
                 ->withlastImport()
                 ->paginate(12)
                 ->appends(request()->query());
 
-            $products->map(function ($item) {
-                $item->main_picture = $item->main_picture;
-
-                return $item;
-            });
             return Inertia::render('Product/CategoryView/Index',
                 [
                     'products' => $products,
@@ -145,12 +125,6 @@ class ProductController extends Controller
                 ->paginate(12)
                 ->appends(request()->query());
 
-            $products->map(function ($item) {
-                $item->main_picture = $item->main_picture;
-
-                return $item;
-            });
-            
             return Inertia::render('Product/CategoryView/Index',
                 [
                     'products' => $products,

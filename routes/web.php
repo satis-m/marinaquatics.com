@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
-Route::middleware('auth.client','verified')->group(function () {
+Route::middleware('auth.client', 'verified')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('client.dashboard');
 
@@ -34,10 +34,10 @@ Route::middleware('auth.client','verified')->group(function () {
 
     Route::get('/order-list', [DashboardController::class, 'orderList'])->name('client.dashboard.order-history');
     Route::get('/shipping-address', [DashboardController::class, 'shippingAddress'])
-         ->name('client.dashboard.shipping-address');
+        ->name('client.dashboard.shipping-address');
     Route::get('/change-password', [DashboardController::class, 'changePassword'])
-         ->name('client.dashboard.change-password');
-    
+        ->name('client.dashboard.change-password');
+
     Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
     Route::delete('/cart/remove', [CartController::class, 'destroy'])->name('user.cart.remove');
     Route::patch('/cart/update', [CartController::class, 'update'])->name('user.cart.update');
@@ -67,37 +67,56 @@ Route::post('/login/send-otp', [RegisteredUserController::class, 'otpSend'])->na
 Route::post('/login/verify-otp', [RegisteredUserController::class, 'otpVerify'])->name('register.optVerify');
 Route::post('/login/sign-up', [RegisteredUserController::class, 'store'])->name('registered.store');
 
+Route::get('/payment/qr', function () {
+    $path = storage_path('/required/shop-payment-info.jpg');
+
+    // Check if the file exists
+    if (File::exists($path)) {
+        // Get the file content
+        $fileContent = File::get($path);
+
+        // Get the file mime type
+        $fileType = File::mimeType($path);
+
+        // Return the image as a response
+        return Response::make($fileContent, 200, [
+            'Content-Type' => $fileType,
+            'Content-Disposition' => 'inline; filename="payment-info.jpg"',
+        ]);
+    }
+
+    return 'no-payment';
+})->name('qr.payment');
+
 require __DIR__.'/auth.php';
 Route::fallback(fn () => abort('404'));
 
-Route::get('/cache-clear/{cacheKey}/{passkey}', function($cacheKey,$passkey){
-   if($passkey == 'clear'){
-       switch ($cacheKey){
-           case 'category':
-               Cache::forget('Category');
-               break;
-           case 'productCategory':
-               Cache::forget('productCategory');
-               break;
-           case 'productType':
-               Cache::forget('productType');
-               break;
-           case 'appInfo':
-               Cache::forget('ApplicationInfo');
-               break;
-           case 'all':
-               Cache::forget('Category');
-               Cache::forget('productCategory');
-               Cache::forget('productType');
-               Cache::forget('ApplicationInfo');
-               break;
-           default:
-               echo"Bad cache request";
-               break;
-       }
-   }
-   else
-   {
-       echo"Bad pass request";
-   }
+Route::get('/cache-clear/{cacheKey}/{passkey}', function ($cacheKey, $passkey) {
+    if ($passkey == 'clear') {
+        switch ($cacheKey) {
+            case 'category':
+                Cache::forget('Category');
+                break;
+            case 'productCategory':
+                Cache::forget('productCategory');
+                break;
+            case 'productType':
+                Cache::forget('productType');
+                break;
+            case 'appInfo':
+                Cache::forget('ApplicationInfo');
+                break;
+            case 'all':
+                Cache::forget('Category');
+                Cache::forget('productCategory');
+                Cache::forget('productType');
+                Cache::forget('ApplicationInfo');
+                break;
+            default:
+                echo 'Bad cache request';
+                break;
+        }
+    } else {
+        echo 'Bad pass request';
+    }
 });

@@ -23,7 +23,7 @@ class Product extends Model implements HasMedia
 
     protected $guarded = [];
 
-    //        protected $appends = ['main_picture', 'alternative_picture'];
+    protected $appends = ['main_picture', 'alternative_picture'];
 
     protected $casts = [
         'tag' => 'array',
@@ -89,7 +89,7 @@ class Product extends Model implements HasMedia
     {
         $media = $this->getFirstMedia('main_picture');
         if ($media != null) {
-            $thumb = $main = $blur = $preview = '';
+            $thumb = $main = $blur = $preview = $original = '';
 
             if ($media->hasGeneratedConversion('blur')) {
                 $fullPath = $media->getPath('blur');
@@ -109,6 +109,14 @@ class Product extends Model implements HasMedia
                     $preview = $media->getUrl('medium');
                 }
             }
+
+            if ($media->hasGeneratedConversion('original')) {
+                $fullPath = $media->getPath('original');
+                if (file_exists($fullPath)) {
+                    $original = $media->getUrl('original');
+                }
+            }
+
             $fullPath = $media->getPath();
             if (file_exists($fullPath)) {
                 $main = $media->getUrl();
@@ -118,7 +126,7 @@ class Product extends Model implements HasMedia
                 'blur' => $blur,
                 'thumbnail' => $thumb,
                 'preview' => $preview,
-                'original' => $main,
+                'original' => $original,
                 'name' => $media->file_name,
                 'id' => $media->id,
             ];
@@ -133,7 +141,7 @@ class Product extends Model implements HasMedia
         if ($altImage->count()) {
             return $altImage
                 ->map(function (Media $media) {
-                    $thumb = $pic = $blur = $preview = '';
+                    $thumb = $pic = $blur = $preview = $original = '';
                     if ($media->hasGeneratedConversion('blur')) {
                         $fullPath = $media->getPath('blur');
                         if (file_exists($fullPath)) {
@@ -152,6 +160,14 @@ class Product extends Model implements HasMedia
                             $preview = $media->getUrl('medium');
                         }
                     }
+
+                    if ($media->hasGeneratedConversion('original')) {
+                        $fullPath = $media->getPath('original');
+                        if (file_exists($fullPath)) {
+                            $original = $media->getUrl('original');
+                        }
+                    }
+
                     $fullPath = $media->getPath('medium');
 
                     if (file_exists($fullPath)) {
@@ -161,7 +177,7 @@ class Product extends Model implements HasMedia
                     return [
                         'blur' => $blur,
                         'thumbnail' => $thumb,
-                        'original' => $pic,
+                        'original' => $original,
                         'preview' => $preview,
                         'name' => $media->file_name,
                         'id' => $media->id,
@@ -194,7 +210,20 @@ class Product extends Model implements HasMedia
 
         $this->addMediaConversion('medium')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 600, 600);
+            ->crop(Manipulations::CROP_CENTER, 600, 600)
+            ->watermark(storage_path('/required/watermark.png'))
+            ->watermarkHeight('12', '%')
+            ->watermarkPosition('left')
+            ->watermarkFit('stretch')
+            ->watermarkOpacity('60');
+
+        $this->addMediaConversion('original')
+            ->format(Manipulations::FORMAT_WEBP)
+            ->watermark(storage_path('/required/watermark.png'))
+            ->watermarkHeight('12', '%')
+            ->watermarkPosition('left')
+            ->watermarkFit('stretch')
+            ->watermarkOpacity('60');
     }
 
     public static function generateUniqueSlug($name)
