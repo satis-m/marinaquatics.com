@@ -264,7 +264,8 @@ class Product extends Model implements HasMedia
 
     public function scopeSearch($query, $search)
     {
-        return $query->whereFullText(['name', 'product_info', 'type', 'sub_category'], $search, ['mode' => 'boolean'])
+        return $query->whereJsonContains('tag', [$search])
+            ->orWhereFullText(['name', 'product_info', 'type', 'sub_category'], $search, ['mode' => 'boolean'])
             ->orWhere('name', 'like', "%{$search}%");
 
     }
