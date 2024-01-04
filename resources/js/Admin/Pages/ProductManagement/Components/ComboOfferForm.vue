@@ -201,7 +201,7 @@ const showForm = function (data) {
     FormVisible.value = true;
     productName.value = data.name;
     Object.assign(formData, data);
-    formData.product = data.product;
+    formData.product = data.product_slug;
 };
 const closeForm = () => {
     FormVisible.value = false;
