@@ -1,5 +1,5 @@
 <template>
-    <img :src="blurredImageUrl" v-show="!imageLoaded" class="blurred-image" @error="displayFallbackImage" />
+    <img :src="blurredImageUrl" v-if="!imageLoaded" class="blurred-image" @error="displayFallbackImage" />
     <img
         v-show="imageLoaded"
         :src="fullImageUrl"
