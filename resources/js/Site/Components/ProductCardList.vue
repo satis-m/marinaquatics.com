@@ -1,10 +1,10 @@
 <template>
     <div class="tplist__product d-flex align-items-center justify-content-between mb-6">
-        <div class="tplist__product-img grow-0 ">
+        <div class="tplist__product-img grow-0  max-md:w-full  d-flex justify-content-center items-center">
 
                 <NavLink class="tplist__product-img-one" :href="appRoute('product.view',productInfo.slug)">
-                  <ImageWithFallback v-if="mediaCheck('xl')" :source="productInfo.main_picture.thumbnail" :alt="productInfo.slug" />
-                  <ImageWithFallback v-else :source="productInfo.main_picture.preview" :alt="productInfo.slug" />
+                  <ImageWithFallback v-if="mediaCheck('xl')" :source="productInfo.main_picture.thumbnail" class="w-[250px]" :alt="productInfo.slug" />
+                  <ImageWithFallback v-else :source="productInfo.main_picture.preview" class="w-[250px]" :alt="productInfo.slug" />
                 </NavLink>
 
             <div class="tpproduct__info bage">
@@ -20,7 +20,7 @@
             <div  class="tplist__content-info h-[154px] overflow-hidden" v-html="productInfo.product_info">
             </div>
         </div>
-        <div class="tplist__price grow-0 justify-content-end">
+        <div class="tplist__price grow-0 justify-content-end max-md:w-full d-flex flex-column ">
             <h4 class="tplist__instock">Availability: <span>{{ productInfo.available_quantity }} in stock</span> </h4>
             <div class="tpproduct__price mb-15" v-if="productInfo.current_discount === null" >
                 <span>Rs {{ productInfo.price }}</span>
@@ -30,7 +30,7 @@
                 <del>Rs {{ formattedPrice }}</del>
             </div>
 
-            <button class="tp-btn-2 mb-10 cart_button" @click="addToCart" :disabled="outOfStock" data-bs-toggle="tooltip" data-bs-title="Default tooltip"  :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'" ><i class="icon-add_shopping_cart"></i> add to cart</button>
+            <button class="tp-btn-2 mb-0 md:mb-10 cart_button px-0 align-self-center w-[200px] " @click="addToCart" :disabled="outOfStock" data-bs-toggle="tooltip" data-bs-title="Default tooltip"  :title="productInfo.available_quantity > 0 ? 'Add to cart': 'Out of Stock'" ><i class="icon-add_shopping_cart"></i> add to cart</button>
 
             <div class="tplist__shopping " v-if="userLoggedIn">
                 <a href="#" class="flex h-6"><i class="icon-heart icons"></i> <span>Add to wishlist</span></a>

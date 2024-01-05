@@ -1,11 +1,12 @@
 <template>
-    <img :src="blurredImageUrl" v-if="!imageLoaded" class="blurred-image" @error="displayFallbackImage" />
     <img
         v-show="imageLoaded"
         :src="fullImageUrl"
         @load="onImageLoad"
         @error="displayFallbackImage"
+        :class="class"
     />
+    <img :src="blurredImageUrl" v-if="!imageLoaded" class="blurred-image" @error="displayFallbackImage" />
 </template>
 
 <script setup>
@@ -21,6 +22,9 @@ const props = defineProps({
   fallback: {
     type: String,
   },
+    class: {
+        type: String,
+    },
 })
 fullImageUrl.value = props.source;
 blurredImageUrl.value = fullImageUrl.value.replace(/-thumb.webp|-medium.webp|-original.webp/g,'-blur.webp') ;
