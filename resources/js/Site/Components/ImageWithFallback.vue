@@ -6,7 +6,7 @@
         @error="displayFallbackImage"
         :class="class"
     />
-    <img :src="blurredImageUrl" v-if="!imageLoaded" class="blurred-image" @error="displayFallbackImage" />
+    <img :src="blurredImageUrl" v-if="!imageLoaded" class="blurred-image"  :class="class" @error="displayFallbackImage" />
 </template>
 
 <script setup>
