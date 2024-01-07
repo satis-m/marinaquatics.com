@@ -19,4 +19,4 @@ jobs:
         script: |
           cd /var/www/marineaquatics.com.np
           sudo -H -u man_svr git pull
-          man_svr npm run prod-admin && npm run prod-site
+          npm run prod-admin && npm run prod-site
