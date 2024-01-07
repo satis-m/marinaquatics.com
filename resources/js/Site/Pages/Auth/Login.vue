@@ -317,6 +317,7 @@ const loginUser = () => {
     }
 }
 const sendOtp = ()=>{
+    let timeRemaining = 180;
     otpDisable.value=true;
     otpError.value='';
     otpStatus.value='Sending..';
@@ -324,6 +325,7 @@ const sendOtp = ()=>{
         .then(response => {
             if(response.data == 'otp-sent')
             {
+                timeRemaining = 180;
                 updateOTPTimer()
                 return true;
             }
@@ -334,7 +336,6 @@ const sendOtp = ()=>{
         .catch(error => {
         })
 }
-let timeRemaining = 180;
 function updateOTPTimer() {
   if (timeRemaining > 0) {
     // Calculate minutes and seconds
