@@ -316,8 +316,9 @@ const loginUser = () => {
         });
     }
 }
+let timeRemaining = 180;
 const sendOtp = ()=>{
-    let timeRemaining = 180;
+    timeRemaining = 180;
     otpDisable.value=true;
     otpError.value='';
     otpStatus.value='Sending..';
@@ -325,7 +326,6 @@ const sendOtp = ()=>{
         .then(response => {
             if(response.data == 'otp-sent')
             {
-                timeRemaining = 180;
                 updateOTPTimer()
                 return true;
             }
@@ -344,6 +344,7 @@ function updateOTPTimer() {
 
     // Display the remaining time in the "X min Y sec" format
     otpStatus.value = `Resend OTP in `;
+      console.log(minutes);
     if(minutes >0){
     otpStatus.value += `${minutes} min `;
     }
