@@ -18,7 +18,6 @@ jobs:
         port: 2050
         script: |
           cd /var/www/marineaquatics.com.np
-          sudo -H -u man_svr git pull 
+          sudo -H -u man_svr git pull
           sudo -H -u man_svr npm run prod-admin
           sudo -H -u man_svr npm run prod-site
-          sudo -H -u man_svr php artisan cache:clear

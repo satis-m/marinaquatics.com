@@ -4,8 +4,8 @@
     <title>New Order Notification</title>
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
-<header style="display: flex;justify-content: center;background: #0a0a0a;padding: 10px 0; ">
-    <a href="{{url('/')}}"><img width="150px"  src="{{getAppInfo('favIconDark')}}" alt="logo of man"/></a>
+<header style="display: flex; justify-content: center; background: #0a0a0a; padding: 10px 0; ">
+    <a href="{{url('/')}}" style="margin: 0 auto;"><img width="150px"  src="{{getAppInfo('favIconDark')}}" alt="logo of man"/></a>
 </header>
 <hr>
 <p style="padding-bottom: .36em;">Dear Admin,</p>
