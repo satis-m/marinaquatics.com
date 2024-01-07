@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OTP Code</title>
-    <link rel="stylesheet" href="{{ asset('/web-site/assets/css/mail.css')}}">
+    <title>New Order Notification</title>
 </head>
-<body>
-<header class="flex">
-    <img width="150px"  src="{{getAppInfo('favIconDark')}}" alt="logo of man"/>
+<body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+<header style="display: flex;justify-content: center;background: #0a0a0a;padding: 10px 0; ">
+    <a href="{{url('/')}}"><img width="150px"  src="{{getAppInfo('favIconDark')}}" alt="logo of man"/></a>
 </header>
 <hr>
-<p class="space-bottom">Dear Admin,</p>
-<p class="space-bottom">You have received a new Purchase Order:</p>
+<p style="padding-bottom: .36em;">Dear Admin,</p>
+<p style="padding-bottom: .36em;">You have received a new Purchase Order:</p>
 <ul>
     <li><b>Order No:</b> {{$orderInfo->orderNo}}</li>
     <li><b>Order Amount:</b> {{$orderInfo->orderAmount}}</li>
@@ -18,6 +17,6 @@
     <li><b>Delivery Type:</b> {{$orderInfo->deliveryType}}</li>
 </ul>
 <hr>
-<footer class="text-sm color-gray"> If you have any questions or concerns, please do not hesitate to contact us at {{getAppInfo('contact')}}.</footer>
+<footer style="font-size: 14px; color: #565656;"> If you have any questions or concerns, please do not hesitate to contact us at {{getAppInfo('contact')}}.</footer>
 </body>
 </html>
