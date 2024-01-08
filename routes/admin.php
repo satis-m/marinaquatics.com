@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminPasswordController;
 use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\AuthenticateAdminController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
@@ -96,6 +97,8 @@ Route::middleware('auth.admin')->group(function () {
     Route::delete('importer/{name}', function ($name) {
         return \App\Models\Importer::where('name', $name)->delete();
     })->name('importer');
+
+    Route::resource('manage/blog', BlogController::class)->names('manageBlog');
 
     Route::get('reset-permission', function () {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();

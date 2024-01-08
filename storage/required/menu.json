@@ -119,6 +119,11 @@
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
+            },
+            {
+                "link": "manageBlog.index",
+                "name": "Blogs",
+                "icon": "fa-trash"
             }
 
         ]

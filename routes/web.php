@@ -89,6 +89,7 @@ Route::get('/payment/qr', function () {
 })->name('qr.payment');
 
 require __DIR__.'/auth.php';
+require __DIR__.'/blog.php';
 Route::fallback(fn () => abort('404'));
 
 Route::get('/cache-clear/{cacheKey}/{passkey}', function ($cacheKey, $passkey) {
