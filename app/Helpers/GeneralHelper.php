@@ -152,7 +152,7 @@ if (! \function_exists('previousRoute')) {
     }
 }
 if (! \function_exists('glue')) {
-    function glue($array, $glue = ' ')
+    function glue($array, $glue = ' '): string
     {
         return implode($glue, array_filter($array, 'strlen'));
     }
@@ -200,7 +200,7 @@ if (! \function_exists('arrayFilter')) {
     }
 }
 if (! \function_exists('urlExists')) {
-    function urlExists($url)
+    function urlExists($url): bool
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_NOBODY, true);
@@ -225,7 +225,7 @@ if (! \function_exists('fileExists')) {
     }
 }
 if (! \function_exists('resetAutoIncrement')) {
-    function resetAutoIncrement($db_table)
+    function resetAutoIncrement($db_table): void
     {
         DB::unprepared("SET  @num := 0; UPDATE {$db_table} SET id = @num := (@num+1); ALTER TABLE {$db_table} AUTO_INCREMENT =1;");
     }
@@ -264,7 +264,7 @@ if (! \function_exists('getCountry')) {
 }
 
 if (! \function_exists('generateUsername')) {
-    function generateUsername($userName)
+    function generateUsername($userName): string
     {
         $username = $userName;
         $i = 0;
@@ -280,7 +280,7 @@ if (! \function_exists('generateUsername')) {
 if (! \function_exists('sendMail')) {
     function sendMail($to_name, $to_email, $subject, $templateData)
     {
-        Mail::send('emails.mail', $templateData, function ($message) use ($to_name, $to_email, $subject) {
+        return Mail::send('emails.mail', $templateData, function ($message) use ($to_name, $to_email, $subject) {
             $message->to($to_email, $to_name)->subject($subject);
             $message->from('No-Reply.amabuba@gmail.com', 'No-Reply');
         });
@@ -299,7 +299,7 @@ if (! \function_exists('sendMail')) {
 //}
 
 if (! \function_exists('readable')) {
-    function readable($string)
+    function readable($string): string
     {
         $words = str_replace(['-', '_'], ' ', $string);
         $escapedCamel = strtolower(preg_replace('/(?<!^)[A-Z]/', ' $0', $words));
@@ -319,7 +319,7 @@ if (! \function_exists('readable')) {
 }
 
 if (! \function_exists('isAuthorized')) {
-    function isAuthorized($role)
+    function isAuthorized($role): bool
     {
         $userRole = Auth::user()->roles[0]->name;
         if (\is_array($role)) {
@@ -342,7 +342,7 @@ if (! \function_exists('get_guard')) {
 }
 
 if (! \function_exists('sanitizer')) {
-    function sanitizer($inputString)
+    function sanitizer($inputString): string
     {
         // Remove '.' and ',' characters
         $cleanedString = str_replace(['.', ','], '', $inputString);
@@ -353,7 +353,7 @@ if (! \function_exists('sanitizer')) {
     }
 }
 if (! \function_exists('otpGenerate')) {
-    function otpGenerate()
+    function otpGenerate(): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz'; // You can include other characters if needed
         $otp = '';
@@ -366,7 +366,8 @@ if (! \function_exists('otpGenerate')) {
     }
 }
 if (! \function_exists('generateUniqueOrderNumber')) {
-    function generateUniqueOrderNumber($length = 6) {
+    function generateUniqueOrderNumber($length = 6): string
+    {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
 
@@ -376,11 +377,29 @@ if (! \function_exists('generateUniqueOrderNumber')) {
             for ($i = 0; $i < $length; $i++) {
                 $orderNumber .= $characters[rand(0, $charactersLength - 1)];
             }
-            $orderNumber = date('ym') . '-' . $orderNumber;
+            $orderNumber = date('ym').'-'.$orderNumber;
             // Check if the order number is already used
-            $isUnique = !\DB::table('orders')->where('order_no', $orderNumber)->exists();
-        } while (!$isUnique);
+            $isUnique = ! \DB::table('orders')->where('order_no', $orderNumber)->exists();
+        } while (! $isUnique);
 
         return $orderNumber;
+    }
+}
+
+if (! \function_exists('blogCategories')) {
+    function blogCategories(): object
+    {
+        return (object) [
+            'beginner-advice' => 'Beginner Advice',
+            'betta-fish' => 'Betta Fish',
+            'breeding' => 'Breeding',
+            'care-guides' => 'Care Guides',
+            'disease' => 'Disease',
+            'goldfish' => 'Goldfish',
+            'planted-tanks' => 'Planted Tanks',
+            'filtration' => 'Filtration',
+            'tank-maintenance' => 'Tank Maintenance',
+            'water-parameters' => 'Water Parameters',
+        ];
     }
 }

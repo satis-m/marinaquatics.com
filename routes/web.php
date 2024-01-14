@@ -121,3 +121,20 @@ Route::get('/cache-clear/{cacheKey}/{passkey}', function ($cacheKey, $passkey) {
         echo 'Bad pass request';
     }
 });
+Route::get('test', function () {
+    $userEmail = 'maharjan.hardcore@gmail.com';
+
+    $otpCode = otpGenerate(); // You need to implement a function to generate the verification code.
+    $orderInfo = (object) [
+        'orderNo' => 'orderNo',
+        'orderAmount' => 'orderAmount',
+        'deliveryType' => 'deliveryType',
+        'paymentMethod' => 'paymentMethod',
+    ];
+    //    Mail::to(env('ADMIN_MAIL'))->send(new NewOrderEmail($orderInfo));
+    // Send the email
+    // Mail::to($userEmail)->send(new OtpCodeEmail($orderInfo));
+    return view('emails.send-otp', ['otpCode' => 'fsdf']);
+
+    return 'otp-sent';
+});

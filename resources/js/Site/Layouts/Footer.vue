@@ -108,6 +108,7 @@
 <!--                                        <li><a href="#">Blogs</a></li>-->
 <!--                                        <li><a href="#">Gallery</a></li>-->
                                         <li><a href="#" @click.prevent="showModal=true">Visit Us</a></li>
+                                        <li><NavLink :href="appRoute('blog.index','all')" >Blogs</NavLink></li>
                                     </ul>
                                 </div>
                             </div>

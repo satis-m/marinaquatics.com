@@ -93,12 +93,15 @@ Route::middleware('auth.admin')->group(function () {
     Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
     Route::patch('trash/product/{productId}', [TrashController::class, 'productRestore'])->name('trash.product.restore');
     Route::delete('trash/product/{productId}', [TrashController::class, 'productDestroy'])->name('trash.product.destroy');
+    Route::patch('trash/blog/{blogId}', [TrashController::class, 'blogRestore'])->name('trash.blog.restore');
+    Route::delete('trash/blog/{blogId}', [TrashController::class, 'blogDestroy'])->name('trash.blog.destroy');
 
     Route::delete('importer/{name}', function ($name) {
         return \App\Models\Importer::where('name', $name)->delete();
     })->name('importer');
 
     Route::resource('manage/blog', BlogController::class)->names('manageBlog');
+    Route::delete('manage/blog/picture/{mediaId}', [BlogController::class, 'deletePicture'])->name('manageBlog.picture');
 
     Route::get('reset-permission', function () {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();

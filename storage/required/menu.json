@@ -4,7 +4,7 @@
             {
                 "link": "admin.dashboard",
                 "name": "dashboard",
-                "icon": "fa-home"
+                "icon": "fa-gauge"
             },
             {
                 "link": "appSetting.index",
@@ -41,12 +41,12 @@
             {
                 "link": "storeSell.list",
                 "name": "Store Sell list",
-                "icon": "fa-shop"
+                "icon": "fa-list"
             },
             {
                 "link": "clients.list",
                 "name": "Customers",
-                "icon": "fa-shop"
+                "icon": "fa-users"
             },
             {
                 "link": "clientOrders.list",
@@ -57,6 +57,11 @@
                 "link": "trash.index",
                 "name": "Trash",
                 "icon": "fa-trash"
+            },
+            {
+                "link": "manageBlog.index",
+                "name": "Blogs",
+                "icon": "fa-blog"
             }
 
         ]
@@ -66,7 +71,7 @@
             {
                 "link": "admin.dashboard",
                 "name": "dashboard",
-                "icon": "fa-home"
+                "icon": "fa-gauge"
             },
             {
                 "link": "appSetting.index",
@@ -103,12 +108,12 @@
             {
                 "link": "storeSell.list",
                 "name": "Store Sell list",
-                "icon": "fa-shop"
+                "icon": "fa-list"
             },
             {
                 "link": "clients.list",
                 "name": "Customers",
-                "icon": "fa-shop"
+                "icon": "fa-users"
             },
             {
                 "link": "clientOrders.list",
@@ -123,7 +128,7 @@
             {
                 "link": "manageBlog.index",
                 "name": "Blogs",
-                "icon": "fa-trash"
+                "icon": "fa-blog"
             }
 
         ]
@@ -133,7 +138,7 @@
             {
                 "link": "admin.dashboard",
                 "name": "dashboard",
-                "icon": "fa-home"
+                "icon": "fa-gauge"
             },
             {
                 "link": "storeSell.index",
@@ -148,7 +153,7 @@
             {
                 "link": "storeSell.list",
                 "name": "Store Sell list",
-                "icon": "fa-shop"
+                "icon": "fa-list"
             }
         ]
     }

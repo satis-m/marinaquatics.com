@@ -7,8 +7,8 @@
         </button>
         <div class="tpsideinfo__search text-center pt-2 px-3">
             <span class="tpsideinfo__search-title mb-20">What Are You Looking For?</span>
-            <form method="get" :action="appRoute('product.search')">
-                <input type="text" :value="iPropsValue('filters','search')" name="search" placeholder="Search Products">
+            <form method="get"  @submit.prevent="submitSearch" :action="appRoute('product.search')" >
+                <input type="text" v-model="form.search" name="search" placeholder="Search Products">
                 <button><i class="icon-search"></i></button>
             </form>
         </div>
@@ -129,6 +129,7 @@
 </template>
 <script setup>
 import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
+import {useForm} from "@inertiajs/vue3";
 const {iPropsValue} = useInertiaPropsUtility();
 const handleMobileMenuClick = (event) => {
     const list = document.querySelectorAll('#mobile-menu ul li.has-dropdown .sub-menu li a');
@@ -143,5 +144,17 @@ const isActiveLink = (sub_category) => {
         return true;
     }
     return false;
+}
+const form = useForm({
+    search: iPropsValue('filters','search') ?? null,
+})
+const submitSearch = ()=>{
+    form.get(route('product.search'),{
+        preserveScroll: true,
+        onSuccess: () => {
+            $(".tpsideinfo").toggleClass("tp-sidebar-opened");
+            $(".body-overlay").toggleClass("opened");
+        },
+    });
 }
 </script>

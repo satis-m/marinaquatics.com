@@ -64,16 +64,10 @@
                             <template #default="props">
                                 <div class="ml-28">
                                     <p class="mb-2">
-                                        Product Name: {{ props.row.name }}
+                                        Blog Title: {{ props.row.title }}
                                     </p>
                                     <p class="mb-2">
-                                        Price: Rs. {{ props.row.price }}
-                                    </p>
-                                    <p class="mb-2">
-                                        In Stock: Rs. {{ props.row.available_quantity }}
-                                    </p>
-                                    <p class="mb-2">
-                                        Brand: {{ props.row.brand }}
+                                        Catrgory: Rs. {{ props.row.category }}
                                     </p>
                                     <p class="mb-2">
                                         status:  <StatusBadge :type="props.row.publish ? 'success': 'danger'">
@@ -142,9 +136,10 @@
                             v-if="isViewableColumn('title')"
                         />
                         <el-table-column
-                            :label="tableColumnNames.body"
-                            v-if="isViewableColumn('body')"
-                            prop="body"
+                            :label="tableColumnNames.category"
+                            sortable
+                            prop="category"
+                            v-if="isViewableColumn('category')"
                         />
                         <el-table-column
                             :label="tableColumnNames.tag"
@@ -283,21 +278,22 @@ const refAddByExcelForm = ref(null);
 const exportLoading = ref(false);
 const viewableColumn = ref(
     !isMobile.value
-        ? ["title", "body", "tag", 'publish']
-        : ["title", 'tag']
+        ? ["main_picture","title", "tag", 'publish','category']
+        : ["main_picture","title", 'tag']
 );
 watch(
     () => isMobile.value,
     () => {
         viewableColumn.value = !isMobile.value
-            ? ["title", "body", "tag", 'publish']
-            : ["title", 'tag']
+            ? ["main_picture","title", "tag", 'publish','category']
+            : ["main_picture","title", 'tag']
     }
 );
 const tableColumnNames = {
     title: "Title",
     body: "Description",
     tag: "Tag",
+    category: "Category",
     publish: "Status",
 };
 const exportTableOption = reactive({
@@ -305,6 +301,7 @@ const exportTableOption = reactive({
         "Title",
         "Body",
         "Tag",
+        "Category",
         "Status"
     ],
     headerValue: [
@@ -312,6 +309,7 @@ const exportTableOption = reactive({
         "title",
         "body",
         "tag",
+        "category",
         'publish'
     ],
     fileName: "blogList",
@@ -320,6 +318,7 @@ const formInputNames = {
     title: "",
     body: "",
     tag: "",
+    category: "",
     publish: 1,
 };
 const addForm = () => refAddEditForm.value.showForm("Add");
@@ -421,11 +420,6 @@ const getSrcList = (row) => {
     let srclist = [];
     if (row.main_picture) {
         srclist.push(row.main_picture.original)
-    }
-    if (row.alternative_picture) {
-        row.alternative_picture.forEach((data) => {
-            srclist.push(data.original);
-        })
     }
     return srclist;
 

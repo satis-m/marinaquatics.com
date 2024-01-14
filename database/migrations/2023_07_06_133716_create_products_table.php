@@ -29,7 +29,7 @@ return new class extends Migration
             $table->timestamps();
 
         });
-        DB::statement('CREATE FULLTEXT INDEX products_fulltext ON products(name, product_info, description) WITH PARSER ngram');
+        DB::statement('CREATE FULLTEXT INDEX products_fulltext ON products(name,type, product_info, sub_category) WITH PARSER ngram');
     }
 
     public function down(): void

@@ -49,5 +49,9 @@
     "customer-access",
     "customer-create",
     "customer-edit",
-    "customer-delete"
+    "customer-delete",
+    "blog-access",
+    "blog-create",
+    "blog-edit",
+    "blog-delete"
 ]

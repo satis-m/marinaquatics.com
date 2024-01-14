@@ -13,11 +13,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique()->nullable()->index();
             $table->longText('body');
-            $table->string('tags')->nullable()->index();
+            $table->string('tag')->nullable()->index();
+            $table->string('category')->index();
             $table->boolean('publish')->default('1');
             $table->softDeletes();
             $table->timestamps();
         });
+        DB::statement('CREATE FULLTEXT INDEX blogs_fulltext ON blogs(title, body, category) WITH PARSER ngram');
     }
 
     public function down(): void

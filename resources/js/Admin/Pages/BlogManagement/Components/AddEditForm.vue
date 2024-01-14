@@ -3,7 +3,7 @@
         v-model="FormVisible"
         :before-close="closeForm"
         :title="FormType + ' Blog'"
-        :fullscreen="false"
+        :fullscreen="true"
     >
         <template #default>
             <el-form
@@ -30,7 +30,7 @@
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :lg="12">
+                    <el-col :lg="6">
 
                         <el-form-item label="Tag" prop="tag">
                             <el-select
@@ -52,6 +52,26 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col :lg="6">
+
+                        <el-form-item label="Category" prop="category">
+                            <el-select
+                                v-model="formData.category"
+                                filterable
+                                clearable
+                                default-first-option
+                                :reserve-keyword="false"
+                                placeholder="Choose Category for your blog"
+                            >
+                                <el-option
+                                    v-for="(item,key) in  categories"
+                                    :key="key"
+                                    :label="item"
+                                    :value="key"
+                                />
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
                 <el-row :gutter="10">
                     <el-col :lg="24">
@@ -60,7 +80,7 @@
                             prop="body"
                             :error="formErrors.body"
                         >
-                            <content-editor ref="refBlogBodyContentEditor"
+                            <content-editor editorHeight="380px" :toolbarOptions="toolbarOptions" ref="refBlogBodyContentEditor"
                                             v-model="formData.body"></content-editor>
                         </el-form-item>
                     </el-col>
@@ -86,7 +106,7 @@
                             <SingleFileUploader
                                 ref="refSingleImageUpload"
                                 :acceptExtension="'.jpg, .jpeg, .png, .webp'"
-                                :acceptSize="2048"
+                                :acceptSize="4096"
                                 :listType="'picture-card'"
                                 @uplodable="uplodableMainPicture"
                                 @clearUplodable="uplodableMainPicture"
@@ -138,13 +158,33 @@ const refForm = ref();
 const FormType = ref("Add");
 const editFormData = ref(); //default edit form data
 const tags = ref(iPropsValue("tags"));
+const categories = ref(iPropsValue("categories"));
 const formData = useForm({
     _method: "POST",
     ...props.parentFormInput,
     main_picture: "",
     id: "",
 });
+const toolbarOptions = [['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    // ['blockquote', 'code-block'],
 
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],     // superscript/subscript
+    [{ 'indent': '-1' }, { 'indent': '+1' }],         // outdent/indent
+    // [{ 'direction': 'rtl' }],                         // text direction
+
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+
+    // ['link', 'video', 'image'],
+    ['link'],
+
+    ['clean'] ];
 watch(
     () => iPropsValue("tags"),
     () => {
@@ -164,6 +204,13 @@ const rules = reactive({
             required: true,
             message: "Please input blog body content",
             trigger: "blur",
+        },
+    ],
+    category: [
+        {
+            required: true,
+            message: "Please input blog category",
+            trigger: "change",
         },
     ]
 
@@ -187,7 +234,7 @@ const uplodableMainPicture = (file) => {
 const deleteMainPicture = (file) => {
     if (FormType.value == "Edit" && file.id) {
         const formData = useForm({});
-        formData.delete(route("manage.product.picture", file.id), {
+        formData.delete(route("manageBlog.picture", file.id), {
             preserveScroll: true,
             onSuccess: () => {
                 return true;
@@ -222,7 +269,7 @@ const showForm = function (formType, data = "") {
 };
 const populateFormData = function (data) {
     Object.assign(formData, data);
-    const main_picture = getObjectRow(data.media, "collection_name", "main_picture");
+    const main_picture = getObjectRow(data.media, "collection_name", "blog_main_picture");
 
     if (main_picture != null && main_picture.length > 0) {
         refSingleImageUpload.value.fileList = [
