@@ -79,14 +79,18 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="tp-blog-details__post-item paginate-blog mb-30" v-if="previousBlog">
-                                        <span><i class="far fa-chevron-left"></i> Previous Post</span>
-                                        <NavLink :href="appRoute('blog.view',previousBlog.slug)">{{ previousBlog.title}}</NavLink>
+                                        <NavLink :href="appRoute('blog.view',previousBlog.slug)">
+                                            <span><i class="far fa-chevron-left"></i> Previous Post</span>
+                                            {{ previousBlog.title}}
+                                        </NavLink>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="tp-blog-details__post-item paginate-blog flex flex-col items-end text-right mb-30" v-if="nextBlog">
-                                        <span>Next Post <i class="far fa-chevron-right"></i></span>
-                                        <NavLink class="" :href="appRoute('blog.view',nextBlog.slug)">{{ nextBlog.title}}</NavLink>
+                                        <NavLink class="" :href="appRoute('blog.view',nextBlog.slug)">
+                                            <span>Next Post <i class="far fa-chevron-right"></i></span>
+                                            {{ nextBlog.title}}
+                                        </NavLink>
                                     </div>
                                 </div>
                             </div>

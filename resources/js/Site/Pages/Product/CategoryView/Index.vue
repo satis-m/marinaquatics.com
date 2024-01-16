@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <section class="shop-area-start grey-bg pb-200">
+  <section class="shop-area-start grey-bg pb-8">
     <div class="container">
       <div class="col-xl-12 col-lg-12 col-md-12 ">
 
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="basic-pagination text-center mt-35">
-          <pagination class="mt-6" :links="products.links"/>
+          <pagination class="py-6" :links="products.links"/>
         </div>
       </div>
 

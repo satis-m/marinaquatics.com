@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <section class="feature-area theme-bg-1 pt-50 pb-10 -mb-1 -mt-6" >
+        <section class="feature-area theme-bg-1 pt-50 pb-10 -mb-1" >
             <div class="container">
                 <div class="mainfeature__border pb-15">
                     <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2">

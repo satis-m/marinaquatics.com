@@ -16,7 +16,7 @@ class BlogSearchController extends Controller
                     $query->search($search);
                 });
             $data['blogList'] = $blogsQuery->published()
-                ->paginate(1)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $data['blogCountsByCategory'] = Blog::published()

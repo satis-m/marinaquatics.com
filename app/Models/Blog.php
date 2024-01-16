@@ -106,20 +106,20 @@ class Blog extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 350, 150);
+            ->crop(Manipulations::CROP_CENTER, 352, 198);
 
         $this->addMediaConversion('blur')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 35, 15)
+            ->crop(Manipulations::CROP_CENTER, 36, 20)
             ->blur(2);
 
         $this->addMediaConversion('medium')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 602, 258);
+            ->crop(Manipulations::CROP_CENTER, 606, 342);
 
         $this->addMediaConversion('original')
             ->format(Manipulations::FORMAT_WEBP)
-            ->crop(Manipulations::CROP_CENTER, 1288, 552);
+            ->crop(Manipulations::CROP_CENTER, 1280, 720);
     }
 
     public function scopeSearch($query, $search)

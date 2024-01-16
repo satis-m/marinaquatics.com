@@ -133,10 +133,12 @@
                                         <div
                                             class="header__info header__top-right justify-content-end d-flex align-items-center gap-3 me-2">
 
-                                            <button class="tp-search-toggle hidden lg:block "><i
+                                            <button title="search" class="tp-search-toggle hidden lg:block "><i
                                                 class="icon-search"></i></button>
-
-                                            <NavLink
+                                            <NavLink title="blog"
+                                                :href=" appRoute('blog.index','all')">
+                                                <i class="icon-rss"></i></NavLink>
+                                            <NavLink :title="iPropsValue('auth') != null ? 'logout' : 'login' "
                                                 :href=" iPropsValue('auth') != null ? appRoute('client.dashboard'):  appRoute('client.login')">
                                                 <i class="icon-user"></i></NavLink>
 

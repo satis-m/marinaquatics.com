@@ -58,51 +58,46 @@ const truncateDescription =(text)=> {
         </div>
     </div>
 
+
     <section class="blog-area pt-10">
         <div class="container">
             <div class="row">
-                <div class="col-xl-10 col-lg-9">
-                    <div class="tpblog__left-wrapper">
-                        <div class="tpblog__left-item ">
-                            <div class="row">
-                                <div v-if="blogList.data.length > 0" v-for="(blog, key) in blogList.data" class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="tpblog__item tpblog__item-2 mb-20">
-                                        <div class="tpblog__thumb fix">
-                                            <NavLink :href="appRoute('blog.view',blog.slug)">
-                                                <ImageWithFallback v-if="mediaCheck('xl')" :source="blog.main_picture.thumbnail" :alt="blog.slug" />
-                                                <ImageWithFallback v-else :source="blog.main_picture.preview" :alt="blog.slug" />
-                                            </NavLink>
-                                        </div>
-                                        <div class="tpblog__wrapper">
-                                            <div class="tpblog__entry-wap">
-                                                <span class="cat-links"><NavLink :href="appRoute('blog.index',blog.category)">{{ readableWord(blog.category)}}</NavLink></span>
-                                                <span class="author-by">Admin</span>
-                                                <span class="post-data">{{ moment(blog.created_at).format("MMM D, YYYY") }}</span>
-                                            </div>
-                                            <h4 class="tpblog__title"><NavLink :href="appRoute('blog.view',blog.slug)">{{ blog.title }}</NavLink></h4>
-                                            <p class=" text-justify">{{ truncateDescription(removeHTMLTags(blog.body)) }}</p>
-                                            <div class="tpblog__details">
-                                                <NavLink :href="appRoute('blog.view',blog.slug)">Continue reading <i class="icon-chevrons-right"></i> </NavLink>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="col-xl-9">
+                    <div class="row">
+                        <div v-if="blogList.data.length > 0" v-for="(blog, key) in blogList.data" class=" col-3xl-3 col-xl-4 col-md-6 ">
+                            <div class="tpblog__item tpblog__item-2 mb-8">
+                                <div class="tpblog__thumb fix">
+                                    <NavLink :href="appRoute('blog.view',blog.slug)">
+                                        <ImageWithFallback class="blog-thumb h-[200px] 2xl:h-[250]" v-if="mediaCheck('xl')" :source="blog.main_picture.thumbnail" :alt="blog.slug" />
+                                        <ImageWithFallback  class="blog-thumb h-[200px] 2xl:h-[250]" v-else :source="blog.main_picture.preview" :alt="blog.slug" />
+                                    </NavLink>
                                 </div>
-                                <div v-else class="text-xl flex flex-col text-center h-[350px] flex justify-center items-center ">
-                                    <i class="icon-search text-5xl text-gray-400"></i>
-                                    <p class="mt-2">Hmm, nothing quite matches that search. Let's try a different keyword!</p>
+                                <div class="tpblog__wrapper">
+                                    <div class="tpblog__entry-wap">
+                                        <span class="cat-links"><NavLink :href="appRoute('blog.index',blog.category)">{{ readableWord(blog.category)}}</NavLink></span>
+                                        <span class="author-by">Admin</span>
+                                        <span class="post-data">{{ moment(blog.created_at).format("MMM D, YYYY") }}</span>
+                                    </div>
+                                    <h4 class="tpblog__title"><NavLink :href="appRoute('blog.view',blog.slug)">{{ blog.title }}</NavLink></h4>
+                                    <p class=" text-justify">{{ truncateDescription(removeHTMLTags(blog.body)) }}</p>
+                                    <div class="tpblog__details">
+                                        <NavLink :href="appRoute('blog.view',blog.slug)">Continue reading <i class="icon-chevrons-right"></i> </NavLink>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tpbasic__pagination pr-100">
-                            <pagination class="mt-6" :links="blogList.links"/>
+                        <div v-else class="text-xl flex flex-col text-center h-[350px] flex justify-center items-center italic">
+                            <i class="icon-activity text-6xl text-gray-400"></i>
+                            <p class="mt-2">No new blogs just yet, but plenty to discover in our other categories!</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-2 col-lg-3">
-                    <div class="tpblog__right-item pb-50">
-                        <BlogSearch/>
-                        <SideCategoryNav/>
+                    <div class="tpbasic__pagination py-8">
+                        <pagination :links="blogList.links"/>
                     </div>
+                </div>
+                <div class="col-xl-3 pb-50">
+                    <BlogSearch/>
+                    <SideCategoryNav/>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ class BlogController extends Controller
                     $query->where('category', $category);
                 });
             $data['blogList'] = $blogsQuery->published()
-                ->paginate(1)
+                ->paginate(12)
                 ->appends(request()->query());
 
             $data['blogCountsByCategory'] = Blog::published()

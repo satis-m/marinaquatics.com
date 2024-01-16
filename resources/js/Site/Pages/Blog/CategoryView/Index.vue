@@ -56,16 +56,14 @@ const truncateDescription =(text)=> {
     <section class="blog-area pt-10">
         <div class="container">
             <div class="row">
-                <div class="col-xl-10 col-lg-9">
-                    <div class="tpblog__left-wrapper">
-                        <div class="tpblog__left-item ">
-                            <div class="row">
-                                <div v-if="blogList.data.length > 0" v-for="(blog, key) in blogList.data" class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="tpblog__item tpblog__item-2 mb-20">
+                <div class="col-xl-9">
+                        <div class="row">
+                                <div v-if="blogList.data.length > 0" v-for="(blog, key) in blogList.data" class=" col-3xl-3 col-xl-4 col-md-6 ">
+                                    <div class="tpblog__item tpblog__item-2 mb-8">
                                         <div class="tpblog__thumb fix">
                                             <NavLink :href="appRoute('blog.view',blog.slug)">
-                                                <ImageWithFallback v-if="mediaCheck('xl')" :source="blog.main_picture.thumbnail" :alt="blog.slug" />
-                                                <ImageWithFallback v-else :source="blog.main_picture.preview" :alt="blog.slug" />
+                                                <ImageWithFallback class="blog-thumb h-[200px] 2xl:h-[250]" v-if="mediaCheck('xl')" :source="blog.main_picture.thumbnail" :alt="blog.slug" />
+                                                <ImageWithFallback  class="blog-thumb h-[200px] 2xl:h-[250]" v-else :source="blog.main_picture.preview" :alt="blog.slug" />
                                             </NavLink>
                                         </div>
                                         <div class="tpblog__wrapper">
@@ -87,17 +85,13 @@ const truncateDescription =(text)=> {
                                     <p class="mt-2">No new blogs just yet, but plenty to discover in our other categories!</p>
                                 </div>
                             </div>
+                        <div class="tpbasic__pagination py-8">
+                            <pagination :links="blogList.links"/>
                         </div>
-                        <div class="tpbasic__pagination pr-100">
-                            <pagination class="mt-6" :links="blogList.links"/>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-xl-2 col-lg-3">
-                    <div class="tpblog__right-item pb-50">
+                <div class="col-xl-3 pb-50">
                         <BlogSearch/>
                         <SideCategoryNav/>
-                    </div>
                 </div>
             </div>
         </div>
@@ -105,6 +99,17 @@ const truncateDescription =(text)=> {
 
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+@media (width > 1900px)
+{
+    .col-3xl-3 {
+        flex: 0 0 auto;
+        width: 25% !important;
+    }
+}
 
+.blog-thumb
+{
+    object-fit: cover;
+}
 </style>
