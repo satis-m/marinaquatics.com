@@ -57,7 +57,7 @@
                                     <label class="form-check-label" for="flexCheckDefault2">Remember me</label>
                                 </div>
                                 <div class="tpsign__pass">
-                                    <a href="#">Forget Password</a>
+                                    <a @click="forgotPassword" class="hover:cursor-pointer hover:underline">Forget Password</a>
                                 </div>
                             </div>
                             <div class="tptrack__btn">
@@ -141,28 +141,71 @@
            <button class="btn" @click="showModal=false">Cancel</button>
         </template>
     </Modal>
+    <Modal @close-modal="closeResetPasswordModal" v-show="showForgotPasswordModal">
+        <template v-slot:header>
+            Reset Account Password
+        </template>
+        <template v-slot:body>
+
+            <div class="tptrack__email white-bg">
+                <span><i class="icon-mail"></i></span>
+                <input type="email" v-on:keydown.enter.prevent='verifyResetPasswordOtp' v-model="resetPasswordFormData.email" autocomplete="old-email" class="!h-[45px]"  @blur="validateResetPasswordEmail" placeholder="Email Address">
+            </div>
+            <div class="text-red-600 text-left text-sm min-h-[24px]">{{ resetPasswordEmailError }}</div>
+            <div class="tptrack__email white-bg">
+                <span><i class="icon-lock"></i></span>
+                <input type="text" v-on:keydown.enter.prevent='verifyResetPasswordOtp' autocomplete="otp-sent" class="!h-[45px]"  v-model="resetPasswordFormData.otp" @blur="validateResetPasswordOpt" placeholder="OTP from email">
+                <button @click="sendResetPasswordOtp" :disabled="resetPasswordOtpDisable" v-show="resetPasswordEmailError ==''&& resetPasswordFormData.email !='' ">Send OTP</button>
+                <div class="mb-10">
+                    <div class="error-msg">{{ resetPasswordOtpError }}</div>
+                    <div class="info-msg">{{ resetPasswordOtpStatus }}</div>
+                </div>
+            </div>
+        </template>
+        <template v-slot:footer>
+            <button class="btn btn-danger" :disabled="resetPasswordEmailError ==''&&resetPasswordOtpError ==''? false:true" @click="verifyResetPasswordOtp">Reset Password</button>
+            <button class="btn" @click="closeResetPasswordModal">Cancel</button>
+        </template>
+    </Modal>
 </template>
 
 <script setup>
 import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 import Modal from "@/Components/Modal.vue"
-import Swal from 'sweetalert2'
 import { useInertiaPropsUtility } from "@admin/Composables/inertiaPropsUtility";
 const { iPropsValue } = useInertiaPropsUtility();
 
 const loginEmailError  = ref('');
 const loginPasswordError  = ref('');
-const emailError = ref('');
-const contactError = ref('');
+
 const nameError = ref('');
+const contactError = ref('');
+const emailError = ref('');
 const passwordError = ref('');
-const confirmPasswordError = ref('');
 const otpError = ref('');
 const otpStatus = ref('');
+const confirmPasswordError = ref('');
+
+const resetPasswordEmailError = ref('');
+const resetPasswordOtpError = ref('');
+const resetPasswordOtpStatus = ref('');
+
 const showModal = ref(false);
+const showForgotPasswordModal = ref(false);
+
 const verifying = ref(false);
 const otpDisable = ref(false);
+
+const verifyingResetPassword = ref(false);
+const resetPasswordOtpDisable = ref(false);
+
+const resetPasswordFormData = useForm({
+    _method: "POST",
+    email: "",
+    otp: ''
+});
+
 const loginFormData = useForm({
     _method: "POST",
     email: "",
@@ -187,7 +230,19 @@ const loadServerValidationError = () => {
     otpError.value = formData.errors.otp
 
 };
+const closeResetPasswordModal = ()=> {
 
+    resetPasswordFormData.reset()
+
+    resetPasswordEmailError.value = '';
+    resetPasswordOtpError.value = '';
+    resetPasswordOtpStatus.value = '';
+    resetPasswordTimeRemaining = 0;
+
+    verifyingResetPassword.value = false;
+    resetPasswordOtpDisable.value = false;
+    showForgotPasswordModal.value = false;
+}
 const clearServerValidationError = () => {
     emailError.value ='';
     passwordError.value = '';
@@ -200,8 +255,21 @@ const isSignUpValidate = ()=>{
     // validateConfirmPassword()
     validateOpt()
 }
+const forgotPassword = ()=>{
+    showForgotPasswordModal.value = true;
+
+}
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const validateResetPasswordEmail = ()=>{
+    if (!emailPattern.test(resetPasswordFormData.email)) {
+        resetPasswordEmailError.value = 'Please enter a valid email address';
+        return false
+    }
+    resetPasswordEmailError.value = '';
+    return true;
+}
+
 const validateEmail = ()=>{
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData.email)) {
         emailError.value = 'Please enter a valid email address';
         return false
@@ -210,7 +278,6 @@ const validateEmail = ()=>{
     return true;
 }
 const validateLoginEmail = ()=>{
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(loginFormData.email)) {
         loginEmailError.value = 'Please enter a valid email address';
         return false
@@ -255,6 +322,14 @@ const validateConfirmPassword = ()=>{
         confirmPasswordError.value = '';
     return true;
 }
+const validateResetPasswordOpt = ()=>{
+    if (resetPasswordFormData.otp.length !== 6) {
+        resetPasswordOtpError.value = 'Invalid OTP';
+        return false;
+    }
+    resetPasswordOtpError.value = '';
+    return true;
+}
 const validateOpt = ()=>{
     if (formData.otp.length !== 6) {
         otpError.value = 'Invalid OTP';
@@ -262,6 +337,35 @@ const validateOpt = ()=>{
     }
     otpError.value = '';
     return true;
+}
+const verifyResetPasswordOtp = ()=>{
+    if( validateResetPasswordEmail() && validateResetPasswordOpt())
+    {
+        verifyingResetPassword.value=true;
+        axios.post(route("reset-password.optVerify"), {email:resetPasswordFormData.email ,otp:resetPasswordFormData.otp})
+        .then(response => {
+            verifyingResetPassword.value=false;
+            if(response.data == 'otp-verified')
+            {
+                resetPasswordFormData.post(route("reset-password"), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        closeResetPasswordModal();
+                    },
+                    onError: (errors) => {
+                        vt.error('server error, please try again later');
+                    },
+                });
+            }
+            else {
+                resetPasswordOtpDisable.value=false;
+                resetPasswordOtpError.value = 'Invalid OTP';
+            }
+        })
+        .catch(error => {
+        })
+
+    }
 }
 const verifyOtp = ()=>{
     if(  validateEmail() &&validateOpt())
@@ -317,6 +421,26 @@ const loginUser = () => {
     }
 }
 let timeRemaining = 180;
+let resetPasswordTimeRemaining = 180;
+const sendResetPasswordOtp = ()=>{
+    resetPasswordTimeRemaining = 180;
+    resetPasswordOtpDisable.value=true;
+    resetPasswordOtpError.value='';
+    resetPasswordOtpStatus.value='Sending..';
+    axios.post(route("reset-password.optSend"), {email: resetPasswordFormData.email })
+        .then(response => {
+            if(response.data == 'otp-sent')
+            {
+                resetPasswordUpdateOTPTimer()
+                return true;
+            }
+            resetPasswordEmailError.value ='Email not registered';
+            resetPasswordOtpDisable.value=false;
+            resetPasswordOtpStatus.value = '';
+        })
+        .catch(error => {
+        })
+}
 const sendOtp = ()=>{
     timeRemaining = 180;
     otpDisable.value=true;
@@ -336,6 +460,31 @@ const sendOtp = ()=>{
         .catch(error => {
         })
 }
+function resetPasswordUpdateOTPTimer() {
+  if (resetPasswordTimeRemaining > 0) {
+    // Calculate minutes and seconds
+    const minutes = Math.floor(resetPasswordTimeRemaining / 60);
+    const seconds = resetPasswordTimeRemaining % 60;
+
+    // Display the remaining time in the "X min Y sec" format
+    resetPasswordOtpStatus.value = `Resend OTP in `;
+      //console.log(minutes);
+    if(minutes >0){
+    resetPasswordOtpStatus.value += `${minutes} min `;
+    }
+    resetPasswordOtpStatus.value += `${seconds} sec`;
+
+    // Subtract one second
+    resetPasswordTimeRemaining--;
+
+    // Call this function again after 1 second
+    setTimeout(resetPasswordUpdateOTPTimer, 1000);
+  } else {
+    // Countdown has reached zero
+    resetPasswordOtpDisable.value=false;
+    resetPasswordOtpStatus.value = '';
+  }
+}
 function updateOTPTimer() {
   if (timeRemaining > 0) {
     // Calculate minutes and seconds
@@ -344,7 +493,7 @@ function updateOTPTimer() {
 
     // Display the remaining time in the "X min Y sec" format
     otpStatus.value = `Resend OTP in `;
-      console.log(minutes);
+     // console.log(minutes);
     if(minutes >0){
     otpStatus.value += `${minutes} min `;
     }

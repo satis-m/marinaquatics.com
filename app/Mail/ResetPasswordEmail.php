@@ -4,19 +4,23 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewOrderEmail extends Mailable
+class ResetPasswordEmail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $newPassword;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public $orderInfo)
+    public function __construct($newPassword)
     {
+        $this->newPassword = $newPassword;
     }
 
     /**
@@ -26,7 +30,7 @@ class NewOrderEmail extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_USERNAME'), 'Marine Aquatics Nepal'),
-            subject: 'New Order Notification - MAN',
+            subject: 'New login password - MAN',
         );
     }
 
@@ -36,7 +40,7 @@ class NewOrderEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.send-new-order-notification',
+            view: 'emails.send-new-password',
         );
     }
 

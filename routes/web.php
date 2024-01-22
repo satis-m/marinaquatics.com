@@ -59,14 +59,18 @@ Route::get('/product/category/{slug}', [ProductController::class, 'categoryView'
 Route::get('/product/type/{category}/{slug}', [ProductController::class, 'typeView'])->name('product.type.view');
 Route::get('/product/brand/{slug}', [ProductController::class, 'brandView'])->name('product.brand.view');
 Route::get('/product/tag/{slug}', [ProductController::class, 'tagView'])->name('product.tag.view');
-
 Route::get('/user/wishlist', [WishlistController::class, 'index'])->name('user.wishlist.view');
 Route::get('/user/cart', [CartController::class, 'index'])->name('user.cart.view');
 
-Route::post('/login/send-otp', [RegisteredUserController::class, 'otpSend'])->name('register.optSend');
-Route::post('/login/verify-otp', [RegisteredUserController::class, 'otpVerify'])->name('register.optVerify');
-Route::post('/login/sign-up', [RegisteredUserController::class, 'store'])->name('registered.store');
+Route::middleware('throttle:6,1')->group(function () {
+    Route::post('/login/send-otp', [RegisteredUserController::class, 'otpSend'])->name('register.optSend');
+    Route::post('/login/verify-otp', [RegisteredUserController::class, 'otpVerify'])->name('register.optVerify');
+    Route::post('/login/reset-password/send-otp', [RegisteredUserController::class, 'resetPasswordOtpSend'])->name('reset-password.optSend');
+    Route::post('/login/reset-password/verify-otp', [RegisteredUserController::class, 'resetPasswordOtpVerify'])->name('reset-password.optVerify');
 
+    Route::post('/login/reset-password', [RegisteredUserController::class, 'resetPassword'])->name('reset-password');
+    Route::post('/login/sign-up', [RegisteredUserController::class, 'store'])->name('registered.store');
+});
 Route::get('/payment/qr', function () {
     $path = storage_path('/required/shop-payment-info.jpg');
 

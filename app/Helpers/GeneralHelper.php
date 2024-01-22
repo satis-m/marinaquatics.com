@@ -353,12 +353,12 @@ if (! \function_exists('sanitizer')) {
     }
 }
 if (! \function_exists('otpGenerate')) {
-    function otpGenerate(): string
+    function otpGenerate($length = 6): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz'; // You can include other characters if needed
         $otp = '';
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $otp .= $characters[random_int(0, strlen($characters) - 1)];
         }
 

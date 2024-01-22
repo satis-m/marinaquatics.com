@@ -57,6 +57,7 @@ class AuthenticatedSessionController extends Controller
                     'email' => 'Your account has been blocked by the admin.',
                 ])->errorBag('login');
             }
+
             return redirect($intendedUrl);
         }
 
