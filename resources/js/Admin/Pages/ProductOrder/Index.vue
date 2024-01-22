@@ -1,5 +1,5 @@
 <template>
-    <Head title="In-store sales"/>
+    <Head title="Website sales"/>
     <el-row class="mb-3 justify-between" :gutter="20">
     <el-col :xs="12" :sm="12" :md="10">
         <el-row :gutter="20">
@@ -183,7 +183,7 @@
 
                                             @click="showOrderItems(scope.row)"
                                         >
-                                            View Items
+                                            Order detail
                                         </el-dropdown-item>
                                         <el-dropdown-item
                                             divided
@@ -221,7 +221,7 @@
     </el-row>
 
     <BillPrint ref="refBillPrint"/>
-    <OrderedItems ref="refOrderedItems"/>
+    <OrderDetail ref="refOrderDetail"/>
     <UpdateOrderStatusForm ref="refUpdateOrderStatusForm" />
 </template>
 
@@ -234,7 +234,7 @@ import {Head, useForm} from "@inertiajs/vue3";
 import {markRaw, onMounted, ref, watch} from "@vue/runtime-core";
 import moment from "moment/moment.js";
 import BillPrint from "./Components/BillPrint.vue";
-import OrderedItems from "./Components/OrderedItems.vue";
+import OrderDetail from "./Components/OrderDetail.vue";
 import UpdateOrderStatusForm from "./Components/UpdateOrderStatusForm.vue";
 
 //composable imports
@@ -250,7 +250,7 @@ const {readableWord} = useStringUtility();
 
 const isMobile = ref(isScreenMd);
 const refBillPrint = ref(null);
-const refOrderedItems = ref(null);
+const refOrderDetail = ref(null);
 const refUpdateOrderStatusForm = ref(null);
 const printData = ref();
 //table variables
@@ -347,7 +347,7 @@ const billPrint = (order)=>{
     refBillPrint.value.showBill(order);
 }
 const showOrderItems = (order)=>{
-  refOrderedItems.value.showItems(order);
+  refOrderDetail.value.showItems(order);
 }
 const cancelOrder = (order)=>{
   ElMessageBox.confirm("Cancel Order No: <b>"+order.order_no+"</b> ?", "Warning", {
