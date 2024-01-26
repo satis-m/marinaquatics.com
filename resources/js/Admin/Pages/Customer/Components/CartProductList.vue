@@ -2,12 +2,12 @@
     <el-dialog
         v-model="FormVisible"
         :before-close="closeForm"
-        title="Ordered Product List"
+        title="Cart Product List"
     >
         <template #default>
-            <el-table :data="orderedItems"  height="350"  style="width: 100%">
+            <el-table :data="cartItems"  height="350"  style="width: 100%">
                 <el-table-column prop="product.name" label="Product name"/>
-                <el-table-column label=" No of Product">
+                <el-table-column label="No of Product">
                     <template #default="scope">
                         {{ scope.row.quantity * scope.row.offer_quantity}} ({{ scope.row.product.unit}})
                     </template>
@@ -21,20 +21,18 @@
 import {onMounted, reactive, ref, unref} from "@vue/runtime-core";
 
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
-import moment from "moment/moment.js";
 const {iPropsValue} = useInertiaPropsUtility();
 
-const dateFormatter = (date) => moment(date).format("MMM Do, YYYY");
-const orderedItems = ref([]);
+const cartItems = ref([]);
 const FormVisible = ref(false);
 
 const showList = (customerInfo) => {
     FormVisible.value = true;
-    orderedItems.value = [];
-    axios.get(route('client.productOrder.list', customerInfo.id))
+    cartItems.value = [];
+    axios.get(route('client.cartItem.list', customerInfo.id))
         .then(response => {
             // Handle the JSON response data
-            orderedItems.value = response.data.results;
+            cartItems.value = response.data.results;
             // Use the data as needed
         })
         .catch(error => {

@@ -425,7 +425,7 @@ const formData = useForm({
 const totalAmount = ref(0);
 const userCart = ref(iPropsValue('auth', 'cart'));
 watch(() => iPropsValue('auth', 'cart'), () => {
-  console.log(iPropsValue('auth', 'cart'));
+  //console.log(iPropsValue('auth', 'cart'));
   userCart.value = iPropsValue('auth', 'cart');
   totalAmount.value = 0;
 })

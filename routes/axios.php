@@ -40,6 +40,16 @@ Route::prefix('axios')->middleware('auth.admin')->group(function () {
 
         return Response::json(['results' => $orderedProductList]);
     })->name('client.productOrder.list');
+
+    Route::get('/client/{id}/cart/product-list', function ($id) {
+        $cartProductList = \App\Models\CartItem::with('product')
+            ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+            ->where('carts.customer_id', $id)
+            ->get()
+            ->toArray();
+
+        return Response::json(['results' => $cartProductList]);
+    })->name('client.cartItem.list');
 });
 Route::prefix('axios')->middleware(['throttle:3,1', 'auth.client'])->group(function () {
     Route::get('cart/order-no', function () {

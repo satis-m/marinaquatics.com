@@ -65,14 +65,18 @@ class Client extends Authenticatable implements HasMedia
             ->height(600);
     }
 
-    public function address() {
-        return $this->hasOne(ClientAddress::class,'customer_id','id');
+    public function address()
+    {
+        return $this->hasOne(ClientAddress::class, 'customer_id', 'id');
     }
 
     public function orders()
     {
-        return $this->hasMany(Order::class,'customer_id','id');
+        return $this->hasMany(Order::class, 'customer_id', 'id');
     }
-    
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'customer_id', 'id');
+    }
 }

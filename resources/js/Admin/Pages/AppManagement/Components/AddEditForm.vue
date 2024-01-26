@@ -295,7 +295,7 @@ let populateFormData = function (data) {
       "fav-icon-dark"
   );
   if (logo != null && logo.length > 0) {
-    console.log(refLogoUpload.value.fileList);
+    //console.log(refLogoUpload.value.fileList);
     refLogoUpload.value.fileList = [
       {
         name: logo[0].file_name,
