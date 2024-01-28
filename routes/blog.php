@@ -3,7 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogSearchController;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('web')->group(function () {
     Route::get('blog', function () {
         return Redirect::to('blog/category/all');
     });
