@@ -1,6 +1,6 @@
 <template>
     <el-row :gutter="12">
-        <el-col :sm="24" :md="12" :lg="8">
+        <el-col :sm="24" :md="12" :lg="8" :xl="6">
             <el-card shadow="always" class="product-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Goods /></el-icon>
@@ -18,7 +18,7 @@
                 </div>
             </el-card>
         </el-col>
-        <el-col :sm="24" :md="12" :lg="8">
+        <el-col :sm="24" :md="12" :lg="8" :xl="6">
             <el-card shadow="always"  class="user-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Avatar /></el-icon>
@@ -38,7 +38,7 @@
                 </div>
             </el-card>
         </el-col>
-        <el-col :sm="24" :md="12" :lg="8">
+        <el-col :sm="24" :md="12" :lg="8" :xl="6">
             <el-card shadow="always"  class="cash-card dashboard-card">
                 <div class="card-icon text-white">
                     <el-icon><Coin /></el-icon>
@@ -62,11 +62,35 @@
                 </div>
             </el-card>
         </el-col>
+        <el-col :sm="24" :md="12" :lg="8" :xl="6">
+            <el-card shadow="always"  class="order-card dashboard-card">
+                <div class="card-icon text-white">
+                    <el-icon><ShoppingCartFull /></el-icon>
+                </div>
+                <div class="card-detail flex flex-col text-white" >
+                    <div class="title">Orders</div>
+                    <div class="body">
+                        <div class="flex">
+                            <div class="w-28">Total</div>
+                            <div>{{ iPropsValue('orders','till_date_total') }}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-28"> {{ iPropsValue('orders','current_month') }} </div>
+                            <div>{{ iPropsValue('orders','monthly_total') }}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-28">Today</div>
+                            <div>{{ iPropsValue('orders','today_total') }}</div>
+                        </div>
+                    </div>
+                </div>
+            </el-card>
+        </el-col>
     </el-row>
 </template>
 <script setup>
 defineOptions({layout: "admin"});
-import {Goods,Avatar,Coin} from "@element-plus/icons-vue";
+import {Goods,Avatar,Coin,ShoppingCartFull} from "@element-plus/icons-vue";
 import {useInertiaPropsUtility} from "@/Composables/inertiaPropsUtility";
 let { iPropsValue } = useInertiaPropsUtility();
 
@@ -90,6 +114,9 @@ const {formattedCurrency} = useNumberUtility();
     &.cash-card
     {
         background: #4ea888;
+    }
+    &.order-card{
+        background: #ddb94e;
     }
 
     .el-card__body
