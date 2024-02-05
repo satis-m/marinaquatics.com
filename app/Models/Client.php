@@ -18,7 +18,6 @@ class Client extends Authenticatable implements HasMedia
     protected $hidden = [
         'password',
         'remember_token',
-        'created_at',
         'updated_at',
     ];
 
@@ -78,5 +77,10 @@ class Client extends Authenticatable implements HasMedia
     public function cart()
     {
         return $this->hasOne(Cart::class, 'customer_id', 'id');
+    }
+
+    public function getRegisteredAtAttribute()
+    {
+        return $this->attributes['created_at'];
     }
 }
