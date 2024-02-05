@@ -24,7 +24,8 @@ class CustomerController extends Controller
             ->withCount(['orders as cancelled_order' => function ($query) {
                 $query->where('order_status', '=', 'cancelled');
             }])
-            ->latest();
+            ->latest()
+            ->get();
 
         return Inertia::render(
             'Customer/Index',

@@ -33,7 +33,8 @@ class OrderController extends Controller
         $orderList = Order::query()
             ->where('order_type', 'website')
             ->with(['orderItems', 'orderItems.product', 'billing', 'customer'])
-            ->latest();
+            ->latest()
+            ->get();
 
         return Inertia::render(
             'ProductOrder/Index',

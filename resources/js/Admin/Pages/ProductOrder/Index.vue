@@ -157,6 +157,14 @@
                         </template>
                     </el-table-column>
                     <el-table-column
+                        label="Order Date"
+                        prop="created_at"
+                    >
+                        <template #default="props">
+                            <span class="font-bold">{{ dateFormatter(props.row.created_at) }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
                         align="center"
                         fixed="right"
                         label="Action"
@@ -254,7 +262,7 @@ const refOrderDetail = ref(null);
 const refUpdateOrderStatusForm = ref(null);
 const printData = ref();
 //table variables
-const dateFormatter = (row, column) => moment(row.date).format("MMM Do, YYYY");
+const dateFormatter = (date) => moment(date).format("MMM Do, YYYY");
 const currentPage = ref(1);
 const pageSize = ref(100);
 const totalSize = ref(0);
