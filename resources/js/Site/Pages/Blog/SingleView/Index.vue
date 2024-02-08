@@ -2,10 +2,10 @@
     <Head>
         <title>{{blogInfo.title}}</title>
         <meta head-key="description" name="description"
-              :content="blogInfo.title+' | '+removeHTMLTags(blogInfo.product_info)">
+              :content="cutString(removeHTMLTags(blogInfo.body),200)">
 
         <meta head-key="og:description" property="og:description"
-              :content="blogInfo.title+' | '+removeHTMLTags(blogInfo.product_info)">
+              :content="cutString(removeHTMLTags(blogInfo.body),200)">
 
         <link head-key="canonical" rel="canonical" :href="iPropsValue('ziggy','url')">
         <meta head-key='og:url' property="og:url" :content="iPropsValue('ziggy','url')">
@@ -111,7 +111,7 @@ import {useInertiaPropsUtility} from "@admin/Composables/inertiaPropsUtility";
 const {iPropsValue} = useInertiaPropsUtility();
 
 import {useStringUtility} from "@admin/Composables/stringUtility";
-const {removeHTMLTags,readableWord} = useStringUtility();
+const {removeHTMLTags,readableWord,cutString} = useStringUtility();
 
 const blogInfo = ref(iPropsValue("blogInfo"));
 const previousBlog = ref(iPropsValue('previousBlog'));

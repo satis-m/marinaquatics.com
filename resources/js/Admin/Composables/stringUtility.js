@@ -21,6 +21,11 @@ export function useStringUtility() {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || "";
     }
-
-	return { wordToCamel, camelToWord, readableWord,wordInitials,removeHTMLTags };
+    const cutString = (str, maxLength) =>{
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + "..."; // Append ellipsis for readability
+        }
+        return str;
+    }
+	return { wordToCamel, camelToWord, readableWord,wordInitials,removeHTMLTags,cutString };
 }
