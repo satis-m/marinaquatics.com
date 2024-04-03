@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Events\NewOrder;
 use App\Events\CancelOrder;
+use App\Events\NewOrder;
 use App\Models\Billing;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -42,10 +42,10 @@ class OrderService
                     'offer_name' => $product['combo'],
                     'offer_price' => $product['rate'],
                     'offer_quantity' => $product['comboQuantity'],
-                    'item_total_price' => (float)$product['rate'] * ((int)$product['comboQuantity'] * (int)$product['quantity']),
+                    'item_total_price' => (float) $product['rate'] * ((int) $product['comboQuantity'] * (int) $product['quantity']),
                 ]);
                 $quantityToDecrement = $product['comboQuantity'] * $product['quantity'];
-                Product::where('slug', $product['product'])->decrement('available_quantity',$quantityToDecrement);
+                Product::where('slug', $product['product'])->decrement('available_quantity', $quantityToDecrement);
             }
             Billing::create([
                 'order_id' => $order->id,
@@ -56,6 +56,7 @@ class OrderService
             ]);
 
             DB::commit();
+
             return true;
         } catch (QueryException $e) {
             //database related exception
@@ -71,7 +72,8 @@ class OrderService
 
     }
 
-    public function placeOrder() {
+    public function placeOrder()
+    {
         DB::beginTransaction();
         try {
             $order = Order::create([
@@ -86,10 +88,10 @@ class OrderService
                 'order_no' => request('order_number'),
                 'order_type' => 'website',
                 'delivery_type' => request('delivery_type'),
-                'note' => request('order_note')??''
+                'note' => request('order_note') ?? '',
             ]);
 
-            Billing::create([
+            $billingInfo = Billing::create([
                 'order_id' => $order->id,
                 'billing_state' => request('billing_info')['state'],
                 'billing_city' => request('billing_info')['city'],
@@ -106,19 +108,36 @@ class OrderService
             ]);
 
             $cartItems = CartItem::query()
-                                 ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
-                                 ->withLastDiscount()
-                                 ->where('carts.customer_id', auth('client')->user()->id)
-                                 ->get();
+                ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+                ->withLastDiscount()
+                ->where('carts.customer_id', auth('client')->user()->id)
+                ->get();
             $cartItems->load('product');
             $cartItems->transform(function ($item) {
                 $item->available_quantity = $item->product->available_quantity;
                 unset($item->product);
+
                 return $item;
             });
 
             $totalPrice = 0;
             $cartId = 0;
+
+            $deliveryType = $order->payment_method == 'bank' ? 'Bank Transfer' : 'Cash On Delivery';
+            $paymentMethod = $order->delivery_type == 'ship' ? 'Shipping' : 'Store Pickup';
+
+            $orderedInfoTable = '<ul>';
+            $orderedInfoTable .= '<li><b>Customer Name</b>: '.$billingInfo->billing_name.'</li>';
+            $orderedInfoTable .= '<li><b>Order No:</b>'.$order->order_no.'</li>';
+            $orderedInfoTable .= '<li><b>Payment Method:</b>'.$paymentMethod.'</li>';
+            $orderedInfoTable .= '<li><b>Delivery Type:</b>'.$deliveryType.'</li>';
+            $orderedInfoTable .= '<li><b>Billing Contact:</b> '.$billingInfo->billing_contact.'</li>';
+            $orderedInfoTable .= '<li><b>Billing Adress:</b> '.$billingInfo->billing_address.'</li>';
+            if ($billingInfo->billing_landmark != '') {
+                $orderedInfoTable .= '<li><b>Billing Landmark:</b> '.$billingInfo->billing_landmark.'</li>';
+            }
+            $orderedInfoTable .= '<li><b>Product List:</b></li>';
+            $orderedInfoTable .= '<ol>';
             foreach ($cartItems as $item) {
                 $offer_price = (float) $item->offer_price;
                 if ($item->lastDiscount != null && strtolower($item->offer_name) == 'standard') {
@@ -133,8 +152,9 @@ class OrderService
                     'offer_name' => $item->offer_name,
                     'order_id' => $order->id,
                     'quantity' => $item->quantity,
-                    'item_total_price' => $itemTotalPrice
+                    'item_total_price' => $itemTotalPrice,
                 ]);
+                $orderedInfoTable .= '<li><b>'.readable($item->product_slug).'</b> - <b>('.$item->quantity.')</b></li>';
                 $cartId = $item->cart_id;
             }
             $order->subtotal_amount = $totalPrice;
@@ -143,16 +163,14 @@ class OrderService
 
             Cart::find($cartId)->delete();
             CartItem::where('cart_id', $cartId)->delete();
-
             DB::commit();
 
-            $orderInfo = (object)[
-                'orderNo' => $order->order_no,
-                'orderAmount' => 'Rs. '.number_format($order->total_amount,2),
-                'deliveryType' => $order->payment_method == "bank" ? "Bank Transfer" : "Cash On Delivery",
-                'paymentMethod' => $order->delivery_type == "ship" ? 'Shipping' : 'Store Pickup'
-            ];
-            event(new NewOrder($orderInfo));
+            $orderedInfoTable .= '</ol>';
+            $orderedInfoTable .= '<li><b>Total Amount:</b> Rs. '.number_format($totalPrice, 2).'</li>';
+            $orderedInfoTable .= '</ul>';
+
+            event(new NewOrder($orderedInfoTable));
+
             return true;
         } catch (QueryException $e) {
             //database related exception
@@ -167,35 +185,33 @@ class OrderService
         }
     }
 
-    public function cancelOrder($orderNumber) {
+    public function cancelOrder($orderNumber)
+    {
 
-        if(request()->is('admin/*'))
-        {
-            $order = Order::where('order_no',$orderNumber)->first();
-        }else
-        {
-            $order = Order::where('order_no',$orderNumber)->where('customer_id',auth('client')->user()->id)->first();
+        if (request()->is('admin/*')) {
+            $order = Order::where('order_no', $orderNumber)->first();
+        } else {
+            $order = Order::where('order_no', $orderNumber)->where('customer_id', auth('client')->user()->id)->first();
         }
-        if($order){
-            $cancelProducts = OrderItem::where('order_id',$order->id)->get();
+        if ($order) {
+            $cancelProducts = OrderItem::where('order_id', $order->id)->get();
             DB::beginTransaction();
             try {
                 foreach ($cancelProducts as $cancelProduct) {
                     $quantityToIncrement = $cancelProduct->offer_quantity * $cancelProduct->quantity;
-                    Product::where('slug', $cancelProduct->product_slug)->increment('available_quantity',$quantityToIncrement);
+                    Product::where('slug', $cancelProduct->product_slug)->increment('available_quantity', $quantityToIncrement);
                 }
                 $order->order_status = 'cancelled';
                 $order->save();
                 DB::commit();
-                $orderInfo = (object)[
-                    'orderNo' => $orderNumber
+                $orderInfo = (object) [
+                    'orderNo' => $orderNumber,
                 ];
-                if(request()->is('admin/*'))
-                {}
-                else
-                {
+                if (request()->is('admin/*')) {
+                } else {
                     event(new CancelOrder($orderInfo));
                 }
+
                 return true;
             } catch (QueryException $e) {
                 //database related exception
