@@ -15,7 +15,7 @@ jobs:
         host: 110.44.121.123
         username: marineaquatics
         key: ${{ secrets.SSH_PRIVATE_KEY_MAIN }}
-        port: 2050
+        port: 1039
         script: |
           cd /home/marineaquatics/www/marineaquatics.com.np
           git pull
