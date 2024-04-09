@@ -12,11 +12,11 @@ jobs:
     - name: ssh git server deploy
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: 110.44.121.124
-        username: man_svr
+        host: 110.44.121.123
+        username: marineaquatics
         key: ${{ secrets.SSH_PRIVATE_KEY_MAIN }}
         port: 2050
         script: |
-          cd /var/www/marineaquatics.com.np
-          sudo -H -u man_svr git pull
+          cd /home/marineaquatics/www/marineaquatics.com.np
+          git pull
           npm run prod-admin && npm run prod-site
